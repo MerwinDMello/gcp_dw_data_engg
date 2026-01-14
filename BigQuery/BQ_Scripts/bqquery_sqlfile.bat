@@ -1,0 +1,1 @@
+bq query --use_legacy_sql=false < ref_pi_skill_mix.sql

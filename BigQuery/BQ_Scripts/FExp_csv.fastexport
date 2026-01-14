@@ -1,0 +1,9 @@
+.LOGTABLE b.txt;
+.logmech LDAP;
+.logon edwprod.dw.medcity.net/khu9683, Mer82@dme; /* Login credentials */
+    .BEGIN EXPORT SESSIONS 2;
+    .EXPORT OUTFILE C:\Merwin\BigQuery\TDDump\010623\ref_sk_type.txt MODE RECORD FORMAT TEXT;
+        Select * From edwhr_staging.ref_sk_type;
+    .END EXPORT;
+.logoff
+.quit
