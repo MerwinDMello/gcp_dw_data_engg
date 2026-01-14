@@ -1,0 +1,1 @@
+ALTER TABLE `hca-hin-dev-cur-parallon.edwpbs_ac.audit_control2` RENAME TO audit_control;
