@@ -1,0 +1,171 @@
+name: Deploy Streaming Dataflow Job
+
+inputs:
+  workload_identity_provider:
+    description: "The workload identity provider for authentication"
+  service_account:
+    description: "The service account for authentication."
+  proc_project_name:
+    description: "The name of the processing project"  
+  dataflow_path:
+    description: "The path to the dataflow directory"
+    required: false
+  job_folder:
+    description: "The directory of the parent folder" 
+    required: false
+  sdk_language:
+    description: "The programming language used for the dataflow job."
+  job_name:
+    description: 'The name of the Dataflow job'
+    required: false
+  template_spec_gcspath: #v_template_file_gcspath:
+    description: 'The GCS path of the template file for the Dataflow job'
+    required: false
+  region:
+    description: 'The region for the Dataflow job'
+    required: false
+  subnetwork:
+    description: 'The subnetwork for the Dataflow job'
+    required: false
+  df_service_account:
+    description: 'The service account email for the Dataflow job'
+    required: false
+  max_workers:
+    description: 'The maximum number of workers for the Dataflow job'
+    required: false
+  temp_location:
+    description: 'The temporary location for the Dataflow job'
+    required: false
+  staging_location:
+    description: 'The staging location for the Dataflow job'
+    required: false
+  parameters:
+    description: 'All parameters for the particular template, separated by commas but no spaces'
+    required: false
+    default: ""
+  no_use_public_ips:
+    description: 'Set to true if you want to use private IPs for the Dataflow workers'
+    required: false
+    default: "true"
+  jinja_inputs:
+    description: 'Jinja inputs for the SDK YAML Dataflow job, if applicable'
+    required: false
+    default: ""
+  num_workers:
+    description: 
+  args:
+    default: ""
+    description: 
+
+runs:
+  using: "composite"
+  steps:
+
+    # Authenticate to Google Cloud
+    - name: 'Authenticate to Google Cloud' 
+      id: 'auth'
+      uses: 'google-github-actions/auth@v1.1.1'
+      with:
+        workload_identity_provider: ${{ inputs.workload_identity_provider }}
+        service_account: ${{ inputs.service_account }}
+
+    # Set up the Google Cloud SDK    
+    - name: GCP setup Python
+      if: contains(inputs.sdk_language, 'python')
+      uses: 'google-github-actions/setup-gcloud@v1'
+
+    - name: GCP setup Java
+      if: contains(inputs.sdk_language, 'JAVA')
+      uses: 'google-github-actions/setup-gcloud@v1'
+      with:
+        install_components: 'beta'  
+
+    # Deploy Python dataflow job
+    - name: Deploy streaming dataflow job - Python
+      if: contains(inputs.sdk_language, 'python')
+      shell: bash
+      run: |
+            # Create function to determine if the dataflow job already exists
+            dataflow_job_exists() {
+              local job_name="$1"
+              if gcloud dataflow jobs list --region ${{ inputs.region }} --status active | grep -q "$job_name"; then
+                echo "--update"
+              fi
+            }
+            
+            echo "Determining if the job already exists"
+            UPDATE_FLAG=$(dataflow_job_exists "${{ inputs.job_name }}")
+
+            echo "Deploying streaming dataflow job: ${{ inputs.job_name }}"
+            CMD="gcloud dataflow flex-template run ${{ inputs.job_name }} \
+              --template-file-gcs-location=${{ inputs.template_spec_gcspath }} \
+              --region=${{ inputs.region }} \
+              --subnetwork=${{ inputs.subnetwork }} \
+              --service-account-email=${{ inputs.df_service_account }} \
+              --max-workers=${{ inputs.max_workers }} \
+              --temp-location=${{ inputs.temp_location }} \
+              --disable-public-ips \
+              --staging-location=${{ inputs.staging_location }}"
+
+            # The following checks to see if the parameters variable is not empty, and if so, adds parameters to CMD
+            if [[ -n "${{ inputs.parameters }}" ]]; then 
+              CMD+=" --parameters=${{ inputs.parameters }}" 
+            fi 
+            # Add either the --update flag or an empty string to CMD
+            CMD+=" $UPDATE_FLAG"
+
+            echo "CMD: $CMD"
+            eval $CMD
+        
+    # Deploy Java dataflow job
+    - name: Deploy streaming dataflow job - JAVA
+      if: contains(inputs.sdk_language, 'JAVA')
+      shell: bash
+      run: |
+        echo "Deploying streaming dataflow job: ${{ inputs.job_name }}"
+        gcloud dataflow flex-template run ${{ inputs.job_name }} ${{ inputs.args }} --disable-public-ips \
+        --service-account-email=${{ inputs.df_service_account }} \
+        --parameters=${{ inputs.parameters }} --parameters windowDuration=2m \
+        --max-workers=${{ inputs.max_workers }} \
+        --num-workers=${{ inputs.num_workers }} \
+        --region=${{ inputs.region }} \
+        --template-file-gcs-location=${{ inputs.template_spec_gcspath }} \
+        --additional-experiments=enable_secure_boot \
+        --subnetwork=${{ inputs.subnetwork }} \
+        --additional-experiments=use_network_tags_for_flex_templates=testdataflow
+
+    # Input dynamically defined values into pipeline.yaml
+    # This step is only needed for YAML SDK jobs, as the Python and Java SDK jobs are already defined in the template
+    - name: Resolve and Print YAML
+      if: contains(inputs.sdk_language, 'yaml')
+      shell: bash
+      run: |
+        echo "Resolving placeholders in the YAML file..."
+
+        # Save the JSON object to a file
+        echo '${{ inputs.jinja_inputs }}' > jinja_inputs.json
+
+        # Generate dynamic sed commands from the JSON object
+        jq -r 'to_entries | .[] | "s|{{\(.key)}}|\(.value)|g"' jinja_inputs.json > sed_commands.txt
+
+        # Add the hardcoded replacement for proc_project_input
+        echo "s|{{proc_project_input}}|${{ inputs.proc_project_name }}|g" >> sed_commands.txt
+
+        # Apply the generated sed commands to the pipeline.yaml file
+        sed -f sed_commands.txt ./${{ inputs.dataflow_path }}/yaml/${{ inputs.job_folder }}/src/pipeline.yaml > resolved_pipeline.yaml
+
+        echo "Resolved YAML file:"
+        cat resolved_pipeline.yaml
+
+    # Deploy YAML SDK dataflow job
+    - name: Deploy streaming dataflow job - YAML SDK
+      if: contains(inputs.sdk_language, 'yaml')
+      shell: bash
+      run: |
+        echo "Deploying streaming dataflow job: ${{ inputs.job_name }}" 
+        gcloud dataflow yaml run ${{ inputs.job_name }} \
+        --yaml-pipeline-file=resolved_pipeline.yaml \
+        --region=${{ inputs.region }} \
+        --pipeline-options=subnetwork=${{ inputs.subnetwork }},no_use_public_ips=${{ inputs.no_use_public_ips }},service_account_email=${{ inputs.df_service_account }},max_num_workers=${{ inputs.max_workers }},num_workers=${{ inputs.num_workers }},temp_location=${{ inputs.temp_location }},staging_location=${{ inputs.staging_location }} #\
+        # --jinja-variables='${{ inputs.jinja_inputs }}'
+

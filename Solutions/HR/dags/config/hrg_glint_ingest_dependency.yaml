@@ -1,0 +1,34 @@
+ingest:
+- source_system: glint
+  frequency: daily
+  start_date: pendulum.datetime(2022, 12, 6, tz=timezone)
+  schedule: [0 10 * * *]  
+  type: files
+  check_file_prefix: HCA_Engagement
+  integrate_dag: dag_integrate_glint_core_tables_adhoc
+  dependency:
+
+  - source:
+      type: file
+      name: '*Question Set File.csv'
+      search_pattern: '^.*Question Set File\.xlsx$'
+      rename: Glint_Question.csv
+      delimiter: ","
+      header: 1
+      encoding_scheme: cp1252
+    target:
+      type: table
+      name: glint_question
+      sql: glint_question.sql
+
+  - source:
+      type: file
+      name: HCA_Engagement*
+      search_pattern: '^.*HCA_Engagement.*$'
+      rename: HCA_Engagement_Vertical.csv
+      delimiter: ","
+      header: 1
+    target:
+      type: table
+      name: glint_response
+      sql: glint_response.sql

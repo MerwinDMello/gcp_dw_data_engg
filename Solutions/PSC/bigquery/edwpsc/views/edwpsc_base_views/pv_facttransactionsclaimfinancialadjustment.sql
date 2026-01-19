@@ -1,0 +1,35 @@
+CREATE OR REPLACE VIEW edwpsc_base_views.`pv_facttransactionsclaimfinancialadjustment`
+AS SELECT
+  `pv_facttransactionsclaimfinancialadjustment`.transactionsclaimfinancialadjustmentkey,
+  `pv_facttransactionsclaimfinancialadjustment`.claimkey,
+  `pv_facttransactionsclaimfinancialadjustment`.claimnumber,
+  `pv_facttransactionsclaimfinancialadjustment`.regionkey,
+  `pv_facttransactionsclaimfinancialadjustment`.coid,
+  `pv_facttransactionsclaimfinancialadjustment`.coidconfigurationkey,
+  `pv_facttransactionsclaimfinancialadjustment`.servicingproviderkey,
+  `pv_facttransactionsclaimfinancialadjustment`.claimpayer1iplankey,
+  `pv_facttransactionsclaimfinancialadjustment`.facilitykey,
+  `pv_facttransactionsclaimfinancialadjustment`.claimfinancialadjustmentkey,
+  `pv_facttransactionsclaimfinancialadjustment`.adjustmentcodekey,
+  `pv_facttransactionsclaimfinancialadjustment`.transactiontype,
+  `pv_facttransactionsclaimfinancialadjustment`.transactionflag,
+  `pv_facttransactionsclaimfinancialadjustment`.transactionamt,
+  `pv_facttransactionsclaimfinancialadjustment`.transactiondatekey,
+  `pv_facttransactionsclaimfinancialadjustment`.transactiontime,
+  `pv_facttransactionsclaimfinancialadjustment`.transactionclosingdatekey,
+  `pv_facttransactionsclaimfinancialadjustment`.transactionbyuserkey,
+  `pv_facttransactionsclaimfinancialadjustment`.trrefid,
+  `pv_facttransactionsclaimfinancialadjustment`.practicekey,
+  `pv_facttransactionsclaimfinancialadjustment`.practicename,
+  `pv_facttransactionsclaimfinancialadjustment`.sourceaprimarykeyvalue,
+  `pv_facttransactionsclaimfinancialadjustment`.sourcearecordlastupdated,
+  `pv_facttransactionsclaimfinancialadjustment`.dwlastupdatedatetime,
+  `pv_facttransactionsclaimfinancialadjustment`.sourcesystemcode,
+  `pv_facttransactionsclaimfinancialadjustment`.insertedby,
+  `pv_facttransactionsclaimfinancialadjustment`.inserteddtm,
+  `pv_facttransactionsclaimfinancialadjustment`.modifiedby,
+  `pv_facttransactionsclaimfinancialadjustment`.modifieddtm,
+  `pv_facttransactionsclaimfinancialadjustment`.posteddatekey
+  FROM
+    edwpsc.`pv_facttransactionsclaimfinancialadjustment`
+;

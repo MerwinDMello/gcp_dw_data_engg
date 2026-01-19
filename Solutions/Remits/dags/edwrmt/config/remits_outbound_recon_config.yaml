@@ -1,0 +1,180 @@
+v_sourcesysnm: remits
+v_databasetype: sqlserver
+v_database: AdmitToRemit
+v_port: 1433
+v_secret_name: revapp_claims_remits_sql/versions/latest
+v_jdbc_class_name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+v_jdbc_jar: mssql-jdbc-12.4.0.jre8.jar
+v_jdkfile: jre-8u351-linux-x64.tar.gz
+v_jdkversion: jre1.8.0_351
+v_jdbcbqpytemplate: BigQuery_to_Remits_PythonTemplate.py
+v_jdbcbqpytruncatetemplate: Truncate_Sql_Tables.py
+
+v_machine_type: n1-standard-4
+
+remits_recon_summary_sql: "SELECT format_date('%m/%d/%Y', res.receiveddate) AS receiveddate,
+        format_date('%m/%d/%Y', res.uploadeddate) AS uploadeddate,
+        res.remittype AS CustomerCd,
+        res.noofremits AS noofremits,
+        res.noofnumericremits AS noofnumericremits,
+        res.remitswithunitnum AS remitswithunitnum,
+        res.numericremitswithunitnum AS numericremitswithunitnum,
+        res.remitswithiplan AS remitswithiplan,
+        res.numericremitswithiplan AS numericremitswithiplan,
+        res.remitswithiplan0s AS remitswithiplan0s,
+        res.numericremitswithiplan0s AS numericremitswithiplan0s,
+        res.validremits AS validremits,
+        res.distinctvalidremits AS distinctvalidremits,
+        res.matchingparemits AS matchingparemits,
+        res.distinctvalidremits - res.matchingparemits AS difference
+        FROM
+        (
+        SELECT
+        DATE(p.dw_last_update_date_time) AS receiveddate,
+        DATE(m.dw_last_update_date_time) AS uploadeddate,
+        max(p.customer_cd) AS remittype,
+        count(DISTINCT upper(p.patient_remit_sid)) AS noofremits,
+        count(DISTINCT upper(r.patient_remit_sid)) AS noofnumericremits,
+        sum(CASE
+        WHEN p.unit_num IS NOT NULL THEN 1
+        ELSE 0
+        END) AS remitswithunitnum,
+        sum(CASE
+        WHEN r.unit_num IS NOT NULL THEN 1
+        ELSE 0
+        END) AS numericremitswithunitnum,
+        sum(CASE
+        WHEN p.iplan IS NOT NULL
+        AND upper(rtrim(p.iplan, ' ')) <> 'DEFAULT' THEN 1
+        ELSE 0
+        END) AS remitswithiplan,
+        sum(CASE
+        WHEN r.iplan IS NOT NULL
+        AND upper(rtrim(r.iplan, ' ')) <> 'DEFAULT' THEN 1
+        ELSE 0
+        END) AS numericremitswithiplan,
+        sum(CASE
+        WHEN rtrim(p.iplan, ' ') = '00000' THEN 1
+        ELSE 0
+        END) AS remitswithiplan0s,
+        sum(CASE
+        WHEN rtrim(r.iplan, ' ') = '00000' THEN 1
+        ELSE 0
+        END) AS numericremitswithiplan0s,
+        sum(CASE
+        WHEN r.patient_acct_num IS NOT NULL
+        AND r.unit_num IS NOT NULL
+        AND r.iplan IS NOT NULL
+        AND (rtrim(r.iplan, ' ') NOT IN(
+        '00000'
+        )
+        AND upper(rtrim(r.iplan, ' ')) NOT IN(
+        'DEFAULT'
+        )) THEN 1
+        ELSE 0
+        END) AS validremits,
+        count(DISTINCT CASE
+        WHEN r.patient_acct_num IS NOT NULL
+        AND r.unit_num IS NOT NULL
+        AND r.iplan IS NOT NULL
+        AND (rtrim(r.iplan, ' ') NOT IN(
+        '00000'
+        )
+        AND upper(rtrim(r.iplan, ' ')) NOT IN(
+        'DEFAULT'
+        )) THEN concat(format('%#20.0f', ROUND(CAST(r.patient_acct_num as NUMERIC), 0, 'ROUND_HALF_EVEN')), r.unit_num)
+        ELSE NULL
+        END) AS distinctvalidremits,
+        count(DISTINCT CASE
+        WHEN r.iplan IS NOT NULL
+        AND (rtrim(r.iplan, ' ') NOT IN(
+        '00000'
+        )
+        AND upper(rtrim(r.iplan, ' ')) NOT IN(
+        'DEFAULT'
+        )) THEN concat(substr(ltrim(format('%#14.0f', f.pat_acct_num)), 1, 50), substr(f.unit_num, 1, 50))
+        ELSE NULL
+        END) AS matchingparemits
+        FROM
+        edwrmt.fact_patient_remit AS p
+        INNER JOIN edwrmt.fact_master_remit AS m ON upper(rtrim(m.remit_id, ' ')) = upper(rtrim(p.remit_id, ' '))
+        LEFT OUTER JOIN (
+        SELECT
+        fact_patient_remit.*
+        FROM
+        edwrmt.fact_patient_remit
+        WHERE fact_patient_remit.patient_acct_num IS NOT NULL
+        AND SAFE_CAST(fact_patient_remit.patient_acct_num AS NUMERIC) IS NOT NULL
+        AND length(trim(fact_patient_remit.patient_acct_num, ' ')) <= 12
+        AND rtrim(upper(to_hex(CAST(upper(fact_patient_remit.patient_acct_num) as BYTES))), ' ') = rtrim(upper(to_hex(CAST(lower(fact_patient_remit.patient_acct_num) as BYTES))), ' ')
+        AND fact_patient_remit.patient_acct_num NOT LIKE '%-%'
+        AND fact_patient_remit.patient_acct_num NOT LIKE '%.%'
+        AND rtrim(fact_patient_remit.patient_acct_num, ' ') <> '999'
+        AND DATE(fact_patient_remit.dw_last_update_date_time) > DATE '2017-06-21'
+        ) AS r ON upper(rtrim(p.patient_remit_sid, ' ')) = upper(rtrim(r.patient_remit_sid, ' '))
+        LEFT OUTER JOIN edwpbs.fact_patient_crnt AS f ON upper(rtrim(f.unit_num, ' ')) = upper(rtrim(r.unit_num, ' '))
+        AND f.pat_acct_num = ROUND(CAST(r.patient_acct_num as NUMERIC), 0, 'ROUND_HALF_EVEN')
+        WHERE DATE(p.dw_last_update_date_time) = date_sub(current_date('US/Central'), interval 1 DAY)
+        AND upper(rtrim(p.customer_cd, ' ')) IN(
+        'HCAD', 'ECASH'
+        )
+        GROUP BY 1, 2, upper(p.customer_cd)
+        ) AS res
+        ORDER BY
+        upper(receiveddate),
+        upper(uploadeddate),
+        upper(remittype);~insert~10000"
+
+remits_recon_data_sql: "SELECT DISTINCT
+        format_datetime('%m/%d/%Y', r.dw_last_update_date_time) AS Received_Date,
+        r.customer_cd,
+        r.patient_acct_num,
+        r.unit_num,
+        r.iplan,
+        'v_currtimestamp' as ModifiedDateTime
+        FROM
+        (
+        SELECT
+        fact_patient_remit.*
+        FROM
+        edwrmt.fact_patient_remit
+        WHERE fact_patient_remit.patient_acct_num IS NOT NULL
+        AND SAFE_CAST(fact_patient_remit.patient_acct_num AS NUMERIC) IS NOT NULL
+        AND length(trim(fact_patient_remit.patient_acct_num, ' ')) <= 12
+        AND rtrim(upper(to_hex(CAST(upper(fact_patient_remit.patient_acct_num) as BYTES))), ' ') = rtrim(upper(to_hex(CAST(lower(fact_patient_remit.patient_acct_num) as BYTES))), ' ')
+        AND fact_patient_remit.patient_acct_num NOT LIKE '%-%'
+        AND fact_patient_remit.patient_acct_num NOT LIKE '%.%'
+        AND rtrim(fact_patient_remit.patient_acct_num, ' ') <> '999'
+        AND DATE(fact_patient_remit.dw_last_update_date_time) > DATE '2017-06-21'
+        ) AS r
+        LEFT OUTER JOIN edwpbs.fact_patient_crnt AS f ON upper(rtrim(f.unit_num, ' ')) = upper(rtrim(r.unit_num, ' '))
+        AND f.pat_acct_num = ROUND(CAST(r.patient_acct_num as NUMERIC), 0, 'ROUND_HALF_EVEN')
+        WHERE DATE(r.dw_last_update_date_time) = date_sub(current_date('US/Central'), interval 1 DAY)
+        AND upper(rtrim(r.customer_cd, ' ')) IN(
+        'HCAD', 'ECASH'
+        )
+        AND r.unit_num IS NOT NULL
+        AND rtrim(r.iplan, ' ') NOT IN(
+        '00000'
+        )
+        AND upper(rtrim(r.iplan, ' ')) NOT IN(
+        'DEFAULT'
+        )
+        AND f.pat_acct_num IS NULL
+        ORDER BY
+        upper(Received_Date),
+        upper(customer_cd),
+        upper(patient_acct_num);~insert~10000"
+
+remits:
+  - schedule_interval: 0 19 * * *
+    start_date: pendulum.datetime(2024, 9, 1, tz=timezone)
+    frequency: daily
+    dag_name_suffix: secondary_bill
+    done_file: None
+    trigger_dag_ids: ['dag_outbound_remits_sqlserver_daily_secondary_bill']
+    has_sensor: 'No'
+    sql: [remits_recon_summary_sql,remits_recon_data_sql]
+    tgttablename: [Remits_Recon_Summary,Remits_Recon_Data] 
+    truncatetablelist: [Remits_Recon_Summary,Remits_Recon_Data]
+    

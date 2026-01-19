@@ -1,0 +1,63 @@
+name: Monitoring CD
+
+inputs:
+  bucketname: 
+    description: ""
+  workload_identity_provider:
+    description: ""
+  service_account:
+    description: ""
+  project_id: 
+    description: ""
+  branch:
+    description: ""
+  args:
+    description: ""
+    default: ""
+  repository:
+    description: ""
+
+
+
+
+runs:
+  using: "composite"
+  steps:
+
+    - name: "Authenticate to Google Cloud"
+      id: "auth"
+      uses: "google-github-actions/auth@v0.8.3"
+      with:
+        workload_identity_provider: ${{ inputs.workload_identity_provider }}
+        service_account: ${{ inputs.service_account }}
+    
+    - name: Download Artifacts
+      uses: actions/download-artifact@v3
+      with:
+        name: monitoring_artifacts
+        path: artifacts
+
+    
+
+    - name: Download Script Artifacts
+      uses: actions/download-artifact@v3
+      with:
+        name: script_artifacts
+        path: artifacts
+
+    - name: Artifacts List
+      shell: bash
+      run: |
+        ls -alh artifacts/monitoring
+       
+    
+    - name: Deploy BQ Table
+      shell: sh
+      run: |
+        pwd
+        ls
+        /usr/bin/python3.6 ./artifacts/deploy.py --path artifacts/bigquery --env ${{ inputs.branch }}
+      env:
+        project_id: ${{ inputs.project_id }}
+
+    

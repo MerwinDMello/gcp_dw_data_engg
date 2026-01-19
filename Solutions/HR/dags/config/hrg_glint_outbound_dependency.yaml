@@ -1,0 +1,42 @@
+---
+outbound:
+- source_system: glint
+  frequency: weekly
+  schedule: 0 3 * * 1,2,3,4,5
+  type: outbound_file
+  custom_tags: "employee_work"
+  dependency:
+  - table: glint_hca_employee_work2
+    has_sensor: 'Yes'
+    sql: glint_hca_employee_work2.sql
+    target_file_name_prefix: glint_hca_employee_work2
+    target_file_extension: ".csv"
+    src_bq_table: glint_hca_employee_work2
+    delimiter: ","
+    quote_char: ''
+    has_prefixed_file_name: 'No'
+    encoding_scheme: utf-8
+    sensor:
+    - dag_id: dag_integrate_glint_stage_tables_weekly_03.00
+      task_id: TG-table-glint_hca_employee_work2.run_hdw_glint_hca_employee_work_load.sql
+      schedule: 0 8 * * 1,2,3,4,5
+- source_system: glint
+  frequency: daily
+  schedule: 0 3 * * *
+  type: outbound_file
+  custom_tags: "terminated_employee_work"
+  dependency:
+  - table: glint_hca_terminated_employee_work
+    has_sensor: 'Yes'
+    sql: glint_hca_terminated_employee_work.sql
+    target_file_name_prefix: glint_hca_terminated_employee_work
+    target_file_extension: ".csv"
+    src_bq_table: glint_hca_terminated_employee_work
+    delimiter: ","
+    quote_char: ''
+    has_prefixed_file_name: 'No'
+    encoding_scheme: utf-8
+    sensor:
+    - dag_id: dag_integrate_glint_stage_tables_daily_03.00
+      task_id: TG-table-glint_hca_terminated_employee_work.run_hdw_glint_hca_terminated_employees_work_load.sql
+      schedule: 0 8 * * *

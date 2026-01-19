@@ -1,0 +1,17 @@
+integrate:
+
+- source_system: path_issue
+  frequency: daily
+  start_date: pendulum.datetime(2024, 3, 1, tz=timezone)
+  schedule: 15 8 * * *
+  type: sqlserver
+  done_file: None
+  dependency:
+  - table: ref_path_issue
+    has_sensor: 'Yes'
+    sql:
+    - name: ref_path_issue.sql
+    sensor:
+    - dag_id: dag_ingest_ra_sqlserver_path_issue_daily_05.00
+      task_id: end_dag
+      schedule:  0 5 * * *

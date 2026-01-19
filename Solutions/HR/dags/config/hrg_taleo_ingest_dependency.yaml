@@ -1,0 +1,88 @@
+ingest:
+- source_system: taleo
+  frequency: daily
+  schedule: 0 5 * * *
+  type: vm_files
+  done_file: taleo_dailyfiles_YYYYMMDD.txt
+  custom_tags: "taleo,daily,ingest"
+  srctablelist: [
+    "1|Application.txt|taleo_application|Add_Date_Field|update_datetime_source_system.sql",
+    "2|ApplicationTrackingCSWItem.txt|taleo_applicationtrackingcswitem|Add_Date_Field|update_datetime_source_system.sql",
+    "3|AppTrackingCSWItem_CSWMotives.txt|taleo_apptrackingcswitem_cswmotives|Add_Date_Field|update_datetime.sql",
+    "5|Candidate.txt|taleo_candidate|Add_Date_Field|update_datetime_source_system.sql",
+    "6|CandidateUDF.txt|taleo_candidateudf|Add_Date_Field|update_datetime_source_system.sql",
+    "7|Experience.txt|taleo_experience|Add_Date_Field|update_datetime.sql",
+    "8|ExperienceUDF.txt|taleo_experienceudf|Add_Date_Field|update_datetime.sql",
+    "9|JobInformation.txt|taleo_jobinformation_temp|HTML_Footer|taleo_jobinformation.sql",
+    "11|JobInformationUDF.txt|taleo_jobinformationudf|Add_Date_Field|update_datetime_source_system.sql",
+    "12|JobTemplate.txt|taleo_jobtemplate|Add_Date_Field|update_datetime.sql",
+    "13|OfferUDF.txt|taleo_offerudf|Add_Date_Field|dummy.sql",
+    "14|Offer.txt|taleo_offer|Add_Date_Field|update_datetime_source_system.sql",
+    "15|ProfileInformation.txt|taleo_profileinformation|Add_Date_Field|update_datetime_source_system.sql",
+    "16|RequisitionOfferParameterUDF.txt|taleo_req_offerparameterudf|Add_Date_Field|update_datetime.sql",
+    "17|Requisition.txt|taleo_requisition|Add_Date_Field|dummy.sql",
+    "18|RequisitionHistory.txt|taleo_requisitionhistory|Add_Date_Field|update_datetime_source_system.sql",
+    "19|User.txt|taleo_user|Add_Date_Field|update_datetime_source_system.sql",
+    "20|UDSElement.txt|taleo_udselement|Footer|update_datetime_source_system.sql",
+    "21|Question.txt|taleo_question|Add_Date_Field|update_datetime.sql",
+    "22|PossibleAnswer.txt|taleo_possibleanswer|Add_Date_Field|update_datetime.sql",
+    "23|QuestionAnswer.txt|taleo_questionanswer|Add_Date_Field|update_datetime.sql",
+    "24|SourcingRequest.txt|taleo_sourcing_request_stg|Add_Date_Field|update_datetime.sql",
+    "25|DiversityAnswer.txt|diversityanswer_stg|Add_Date_Field|update_datetime_source_system.sql"
+  ]
+  Preprocessing:
+    encoding_scheme: utf-8
+    Date_Footer: "remove_multiple_headers,remove_footer,correct_date_field_1"
+    HTML_Footer: "remove_multiple_headers,remove_footer,remove_html"
+    Add_Date_Field: "remove_multiple_headers,add_date_field,remove_footer"
+    Footer: "remove_multiple_headers,remove_footer"
+    is_prefixed_file_name: 'No'
+    skip_leading_records: 1
+    delimiter: ","
+    quote_char: '"'
+- source_system: taleo
+  frequency: weekly
+  schedule: 0 5 * * 1
+  type: vm_files
+  done_file: taleo_weeklyfiles_YYYYMMDD.txt
+  custom_tags: "taleo,ingest"
+  srctablelist: [
+    "1|QuestionType.txt|taleo_questiontype|Add_Date_Field|update_datetime.sql",
+    "2|JobBoard.txt|taleo_job_board_stg|Add_Date_Field|update_datetime.sql",
+    "3|JobBoardType.txt|taleo_job_board_type_stg|Add_Date_Field|update_datetime.sql",
+    "4|RecruitmentSource_stg.txt|taleo_recruitment_source_stg|Add_Date_Field|update_datetime.sql",
+    "5|SourcingRequestStatus.txt|taleo_src_request_status_stg|Add_Date_Field|update_datetime.sql",
+    "6|UDFDefinition.txt|taleo_udfdefinition|Footer|update_datetime_source_system.sql",
+    "7|UserDefinedSelection.txt|taleo_userdefinedselection|Footer|update_datetime_source_system.sql",
+    "8|UDFType.txt|taleo_udftype|Footer|update_datetime_source_system.sql",
+    "9|JobSchedule.txt|taleo_jobschedule|Footer|update_datetime_source_system.sql",
+    "10|JobTemplateState.txt|taleo_jobtemplatestate|Footer|update_datetime_source_system.sql",
+    "11|CSWMotive.txt|taleo_cswmotive|Footer|taleo_cswmotive.sql",
+    "12|OfferStatus.txt|taleo_offerstatus|Footer|update_datetime_source_system.sql",
+    "13|OvertimeStatus.txt|taleo_overtimestatus|Footer|update_datetime_source_system.sql",
+    "14|ApplicationMedium.txt|taleo_applicationmedium|Footer|update_datetime_source_system.sql",
+    "15|Location.txt|taleo_location|Add_Date_Field|update_datetime.sql",
+    "16|RecruitmentSource.txt|taleo_recruitmentsource|Footer|update_datetime_source_system.sql",
+    "17|RecruitmentSourceType.txt|taleo_recruitmentsourcetype|Footer|update_datetime_source_system.sql",
+    "18|RequisitionState.txt|taleo_requisitionstate|Add_Date_Field|update_datetime_source_system.sql",
+    "19|CandidateSelectionEvent.txt|taleo_candidateselectionevent|Footer|update_datetime_source_system.sql",
+    "20|CandidateSelectionEventCatg.txt|taleo_candidateselectioneventcatg|Footer|update_datetime_source_system.sql",
+    "21|ApplicationState.txt|taleo_applicationstate|Add_Date_Field|update_datetime_source_system.sql",
+    "22|CSWStatus.txt|taleo_cswstatus|Footer|update_datetime_source_system.sql",
+    "23|CSWStep.txt|taleo_cswstep|Footer|update_datetime_source_system.sql",
+    "24|CSWWorkflow.txt|taleo_cswworkflow|Footer|update_datetime_source_system.sql",
+    "25|DiversityPossibleAnswer.txt|diversitypossibleanswer_stg|Add_Date_Field|update_datetime_source_system.sql",
+    "26|DiversityPossibleAnswerType.txt|diversitypossanstype_stg|Add_Date_Field|update_datetime_source_system.sql",
+    "27|DiversityQuestionType.txt|diversityquestiontype_stg|Add_Date_Field|update_datetime_source_system.sql"
+  ]
+  Preprocessing:
+    encoding_scheme: utf-8
+    Date_Footer: "remove_multiple_headers,remove_footer,correct_date_field_1"
+    Footer: "remove_multiple_headers,remove_footer"
+    Add_Date_Field: "remove_multiple_headers,add_date_field,remove_footer"
+    None: ""
+    is_prefixed_file_name: 'No'
+    skip_leading_records: 1
+    delimiter: ","
+    quote_char: '"'
+

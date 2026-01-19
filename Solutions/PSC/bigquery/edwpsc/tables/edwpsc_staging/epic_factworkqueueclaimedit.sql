@@ -1,0 +1,32 @@
+CREATE TABLE IF NOT EXISTS edwpsc_staging.epic_factworkqueueclaimedit
+(
+  regionkey INT64,
+  regionname STRING,
+  coid STRING,
+  workqueuename STRING,
+  claimkey INT64,
+  poscode STRING,
+  visitnumber INT64,
+  transactionnumber INT64,
+  invoicenumber STRING,
+  cptcode STRING,
+  servicedate DATE,
+  datecreated DATE,
+  payorname STRING,
+  amountdue NUMERIC(31, 2),
+  billingprovider STRING,
+  patientname STRING,
+  patientmrn STRING,
+  revlocation STRING,
+  holdcodekey INT64,
+  holdcode STRING,
+  holdcodename STRING,
+  holdcodedescription STRING,
+  errormessage STRING,
+  sourceaprimarykeyvalue STRING,
+  sourcesystemcode STRING,
+  insertedby STRING,
+  inserteddtm DATETIME,
+  dwlastupdatedatetime DATETIME
+)
+;

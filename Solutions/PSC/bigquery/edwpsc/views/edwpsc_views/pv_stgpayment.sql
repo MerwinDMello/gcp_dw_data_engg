@@ -1,0 +1,36 @@
+CREATE OR REPLACE VIEW edwpsc_views.`pv_stgpayment`
+AS SELECT
+  `pv_stgpayment`.payment_num,
+  `pv_stgpayment`.batch_num,
+  `pv_stgpayment`.seq_num,
+  `pv_stgpayment`.category,
+  `pv_stgpayment`.practice,
+  `pv_stgpayment`.clinic,
+  `pv_stgpayment`.check_num,
+  `pv_stgpayment`.check_date,
+  `pv_stgpayment`.check_amt,
+  `pv_stgpayment`.remain_amt,
+  `pv_stgpayment`.deposit_date,
+  `pv_stgpayment`.description,
+  `pv_stgpayment`.payer_name,
+  `pv_stgpayment`.payer_num,
+  `pv_stgpayment`.payer_class,
+  `pv_stgpayment`.payer_type,
+  `pv_stgpayment`.pymt_type,
+  `pv_stgpayment`.last_upd_userid,
+  `pv_stgpayment`.last_upd_datetime,
+  `pv_stgpayment`.lock_by,
+  `pv_stgpayment`.nonargl,
+  `pv_stgpayment`.erapostnum,
+  `pv_stgpayment`.paymentpk,
+  `pv_stgpayment`.paymentpk_txt,
+  `pv_stgpayment`.crt_datetime,
+  `pv_stgpayment`.regionkey,
+  `pv_stgpayment`.sysstarttime,
+  `pv_stgpayment`.inserteddtm,
+  `pv_stgpayment`.modifieddtm,
+  `pv_stgpayment`.dwlastupdatedatetime,
+  `pv_stgpayment`.sourcephysicaldeleteflag
+  FROM
+    edwpsc_base_views.`pv_stgpayment`
+;

@@ -1,0 +1,93 @@
+ingest:
+- source_system: lawson
+  frequency: daily
+  start_date: pendulum.datetime(2022, 12, 6, tz=timezone)
+  schedule: ["0 4 * * *"]
+  type: ref_files
+  dependency:
+  - source:
+      type: file
+      name: Ref_Action_Type.txt
+      delimiter: "|"
+      sensor: 'Yes'
+    target:
+      type: table
+      name: ref_action_type_stg
+      sql: dummy.sql
+    sensor:
+    - dag_id: dag_ingest_lawson_db2_daily_01.00
+      task_id: end_dag
+      schedule: ["0 1 * * *"]
+  - source:
+      type: file
+      name: Ref_Address_Type.txt
+      delimiter: "|"
+      sensor: 'No'
+    target:
+      type: table
+      name: ref_address_type_stg
+      sql: ref_address_type_stg.sql
+  - source:
+      type: file
+      name: Ref_Approval_Type.txt
+      delimiter: "|"
+      sensor: 'No'
+    target:
+      type: table
+      name: ref_approval_type_stg
+      sql: ref_approval_type_stg.sql
+  - source:
+      type: file
+      name: Ref_Employee_Detail_Type.txt
+      delimiter: "|"
+      sensor: 'No'
+    target:
+      type: table
+      name: ref_employee_detail_type_stg
+      sql: dummy.sql
+  - source:
+      type: file
+      name: Ref_Sector.txt
+      delimiter: "|"
+      sensor: 'No'
+    target:
+      type: table
+      name: ref_sector_stg
+      sql: ref_sector_stg.sql
+  - source:
+      type: file
+      name: Ref_Status_Type_Dump.txt
+      delimiter: "|"
+      sensor: 'No'
+    target:
+      type: table
+      name: ref_status_type_stg
+      sql: ref_status_type_stg.sql
+  - source:
+      type: file
+      name: Lawson_Ref_Comment_Type.txt
+      delimiter: "\t"
+      sensor: 'No'
+      header: 1
+    target:
+      type: table
+      name: ref_comment_type_stg
+      sql: dummy.sql
+  - source:
+      type: file
+      name: Phone_Country.txt
+      delimiter: "|"
+      sensor: 'No'
+    target:
+      type: table
+      name: phone_country_stg
+      sql: dummy.sql
+  - source:
+      type: file
+      name: Reporting_Xfer_Termn.txt
+      delimiter: "|"
+      sensor: 'No'
+    target:
+      type: table
+      name: reporting_xfer_termn
+      sql: dummy.sql

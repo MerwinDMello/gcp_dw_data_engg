@@ -1,0 +1,7 @@
+
+        
+TRUNCATE TABLE {{ params.param_psc_core_dataset_name }}.Artiva_StgPSPEPRNPDB ;
+
+INSERT INTO {{ params.param_psc_core_dataset_name }}.Artiva_StgPSPEPRNPDB (PSPEPRNPENTITY, PSPEPRNPGAFID, PSPEPRNPKEY, PSPEPRNPPERFID, PSPEPRNPQRYTYPE, PSPEPRNPRCVDTE, PSPEPRNPSUBDTE)
+SELECT TRIM(source.PSPEPRNPENTITY), TRIM(source.PSPEPRNPGAFID), TRIM(source.PSPEPRNPKEY), TRIM(source.PSPEPRNPPERFID), TRIM(source.PSPEPRNPQRYTYPE), source.PSPEPRNPRCVDTE, source.PSPEPRNPSUBDTE
+FROM {{ params.param_psc_stage_dataset_name }}.Artiva_StgPSPEPRNPDB as source;

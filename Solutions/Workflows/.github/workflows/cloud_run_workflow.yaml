@@ -1,0 +1,148 @@
+on:
+  workflow_call:
+    inputs:
+      branch: 
+        description: "The branch, and thus the GCP environment, that is relevant to this workflow run"
+        required: true
+        type: string
+      event_name:
+        description: "The event name that triggered the workflow"
+        required: true
+        type: string
+      env_folder:
+        description: "The name of the folder containing environment yamls"
+        required: false
+        type: string
+        default: "environments"
+      cloud_run_path:
+        description: "The path to the cloud run folder in the repo."
+        required: true
+        type: string
+      repo_type:
+        description: "The type of repository that is relevant to this workflow run"
+        required: true
+        type: string
+    secrets:
+        workload_identity_provider:
+          description: "The workload identity provider for authentication."
+          required: false
+        service_account:
+          description: "The service account for authentication."
+          required: false
+      
+
+jobs:
+  Setup:
+    runs-on: [self-hosted, onprem-k8s-arc, dind, enterprise, lnx-amd64]
+    environment: ${{ inputs.branch }}
+    name: Cloud Run Setup
+    permissions:
+      contents: "read"
+      id-token: "write"
+    outputs:
+      matrix: ${{ steps.cloud_run_setup.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Determine dispatch
+        id: determine_dispatch
+        shell: bash
+        run: |
+          if [[ "${{ inputs.event_name }}" == "workflow_dispatch" ]]; then
+          echo "dispatch=true" >> $GITHUB_OUTPUT
+          else
+          echo "dispatch=false" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Setup Cloud Run
+        id: cloud_run_setup
+        uses: HCACloudDataEngineering/gcp-hin-workflows/cloud-run/setup@main
+        with:
+          branch: ${{ inputs.branch }}
+          dispatch: ${{ steps.determine_dispatch.outputs.dispatch }}
+          env_folder: ${{ inputs.env_folder }}
+          cloud_run_path: ${{ inputs.cloud_run_path }}
+          repo_type: ${{ inputs.repo_type }}
+          domain: ${{ vars.DOMAIN }}
+  
+  Deploy:
+    runs-on:  [self-hosted, onprem-k8s-arc, dind, enterprise, lnx-amd64]
+    name: Cloud Run Deploy Job
+    needs: Setup
+    environment: ${{ inputs.branch }}
+    strategy:
+      fail-fast: false
+      matrix:
+        manifest: ${{ fromJson(needs.Setup.outputs.matrix) }}
+    permissions:
+      contents: "read"
+      id-token: "write"
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download  artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: cloud_run_artifacts
+          path: artifacts
+      
+      - name: JSON to variables
+        uses: rgarcia-phi/json-to-variables@v1.1.0
+        with:
+          filename: '${{ matrix.manifest }}'
+          prefix: infra
+      
+      - name: Check type of deployment
+        id: check_type
+        shell: bash
+        run: |
+          if [[ -z "${{ env.infra_cloud_run_deploy_type }}" ]]; then
+            echo "type not set in job config, defaulting to job"
+            echo "infra_cloud_run_deploy_type=job" >> $GITHUB_ENV
+          else
+            echo "type set as ${{ env.infra_cloud_run_deploy_type }}"
+          fi
+
+      - name: Set default ingress_type
+        if: ${{ env.infra_cloud_run_deploy_type == 'service' }}
+        id: set_ingress_type
+        shell: bash
+        run: |
+          if [[ -z "${{ env.infra_cloud_run_deploy_ingress_type }}" ]]; then
+            echo "infra_cloud_run_deploy_ingress_type=internal" >> $GITHUB_ENV
+            echo "Defaulted infra_cloud_run_deploy_ingress_type to internal"
+          else
+            echo "infra_cloud_run_deploy_ingress_type is set as ${{ env.cloud_run_deploy_ingress_type }}"
+          fi
+
+      - name: Set default artifact region
+        id: set_artifact_region
+        shell: bash
+        run: |
+          if [[ -z "${{ env.infra_cloud_run_artifact_region }}" ]]; then
+            echo "infra_cloud_run_artifact_region=us" >> $GITHUB_ENV
+            echo "Defaulted infra_cloud_run_artifact_region to us"
+          else
+            echo "infra_cloud_run_artifact_region is set as ${{ env.infra_cloud_run_artifact_region }}"
+          fi
+
+      - name: Deploy Cloud Run
+        uses: HCACloudDataEngineering/gcp-hin-workflows/cloud-run/deploy@main
+        with:
+          workload_identity_provider: ${{ vars.WORKLOAD_IDENTITY_PROVIDER != '' && vars.WORKLOAD_IDENTITY_PROVIDER || secrets.workload_identity_provider }}
+          service_account: ${{ vars.SERVICEACCOUNT_GITHUB != '' && vars.SERVICEACCOUNT_GITHUB || secrets.service_account }} 
+          branch: ${{ inputs.branch }}
+          cloud_run_path: ${{ env.infra_cloud_run_folder_path }}
+          image_path: ${{ env.infra_cloud_run_artifact_region }}-docker.pkg.dev/${{ env.infra_cloud_run_v_proc_project_id }}/${{ env.infra_cloud_run_artifact_repo }}/${{ env.infra_cloud_run_image_path }}
+          src: ${{ env.infra_cloud_run_src }}
+          type: ${{ env.infra_cloud_run_deploy_type }}
+          ingress_type: ${{ env.infra_cloud_run_deploy_ingress_type }}
+          job_name: ${{ env.infra_cloud_run_deploy_job_name }}
+          region: ${{ env.infra_cloud_run_deploy_region }}
+          vpc_connector: ${{ env.infra_cloud_run_deploy_vpc_connector }}
+          memory: ${{ env.infra_cloud_run_deploy_memory }}
+          cpu: ${{ env.infra_cloud_run_deploy_cpu }}
+          deploy_service_account: ${{ env.infra_cloud_run_deploy_service_account }}
+          timeout: ${{ env.infra_cloud_run_deploy_timeout }}
+          retries_number: ${{ env.infra_cloud_run_deploy_retries_number }}
+          proc_project: ${{ env.infra_cloud_run_v_proc_project_id }}

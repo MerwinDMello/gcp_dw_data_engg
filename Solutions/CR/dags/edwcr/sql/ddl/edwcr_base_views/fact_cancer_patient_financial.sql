@@ -1,0 +1,43 @@
+CREATE OR REPLACE VIEW {{ params.param_cr_base_views_dataset_name }}.fact_cancer_patient_financial
+   OPTIONS(description='Contains fact data related to patient financials for Hospital encounters.This will be used to pull financial data in reporting layer')
+  AS SELECT
+      fact_cancer_patient_financial.encounter_id,
+      fact_cancer_patient_financial.encounter_source_system_code,
+      fact_cancer_patient_financial.empi_text,
+      fact_cancer_patient_financial.pat_acct_num,
+      fact_cancer_patient_financial.medical_record_num,
+      fact_cancer_patient_financial.patient_market_urn,
+      fact_cancer_patient_financial.encounter_start_date,
+      fact_cancer_patient_financial.encounter_end_date,
+      fact_cancer_patient_financial.coid,
+      fact_cancer_patient_financial.company_code,
+      fact_cancer_patient_financial.sub_unit_num,
+      fact_cancer_patient_financial.diagnosis_type_code,
+      fact_cancer_patient_financial.principal_diagnosis_code,
+      fact_cancer_patient_financial.procedure_type_code,
+      fact_cancer_patient_financial.principal_procedure_code,
+      fact_cancer_patient_financial.principal_procedure_date,
+      fact_cancer_patient_financial.total_billed_charge_amt,
+      fact_cancer_patient_financial.patient_age,
+      fact_cancer_patient_financial.patient_person_dw_id,
+      fact_cancer_patient_financial.financial_class_code,
+      fact_cancer_patient_financial.patient_type_code_pos1,
+      fact_cancer_patient_financial.emergency_ind,
+      fact_cancer_patient_financial.oncology_tumor_site_id,
+      fact_cancer_patient_financial.oncology_detail_tumor_site_id,
+      fact_cancer_patient_financial.robotic_ind3,
+      fact_cancer_patient_financial.op_product_line_desc,
+      fact_cancer_patient_financial.drg_code_hcfa,
+      fact_cancer_patient_financial.drg_medical_surgical_ind,
+      fact_cancer_patient_financial.calculated_length_of_stay_num,
+      fact_cancer_patient_financial.estimated_net_revenue_amt,
+      fact_cancer_patient_financial.direct_contribution_margin_amt,
+      fact_cancer_patient_financial.ebdita_amt,
+      fact_cancer_patient_financial.esl_level_1_desc,
+      fact_cancer_patient_financial.esl_level_2_desc,
+      fact_cancer_patient_financial.esl_level_3_desc,
+      fact_cancer_patient_financial.esl_level_4_desc,
+      fact_cancer_patient_financial.dw_last_update_date_time
+    FROM
+      {{ params.param_cr_core_dataset_name }}.fact_cancer_patient_financial
+  ;

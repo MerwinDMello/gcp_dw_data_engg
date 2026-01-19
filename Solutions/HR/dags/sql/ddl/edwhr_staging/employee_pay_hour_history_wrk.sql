@@ -1,0 +1,28 @@
+create table if not exists `{{ params.param_hr_stage_dataset_name }}.employee_pay_hour_history_wrk`
+(
+  employee_sid INT64 NOT NULL,
+  check_id INT64 NOT NULL,
+  pay_summary_group_code STRING NOT NULL,
+  time_seq_id NUMERIC NOT NULL,
+  valid_from_date DATETIME NOT NULL,
+  valid_to_date DATETIME,
+  employee_num INT64 NOT NULL,
+  work_hour_amt NUMERIC,
+  hourly_rate_amt NUMERIC,
+  wage_amt NUMERIC,
+  transaction_date DATE,
+  dept_sid INT64,
+  payroll_year_num INT64,
+  home_process_level_code STRING,
+  gl_account_num STRING,
+  gl_sub_account_num STRING,
+  gl_company_num INT64,
+  account_unit_num STRING,
+  pay_period_end_date DATE,
+  lawson_company_num INT64 NOT NULL,
+  process_level_code STRING NOT NULL,
+  delete_ind STRING,
+  active_dw_ind STRING,
+  source_system_code STRING NOT NULL,
+  dw_last_update_date_time DATETIME NOT NULL
+)

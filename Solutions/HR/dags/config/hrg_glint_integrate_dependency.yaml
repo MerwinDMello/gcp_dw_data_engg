@@ -1,0 +1,36 @@
+---
+integrate:
+- source_system: glint
+  frequency: None
+  schedule: None
+  type: core_tables
+  custom_tags: "response_load,question_load,respondent_detail_load"
+  dependency:
+  - table: ref_survey
+    has_sensor: 'No'
+    sql:
+    - name: hdw_glint_ref_survey_load.sql
+    - name: hdw_glint_ref_question_type.sql
+    - name: hdw_glint_survey_question_load.sql
+    - name: hdw_glint_respondent_detail_load.sql
+    - name: hdw_glint_survey_response_load.sql
+- source_system: glint
+  frequency: weekly
+  schedule: 0 3 * * 1,2,3,4,5
+  type: stage_tables
+  custom_tags: "employee_work_load"
+  dependency:
+  - table: glint_hca_employee_work2
+    has_sensor: 'No'
+    sql:
+    - name: hdw_glint_hca_employee_work_load.sql
+- source_system: glint
+  frequency: daily
+  schedule: 0 3 * * *
+  type: stage_tables
+  custom_tags: "terminated_employee_work_load"
+  dependency:
+  - table: glint_hca_terminated_employee_work
+    has_sensor: 'No'
+    sql:
+    - name: hdw_glint_hca_terminated_employees_work_load.sql

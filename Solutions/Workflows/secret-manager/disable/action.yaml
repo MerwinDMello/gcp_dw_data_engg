@@ -1,0 +1,56 @@
+name: Secret Manager Disable Action
+
+inputs:
+  workload_identity_provider:
+    description: ""
+  service_account:
+    description: "GitHub SA to authenticate to Google Cloud"
+  project_id: 
+    description: "The name of the project from which the secret version will be disabled"
+  secret_id:
+    description: "The name of the secret whose version will be disabled"
+  version_id:
+    description: "The version of the secret to be disabled"
+    type: boolean
+  token: 
+    description: "GitHub token to allow access to script in parent repo"
+
+runs:
+  using: "composite"
+  steps:
+
+    - name: "Authenticate to Google Cloud"
+      id: "auth"
+      uses: "google-github-actions/auth@v2"
+      with:
+        workload_identity_provider: ${{ inputs.workload_identity_provider }}
+        service_account: ${{ inputs.service_account }}
+
+    - name: Checkout disable script
+      uses: actions/checkout@v4
+      with:
+        repository: HCACloudDataEngineering/gcp-hin-workflows
+        token: ${{ inputs.token }}
+        path: artifacts
+        sparse-checkout: |
+          secret-manager/scripts/disable.py
+
+    - name: Artifacts List
+      shell: bash
+      run: |
+        ls -alh artifacts/secret-manager
+    
+    - name: Python Setup
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'  
+           
+    - name: Disable Secret Version
+      shell: sh
+      run: |
+        pwd
+        pip install --quiet google-cloud-secret-manager
+        python3 artifacts/secret-manager/scripts/disable.py \
+          --secret_id ${{ inputs.secret_id }} \
+          --project_id ${{ inputs.project_id }} \
+          --version_id ${{ inputs.version_id }}

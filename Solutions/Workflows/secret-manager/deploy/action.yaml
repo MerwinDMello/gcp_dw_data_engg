@@ -1,0 +1,62 @@
+name: Secret Manger Deploy Action
+
+inputs:
+  workload_identity_provider:
+    description: ""
+  service_account:
+    description: "GitHub SA to authenticate to Google Cloud"
+  project_id: 
+    description: "The name of the project to which the secret will be deployed"
+  secret_id:
+    description: "The name of the secret to be stored in Secret Manager"
+  encrypt:
+    description: ""
+    default: "true"
+  key_prefix:
+    description: "The key value leading up to the encryption key component"
+    default: "hin-key"
+  encryption_key:
+    description: "Environment and domain specific key for secret encryption"
+  secret_data:
+    description: "The value of the secret to be stored in Secret Manager"
+  region:
+    description: "GCP Region for KMS and Secret Manager"
+
+runs:
+  using: "composite"
+  steps:
+
+    - name: "Authenticate to Google Cloud"
+      id: "auth"
+      uses: "google-github-actions/auth@v2"
+      with:
+        workload_identity_provider: ${{ inputs.workload_identity_provider }}
+        service_account: ${{ inputs.service_account }}
+    
+    - name: Download Artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: sm_script_artifacts
+        path: artifacts
+
+    - name: Artifacts List
+      shell: bash
+      run: |
+        ls -alh artifacts/
+    
+    - name: Python Setup
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'  
+           
+    - name: Deploy Secrets
+      shell: bash
+      run: |
+        pwd
+        pip install google-cloud-kms google-cloud-secret-manager crcmod six packaging
+        # Pass only non-secret values as arguments, secrets via environment variables
+        python3 ./artifacts/deploy.py  --secret_id ${{ inputs.secret_id }} --project_id ${{ inputs.project_id }} --encrypt ${{ inputs.encrypt }} --region ${{ inputs.region || 'us-east4' }}
+      env:
+        secret_data: ${{ inputs.secret_data }}
+        encryption_key: ${{ inputs.encryption_key }}
+        key_prefix: ${{ inputs.key_prefix }}

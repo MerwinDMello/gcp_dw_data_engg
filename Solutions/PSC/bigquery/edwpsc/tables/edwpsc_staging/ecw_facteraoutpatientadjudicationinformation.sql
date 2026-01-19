@@ -1,0 +1,32 @@
+CREATE TABLE IF NOT EXISTS edwpsc_staging.ecw_facteraoutpatientadjudicationinformation
+(
+  eraoutpatientadjustmentinformationkey INT64 NOT NULL,
+  claimkey INT64,
+  claimnumber INT64 NOT NULL,
+  moa01 NUMERIC(31, 2),
+  moa02 NUMERIC(33, 4),
+  moa03 STRING,
+  moa04 STRING,
+  moa05 STRING,
+  moa06 STRING,
+  moa07 STRING,
+  moa08 NUMERIC(33, 4),
+  moa09 NUMERIC(33, 4),
+  segment STRING NOT NULL,
+  sourcefilename STRING,
+  sourcefilecreateddate DATETIME NOT NULL,
+  seq INT64,
+  datecreated DATETIME,
+  sourceprimarykeyvalue INT64 NOT NULL,
+  dwlastupdatedatetime DATETIME NOT NULL,
+  sourcesystemcode STRING,
+  insertedby STRING,
+  inserteddtm DATETIME,
+  modifiedby STRING,
+  modifieddtm DATETIME,
+  deletedflag INT64,
+  fullclaimnumber STRING,
+  regionkey INT64,
+  PRIMARY KEY (eraoutpatientadjustmentinformationkey) NOT ENFORCED
+)
+;

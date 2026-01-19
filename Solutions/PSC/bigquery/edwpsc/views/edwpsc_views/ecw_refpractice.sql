@@ -1,0 +1,37 @@
+CREATE OR REPLACE VIEW edwpsc_views.`ecw_refpractice`
+AS SELECT
+  `ecw_refpractice`.practicekey,
+  `ecw_refpractice`.practicename,
+  `ecw_refpractice`.practiceprimaryaddressline1,
+  `ecw_refpractice`.practiceprimaryaddressline2,
+  `ecw_refpractice`.practiceprimarygeographykey,
+  `ecw_refpractice`.practicetelephone,
+  `ecw_refpractice`.practicefax,
+  `ecw_refpractice`.practiceemail,
+  `ecw_refpractice`.practicesiteid,
+  `ecw_refpractice`.practicefederaltaxid,
+  `ecw_refpractice`.practicecliaid,
+  `ecw_refpractice`.practiceparenttin,
+  `ecw_refpractice`.practicegroupnpi,
+  `ecw_refpractice`.practicetaxonomycode,
+  `ecw_refpractice`.practicelockboxno,
+  `ecw_refpractice`.practicecob,
+  `ecw_refpractice`.practiceprimarycoid,
+  `ecw_refpractice`.practicestartdatekey,
+  `ecw_refpractice`.practiceenddatekey,
+  `ecw_refpractice`.practicespindowndatekey,
+  `ecw_refpractice`.sourceprimarykeyvalue,
+  `ecw_refpractice`.sourcerecordlastupdated,
+  `ecw_refpractice`.dwlastupdatedatetime,
+  `ecw_refpractice`.sourcesystemcode,
+  `ecw_refpractice`.insertedby,
+  `ecw_refpractice`.inserteddtm,
+  `ecw_refpractice`.modifiedby,
+  `ecw_refpractice`.modifieddtm,
+  `ecw_refpractice`.deleteflag,
+  `ecw_refpractice`.regionkey,
+  `ecw_refpractice`.sysstarttime,
+  `ecw_refpractice`.sysendtime
+  FROM
+    edwpsc_base_views.`ecw_refpractice`
+;

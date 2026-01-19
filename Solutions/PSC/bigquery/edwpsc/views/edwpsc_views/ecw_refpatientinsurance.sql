@@ -1,0 +1,34 @@
+CREATE OR REPLACE VIEW edwpsc_views.`ecw_refpatientinsurance`
+AS SELECT
+  `ecw_refpatientinsurance`.patientinsurancekey,
+  `ecw_refpatientinsurance`.patientkey,
+  `ecw_refpatientinsurance`.iplankey,
+  `ecw_refpatientinsurance`.patientinsuranceorder,
+  `ecw_refpatientinsurance`.patientinsurancestartdate,
+  `ecw_refpatientinsurance`.patientinsuranceenddate,
+  `ecw_refpatientinsurance`.patientinsurancegroupno,
+  `ecw_refpatientinsurance`.patientinsurancegroupname,
+  `ecw_refpatientinsurance`.patientinsurancesubscriberno,
+  `ecw_refpatientinsurance`.patientinsurancecopay,
+  `ecw_refpatientinsurance`.patientinsurancedeleteflag,
+  `ecw_refpatientinsurance`.patientinsuranceguaranterpatientkey,
+  `ecw_refpatientinsurance`.patientinsuranceguaranterrel,
+  `ecw_refpatientinsurance`.patientinsuranceisguaranterpatient,
+  `ecw_refpatientinsurance`.patientinsurancesequenceno,
+  `ecw_refpatientinsurance`.patientinsuranceenceligibilitystatus,
+  `ecw_refpatientinsurance`.patientinsuranceeligibilitymessage,
+  `ecw_refpatientinsurance`.sourceprimarykey,
+  `ecw_refpatientinsurance`.sourcerecordlastupdated,
+  `ecw_refpatientinsurance`.dwlastupdatedatetime,
+  `ecw_refpatientinsurance`.sourcesystemcode,
+  `ecw_refpatientinsurance`.insertedby,
+  `ecw_refpatientinsurance`.inserteddtm,
+  `ecw_refpatientinsurance`.modifiedby,
+  `ecw_refpatientinsurance`.modifieddtm,
+  `ecw_refpatientinsurance`.deleteflag,
+  `ecw_refpatientinsurance`.regionkey,
+  `ecw_refpatientinsurance`.sysstarttime,
+  `ecw_refpatientinsurance`.sysendtime
+  FROM
+    edwpsc_base_views.`ecw_refpatientinsurance`
+;

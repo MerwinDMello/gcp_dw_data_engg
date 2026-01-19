@@ -1,0 +1,6 @@
+##########################################
+#             code ownership
+##########################################
+
+# default ownership: default owners for everything in the repo (Unless a later match takes precedence)
+*       #put teams or individuals here, start with @ for each, separate only with spaces, must include organizaton ahead of team name, e.g. @HCACloudDataEngineering/hin-prd-codeowners

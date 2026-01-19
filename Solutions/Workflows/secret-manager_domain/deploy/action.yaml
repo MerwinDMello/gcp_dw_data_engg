@@ -1,0 +1,60 @@
+name: Secret Manger Deploy Action
+
+inputs:
+  workload_identity_provider:
+    description: ""
+  service_account:
+    description: ""
+  project_id: 
+    description: ""
+  domain:
+    description: ""
+  args:
+    description: ""
+    default: ""
+  secret_id:
+    description: ""
+  encrypt:
+    description: ""
+    default: "true"
+  encryption_key:
+    description: "Environment and domain specific key for secret encryption"
+  secret_data:
+    description: ""
+
+runs:
+  using: "composite"
+  steps:
+
+    - name: "Authenticate to Google Cloud"
+      id: "auth"
+      uses: "google-github-actions/auth@v2"
+      with:
+        workload_identity_provider: ${{ inputs.workload_identity_provider }}
+        service_account: ${{ inputs.service_account }}
+    
+    - name: Download Artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: sm_script_artifacts
+        path: artifacts
+
+    - name: Artifacts List
+      shell: bash
+      run: |
+        ls -alh artifacts/
+    
+    - name: Python Setup
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'  
+           
+    - name: Deploy Secrets
+      shell: sh
+      run: |
+        pwd
+        pip install google-cloud-kms google-cloud-secret-manager crcmod six
+        python3 ./artifacts/deploy.py  --secret_id ${{ inputs.secret_id }} --project_id ${{ inputs.project_id }} --encrypt ${{ inputs.encrypt }} --encryption_key ${{ inputs.encryption_key }} --domain ${{ inputs.domain }} 
+      env:
+        secret_data: ${{ inputs.secret_data }}
+       

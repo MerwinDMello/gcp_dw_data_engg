@@ -1,0 +1,51 @@
+# This is provided purely as an example for developers to reference when creating their own dataflow jobs.
+
+# Note that the name of the config file should exactly match the name of the folder of the job it aligns with.
+# For example, if the job is in the folder `dataflow/python/test-job`, the config file should be named `test-job.yaml`
+
+# Variables that have values that remain the same in all environments should be placed in the build section
+# Variables that have values which vary by environment should be placed in the environment sections
+
+build:
+  metadata_filepath: "./data_engineering/dataflow/python/example-df-python/src/metadata.json"
+  sdk_language: python 
+  df_region: "us-east4"
+  job_folder: "example-df-python" # Must match the name of the folder containing the src and config folders for this job
+  type: batch # batch or streaming
+  args: ""
+  job_name: "dataflow-batch-example"
+
+dev:
+  target_gcr_image: "REGION-docker.pkg.dev/hca-hin-dev-proc-DOMAIN/ARTIFACT-REGISTRY/JOB-FOLDER:v1"
+  template_spec_gcspath: "gs://"
+  # Variables below are only needed for streaming jobs
+  subnetwork: "" 
+  temp_location: ""
+  staging_location: ""
+  max_workers: 
+  # All parameters for this job should be listed as follows: param1=value1,param2=value2, etc. 
+  # Example: snowflake_account="value_here",input_database_name="value_here",database_user_name="value_here",database_secret_name="value_here"
+  parameters: 
+
+qa:
+  target_gcr_image: ""REGION-docker.pkg.dev/hca-hin-qa-proc-DOMAIN/ARTIFACT-REGISTRY/JOB-FOLDER:v1""
+  template_spec_gcspath: "gs://"
+  # Variables below are only needed for streaming jobs
+  subnetwork: ""
+  temp_location: 
+  staging_location: 
+  max_workers: 
+  # All parameters for this job should be listed as follows: param1=value1,param2=value2, etc. 
+  parameters: 
+
+prod:
+  target_gcr_image: "REGION-docker.pkg.dev/hca-hin-prod-proc-DOMAIN/ARTIFACT-REGISTRY/JOB-FOLDER:v1""
+  template_spec_gcspath: "gs://"
+  # Variables below are only needed for streaming jobs
+  subnetwork: ""
+  temp_location: 
+  staging_location: 
+  max_workers: 
+  # All parameters for this job should be listed as follows: param1=value1,param2=value2, etc. 
+  parameters: 
+  

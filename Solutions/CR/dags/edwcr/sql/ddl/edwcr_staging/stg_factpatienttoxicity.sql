@@ -1,0 +1,50 @@
+CREATE OR REPLACE TABLE {{ params.param_cr_stage_dataset_name }}.stg_factpatienttoxicity (
+dimsiteid INT64
+, factpatienttoxicityid INT64
+, dimpatientid INT64
+, dimtoxicitygradingcriteriaid INT64
+, dimlookupid_scheme INT64
+, dimlookupid_toxctycsecrtntytyp INT64
+, dimlookupid_toxicitycausetype INT64
+, dimdiagnosiscodeid INT64
+, dimdateid_assessmentdatetime INT64
+, assessmentdatetime STRING
+, toxicitygradeauthour INT64
+, toxicityeffectivedate STRING
+, toxicityassessmenttype STRING
+, toxicitycomponentname STRING
+, toxicitysubcomponentname STRING
+, toxicitysubcomponentgradename STRING
+, toxicitygrade INT64
+, adverseeventsindicator STRING
+, validentryindicator STRING
+, patienttoxicityassessmentid INT64
+, patientvisitid INT64
+, patienttoxicityasesmentheadrid INT64
+, logid INT64
+, runid INT64
+, gradeperassessmenttype INT64
+, assessmenttype INT64
+, toxicityreason STRING
+, toxicityapprovedindicator STRING
+, dimdateid_asesmntprfrmddatetim INT64
+, dimdateid_toxicityaprvddatetim INT64
+, toxicityreviewrequestindicator STRING
+, toxicityreviewedindicator STRING
+, dimresourceid_reviewer INT64
+, dimdateid_toxicityrviwddatetim INT64
+, toxctyheadervalidetryindicator STRING
+, revisionnumber INT64
+, dimactivitytransactionid INT64
+, dimdateid_asesmntstartdatetime INT64
+, correctedentryindicator STRING
+, dimdateid_assesmentenddatetime INT64
+, assessmenttypedesc STRING
+, toxicityapproveddatetime STRING
+, assessmentperformeddatetime STRING
+, toxicityrevieweddatetime STRING
+, assessmentstartdatetime STRING
+, assessmentenddatetime STRING
+, dw_last_update_date_time DATETIME
+)
+  ;

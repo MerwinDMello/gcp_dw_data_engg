@@ -1,0 +1,76 @@
+# This is a basic workflow to help you get started with Actions
+
+name: DAG_AIRFLOW
+on:
+  push:
+    branches:
+      - "dev"
+      - "qa"
+      - "prd" 
+       
+    # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+    
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+#  # This workflow contains a single job called "build"
+  build:
+   # The type of runner that the job will run on
+   runs-on: [ self-hosted, linux, X64, enterprise, onprem ]
+   steps:
+     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+     - uses: actions/checkout@v3
+     - name: setup dev
+       if: ${{ github.ref == 'refs/heads/dev' }}
+       run: |
+         echo "FILENAME=dev_hrg_config" >> $GITHUB_ENV
+     # Setup Environment files and importing variables
+     - name: setup uat
+       if: ${{ github.ref == 'refs/heads/qa' }}
+       run: |
+         echo "FILENAME=qa_hrg_config" >> $GITHUB_ENV
+     - name: setup prd
+       if: ${{ github.ref == 'refs/heads/prd' }}
+       run: |
+         echo "FILENAME=prd_hrg_config" >> $GITHUB_ENV
+     - name: Bash commands to convert YAML to JSON
+       run: |
+         yq -r -j environments/${{ env.FILENAME }}.yaml | tee ${{ env.FILENAME }}.json
+         cp environments/${{ env.FILENAME }}.yaml ./dags/config/hrg_config.yaml
+     - name: JSON to variables
+       uses: rgarcia-phi/json-to-variables@v1.1.0
+       with:
+         filename: ${{ env.FILENAME}}.json
+         prefix: infra
+         masked: true
+    # Authentication againt Environment
+     - id: 'authenticate_dev'
+       name: Authenticate to Google Cloud DEV environment
+       if: ${{ github.ref == 'refs/heads/dev' }}
+       uses: 'google-github-actions/auth@v0'
+       with:
+         credentials_json: '${{ secrets.GCPSERVICEACCOUNTSECRETDEV }}'
+
+     - id: 'authenticate_qa'
+       name: Authenticate to Google Cloud QA environment
+       if: ${{ github.ref == 'refs/heads/qa' }}
+       uses: 'google-github-actions/auth@v0'
+       with:
+         credentials_json: '${{ secrets.GCPSERVICEACCOUNTSECRETUAT }}'
+
+     - id: 'authenticate_prd'
+       name: Authenticate to Google Cloud PROD environment
+       if: ${{ github.ref == 'refs/heads/prd' }}
+       uses: 'google-github-actions/auth@v0'
+       with:
+         credentials_json: '${{ secrets.GCPSERVICEACCOUNTSECRETPRD }}'
+    # Setup GCP
+     - name: GCP setup
+       uses: 'google-github-actions/setup-gcloud@v0.6.0'
+       with:
+         project_id: '${{ env.infra_env_v_proc_project_id}}'
+    # Sync DAGS to GCS Bucket
+     - name: Sync repo with DAG
+       run: |
+         gsutil -m rsync -r -c -d ./dags gs://${{env.infra_env_v_dag_bucket_name}}/dags
+      #   gsutil cp -r -n ./dags/* gs://${{env.infra_env_v_dag_bucket_name}}/dags

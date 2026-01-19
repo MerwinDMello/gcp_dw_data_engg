@@ -1,0 +1,37 @@
+CREATE OR REPLACE VIEW edwpsc_base_views.`pk_factholdingbinedits`
+AS SELECT
+  `pk_factholdingbinedits`.editkey,
+  `pk_factholdingbinedits`.saveddatetime,
+  `pk_factholdingbinedits`.saveddatekey,
+  `pk_factholdingbinedits`.savedbyuserid,
+  `pk_factholdingbinedits`.savedbyuserfirstname,
+  `pk_factholdingbinedits`.savedbyuserlastname,
+  `pk_factholdingbinedits`.codeeditexternalid,
+  `pk_factholdingbinedits`.codeeditcpt,
+  `pk_factholdingbinedits`.codeedittype,
+  `pk_factholdingbinedits`.codeeditmsg,
+  `pk_factholdingbinedits`.validityerror,
+  `pk_factholdingbinedits`.freetextcharges,
+  `pk_factholdingbinedits`.freetextdx,
+  `pk_factholdingbinedits`.importedcharge,
+  `pk_factholdingbinedits`.billingarea,
+  `pk_factholdingbinedits`.billingprovideruserid,
+  `pk_factholdingbinedits`.billingproviderfirstname,
+  `pk_factholdingbinedits`.billingproviderlastname,
+  `pk_factholdingbinedits`.servicedate,
+  `pk_factholdingbinedits`.submissiondate,
+  `pk_factholdingbinedits`.visittype,
+  `pk_factholdingbinedits`.department,
+  `pk_factholdingbinedits`.mrn,
+  `pk_factholdingbinedits`.accountid,
+  `pk_factholdingbinedits`.financialclass,
+  `pk_factholdingbinedits`.pkregionname,
+  `pk_factholdingbinedits`.sourceaprimarykeyvalue,
+  `pk_factholdingbinedits`.sourcebprimarykeyvalue,
+  `pk_factholdingbinedits`.insertedby,
+  `pk_factholdingbinedits`.inserteddtm,
+  `pk_factholdingbinedits`.practiceid,
+  `pk_factholdingbinedits`.dwlastupdatedatetime
+  FROM
+    edwpsc.`pk_factholdingbinedits`
+;

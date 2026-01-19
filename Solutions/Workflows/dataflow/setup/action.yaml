@@ -1,0 +1,188 @@
+name: Set Up Dataflow Job
+
+inputs:
+  branch:
+    description: "The relevant branch name"
+  subdomain:
+    description: "The relevant subdomain"
+  dataflow_path:
+    description: "The path to the dataflow directory"
+  repo_type:
+    description: "The type of repository"
+  env_folder:
+    description: "The folder containing the environment configuration files"
+
+runs:
+  using: "composite"
+  steps:
+    # Determine if files have changed
+    - name: Get Changed Files
+      id: changed-files
+      uses: tj-actions/changed-files@v46.0.1
+      with:
+        dir_names: 'true'
+        files_yaml: |
+          dataflow_jobs:
+            - "${{ inputs.dataflow_path }}/**"
+    
+    - name: Debug Changed Files
+      shell: bash
+      run: |
+        echo "Base Ref: ${{ github.event.pull_request.base.sha }}"
+        echo "Head Ref: ${{ github.event.pull_request.head.sha }}"
+        echo "Changed Files: ${{ steps.changed-files.outputs.all_changed_files }}"
+    
+    - name: Get path to changed files
+      id: fetch_changed_dir
+      shell: bash
+      if: steps.changed-files.outputs.dataflow_jobs_any_changed == 'true'
+      env:
+        JOB_CHANGED_FILES: ${{ steps.changed-files.outputs.dataflow_jobs_all_changed_files }}
+      run: |
+        declare -A processed_paths
+
+        echo "JOB_CHANGED_FILES: $JOB_CHANGED_FILES"
+
+        if [[ -n "$JOB_CHANGED_FILES" ]]; then
+          for file in $JOB_CHANGED_FILES; do
+            # Extract the part of the path starting from the beginning and including exactly two directories past the dataflow directory
+            if [[ "$file" =~ (^.*dataflow/[^/]+/[^/]+) ]]; then
+              path="${BASH_REMATCH[1]}"
+              # Cut off anything past the second directory after dataflow in case there is another dataflow directory deeper in the structure
+              path=$(echo "$path" | awk -F'/' '{print $1"/"$2"/"$3"/"$4}')
+              processed_paths["$path"]=1
+            fi
+          done
+        fi
+
+        echo "processed_paths: ${!processed_paths[@]}"
+
+        # Create a space-separated list of paths
+        changed_paths=$(echo ${!processed_paths[@]})
+        echo "changed_paths=$changed_paths" >> $GITHUB_ENV
+
+    - name: Prepare env_config.yaml
+      id: prepare-env-config-etl
+      shell: bash
+      if: ${{ inputs.repo_type == 'ETL' }}
+      run: |
+        if [ ! -f "env_config.yaml" ]; then
+          echo "env:" > "env_config.yaml" 
+        fi
+
+        # Grab the environments config that corresponds to ${{ inputs.branch }}, read the relevant components and write to env_config.yaml
+        yq eval '{env: {v_serviceaccountemail: .env.v_serviceaccountemail, v_proc_project_id: .env.v_proc_project_id}}' "${{ inputs.env_folder }}/${{ inputs.branch }}_${{ inputs.domain }}_config.yaml" > "env_config.yaml"
+                
+        echo "------------------env configs start------------------"
+        cat env_config.yaml
+        echo "------------------env configs end------------------"
+
+    - name: Prepare env_config.yaml
+      id: prepare-env-config-hin2
+      shell: bash
+      if: ${{ inputs.repo_type == 'HIN2.0' }}
+      run: |
+       if [ ! -f "env_config.yaml" ]; then
+          echo "env:" > "env_config.yaml" 
+        fi
+        echo "processing ${{ inputs.env_folder }}/${{ inputs.subdomain }}_config.yaml"
+        # Grab the environments config, read relevant variables from the section of the file that corresponds to ${{ inputs.branch }} and write them into a section titled env
+        yq eval '{"env": {"v_proc_project_id": .${{ inputs.branch }}.v_proc_project_id, "v_serviceaccountemail": .${{ inputs.branch }}.v_serviceaccountemail}}' "${{ inputs.env_folder }}/${{ inputs.subdomain }}_config.yaml" > "env_config.yaml"
+
+        echo "------------------env configs start------------------"
+        cat env_config.yaml
+        echo "------------------env configs end------------------"
+
+    - name: Fetch configs of changed files
+      id: get-configs
+      shell: bash
+      run: |
+        changed_paths=($changed_paths)
+
+        # Create an empty array to store the processed config files
+        output_array=()
+        
+        # Find the config file for each job that has changed files
+        for df_path in "${changed_paths[@]}"; do
+          echo "df_path: $df_path"
+          job_folder=$(basename "$df_path")
+          config_file="${df_path}/config/${job_folder}.yaml"
+          if [[ -f "$config_file" ]]; then
+            echo "Configuration file $config_file exists."
+            
+            if [ ! -f "${job_folder}_merged.yaml" ]; then
+              echo "env:" > "${job_folder}_merged.yaml"
+            fi
+
+            # Extract folder_path up to and including the first 'dataflow'
+            folder_path="${df_path%%/dataflow*}/dataflow"
+            echo "Setting folder_path to: $folder_path"
+
+            # Add folder_path to env_config.yaml
+            yq eval ".env.folder_path = \"$folder_path\"" -i env_config.yaml
+
+            # Pull out the build section and the section that matches ${{ inputs.branch }} into separate configs
+            yq eval  ".build | {\"job\": .}" "$config_file" > job_build_config.yaml
+            yq eval  ".${{ inputs.branch }} | {\"job\": .}" "$config_file" > job_env_config.yaml
+
+            # Combine env_config.yaml, job_build_config.yaml, and job_env_config.yaml into a merged file
+            yq eval-all 'select(fileIndex == 0) as $env | select(fileIndex == 1) as $build | select(fileIndex == 2) as $job | $env * $build * $job' env_config.yaml job_build_config.yaml job_env_config.yaml > "${job_folder}_merged.yaml"
+
+          else
+            echo "::error::Configuration file $config_file does not exist. Provide a proper config file."
+            exit 1
+          fi
+
+          echo "------------------job configs start------------------"
+          cat ${job_folder}_merged.yaml
+          echo "------------------job configs end------------------"
+          # Save the fully processed config file to the output array
+          output_array+=(${job_folder}_merged.yaml)
+        done
+
+        echo "output_array: ${output_array[@]}"
+
+        # Create dataflow_artifacts directory
+        mkdir dataflow_artifacts
+
+        # Create an empty array to store the processed config files within the dataflow_artifacts directory
+        configFiles=()
+        for ymlfile in ${output_array[@]}; do
+          # Define the file name for the json file
+          json_file="${ymlfile%.yaml}.json" 
+          # Convert the yaml file to json and save it to the dataflow_artifacts directory
+          yq eval -o=json "$ymlfile" > "dataflow_artifacts/${json_file}"
+          # Save the file path to the json in the configFiles array
+          configFiles+=("dataflow_artifacts/${json_file}")
+        done
+
+        echo "configFiles=${configFiles[@]}"
+
+        echo "list dataflow_artifacts start"
+        ls dataflow_artifacts
+        echo "list dataflow_artifacts end"
+
+        # Create a different artifact directory
+        mkdir -p matrix_artifacts
+
+        # Convert the configFiles array to a json string of file paths, save it to the matrix variable
+        jsonString=$( echo ${configFiles[@]}  | jq  -R -s -c 'sub("\n$";"") | split(" ")'  )
+        # Save the matrix json string to the matrix_artifacts directory
+        echo "JSON String: $jsonString"
+        echo "$jsonString" > matrix_artifacts/matrix.json
+
+    # Upload the dataflow_artifacts to the github workspace
+    - name: Upload Dataflow Configs Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: dataflow_artifacts
+        path: dataflow_artifacts
+        retention-days: 14
+
+    # Upload the matrix artifact to the GitHub workspace
+    - name: Upload Matrix Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: matrix_artifacts
+        path: matrix_artifacts/matrix.json
+        retention-days: 14

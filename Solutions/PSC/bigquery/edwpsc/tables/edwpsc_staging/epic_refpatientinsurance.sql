@@ -1,0 +1,32 @@
+CREATE TABLE IF NOT EXISTS edwpsc_staging.epic_refpatientinsurance
+(
+  patientinsurancekey INT64 NOT NULL,
+  patientkey INT64,
+  iplankey INT64,
+  patientinsuranceorder INT64,
+  patientinsurancestartdate STRING,
+  patientinsuranceenddate STRING,
+  patientinsurancegroupno STRING,
+  patientinsurancegroupname STRING,
+  patientinsurancesubscriberno STRING,
+  patientinsurancecopay STRING,
+  patientinsurancedeleteflag INT64,
+  patientinsuranceguaranterpatientkey INT64,
+  patientinsuranceguaranterrel INT64,
+  patientinsuranceisguaranterpatient INT64,
+  patientinsurancesequenceno INT64,
+  patientinsuranceenceligibilitystatus STRING,
+  patientinsuranceeligibilitymessage STRING,
+  deleteflag INT64,
+  regionkey INT64,
+  sourceprimarykey STRING,
+  sourcerecordlastupdated DATETIME,
+  dwlastupdatedatetime DATETIME NOT NULL,
+  sourcesystemcode STRING,
+  insertedby STRING,
+  inserteddtm DATETIME,
+  modifiedby STRING,
+  modifieddtm DATETIME,
+  PRIMARY KEY (patientinsurancekey) NOT ENFORCED
+)
+;

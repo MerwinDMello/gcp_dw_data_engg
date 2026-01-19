@@ -1,0 +1,104 @@
+name: Dataproc CD
+
+inputs:
+  workload_identity_provider:
+    description: ""
+  service_account:
+    description: ""
+  branch:
+    description: ""
+  subdomain:
+    description: "The relevant subdomain"
+  args:
+    description: ""
+    default: ""
+  src_bucket:
+    description: ""
+  project_id:
+    description: ""
+  name:
+    description: ""
+  src:
+    description: ""
+  sdk_language:
+    description: ""
+  target_gcs_jar_bucket:
+    description: ""
+  additional_jars_string:
+    description: ""
+  dev_workload_identity_provider:
+    description: "for handling jar files"
+  dev_service_account:
+    description: "for handling jar files"
+  dev_target_gcs_jar_bucket:
+    description: "for handling jar files"
+  repository:
+    description: ""
+
+runs:
+  using: "composite"
+  steps:
+    # Authenticate to dev environment for downloading the jar files
+    - id: 'auth_dev'
+      name: 'Authenticate to Google Cloud'
+      uses: 'google-github-actions/auth@v0.8.3'
+      with:
+        workload_identity_provider: ${{ inputs.dev_workload_identity_provider }}
+        service_account: ${{ inputs.dev_service_account }}
+
+    - name: GCP setup
+      uses: 'google-github-actions/setup-gcloud@v1'
+
+    - name: Download Jar Files from Dev environment
+      shell: sh
+      run: |
+        echo "downloading the files"
+        mkdir dev_source
+
+        IFS=',' read -ra array <<< ${{ inputs.additional_jars_string }}
+
+        for src in "${array[@]}"; do
+          file_name=$(basename "$src")
+          source="gs://${{ inputs.dev_target_gcs_jar_bucket }}/common-jars/${file_name}"
+          if ! gcloud storage cp $source dev_source/ ; then
+            echo "gs://${{ inputs.dev_target_gcs_jar_bucket }}/common-jars/${file_name} not found in dev bucket"
+          fi
+        done
+
+    - id: 'auth'
+      # Authenticate to Respective Environment for Deployment
+      name: 'Authenticate to Google Cloud'
+      uses: 'google-github-actions/auth@v0.8.3'
+      with:
+        workload_identity_provider: ${{ inputs.workload_identity_provider }}
+        service_account: ${{ inputs.service_account }}
+
+    # Upload Python job Src Files
+    - name: Upload Python job Src Files
+      if: contains(inputs.sdk_language, 'python')
+      uses: 'google-github-actions/upload-cloud-storage@v1'
+      with:
+        path: 'dataproc/python/${{ inputs.src }}/src'
+        destination: '${{ inputs.src_bucket }}/${{ inputs.src }}/'
+        parent: false
+        gzip: false
+        headers: |-
+          content-type: text/x-python
+
+    - name: Upload Jar Files to Respective Environment
+      # Upload Jar Files to Respective Environment
+      shell: sh
+      run: |
+        ls
+        for file in dev_source/*; do
+          echo "uploading file $file to bucket"
+          if [ -f "$file" ]; then
+            gcloud storage cp $file "gs://${{ inputs.target_gcs_jar_bucket }}/"
+          fi
+        done
+
+
+
+
+
+

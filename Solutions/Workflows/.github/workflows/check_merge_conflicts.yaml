@@ -1,0 +1,100 @@
+name: Check Merge Conflicts
+
+on:
+  workflow_call:
+    inputs:
+      base_branch:
+        required: true
+        type: string
+      compare_branch:
+        required: true
+        type: string
+    secrets:
+      GH_TOKEN:
+        description: "GitHub token"
+        required: true
+      CONFLICT_WEBHOOK:
+        description: "Webex webhook URL for merge conflict notifications"
+        required: true
+
+jobs:
+  check-merge-conflicts:
+    runs-on: [self-hosted, onprem-k8s-arc, std, enterprise]
+    steps:
+      - name: Checkout base branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.base_branch }}
+          fetch-depth: 0
+     
+      - name: Set up Git
+        shell: bash
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+
+      - name: Fetch compare branch
+        shell: bash
+        run: |
+          git fetch origin ${{ inputs.compare_branch }}:${{ inputs.compare_branch }}
+
+      - name: Check for merge conflicts
+        id: merge_check
+        shell: bash
+        run: |
+          git checkout ${{ inputs.base_branch }}
+          git merge --no-commit --no-ff ${{ inputs.compare_branch }} || true
+
+          if git ls-files -u | grep -q .; then
+            echo "conflict=true" >> $GITHUB_OUTPUT
+            echo "Conflict detected: true"
+          else
+            echo "conflict=false" >> $GITHUB_OUTPUT
+            echo "Conflict detected: false"
+          fi
+          git merge --abort || true
+          
+          # Validate that conflict output was set
+          if ! grep -q "^conflict=" $GITHUB_OUTPUT 2>/dev/null; then
+            echo "ERROR: Conflict status was not set. Merge check failed."
+            exit 1
+          fi
+
+      - name: Create PR if conflicts exist
+        if: steps.merge_check.outputs.conflict == 'true'
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          WEBEX_WEBHOOK_URL: ${{ secrets.CONFLICT_WEBHOOK }}
+          BASE_BRANCH: ${{ inputs.base_branch }}
+          COMPARE_BRANCH: ${{ inputs.compare_branch }}
+          REPO: ${{ github.repository }}
+        run: |
+          # Define the notify_conflict function
+          notify_conflict() {
+          local PR_URL=$1
+          if [ -n "${WEBEX_WEBHOOK_URL}" ] && [ "${WEBEX_WEBHOOK_URL}" != "false" ]; then
+            response=$(curl -s -w "%{http_code}" -o curl_output.txt -X POST "${WEBEX_WEBHOOK_URL}" \
+              -H "Content-Type: application/json" \
+              -d "{\"text\": \"Weekly prod/dev check detected merge conflict!\nRepository: ${REPO}\nPull Request: ${PR_URL}\nPlease resolve the conflicts manually.\"}")
+            http_code="$response"
+            body=$(cat curl_output.txt)
+            echo "Webhook response code: $http_code"
+            echo "Webhook response body: $body"
+          fi
+          }
+
+          # Create the pull request using the GitHub CLI
+          gh pr create --head "$COMPARE_BRANCH" --base "$BASE_BRANCH" --title "$COMPARE_BRANCH to $BASE_BRANCH sync" --body "Merge conflicts were detected when attempting to merge $COMPARE_BRANCH into $BASE_BRANCH.\nPlease resolve these conflicts."
+          PR_URL=$(gh pr list --head "$COMPARE_BRANCH" --base "$BASE_BRANCH" --json url --jq '.[0].url')
+          # Make sure PR_URL is not empty
+          if [ -z "$PR_URL" ]; then
+            if [ -n "${WEBEX_WEBHOOK_URL}" ] && [ "${WEBEX_WEBHOOK_URL}" != "false" ]; then
+              curl -X POST "${WEBEX_WEBHOOK_URL}" \
+                -H "Content-Type: application/json" \
+                -d "{\"text\": \"PR creation failed in repository: ${REPO}.\nNo URL was returned. Please investigate.\"}"
+            fi
+            exit 1
+          fi
+          # Call the notify_conflict function
+          notify_conflict "$PR_URL"

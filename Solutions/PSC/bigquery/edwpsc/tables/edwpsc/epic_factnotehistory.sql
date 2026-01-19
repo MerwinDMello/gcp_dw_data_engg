@@ -1,0 +1,32 @@
+CREATE TABLE IF NOT EXISTS edwpsc.epic_factnotehistory
+(
+  notehistorykey INT64 NOT NULL,
+  regionkey INT64,
+  coid STRING,
+  accountkey INT64,
+  accountid INT64,
+  patientkey INT64,
+  patientid INT64,
+  claimkey INT64,
+  invoicenumber STRING,
+  encounterkey INT64,
+  encounterid INT64,
+  notetype STRING,
+  notesummary STRING,
+  note STRING,
+  notestatus STRING,
+  notecreateddate DATE,
+  notecreatedtime TIME,
+  priorityflag INT64,
+  notecreatedbyuserkey INT64,
+  notecreatedbyuserid STRING,
+  notesource STRING,
+  sourceaprimarykeyvalue STRING,
+  dwlastupdatedatetime DATETIME,
+  sourcesystemcode STRING,
+  insertedby STRING,
+  inserteddtm DATETIME,
+  modifiedby STRING,
+  modifieddtm DATETIME
+)
+;

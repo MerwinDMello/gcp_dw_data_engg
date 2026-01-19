@@ -1,0 +1,51 @@
+# This is provided purely as an example for developers to reference when creating their own dataflow jobs.
+
+# Note that the name of the config file should exactly match the name of the folder of the job it aligns with.
+# For example, if the job is in the folder `dataflow/python/test-job`, the config file should be named `test-job.yaml`
+
+# Variables that have values that remain the same in all environments should be placed in the build section
+# Variables that have values which vary by environment should be placed in the environment sections
+
+build:
+  sdk_language: yaml
+  df_region: "us-east4"
+  job_folder: "example-df-yaml" # Must match the name of the folder containing the src and config folders for this job
+  type: streaming # batch or streaming
+  job_name: "job_name"
+  no_use_public_ips: true # Set to true if you want to use private IPs for the Dataflow workers
+
+dev:
+  subnetwork:
+  num_workers: 1
+  max_num_workers: 5
+  temp_location: 
+  staging_location: 
+  # Jinja inputs will vary based on the pipeline template you are using, but they should all be entered using the same format shown here, nested under the jinja section
+  # key/variable names must match what you put in the template exactly
+  jinja_inputs: 
+    source_table_input:
+    sink_table_input:
+
+qa:
+  subnetwork:
+  num_workers: 2
+  max_num_workers: 5
+  temp_location: 
+  staging_location: 
+  # Jinja inputs will vary based on the pipeline template you are using, but they should all be entered using the same format shown here, nested under the jinja section
+  # key/variable names must match what you put in the template exactly
+  jinja_inputs: 
+    source_table_input:
+    sink_table_input:
+
+prod:
+  subnetwork:
+  num_workers: 2
+  max_num_workers: 5
+  temp_location: 
+  staging_location: 
+  # Jinja inputs will vary based on the pipeline template you are using, but they should all be entered using the same format shown here, nested under the jinja section
+  # key/variable names must match what you put in the template exactly
+  jinja_inputs: 
+    source_table_input:
+    sink_table_input:

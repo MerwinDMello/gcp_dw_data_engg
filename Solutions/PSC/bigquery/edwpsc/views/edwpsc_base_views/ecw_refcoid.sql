@@ -1,0 +1,33 @@
+CREATE OR REPLACE VIEW edwpsc_base_views.`ecw_refcoid`
+AS SELECT
+  `ecw_refcoid`.coid,
+  `ecw_refcoid`.coidname,
+  `ecw_refcoid`.statekey,
+  `ecw_refcoid`.coidconsolidationindicator,
+  `ecw_refcoid`.coidcompanycode,
+  `ecw_refcoid`.coidunitnumber,
+  `ecw_refcoid`.coidlob,
+  `ecw_refcoid`.coidsublob,
+  `ecw_refcoid`.marketkey,
+  `ecw_refcoid`.dwlastupdatedatetime,
+  `ecw_refcoid`.sourcesystemcode,
+  `ecw_refcoid`.insertedby,
+  `ecw_refcoid`.inserteddtm,
+  `ecw_refcoid`.modifiedby,
+  `ecw_refcoid`.modifieddtm,
+  `ecw_refcoid`.lobname,
+  `ecw_refcoid`.sublobname,
+  `ecw_refcoid`.deleteflag,
+  `ecw_refcoid`.coidstatflag,
+  `ecw_refcoid`.ppmsflag,
+  `ecw_refcoid`.centerkey,
+  `ecw_refcoid`.coidspecialty,
+  `ecw_refcoid`.coidsamestorecode,
+  `ecw_refcoid`.coidsamestoreflag,
+  `ecw_refcoid`.pscrevcyclemgmt,
+  `ecw_refcoid`.sysstarttime,
+  `ecw_refcoid`.sysendtime,
+  `ecw_refcoid`.coidwithleadingzero
+  FROM
+    edwpsc.`ecw_refcoid`
+;

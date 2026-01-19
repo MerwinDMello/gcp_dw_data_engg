@@ -1,0 +1,50 @@
+on:
+  workflow_call:
+    inputs:
+      branch: 
+        description: "The branch, and thus the GCP environment, that is relevant to this workflow run"
+        required: true
+        type: string
+      dataflow_path:
+        description: "The path to the dataflow folder in the repo."
+        required: true
+        type: string
+        default: "dataflow"
+      repo_type:
+        description: "The caller repository type, either ETL or HIN2.0"
+        required: true
+        type: string
+        default: "HIN2.0"
+      env_folder:
+        description: "The name of the folder containing environment yamls"
+        required: false
+        type: string
+        default: "environments"
+        
+
+jobs:
+  # Setup job identifies which dataflow relevant files have changed, processes the relevant config files, and create a matrix of the file paths to those configs
+  Setup:
+    name: Setup Dataflow Job
+    runs-on: [self-hosted, onprem-k8s-arc, dind, enterprise, lnx-amd64, xrdc] 
+    environment: ${{ github.base_ref }}
+    permissions:
+      contents: "read"
+      id-token: "write"
+    outputs:
+      pr_number: ${{ steps.set_pr_number.outputs.pr_number }}
+    steps:
+
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Setup Dataflow Step
+        id: dataflow_setup
+        uses: HCACloudDataEngineering/gcp-hin-workflows/dataflow/setup@main
+        with:
+          branch: ${{ inputs.branch }}
+          subdomain : ${{ vars.DOMAIN }}
+          dataflow_path: ${{ inputs.dataflow_path }}
+          repo_type: ${{ inputs.repo_type }}
+          env_folder: ${{ inputs.env_folder }}
+ 

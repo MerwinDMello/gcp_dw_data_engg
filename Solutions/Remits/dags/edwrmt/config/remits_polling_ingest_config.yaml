@@ -1,0 +1,97 @@
+v_sourcesysnm: remits    
+v_databasetype: sqlserver
+v_database: AdmitToRemit
+v_port: 1433
+v_secret_name: revapp_claims_remits_sql/versions/latest
+v_jdbc_class_name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+v_jdbc_jar: mssql-jdbc-12.4.0.jre8.jar
+v_jdkfile: jre-8u351-linux-x64.tar.gz
+v_jdkversion: jre1.8.0_351
+v_jdbcbqpytemplate: Jdbc_Polling_PythonTemplate.py
+v_machine_type: n1-standard-4
+
+poll_select_sql: SELECT process_status FROM v_db_name.dbo.process_status WHERE process_name = 'v_process' AND DATEDIFF(day, 'v_curr_date', process_date) = 0
+poll_select2_sql: SELECT process_status, process_date FROM v_db_name.dbo.process_status WHERE process_name = 'v_process'
+poll_update_sql: UPDATE v_db_name.dbo.process_status SET process_status = 'v_process_status', process_date = 'v_curr_date', dw_last_update_date_time = CURRENT_TIMESTAMP WHERE process_name = 'v_process'
+poll_insert_sql: INSERT INTO v_db_name.dbo.process_status (process_name, process_status, process_date, dw_last_update_date_time) VALUES('v_process','v_process_status','v_curr_date',CURRENT_TIMESTAMP);
+
+schedule:
+  - schedule_interval: 15 6 * * *
+    start_date: pendulum.datetime(2025, 2, 1, tz=current_timezone)
+    frequency: daily
+    dag_name_suffix: core_remits
+    process: Remits
+    polling_type: preprocess
+    process_expected_status: PreUploadCompleted
+    select_sql: poll_select_sql
+    done_file: Remits_YYYYMMDD.done
+    mask_info:
+      type: current_date
+      code: YYYYMMDD
+    attempts: 25
+    sleep_time_mins: 5
+    trigger_dag_ids: ['dag_ingest_remits_sqlserver_daily_core_remits']
+
+  - schedule_interval: None
+    start_date: pendulum.datetime(2025, 2, 1, tz=current_timezone)
+    frequency: daily
+    dag_name_suffix: core_remits
+    process: Remits
+    polling_type: postprocess
+    process_update_status: UploadCompleted
+    select_sql: poll_select2_sql
+    insert_sql: poll_insert_sql
+    update_sql: poll_update_sql
+    trigger_dag_ids: []
+
+  - schedule_interval: 15 18 * * 1-5
+    start_date: pendulum.datetime(2025, 2, 1, tz=current_timezone)
+    frequency: daily
+    dag_name_suffix: ep_payer_recon
+    process: EPPayerRecon
+    polling_type: preprocess
+    process_expected_status: PreUploadCompleted
+    select_sql: poll_select_sql
+    done_file: EPPayerRecon_YYYYMMDD.done
+    mask_info:
+      type: current_date
+      code: YYYYMMDD
+    attempts: 25
+    sleep_time_mins: 5
+    trigger_dag_ids: ['dag_ingest_remits_sqlserver_daily_ep_payer_recon']
+
+  - schedule_interval: None
+    start_date: pendulum.datetime(2025, 2, 1, tz=current_timezone)
+    frequency: daily
+    dag_name_suffix: ep_payer_recon
+    process: EPPayerRecon
+    polling_type: postprocess
+    process_update_status: UploadCompleted
+    select_sql: poll_select2_sql
+    insert_sql: poll_insert_sql
+    update_sql: poll_update_sql
+    trigger_dag_ids: []
+
+  - schedule_interval: None
+    start_date: pendulum.datetime(2025, 2, 1, tz=current_timezone)
+    frequency: daily
+    dag_name_suffix: secondary_bill
+    process: SecondaryBill
+    polling_type: postprocess
+    process_update_status: DownloadCompleted
+    select_sql: poll_select2_sql
+    insert_sql: poll_insert_sql
+    update_sql: poll_update_sql
+    trigger_dag_ids: []
+
+  - schedule_interval: None
+    start_date: pendulum.datetime(2025, 2, 1, tz=current_timezone)
+    frequency: adhoc
+    dag_name_suffix: remits_batch
+    process: RemitsBatch
+    polling_type: postprocess
+    process_update_status: DownloadCompleted
+    select_sql: poll_select2_sql
+    insert_sql: poll_insert_sql
+    update_sql: poll_update_sql
+    trigger_dag_ids: []

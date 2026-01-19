@@ -1,0 +1,54 @@
+CREATE OR REPLACE TABLE {{ params.param_cr_stage_dataset_name }}.cdm_synthesys_patientid_results (
+unique_message_id STRING
+, site_and_associated_model_output_score STRING
+, coid STRING
+, patient_account_number STRING
+, patient_mrn STRING
+, patient_urn STRING
+, patient_last_name STRING
+, patient_first_name STRING
+, patient_dob STRING
+, patient_gender STRING
+, social_security_number STRING
+, patient_address_1 STRING
+, patient_address_2 STRING
+, patient_city STRING
+, patient_state STRING
+, patient_zip_code STRING
+, patient_type_status STRING
+, message_type STRING
+, message_event_type STRING
+, message_flag STRING
+, message_origin_or_requested_date_time STRING
+, message_signed_or_observation_date_time STRING
+, ingestion_date_time STRING
+, message_created_datetime STRING
+, document_type_identifier STRING
+, document_type_text STRING
+, document_type_name_of_coding_sys STRING
+, etl_firstinsert_datetime STRING
+, model_predicted_primary_site_icdo3 STRING
+, model_predicted_primary_site STRING
+, suggested_primary_site_icdo3 STRING
+, suggested_primary_site STRING
+, submitted_primary_site_icdo3 STRING
+, submitted_primary_site STRING
+, transition_of_care STRING
+, user_action STRING
+, user_action_criticality STRING
+, user_action_date_time STRING
+, usr STRING
+, report_assigned_to_user_at STRING
+, attending_physician STRING
+, primary_care_physician STRING
+, pcp_phone STRING
+, facility_mnemonic STRING
+, meditech_network_id STRING
+, model_predicted_sarcoma STRING
+, submitted_sarcoma STRING
+, suggested_sarcoma STRING
+, tumor_type_benign_brain STRING
+, tumor_type_met_to_brain STRING
+, tumor_type_na STRING
+)
+  ;

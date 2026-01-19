@@ -1,0 +1,201 @@
+name: Reusable Workflow for Invoking Metagen Cloud Function
+on:
+  workflow_call:
+    inputs:
+      branch:
+        description: Branch name.
+        required: true
+        type: string
+      dest_path:
+        description: Destination path in GCS.
+        required: false
+        type: string
+      cf_region:
+        description: Cloud Function region.
+        required: false
+        type: string
+      cf_project_id:
+        description: Cloud Function project ID.
+        required: false
+        type: string
+      cf_name:
+        description: Cloud Function name.
+        required: false
+        type: string
+      gcs_file_path:
+        description: Path to metagen files (deprecated - workflow auto-detects all metagen folders).
+        required: false
+        type: string
+        default: "**/metagen/**"
+      execute_sql:
+        description: "Execute SQL flag."
+        required: false
+        type: string
+      context_file:
+        description: "Path to the context file in GCS."
+        required: false
+        type: string
+      update_alation:
+        description: "Update Alation flag."
+        required: false
+        type: string
+      bq_alation_cr_table:
+        description: "BigQuery Alation CR table."
+        required: false
+        type: string
+      ddl_gcs_location:
+        description: "DDL GCS file location."
+        required: false
+        type: string  
+
+jobs:
+  set-matrix:
+    runs-on: [self-hosted, onprem-k8s-arc, dind, enterprise, lnx-amd64]
+    name: Set Matrix Job
+    environment: ${{ inputs.branch || github.ref_name }}
+    permissions:
+      contents: "read"
+      id-token: "write"
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Get changed files in metagen folders
+        id: changed-files
+        uses: tj-actions/changed-files@v46.0.1
+        with:
+          files: "**/metagen/**"
+
+      - name: Set Matrix
+        id: set-matrix
+        run: |
+          # Check if any metagen files have changed
+          if [[ -z "${{ steps.changed-files.outputs.all_changed_files }}" ]]; then
+            echo "No changed files detected in metagen folders. Skipping workflow."
+            echo "matrix=[]" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          echo "Changed files: ${{ steps.changed-files.outputs.all_changed_files }}"
+
+          # Extract unique metagen folder names from changed files
+          echo "${{ steps.changed-files.outputs.all_changed_files }}" | tr ' ' '\n' | while IFS= read -r file; do
+            echo "Processing changed file: $file"
+            # Extract parent folder from path - handles both structures:
+            # - ctrax_documents/data_governance/ctrax_documents/metagen/file.yaml -> ctrax_documents
+            # - data_engineering/data_governance/clinical/metagen/foo/file.yaml -> data_engineering
+            folder_name=$(echo "$file" | sed -n 's|^\([^/]*\)/.*|\1|p')
+            if [[ -n "$folder_name" ]]; then
+              echo "Extracted folder: $folder_name"
+              echo "$folder_name" >> /tmp/changed_folders.txt
+            fi
+          done
+
+          # Get unique folder names that actually have changes
+          if [[ -f /tmp/changed_folders.txt ]]; then
+            folders=$(cat /tmp/changed_folders.txt | sort | uniq)
+            rm -f /tmp/changed_folders.txt
+          else
+            folders=""
+          fi
+
+          if [ -z "$folders" ]; then
+            echo "No valid metagen folders found with changes"
+            echo "matrix=[]" >> $GITHUB_OUTPUT
+          else
+            echo "Found changed metagen folders: $folders"
+            json_array=$(echo "$folders" | jq -R . | jq -sc .)
+            echo "matrix=$json_array" >> $GITHUB_OUTPUT
+            echo "Generated matrix: $json_array"
+          fi
+  # Job to upload files to GCS
+  gcs-sync:
+    runs-on: [self-hosted, onprem-k8s-arc, dind, enterprise, lnx-amd64]
+    name: Upload to GCS
+    needs: set-matrix
+    environment: ${{ inputs.branch || github.ref_name }}
+    permissions:
+      contents: "read"
+      id-token: "write"
+    strategy:
+      fail-fast: false
+      matrix:
+        metagen_folder: ${{ fromJson(needs.set-matrix.outputs.matrix) }}
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Upload to GCS
+        uses: HCACloudDataEngineering/gcp-hin-workflows/gcs/gcs_sync@main
+        with:
+          branch: ${{ inputs.branch || github.ref_name }}
+          workload_identity_provider: ${{ vars.WORKLOAD_IDENTITY_PROVIDER != '' && vars.WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ vars.SERVICEACCOUNT_GITHUB != '' && vars.SERVICEACCOUNT_GITHUB }}
+          gcs_file_path: "**/metagen/**"
+          metagen_folder: ${{ matrix.metagen_folder }}
+
+  # Job to invoke the Metagen Cloud Function
+  invoke-metagen-cloud-function:
+    runs-on: [self-hosted, onprem-k8s-arc, dind, enterprise, lnx-amd64]
+    needs: [set-matrix, gcs-sync]
+    name: Invoke Metagen Cloud Function
+    environment: ${{ inputs.branch || github.ref_name }}
+    permissions:
+      contents: "read"
+      id-token: "write"
+    strategy:
+      fail-fast: false
+      matrix:
+        metagen_folder: ${{ fromJson(needs.set-matrix.outputs.matrix) }}
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Extract environment variables from environments/metagen/config.yaml
+        id: extract-env-vars
+        run: |
+          # Extract the environment (dev, qa, prod) from the branch name
+          env_name=$(echo "${{ inputs.branch }}" | awk '{print tolower($0)}')
+          # Extract all environment variables for the current environment
+          dest_path=$(yq eval ".env.${env_name}.dest_path" environments/metagen/config.yaml)
+          cf_project_id=$(yq eval ".env.${env_name}.cf_project_id" environments/metagen/config.yaml)
+          cf_region=$(yq eval ".env.${env_name}.cf_region" environments/metagen/config.yaml)
+          cf_name=$(yq eval ".env.${env_name}.cf_name" environments/metagen/config.yaml)
+          # Export the variables to the GitHub Actions environment
+          echo "dest_path=$dest_path" >> $GITHUB_ENV
+          echo "cf_project_id=$cf_project_id" >> $GITHUB_ENV
+          echo "cf_region=$cf_region" >> $GITHUB_ENV
+          echo "cf_name=$cf_name" >> $GITHUB_ENV
+          # Debugging output
+          echo "dest_path=$dest_path"
+          echo "cf_project_id=$cf_project_id"
+          echo "cf_region=$cf_region"
+          echo "cf_name=$cf_name"
+          execute_sql=$(yq eval ".env.${env_name}.execute_sql" environments/metagen/config.yaml)
+          echo "execute_sql=$execute_sql" >> $GITHUB_ENV
+          echo "execute_sql=$execute_sql"
+          update_alation=$(yq eval ".env.${env_name}.update_alation" environments/metagen/config.yaml)
+          echo "update_alation=$update_alation" >> $GITHUB_ENV
+          echo "update_alation=$update_alation"
+          bq_alation_cr_table=$(yq eval ".env.${env_name}.bq_alation_cr_table" environments/metagen/config.yaml)
+          echo "bq_alation_cr_table=$bq_alation_cr_table" >> $GITHUB_ENV
+          echo "bq_alation_cr_table=$bq_alation_cr_table"
+
+      - name: Invoke Metagen Cloud Function
+        uses: HCACloudDataEngineering/gcp-hin-workflows/cloud-function/metagen@main
+        with:
+          dest_path: ${{ env.dest_path }}
+          cf_region: ${{ env.cf_region }}
+          cf_project_id: ${{ env.cf_project_id }}
+          cf_name: ${{ env.cf_name }}
+          update_alation: ${{ env.update_alation }}
+          execute_sql: ${{ env.execute_sql }}
+          # context_file: ${{ env.context_file }}
+          # ddl_gcs_location: ${{ env.ddl_gcs_location }}
+          bq_alation_cr_table: ${{ env.bq_alation_cr_table }}
+          gcs_file_path: "**/metagen/**"
+          metagen_folder: ${{ matrix.metagen_folder }}
+          workload_identity_provider: ${{ vars.WORKLOAD_IDENTITY_PROVIDER != '' && vars.WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ vars.SERVICEACCOUNT_GITHUB != '' && vars.SERVICEACCOUNT_GITHUB }}

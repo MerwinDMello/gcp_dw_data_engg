@@ -1,0 +1,34 @@
+CREATE OR REPLACE VIEW edwpsc_views.`pv_factclaimpayer`
+AS SELECT
+  `pv_factclaimpayer`.claimpayerkey,
+  `pv_factclaimpayer`.claimkey,
+  `pv_factclaimpayer`.claimnumber,
+  `pv_factclaimpayer`.coid,
+  `pv_factclaimpayer`.seqnumber,
+  `pv_factclaimpayer`.payeriplankey,
+  `pv_factclaimpayer`.payergroupnumber,
+  `pv_factclaimpayer`.payergroupname,
+  `pv_factclaimpayer`.payersubscribernumber,
+  `pv_factclaimpayer`.payerclaimindicator,
+  `pv_factclaimpayer`.payerliabilityowner,
+  `pv_factclaimpayer`.payersourcechangedflag,
+  `pv_factclaimpayer`.payersourceaprimarykeyvalue,
+  `pv_factclaimpayer`.payersourcetablelastupdated,
+  `pv_factclaimpayer`.payersourcebprimarykeyvalue,
+  `pv_factclaimpayer`.deleteflag,
+  `pv_factclaimpayer`.priorauthno,
+  `pv_factclaimpayer`.regionkey,
+  `pv_factclaimpayer`.practicekey,
+  `pv_factclaimpayer`.practicename,
+  `pv_factclaimpayer`.dwlastupdatedatetime,
+  `pv_factclaimpayer`.sourcesystemcode,
+  `pv_factclaimpayer`.insertedby,
+  `pv_factclaimpayer`.inserteddtm,
+  `pv_factclaimpayer`.modifiedby,
+  `pv_factclaimpayer`.modifieddtm
+  FROM
+    edwpsc_base_views.`pv_factclaimpayer`
+  INNER JOIN edwpsc_base_views.secref_facility
+  ON LPAD(TRIM(secref_facility.co_id, ' '), 5, '0') = LPAD(TRIM(`pv_factclaimpayer`.coid, ' '), 5, '0')
+  AND TRIM(secref_facility.user_id, ' ') = TRIM(session_user(), ' ')
+;

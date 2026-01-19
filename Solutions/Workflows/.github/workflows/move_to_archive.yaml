@@ -1,0 +1,110 @@
+name: Move Files to Archive
+
+on:
+  workflow_call:
+    inputs:
+      move_files_everyday:
+        description: 'Move files every day?'
+        required: false
+        type: boolean
+        default: false
+
+    secrets:
+      GH_TOKEN:
+        description: "GitHub token"
+        required: true
+
+jobs:
+  move-files:
+    runs-on: [onprem-k8s-arc, lnx-amd64, enterprise, dind, self-hosted]
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Find and move files from adhoc and hotfix directories
+      id: list-files
+      run: |
+        # Function to move files while preserving directory structure
+        move_files() {
+          local src_dir="$1"
+          local base_dir=$(basename "$src_dir")
+          find "$src_dir" -type f ! -path "archive/*" | while read -r file; do
+            # Skip .gitkeep files
+            if [[ $(basename "$file") == ".gitkeep" ]]; then
+              continue
+            fi
+            # Check if the file was last committed more than 7 days ago or if move_files_everyday is true
+            local last_commit_time=$(git log -1 --format=%ct -- "$file")
+            local seven_days_ago=$(date -d '7 days ago' +%s)
+            echo "Processing file: $file"
+            echo "Last commit time: $last_commit_time"
+            echo "Seven days ago: $seven_days_ago"
+            if [ "${{ inputs.move_files_everyday }}" = "true" ] || [ "$last_commit_time" -le "$seven_days_ago" ]; then
+              # Create the corresponding directory structure in the archive folder
+              mkdir -p "archive/bigquery/$base_dir"
+              # Move the file to the archive folder
+              echo "Moving $file to archive/bigquery/$base_dir"
+              mv "$file" "archive/bigquery/$base_dir/$(basename "$file")"
+              # Log the moved file
+              echo "$file" >> files_to_move.txt
+            fi
+          done
+        }
+
+        # Initialize the files_to_move.txt file
+        touch files_to_move.txt
+
+        # Find adhoc directories and move files older than 7 days
+        echo "Finding adhoc directories..."
+        find . -type d -name "adhoc" ! -path "*/archive/*" ! -path "*/dags/*" | while read -r dir; do
+          echo "Processing adhoc directory: $dir"
+          move_files "$dir"
+        done
+
+        # Find hotfix directories and move files older than 7 days
+        echo "Finding hotfix directories..."
+        find . -type d -name "hotfix" ! -path "*/archive/*" ! -path "*/dags/*" | while read -r dir; do
+          echo "Processing hotfix directory: $dir"
+          move_files "$dir"
+        done
+
+        # Check the contents of files_to_move.txt
+        if [ -s files_to_move.txt ]; then
+          echo "Contents of files_to_move.txt:"
+          cat files_to_move.txt
+
+          # Set the output variable
+          files=$(cat files_to_move.txt | tr '\n' ',')
+          echo "files=$files" >> $GITHUB_OUTPUT
+        else
+          echo "No files were moved."
+          echo "files=" >> $GITHUB_OUTPUT
+        fi
+
+    - name: Print files to be moved
+      run: |
+        echo "Files to be moved:"
+        echo "${{ steps.list-files.outputs.files }}"
+
+    - name: Commit and push changes
+      if: success()
+      run: |
+        # Check if there are any changes
+        if git diff-index --quiet HEAD --; then
+          echo "No changes to commit."
+          exit 0
+        fi
+        git config --global user.name 'github-actions[bot]'
+        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+        #git config --global url."git@github.com:".insteadOf "https://github.com/"
+        git status
+        BRANCH_NAME="archive-$(date +'%Y-%m-%d')"
+        git checkout -b "$BRANCH_NAME"
+        git add . ':!files_to_move.txt'
+        git commit -m "Moved files to archive"
+        git push -u origin "$BRANCH_NAME"
+        gh pr create --head "$BRANCH_NAME" --title "Archive Adhoc Hotfix folders - $(date +'%Y-%m-%d')" --body "archive"
+        gh pr merge "$BRANCH_NAME" --merge --admin --delete-branch
+      env:
+        GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}

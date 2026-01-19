@@ -1,0 +1,107 @@
+name: GCS Reusable Workflow
+# This workflow handles GCS operations such as copying, renaming, and deleting files or directories.
+# 
+# Usage:
+# - To copy files or directories while preserving the directory structure:
+#   gcloud storage cp -r gs://bucket1/foo gs://bucket2/
+#   This will copy the entire 'foo' directory from 'bucket1' to 'bucket2'.
+#
+# - To move files or directories while preserving the directory structure:
+#   gcloud storage mv -r gs://bucket1/foo gs://bucket2/
+#   This will move the entire 'foo' directory from 'bucket1' to 'bucket2'.
+#
+# - To copy the contents of a directory without copying the directory itself:
+#   gcloud storage cp -r gs://bucket1/foo/* gs://bucket2/foo/
+#   This will copy all contents of 'foo' to 'bucket2/foo', preserving the directory structure within 'foo'.
+#
+# - To move the contents of a directory without moving the directory itself:
+#   gcloud storage mv -r gs://bucket1/foo/* gs://bucket2/foo/
+#   This will move all contents of 'foo' to 'bucket2/foo', preserving the directory structure within 'foo'.
+
+on:
+  workflow_call:
+    inputs:
+      source_path:
+        description: 'Source path of the file(s) or folder in GCS'
+        required: false
+        type: string
+        default: 'gs://default-source-path/*'
+      destination_path:
+        description: 'Destination path of the file(s) or folder in GCS'
+        required: false
+        type: string
+        default: 'gs://default-destination-path/'
+      action:
+        description: 'Action to perform: copy, move, or delete'
+        required: true
+        type: string
+      ticket_number:
+        description: 'Ticket number associated with the action'
+        required: true
+        type: string
+      gcp_env:
+        description: 'The GCP environment to authenticate to'
+        required: true
+        type: string
+    secrets:
+        workload_identity_provider:
+          description: "The workload identity provider for authentication."
+          required: false
+        service_account:
+          description: "The service account for authentication."
+          required: false
+jobs:
+  gcs_workflow:
+    runs-on: [self-hosted, X64, enterprise, Linux, onprem-k8s-arc, lnx-amd64, std]
+    environment: ${{ inputs.gcp_env }}
+    env:
+      SOURCE_PATH: ${{ inputs.source_path }}
+      DESTINATION_PATH: ${{ inputs.destination_path }}
+      ACTION: ${{ inputs.action }}
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Authenticate to Google Cloud
+      uses: google-github-actions/auth@v2
+      with:
+        workload_identity_provider:  ${{ vars.WORKLOAD_IDENTITY_PROVIDER != '' && vars.WORKLOAD_IDENTITY_PROVIDER || secrets.workload_identity_provider }}
+        service_account: ${{ vars.SERVICEACCOUNT_GITHUB != '' && vars.SERVICEACCOUNT_GITHUB || vars.SERVICE_ACCOUNT != '' && vars.SERVICE_ACCOUNT || secrets.service_account }}
+
+    - name: Set up Cloud SDK
+      uses: google-github-actions/setup-gcloud@v2
+
+    - name: Ticket number
+      run: "echo 'Ticket number: ${{ github.event.inputs.ticket_number }}'"
+
+    - name: Validate destination path for delete action
+      if: ${{ env.ACTION == 'delete' }}
+      run: |
+        if [[ "${{ env.DESTINATION_PATH }}" != gs://*/* ]]; then
+          echo "Invalid destination path: ${{ env.DESTINATION_PATH }}. It must include both the bucket name and the path within the bucket."
+          exit 1
+        fi
+
+    - name: Perform GCS action - ${{ env.ACTION }}
+      run: |
+        if [ "${{ env.ACTION }}" == "copy" ]; then
+          gcloud storage cp -r "${{ env.SOURCE_PATH }}" "${{ env.DESTINATION_PATH }}"
+        elif [ "${{ env.ACTION }}" == "move" ]; then
+          gsutil mv "${{ env.SOURCE_PATH }}" "${{ env.DESTINATION_PATH }}"
+        elif [ "${{ env.ACTION }}" == "delete" ]; then
+          gcloud storage rm -r "${{ env.DESTINATION_PATH }}"
+        else
+          echo "Invalid action: ${{ env.ACTION }}. Use 'copy', 'move', or 'delete'"
+          exit 1
+        fi
+
+    - name: Output summary
+      if: always()
+      run: |
+        echo "### GCS Action Summary" >> $GITHUB_STEP_SUMMARY
+        echo "**Source Path:** ${{ env.SOURCE_PATH }}" >> $GITHUB_STEP_SUMMARY
+        echo "**Destination Path:** ${{ env.DESTINATION_PATH }}" >> $GITHUB_STEP_SUMMARY
+        echo "**Action:** ${{ env.ACTION }}" >> $GITHUB_STEP_SUMMARY
+        echo "**GCP Environment:** ${{ inputs.gcp_env }}" >> $GITHUB_STEP_SUMMARY
+        echo "**Ticket Number:** ${{ github.event.inputs.ticket_number }}" >> $GITHUB_STEP_SUMMARY

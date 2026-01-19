@@ -1,0 +1,1 @@
+SELECT timestamp_trunc(current_datetime('US/Central'), SECOND) AS dw_last_update_date_time;

@@ -1,0 +1,36 @@
+integrate:
+- source_system: galen
+  frequency: None
+  start_date: pendulum.datetime(2022, 12, 6, tz=timezone)
+  schedule: [None]
+  type: core_tables
+  dependency:
+  - table: ref_nursing_school_campus
+    has_sensor: 'No'
+    sql:
+    - name: hdw_ref_nursing_school_campus_wrk.sql
+    - name: hdw_ref_nursing_school_campus.sql
+
+  - table: ref_nursing_program
+    has_sensor: 'No'
+    sql:
+    - name: hdw_ref_nursing_program_wrk.sql
+    - name: hdw_ref_nursing_program.sql
+
+  - table: nursing_student
+    has_sensor: 'No'
+    sql:
+    - name: hdw_nursing_student_wrk.sql
+    - name: hdw_nursing_student.sql
+
+  - table: student_program_graduation
+    has_sensor: 'No'
+    sql:
+    - name: hdw_student_program_graduation_wrk.sql
+    - name: hdw_student_program_graduation.sql
+
+  - table: junc_student_exam
+    has_sensor: 'No'
+    sql:  
+    - name: hdw_junc_student_exam_wrk.sql
+    - name: hdw_junc_student_exam.sql

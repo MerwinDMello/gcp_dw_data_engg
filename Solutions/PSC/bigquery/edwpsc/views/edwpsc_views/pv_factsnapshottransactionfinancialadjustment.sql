@@ -1,0 +1,47 @@
+CREATE OR REPLACE VIEW edwpsc_views.`pv_factsnapshottransactionfinancialadjustment`
+AS SELECT
+  `pv_factsnapshottransactionfinancialadjustment`.transactionfinancialadjustmentkey,
+  `pv_factsnapshottransactionfinancialadjustment`.monthid,
+  `pv_factsnapshottransactionfinancialadjustment`.snapshotdate,
+  `pv_factsnapshottransactionfinancialadjustment`.regionkey,
+  `pv_factsnapshottransactionfinancialadjustment`.practicekey,
+  `pv_factsnapshottransactionfinancialadjustment`.practiceid,
+  `pv_factsnapshottransactionfinancialadjustment`.coid,
+  `pv_factsnapshottransactionfinancialadjustment`.gldepartment,
+  `pv_factsnapshottransactionfinancialadjustment`.claimkey,
+  `pv_factsnapshottransactionfinancialadjustment`.claimnumber,
+  `pv_factsnapshottransactionfinancialadjustment`.patientkey,
+  `pv_factsnapshottransactionfinancialadjustment`.patientid,
+  `pv_factsnapshottransactionfinancialadjustment`.servicingproviderkey,
+  `pv_factsnapshottransactionfinancialadjustment`.servicingproviderid,
+  `pv_factsnapshottransactionfinancialadjustment`.renderingproviderkey,
+  `pv_factsnapshottransactionfinancialadjustment`.renderingproviderid,
+  `pv_factsnapshottransactionfinancialadjustment`.facilitykey,
+  `pv_factsnapshottransactionfinancialadjustment`.facilityid,
+  `pv_factsnapshottransactionfinancialadjustment`.claimdatekey,
+  `pv_factsnapshottransactionfinancialadjustment`.claimdatemonthid,
+  `pv_factsnapshottransactionfinancialadjustment`.servicedatekey,
+  `pv_factsnapshottransactionfinancialadjustment`.servicedatemonthid,
+  `pv_factsnapshottransactionfinancialadjustment`.iplan1iplankey,
+  `pv_factsnapshottransactionfinancialadjustment`.iplan1id,
+  `pv_factsnapshottransactionfinancialadjustment`.financialclasskey,
+  `pv_factsnapshottransactionfinancialadjustment`.transactionid,
+  `pv_factsnapshottransactionfinancialadjustment`.transactionamt,
+  `pv_factsnapshottransactionfinancialadjustment`.transactiondatekey,
+  `pv_factsnapshottransactionfinancialadjustment`.transactiondatemonthid,
+  `pv_factsnapshottransactionfinancialadjustment`.adjustmentcodekey,
+  `pv_factsnapshottransactionfinancialadjustment`.adjustmentcode,
+  `pv_factsnapshottransactionfinancialadjustment`.transactiontype,
+  `pv_factsnapshottransactionfinancialadjustment`.adjustmentid,
+  `pv_factsnapshottransactionfinancialadjustment`.dwlastupdatedatetime,
+  `pv_factsnapshottransactionfinancialadjustment`.sourcesystemcode,
+  `pv_factsnapshottransactionfinancialadjustment`.insertedby,
+  `pv_factsnapshottransactionfinancialadjustment`.inserteddtm,
+  `pv_factsnapshottransactionfinancialadjustment`.modifiedby,
+  `pv_factsnapshottransactionfinancialadjustment`.modifieddtm
+  FROM
+    edwpsc_base_views.`pv_factsnapshottransactionfinancialadjustment`
+  INNER JOIN edwpsc_base_views.secref_facility
+  ON LPAD(TRIM(secref_facility.co_id, ' '), 5, '0') = LPAD(TRIM(`pv_factsnapshottransactionfinancialadjustment`.coid, ' '), 5, '0')
+  AND TRIM(secref_facility.user_id, ' ') = TRIM(session_user(), ' ')
+;

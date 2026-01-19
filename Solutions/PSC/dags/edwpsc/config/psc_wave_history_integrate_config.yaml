@@ -1,0 +1,509 @@
+integrate:
+- source_system: psc
+  frequency: daily
+  dag_name_suffix: wave-history
+  start_date: pendulum.datetime(2025, 2, 1, tz=current_timezone)
+  schedule: None
+  type: sqlserver
+  done_file: None
+  server-04:
+    trigger_dag_ids: []
+    tables:
+    - table: ECW_RefCoidSmryMonth
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RefCoidSmryMonth.sql
+      validation:
+      - name: NONE
+    - table: ECW_AllClaimsCube
+      has_sensor: 'No'
+      sql:
+      - name: ECW_AllClaimsCube.sql
+      validation:
+      - name: NONE
+    - table: ECW_FactSnapShotAR
+      has_sensor: 'No'
+      sql:
+      - name: ECW_FactSnapShotAR.sql
+      validation:
+      - name: NONE
+    - table: ECW_FactSnapshotCCUInventory
+      has_sensor: 'No'
+      sql:
+      - name: ECW_FactSnapshotCCUInventory.sql
+      validation:
+      - name: NONE
+    - table: ECW_FactSnapShotChangesInUnits
+      has_sensor: 'No'
+      sql:
+      - name: ECW_FactSnapShotChangesInUnits.sql
+      validation:
+      - name: NONE
+    - table: ECW_FactSnapShotChargeLine
+      has_sensor: 'No'
+      sql:
+      - name: ECW_FactSnapShotChargeLine.sql
+      validation:
+      - name: NONE
+    - table: ECW_FactSnapShotClaimsOnHold
+      has_sensor: 'No'
+      sql:
+      - name: ECW_FactSnapShotClaimsOnHold.sql
+      validation:
+      - name: NONE
+    - table: ECW_FactSnapShotClaimUnBilledStatus
+      has_sensor: 'No'
+      sql:
+      - name: ECW_FactSnapShotClaimUnBilledStatus.sql
+      validation:
+      - name: NONE
+    - table: ECW_FactSnapShotDiagnosis
+      has_sensor: 'No'
+      sql:
+      - name: ECW_FactSnapShotDiagnosis.sql
+      validation:
+      - name: NONE
+    - table: ECW_FactSnapShotEncountersWithoutClaimsWithPayments
+      has_sensor: 'No'
+      sql:
+      - name: ECW_FactSnapShotEncountersWithoutClaimsWithPayments.sql
+      validation:
+      - name: NONE
+    - table: ECW_FactSnapShotFinancialAdjustmentClaim
+      has_sensor: 'No'
+      sql:
+      - name: ECW_FactSnapShotFinancialAdjustmentClaim.sql
+      validation:
+      - name: NONE
+    - table: ECW_FactSnapShotFinancialAdjustmentLine
+      has_sensor: 'No'
+      sql:
+      - name: ECW_FactSnapShotFinancialAdjustmentLine.sql
+      validation:
+      - name: NONE
+    - table: ECW_FactSnapShotIETV2Detail
+      has_sensor: 'No'
+      sql:
+      - name: ECW_FactSnapShotIETV2Detail.sql
+      validation:
+      - name: NONE
+    - table: ECW_FactSnapShotInitialDenials
+      has_sensor: 'No'
+      sql:
+      - name: ECW_FactSnapShotInitialDenials.sql
+      validation:
+      - name: NONE
+    - table: ECW_FactSnapShotPaymentClaim
+      has_sensor: 'No'
+      sql:
+      - name: ECW_FactSnapShotPaymentClaim.sql
+      validation:
+      - name: NONE
+    - table: ECW_FactSnapShotPaymentLine
+      has_sensor: 'No'
+      sql:
+      - name: ECW_FactSnapShotPaymentLine.sql
+      validation:
+      - name: NONE
+    - table: ECW_FactSnapShotRiskAnalysis
+      has_sensor: 'No'
+      sql:
+      - name: ECW_FactSnapShotRiskAnalysis.sql
+      validation:
+      - name: NONE
+    - table: ECW_FactSnapShotTransactionCharge
+      has_sensor: 'No'
+      sql:
+      - name: ECW_FactSnapShotTransactionCharge.sql
+      validation:
+      - name: NONE
+    - table: ECW_FactSnapShotTransactionContractualAdjustment
+      has_sensor: 'No'
+      sql:
+      - name: ECW_FactSnapShotTransactionContractualAdjustment.sql
+      validation:
+      - name: NONE
+    - table: ECW_FactSnapShotTransactionFinancialAdjustment
+      has_sensor: 'No'
+      sql:
+      - name: ECW_FactSnapShotTransactionFinancialAdjustment.sql
+      validation:
+      - name: NONE
+    - table: ECW_FactSnapShotTransactionPayment
+      has_sensor: 'No'
+      sql:
+      - name: ECW_FactSnapShotTransactionPayment.sql
+      validation:
+      - name: NONE
+    - table: Artiva_RprtTierAmt
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_RprtTierAmt.sql
+      validation:
+      - name: NONE
+    - table: ECW_RprtAccountingValuation
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RprtAccountingValuation.sql
+      validation:
+      - name: NONE
+    - table: ECW_RprtARComp
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RprtARComp.sql
+      validation:
+      - name: NONE
+    - table: ECW_RprtARCompMOR
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RprtARCompMOR.sql
+      validation:
+      - name: NONE
+    - table: Artiva_RprtPool
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_RprtPool.sql
+      validation:
+      - name: NONE
+    - table: Artiva_RprtAdjustmentRequests
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_RprtAdjustmentRequests.sql
+      validation:
+      - name: NONE
+    - table: Artiva_RprtPESnapshot
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_RprtPESnapshot.sql
+      validation:
+      - name: NONE
+    - table: CCU_RprtCoidProvider
+      has_sensor: 'No'
+      sql:
+      - name: CCU_RprtCoidProvider.sql
+      validation:
+      - name: NONE
+    - table: CCU_RprtCoidProviderVariance
+      has_sensor: 'No'
+      sql:
+      - name: CCU_RprtCoidProviderVariance.sql
+      validation:
+      - name: NONE
+    - table: CCU_RprtEwocInventoryEcw
+      has_sensor: 'No'
+      sql:
+      - name: CCU_RprtEwocInventoryEcw.sql
+      validation:
+      - name: NONE
+    - table: CCU_RprtEwocInventoryPK
+      has_sensor: 'No'
+      sql:
+      - name: CCU_RprtEwocInventoryPK.sql
+      validation:
+      - name: NONE
+    - table: CCU_RprtVendorRollout
+      has_sensor: 'No'
+      sql:
+      - name: CCU_RprtVendorRollout.sql
+      validation:
+      - name: NONE
+    - table: ECW_RprtCodingVolumes
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RprtCodingVolumes.sql
+      validation:
+      - name: NONE
+    - table: ECW_RprtEraTransactionCount
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RprtEraTransactionCount.sql
+      validation:
+      - name: NONE
+    - table: ECW_RprtHistoricalAtRiskMOR
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RprtHistoricalAtRiskMOR.sql
+      validation:
+      - name: NONE
+    - table: ECW_RprtIccChargeLag
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RprtIccChargeLag.sql
+      validation:
+      - name: NONE
+    - table: ECW_RprtICCClaimTimeline
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RprtICCClaimTimeline.sql
+      validation:
+      - name: NONE
+    - table: ECW_RprtICCReleasedClaims
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RprtICCReleasedClaims.sql
+      validation:
+      - name: NONE
+    - table: ECW_RprtICCSubcategoryError
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RprtICCSubcategoryError.sql
+      validation:
+      - name: NONE
+    - table: ECW_RprtICCSubcategoryErrors
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RprtICCSubcategoryErrors.sql
+      validation:
+      - name: NONE
+    - table: ECW_RprtIetSummaryByClaim
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RprtIetSummaryByClaim.sql
+      validation:
+      - name: NONE
+    - table: ECW_RprtIetTrendingMonthly
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RprtIetTrendingMonthly.sql
+      validation:
+      - name: NONE
+    - table: ECW_RprtIetTrendingOpenIETs
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RprtIetTrendingOpenIETs.sql
+      validation:
+      - name: NONE
+    - table: ECW_RprtMorStats
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RprtMorStats.sql
+      validation:
+      - name: NONE
+    - table: ECW_RprtPEClaimsOnHoldRollForward
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RprtPEClaimsOnHoldRollForward.sql
+      validation:
+      - name: NONE
+    - table: EPIC_FactSnapShotAR
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_FactSnapShotAR.sql
+      validation:
+      - name: NONE
+    - table: EPIC_FactSnapShotChangesInUnits
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_FactSnapShotChangesInUnits.sql
+      validation:
+      - name: NONE
+    - table: EPIC_FactSnapShotChargeLine
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_FactSnapShotChargeLine.sql
+      validation:
+      - name: NONE
+    - table: EPIC_FactSnapShotClaimsOnHold
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_FactSnapShotClaimsOnHold.sql
+      validation:
+      - name: NONE
+    - table: EPIC_FactSnapShotClaimUnBilledStatus
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_FactSnapShotClaimUnBilledStatus.sql
+      validation:
+      - name: NONE
+    - table: EPIC_FactSnapShotDiagnosis
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_FactSnapShotDiagnosis.sql
+      validation:
+      - name: NONE
+    - table: EPIC_FactSnapShotEncountersWithoutClaimsWithPayments
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_FactSnapShotEncountersWithoutClaimsWithPayments.sql
+      validation:
+      - name: NONE
+    - table: EPIC_FactSnapShotFinancialAdjustmentClaim
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_FactSnapShotFinancialAdjustmentClaim.sql
+      validation:
+      - name: NONE
+    - table: EPIC_FactSnapShotFinancialAdjustmentLine
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_FactSnapShotFinancialAdjustmentLine.sql
+      validation:
+      - name: NONE
+    - table: EPIC_FactSnapShotInitialDenials
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_FactSnapShotInitialDenials.sql
+      validation:
+      - name: NONE
+    - table: EPIC_FactSnapShotPaymentClaim
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_FactSnapShotPaymentClaim.sql
+      validation:
+      - name: NONE
+    - table: EPIC_FactSnapShotPaymentLine
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_FactSnapShotPaymentLine.sql
+      validation:
+      - name: NONE
+    - table: EPIC_FactSnapShotRiskAnalysis
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_FactSnapShotRiskAnalysis.sql
+      validation:
+      - name: NONE
+    - table: EPIC_FactSnapShotTransactionCharge
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_FactSnapShotTransactionCharge.sql
+      validation:
+      - name: NONE
+    - table: EPIC_FactSnapShotTransactionContractualAdjustment
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_FactSnapShotTransactionContractualAdjustment.sql
+      validation:
+      - name: NONE
+    - table: EPIC_FactSnapShotTransactionFinancialAdjustment
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_FactSnapShotTransactionFinancialAdjustment.sql
+      validation:
+      - name: NONE
+    - table: EPIC_FactSnapShotTransactionPayment
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_FactSnapShotTransactionPayment.sql
+      validation:
+      - name: NONE
+    - table: PV_FactSnapShotAR
+      has_sensor: 'No'
+      sql:
+      - name: PV_FactSnapShotAR.sql
+      validation:
+      - name: NONE
+    - table: PV_FactSnapShotChangesInUnits
+      has_sensor: 'No'
+      sql:
+      - name: PV_FactSnapShotChangesInUnits.sql
+      validation:
+      - name: NONE
+    - table: PV_FactSnapShotChargeLine
+      has_sensor: 'No'
+      sql:
+      - name: PV_FactSnapShotChargeLine.sql
+      validation:
+      - name: NONE
+    - table: PV_FactSnapShotClaimsOnHold
+      has_sensor: 'No'
+      sql:
+      - name: PV_FactSnapShotClaimsOnHold.sql
+      validation:
+      - name: NONE
+    - table: PV_FactSnapShotClaimUnBilledStatus
+      has_sensor: 'No'
+      sql:
+      - name: PV_FactSnapShotClaimUnBilledStatus.sql
+      validation:
+      - name: NONE
+    - table: PV_FactSnapShotDiagnosis
+      has_sensor: 'No'
+      sql:
+      - name: PV_FactSnapShotDiagnosis.sql
+      validation:
+      - name: NONE
+    - table: PV_FactSnapShotEncountersWithoutClaimsWithPayments
+      has_sensor: 'No'
+      sql:
+      - name: PV_FactSnapShotEncountersWithoutClaimsWithPayments.sql
+      validation:
+      - name: NONE
+    - table: PV_FactSnapShotFinancialAdjustmentClaim
+      has_sensor: 'No'
+      sql:
+      - name: PV_FactSnapShotFinancialAdjustmentClaim.sql
+      validation:
+      - name: NONE
+    - table: PV_FactSnapShotFinancialAdjustmentLine
+      has_sensor: 'No'
+      sql:
+      - name: PV_FactSnapShotFinancialAdjustmentLine.sql
+      validation:
+      - name: NONE
+    - table: PV_FactSnapShotInitialDenials
+      has_sensor: 'No'
+      sql:
+      - name: PV_FactSnapShotInitialDenials.sql
+      validation:
+      - name: NONE
+    - table: PV_FactSnapShotPaymentClaim
+      has_sensor: 'No'
+      sql:
+      - name: PV_FactSnapShotPaymentClaim.sql
+      validation:
+      - name: NONE
+    - table: PV_FactSnapShotPaymentLine
+      has_sensor: 'No'
+      sql:
+      - name: PV_FactSnapShotPaymentLine.sql
+      validation:
+      - name: NONE
+    - table: PV_FactSnapShotRiskAnalysis
+      has_sensor: 'No'
+      sql:
+      - name: PV_FactSnapShotRiskAnalysis.sql
+      validation:
+      - name: NONE
+    - table: PV_FactSnapShotTransactionCharge
+      has_sensor: 'No'
+      sql:
+      - name: PV_FactSnapShotTransactionCharge.sql
+      validation:
+      - name: NONE
+    - table: PV_FactSnapShotTransactionContractualAdjustment
+      has_sensor: 'No'
+      sql:
+      - name: PV_FactSnapShotTransactionContractualAdjustment.sql
+      validation:
+      - name: NONE
+    - table: PV_FactSnapShotTransactionFinancialAdjustment
+      has_sensor: 'No'
+      sql:
+      - name: PV_FactSnapShotTransactionFinancialAdjustment.sql
+      validation:
+      - name: NONE
+    - table: PV_FactSnapShotTransactionPayment
+      has_sensor: 'No'
+      sql:
+      - name: PV_FactSnapShotTransactionPayment.sql
+      validation:
+      - name: NONE
+    - table: PV_FactSnapShotInvoice
+      has_sensor: 'No'
+      sql:
+      - name: PV_FactSnapShotInvoice.sql
+      validation:
+      - name: NONE
+    - table: CCU_RprtEwocInventoryPV
+      has_sensor: 'No'
+      sql:
+      - name: CCU_RprtEwocInventoryPV.sql
+      validation:
+      - name: NONE
+    - table: ECW_FactChargeLagSummary
+      has_sensor: 'No'
+      sql:
+      - name: ECW_FactChargeLagSummary.sql
+      validation:
+      - name: NONE

@@ -1,0 +1,46 @@
+CREATE OR REPLACE VIEW edwpsc_views.`pv_factsnapshottransactioncontractualadjustment`
+AS SELECT
+  `pv_factsnapshottransactioncontractualadjustment`.transactioncontractualadjustmentkey,
+  `pv_factsnapshottransactioncontractualadjustment`.monthid,
+  `pv_factsnapshottransactioncontractualadjustment`.snapshotdate,
+  `pv_factsnapshottransactioncontractualadjustment`.regionkey,
+  `pv_factsnapshottransactioncontractualadjustment`.practicekey,
+  `pv_factsnapshottransactioncontractualadjustment`.practiceid,
+  `pv_factsnapshottransactioncontractualadjustment`.coid,
+  `pv_factsnapshottransactioncontractualadjustment`.gldepartment,
+  `pv_factsnapshottransactioncontractualadjustment`.claimkey,
+  `pv_factsnapshottransactioncontractualadjustment`.claimnumber,
+  `pv_factsnapshottransactioncontractualadjustment`.patientkey,
+  `pv_factsnapshottransactioncontractualadjustment`.patientid,
+  `pv_factsnapshottransactioncontractualadjustment`.servicingproviderkey,
+  `pv_factsnapshottransactioncontractualadjustment`.servicingproviderid,
+  `pv_factsnapshottransactioncontractualadjustment`.renderingproviderkey,
+  `pv_factsnapshottransactioncontractualadjustment`.renderingproviderid,
+  `pv_factsnapshottransactioncontractualadjustment`.facilitykey,
+  `pv_factsnapshottransactioncontractualadjustment`.facilityid,
+  `pv_factsnapshottransactioncontractualadjustment`.claimdatekey,
+  `pv_factsnapshottransactioncontractualadjustment`.claimdatemonthid,
+  `pv_factsnapshottransactioncontractualadjustment`.servicedatekey,
+  `pv_factsnapshottransactioncontractualadjustment`.servicedatemonthid,
+  `pv_factsnapshottransactioncontractualadjustment`.iplan1iplankey,
+  `pv_factsnapshottransactioncontractualadjustment`.iplan1id,
+  `pv_factsnapshottransactioncontractualadjustment`.financialclasskey,
+  `pv_factsnapshottransactioncontractualadjustment`.transactionid,
+  `pv_factsnapshottransactioncontractualadjustment`.transactionamt,
+  `pv_factsnapshottransactioncontractualadjustment`.transactiondatekey,
+  `pv_factsnapshottransactioncontractualadjustment`.transactiondatemonthid,
+  `pv_factsnapshottransactioncontractualadjustment`.dwlastupdatedatetime,
+  `pv_factsnapshottransactioncontractualadjustment`.sourcesystemcode,
+  `pv_factsnapshottransactioncontractualadjustment`.insertedby,
+  `pv_factsnapshottransactioncontractualadjustment`.inserteddtm,
+  `pv_factsnapshottransactioncontractualadjustment`.modifiedby,
+  `pv_factsnapshottransactioncontractualadjustment`.modifieddtm,
+  `pv_factsnapshottransactioncontractualadjustment`.transactiontype,
+  `pv_factsnapshottransactioncontractualadjustment`.paymentfromiplanid,
+  `pv_factsnapshottransactioncontractualadjustment`.paymentdetailid
+  FROM
+    edwpsc_base_views.`pv_factsnapshottransactioncontractualadjustment`
+  INNER JOIN edwpsc_base_views.secref_facility
+  ON LPAD(TRIM(secref_facility.co_id, ' '), 5, '0') = LPAD(TRIM(`pv_factsnapshottransactioncontractualadjustment`.coid, ' '), 5, '0')
+  AND TRIM(secref_facility.user_id, ' ') = TRIM(session_user(), ' ')
+;

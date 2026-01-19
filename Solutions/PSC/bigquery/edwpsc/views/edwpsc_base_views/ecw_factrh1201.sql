@@ -1,0 +1,31 @@
+CREATE OR REPLACE VIEW edwpsc_base_views.`ecw_factrh1201`
+AS SELECT
+  `ecw_factrh1201`.rh1201key,
+  `ecw_factrh1201`.importdatekey,
+  `ecw_factrh1201`.claimkey,
+  `ecw_factrh1201`.claimnumber,
+  `ecw_factrh1201`.coid,
+  `ecw_factrh1201`.rh1201claimid,
+  `ecw_factrh1201`.rh1201insurancebilledname,
+  `ecw_factrh1201`.rh1201billstatuscode,
+  `ecw_factrh1201`.rh1201billclaimstatuskey,
+  `ecw_factrh1201`.rh1201releasestatuskey,
+  `ecw_factrh1201`.rh1201typeofbill,
+  `ecw_factrh1201`.rh1201claimdatekey,
+  `ecw_factrh1201`.rh1201stmtthrudatekey,
+  `ecw_factrh1201`.rh1201totalamt,
+  `ecw_factrh1201`.rh1201userid,
+  `ecw_factrh1201`.rh1201holdcode,
+  `ecw_factrh1201`.rh1201holdcodeprefixkey,
+  `ecw_factrh1201`.sourceprimarykeyvalue,
+  `ecw_factrh1201`.dwlastupdatedatetime,
+  `ecw_factrh1201`.sourcesystemcode,
+  `ecw_factrh1201`.insertedby,
+  `ecw_factrh1201`.inserteddtm,
+  `ecw_factrh1201`.modifiedby,
+  `ecw_factrh1201`.modifieddtm,
+  `ecw_factrh1201`.fullclaimnumber,
+  `ecw_factrh1201`.regionkey
+  FROM
+    edwpsc.`ecw_factrh1201`
+;

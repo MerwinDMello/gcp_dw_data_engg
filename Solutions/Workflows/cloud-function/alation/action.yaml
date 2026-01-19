@@ -1,0 +1,92 @@
+name: Alation Cloud Functions Invoker
+description: A composite action to invoke Alation Processor and Collector Cloud Functions.
+inputs:
+  function_type:
+    description: "Type of Cloud Function to invoke (processor or collector)"
+    required: true
+  branch:
+    description: "Branch name to determine the environment (e.g., dev, qa, prod)"
+    required: true
+  workload_identity_provider:
+    description: 'Workload Identity Provider'
+    required: true
+  service_account:
+    description: 'Service Account'
+    required: true
+outputs:
+  result:
+    description: "Result of the Cloud Function invocation"
+runs:
+  using: "composite"
+  steps:
+    # Extract environment variables from environments/metadata/config.yaml
+    - name: Extract environment variables
+      id: extract-env-vars
+      shell: bash
+      run: |
+        env_name=$(echo "${{ inputs.branch }}" | awk '{print tolower($0)}')
+
+        # Common variables
+        dest_path=$(yq eval ".env.${env_name}.dest_path" environments/metadata/config.yaml)
+        cf_project_id=$(yq eval ".env.${env_name}.cf_project_id" environments/metadata/config.yaml)
+        cf_region=$(yq eval ".env.${env_name}.cf_region" environments/metadata/config.yaml)
+
+        # Function-specific variables
+        if [ "${{ inputs.function_type }}" == "processor" ]; then
+          cf_name=$(yq eval ".env.${env_name}.alation_cf_processor_name" environments/metadata/config.yaml)
+          alation_cr_table=$(yq eval ".env.${env_name}.alation_cr_table" environments/metadata/config.yaml)
+          alation_workflow_name=$(yq eval ".env.${env_name}.alation_workflow_name" environments/metadata/config.yaml)
+          alter_sql_gcs_bucket=$(yq eval ".env.${env_name}.alter_sql_gcs_bucket" environments/metadata/config.yaml)
+        elif [ "${{ inputs.function_type }}" == "collector" ]; then
+          cf_name=$(yq eval ".env.${env_name}.alation_cf_collector_name" environments/metadata/config.yaml)
+          alation_cr_table=$(yq eval ".env.${env_name}.alation_cr_table" environments/metadata/config.yaml)
+        else
+          echo "Invalid function_type: ${{ inputs.function_type }}"
+          exit 1
+        fi
+
+        # Export variables
+        echo "cf_name=$cf_name" >> $GITHUB_ENV
+        echo "cf_project_id=$cf_project_id" >> $GITHUB_ENV
+        echo "cf_region=$cf_region" >> $GITHUB_ENV
+        echo "alation_cr_table=$alation_cr_table" >> $GITHUB_ENV
+        if [ "${{ inputs.function_type }}" == "processor" ]; then
+          echo "alation_workflow_name=$alation_workflow_name" >> $GITHUB_ENV
+          echo "alter_sql_gcs_bucket=$alter_sql_gcs_bucket" >> $GITHUB_ENV
+          echo "alation_workflow_name=$alation_workflow_name"
+          echo "alter_sql_gcs_bucket=$alter_sql_gcs_bucket"
+        fi
+
+        # echo variables for debugging
+        echo "cf_name=$cf_name"
+        echo "cf_project_id=$cf_project_id"
+        echo "cf_region=$cf_region"
+        echo "alation_cr_table=$alation_cr_table"
+
+    - id: auth
+      uses: google-github-actions/auth@v1
+      with:
+        workload_identity_provider: ${{ inputs.workload_identity_provider }}
+        service_account: ${{ inputs.service_account }}
+        id_token_audience: https://${{ env.cf_region }}-${{ env.cf_project_id }}.cloudfunctions.net/${{ env.cf_name }}
+        token_format: id_token
+
+    # Invoke the Processor Cloud Function
+    - name: Invoke Cloud Function
+      if: ${{ inputs.function_type == 'processor' }}
+      shell: bash
+      run: |
+        curl -X POST "https://${{ env.cf_region }}-${{ env.cf_project_id }}.cloudfunctions.net/${{ env.cf_name }}" \
+          -H "Authorization: Bearer ${{ steps.auth.outputs.id_token }}" \
+          -H "Content-Type: application/json" \
+          -d "{\"bq_alation_cr_table\": \"${{ env.alation_cr_table }}\", \"alation_workflow_name\": \"${{ env.alation_workflow_name }}\", \"alter_sql_gcs_bucket\": \"${{ env.alter_sql_gcs_bucket }}\", \"execute_sql\": \"True\"}"
+
+    # Invoke the Collector Cloud Function
+    - name: Invoke Cloud Function
+      if: ${{ inputs.function_type == 'collector' }}
+      shell: bash
+      run: |
+        curl -X POST "https://${{ env.cf_region }}-${{ env.cf_project_id }}.cloudfunctions.net/${{ env.cf_name }}" \
+          -H "Authorization: Bearer ${{ steps.auth.outputs.id_token }}" \
+          -H "Content-Type: application/json" \
+          -d "{\"bq_alation_cr_table\": \"${{ env.alation_cr_table }}\"}"

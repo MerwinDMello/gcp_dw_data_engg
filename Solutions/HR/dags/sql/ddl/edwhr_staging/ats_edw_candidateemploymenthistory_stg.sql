@@ -1,0 +1,67 @@
+CREATE TABLE IF NOT EXISTS {{ params.param_hr_stage_dataset_name }}.ats_edw_candidateemploymenthistory_stg (_asoftimestamp STRING ,
+attachment_file_storage STRING ,
+attachment_idmdocument STRING ,
+attachment_idmupdateneeded INT64 ,
+attachment_mimetype STRING ,
+attachment_title STRING ,
+audit_entry_id STRING ,
+begindate_month INT64 ,
+begindate_year INT64 ,
+beginpay STRING ,
+candidate INT64 ,
+candidate_cube_dimension_value STRING ,
+comments STRING ,
+create_stamp_actor STRING ,
+create_stamp_timestamp STRING ,
+employeraddress_country STRING ,
+employeraddress_county STRING ,
+employeraddress_deliveryaddress_addressline1 STRING ,
+employeraddress_deliveryaddress_addressline2 STRING ,
+employeraddress_deliveryaddress_addressline3 STRING ,
+employeraddress_deliveryaddress_addressline4 STRING ,
+employeraddress_municipality STRING ,
+employeraddress_postalcode STRING ,
+employeraddress_region STRING ,
+employeraddress_stateprovince STRING ,
+employeraddress_type INT64 ,
+employeraddress_type_state STRING ,
+employercontactemail STRING ,
+employercontactname STRING ,
+employercontactphone_extension STRING ,
+employercontactphone_internationalprefix STRING ,
+employercontactphone_subscribernumber STRING ,
+employername STRING ,
+enddate_month INT64 ,
+enddate_year INT64 ,
+endpay STRING ,
+hrorganization STRING ,
+hrorganization_cube_dimension_value STRING ,
+jobtitle STRING ,
+paycurrency STRING ,
+paycurrency_cube_dimension_value STRING ,
+payratetype STRING ,
+payratetype_state STRING ,
+permissiontocontact INT64 ,
+present INT64 ,
+reasonforleaving STRING ,
+repset_variation_id INT64 ,
+sequencenumber INT64 ,
+uniqueid STRING ,
+update_stamp_actor STRING ,
+update_stamp_timestamp STRING ,
+verificationinfo_validationmethod STRING ,
+verificationinfo_verificationdate STRING ,
+verificationinfo_verified INT64,
+infor_lastmodified STRING,
+dw_last_update_date_time DATETIME);
+
+
+
+
+
+
+
+
+
+
+

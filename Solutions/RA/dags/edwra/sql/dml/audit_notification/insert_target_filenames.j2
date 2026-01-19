@@ -1,0 +1,15 @@
+INSERT INTO {{ params.param_parallon_ra_core_dataset_name }}.target_filenames (
+  ssc_name,
+  file_type,
+  file_name, 
+  target_file_path,
+  processed_date_time
+) 
+VALUES 
+  (
+    '{{ operational_group }}',
+    '{{ file_name_mnemonic }}',
+    '{{ file_name }}', 
+	  '{{ file_path }}', 
+	  datetime_trunc(current_datetime('US/Central'), SECOND)
+  );

@@ -1,0 +1,26 @@
+create table if not exists {{ params.param_hr_core_dataset_name }}.hr_workunit_activity (
+workunit_sid numeric(18,0) not null options(description="unique identifier generated of the combination of workunit and source_system_code.")
+, activity_seq_num int64 not null options(description="the activity sequence number captured by lawson for the workflow.")
+, valid_from_date datetime not null options(description="date on which the record became valid. load date typically.")
+, valid_to_date datetime options(description="date on which the record was invalidated.")
+, workunit_num numeric(12,0) not null options(description="categories each activity number into a separate group to help understand the workflow.")
+, start_date_time datetime options(description="date the activity started.")
+, end_date_time datetime options(description="date the activity end.")
+, activity_name string options(description="contains the acitvity name.")
+, activity_type_text string options(description="contains the activity type.")
+, action_taken_text string options(description="contains the activity status. ex. completed")
+, node_caption_text string options(description="contains the activity name with more details.")
+, user_profile_id_text string options(description="contains the user profile identifier.")
+, authenticated_author_text string options(description="contains the authenticated author identifier.")
+, task_name string options(description="contains the task name.")
+, task_type_num int64 options(description="contains the task type identification number.")
+, lawson_company_num int64 not null options(description="the number that identifies a company.a company represents a business or legal entity of an organization")
+, process_level_code string not null options(description="unique process level code of an hr company value maintained in this field.")
+, active_dw_ind string not null options(description="y/n character to indicate this record as active in the edw.")
+, source_system_code string not null options(description="a one character code indicating the specific source system from which the data originated.")
+, dw_last_update_date_time datetime not null options(description="timestamp of update or load of this record to the enterprise data warehouse.")
+)
+partition by date(valid_from_date)
+cluster by workunit_sid, activity_seq_num, valid_from_date
+options(description="this table contains the activity details.");
+

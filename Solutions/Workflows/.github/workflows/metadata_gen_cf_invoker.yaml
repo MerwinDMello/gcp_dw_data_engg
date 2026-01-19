@@ -1,0 +1,106 @@
+name: Reusable Workflow for Invoking Cloud Function
+on:
+  workflow_call:
+    inputs:
+      branch:
+        description: Branch name.
+        required: true
+        type: string
+      dest_path:
+        description: Destination path in GCS.
+        required: false
+        type: string
+      cf_region:
+        description: Cloud Function region.
+        required: false
+        type: string
+      cf_project_id:
+        description: Cloud Function project ID.
+        required: false
+        type: string
+      cf_name:
+        description: Cloud Function name.
+        required: false
+        type: string
+      gcs_file_path:
+        description: Path to metadata files.
+        required: true
+        type: string
+        default: "data_engineering/data_governance/patient_insyte/metadata/**"
+
+jobs:
+  # Job to upload files to GCS
+  gcs-sync:
+    runs-on: [self-hosted, onprem-k8s-arc, dind, enterprise, lnx-amd64]
+    name: Upload to GCS
+    environment: ${{ inputs.branch || github.ref_name }}
+    permissions:
+      contents: "read"
+      id-token: "write"
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Upload to GCS
+        uses: HCACloudDataEngineering/gcp-hin-workflows/gcs/gcs_sync@main
+        with:
+          branch: ${{ inputs.branch || github.ref_name }}
+          workload_identity_provider: ${{ vars.WORKLOAD_IDENTITY_PROVIDER != '' && vars.WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ vars.SERVICEACCOUNT_GITHUB != '' && vars.SERVICEACCOUNT_GITHUB }}
+          gcs_file_path: ${{ inputs.gcs_file_path }}
+  # Job to invoke the Cloud Function
+  invoke-cloud-function:
+    runs-on: [self-hosted, onprem-k8s-arc, dind, enterprise, lnx-amd64]
+    needs: gcs-sync
+    name: Invoke Metadata Cloud Function
+    environment: ${{ inputs.branch || github.ref_name }}
+    permissions:
+      contents: "read"
+      id-token: "write"
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Extract environment variables from environments/metadata/config.yaml
+        id: extract-env-vars
+        run: |
+          # Extract the environment (dev, qa, prod) from the branch name
+          env_name=$(echo "${{ inputs.branch }}" | awk '{print tolower($0)}')
+          # Extract all environment variables for the current environment
+          dest_path=$(yq eval ".env.${env_name}.dest_path" environments/metadata/config.yaml)
+          cf_project_id=$(yq eval ".env.${env_name}.cf_project_id" environments/metadata/config.yaml)
+          cf_region=$(yq eval ".env.${env_name}.cf_region" environments/metadata/config.yaml)
+          cf_name=$(yq eval ".env.${env_name}.cf_name" environments/metadata/config.yaml)
+          # Export the variables to the GitHub Actions environment
+          echo "dest_path=$dest_path" >> $GITHUB_ENV
+          echo "cf_project_id=$cf_project_id" >> $GITHUB_ENV
+          echo "cf_region=$cf_region" >> $GITHUB_ENV
+          echo "cf_name=$cf_name" >> $GITHUB_ENV
+          # Debugging output
+          echo "dest_path=$dest_path"
+          echo "cf_project_id=$cf_project_id"
+          echo "cf_region=$cf_region"
+          echo "cf_name=$cf_name"
+          execute_sql=$(yq eval ".env.${env_name}.execute_sql" environments/metadata/config.yaml)
+          echo "execute_sql=$execute_sql" >> $GITHUB_ENV
+          echo "execute_sql=$execute_sql"
+          update_alation=$(yq eval ".env.${env_name}.update_alation" environments/metadata/config.yaml)
+          echo "update_alation=$update_alation" >> $GITHUB_ENV
+          echo "update_alation=$update_alation"
+          bq_alation_cr_table=$(yq eval ".env.${env_name}.bq_alation_cr_table" environments/metadata/config.yaml)
+          echo "bq_alation_cr_table=$bq_alation_cr_table" >> $GITHUB_ENV
+          echo "bq_alation_cr_table=$bq_alation_cr_table"
+
+      - name: Invoke Cloud Function
+        uses: HCACloudDataEngineering/gcp-hin-workflows/cloud-function/metadata@main
+        with:
+          dest_path: ${{ env.dest_path }}
+          cf_region: ${{ env.cf_region }}
+          cf_project_id: ${{ env.cf_project_id }}
+          cf_name: ${{ env.cf_name }}
+          update_alation: ${{ env.update_alation }}
+          execute_sql: ${{ env.execute_sql }}
+          bq_alation_cr_table: ${{ env.bq_alation_cr_table }}
+          gcs_file_path: ${{ inputs.gcs_file_path }}
+          workload_identity_provider: ${{ vars.WORKLOAD_IDENTITY_PROVIDER != '' && vars.WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ vars.SERVICEACCOUNT_GITHUB != '' && vars.SERVICEACCOUNT_GITHUB }}

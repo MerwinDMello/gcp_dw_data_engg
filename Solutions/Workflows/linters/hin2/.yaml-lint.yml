@@ -1,0 +1,8 @@
+extends: default
+
+rules:
+  document-start:
+    ignore: |
+      /github/workspace/.github/linters/*.yml
+      /github/workspace/.github/workflows/*.yml
+      /github/workspace/.github/dependabot.yml

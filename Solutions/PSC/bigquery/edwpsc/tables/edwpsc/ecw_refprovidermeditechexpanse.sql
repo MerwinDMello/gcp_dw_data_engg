@@ -1,0 +1,30 @@
+CREATE TABLE IF NOT EXISTS edwpsc.ecw_refprovidermeditechexpanse
+(
+  providerkey INT64 NOT NULL,
+  regionkey INT64,
+  providerfirstname STRING,
+  providerlastname STRING,
+  providermiddlename STRING,
+  providerusername STRING,
+  providername STRING,
+  provideraddressline1 STRING,
+  provideraddressline2 STRING,
+  providergeographykey INT64,
+  providerspeciality STRING,
+  providerlicense STRING,
+  providergroupid STRING,
+  providernpi STRING,
+  providerserviceid STRING,
+  providertype STRING,
+  deleteflag INT64,
+  sourceaprimarykeyvalue STRING,
+  sourcearecordlastupdated DATETIME,
+  dwlastupdatedatetime DATETIME NOT NULL,
+  sourcesystemcode STRING,
+  insertedby STRING,
+  inserteddtm DATETIME,
+  modifiedby STRING,
+  modifieddtm DATETIME,
+  PRIMARY KEY (providerkey) NOT ENFORCED
+)
+;

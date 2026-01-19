@@ -1,0 +1,41 @@
+name: ServiceCentral Ticket Automation
+
+on:
+  pull_request:
+    types:
+      - closed
+    branches:
+      - prd
+      
+jobs:
+  open:
+    name: open
+    if: github.event.pull_request.merged == true
+    uses: HCACloudOps/workflow-templates/.github/workflows/ru_change_management_open_prod.yml@main
+    with:
+      sys_id: 5e146b67c38eed586ae3963ce001316d
+  
+  Ticket:
+    name: Change Ticket Number
+    runs-on: ubuntu-latest
+    needs: open
+    steps:
+      - run: echo ${{ needs.open.outputs.change_ticket }}
+  
+  complete:
+    name: complete
+    if: github.event.pull_request.merged == true 
+    uses: HCACloudOps/workflow-templates/.github/workflows/ru_change_management_close_prod.yml@main
+    needs: open
+    with:
+      # Within ServiceCentral, the close note will appear on the Closure Information tab within the Change Result field
+      close_notes: "Pull Request Link ${{ github.server_url }}/${{ github.repository }}/pull/${{ github.event.number }}"
+      ticket_number: ${{ needs.open.outputs.change_ticket }}
+      close_person: Joseph Vanhook
+
+  Complete-Confirmation:
+    name: Complete Confirmation
+    runs-on: ubuntu-latest
+    needs: complete
+    steps:
+      - run: echo ${{ needs.complete.outputs.close_msg }}

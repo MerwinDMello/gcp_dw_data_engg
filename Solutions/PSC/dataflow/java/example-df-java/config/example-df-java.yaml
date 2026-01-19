@@ -1,0 +1,47 @@
+# This is provided purely as an example for developers to reference when creating their own dataflow jobs.
+# For additional config examples see: https://github.com/HCACloudDataEngineering/gcp-hin-hr-lakehouse/tree/dev/dataflow/python/config
+
+# Note that the name of the config file should exactly match the name of the folder of the job it aligns with.
+# For example, if the job is in the folder `dataflow/python/test-job`, the config file should be named `test-job.yaml`
+
+build:
+  metadata_filepath: "./data_engineering/dataflow/java/example-df-java/src/metadata.json"
+  sdk_language: JAVA
+  type: streaming
+  job_name: "dataflow-streaming-example"
+  job_folder: "example-df-java" # Must match the name of the folder containing the src and config folders for this job
+  module_name: "kafka-to-icebergBQ"
+  app_root: 
+  base_container_image: 
+  base_container_image_version: 
+  command_spec:
+
+dev:
+  target_gcr_image: "us-east4-docker.pkg.dev/hca-hin-dev-proc-DOMAIN/hin-DOMAIN-df-5ee424/kafka-to-iceberg-example-df-java"
+  template_spec_gcspath: "gs://"
+  subnetwork:
+  max_workers: 
+  num_workers:
+  args: ""
+  # All parameters for this job should be listed as follows: param1=value1,param2=value2, etc. 
+  parameters:
+  # Example: snowflake_account="value_here",input_database_name="value_here",database_user_name="value_here",database_secret_name="value_here"
+qa: 
+  target_gcr_image: "us-east4-docker.pkg.dev/hca-hin-qa-proc-DOMAIN/hin-DOMAIN-df-5ee424/kafka-to-iceberg-example-df-java"
+  template_spec_gcspath: "gs://"
+  subnetwork:
+  max_workers: 
+  num_workers::
+  args: ""
+  # All parameters for this job should be listed as follows: param1=value1,param2=value2, etc. 
+  parameters: 
+
+prod:
+  target_gcr_image: "us-east4-docker.pkg.dev/hca-hin-prod-proc-DOMAIN/hin-DOMAIN-df-5ee424/kafka-to-iceberg-example-df-java"
+  template_spec_gcspath: "gs://"
+  subnetwork:
+  max_workers: 
+  num_workers:
+  args:  ""
+  # All parameters for this job should be listed as follows: param1=value1,param2=value2, etc. 
+  parameters: 

@@ -1,0 +1,47 @@
+CREATE OR REPLACE VIEW edwpsc_views.`ecw_factclaimlinepayment`
+AS SELECT
+  `ecw_factclaimlinepayment`.claimlinepaymentkey,
+  `ecw_factclaimlinepayment`.claimkey,
+  `ecw_factclaimlinepayment`.claimnumber,
+  `ecw_factclaimlinepayment`.regionkey,
+  `ecw_factclaimlinepayment`.coid,
+  `ecw_factclaimlinepayment`.coidconfigurationkey,
+  `ecw_factclaimlinepayment`.servicingproviderkey,
+  `ecw_factclaimlinepayment`.claimpayer1iplankey,
+  `ecw_factclaimlinepayment`.facilitykey,
+  `ecw_factclaimlinepayment`.claimlinechargeskey,
+  `ecw_factclaimlinepayment`.claimpaymentskey,
+  `ecw_factclaimlinepayment`.paymentdetailid,
+  `ecw_factclaimlinepayment`.allowedamt,
+  `ecw_factclaimlinepayment`.deductibleamt,
+  `ecw_factclaimlinepayment`.coinsuranceamt,
+  `ecw_factclaimlinepayment`.memberresponsibilityamt,
+  `ecw_factclaimlinepayment`.paymentamt,
+  `ecw_factclaimlinepayment`.contractualadjustmentamt,
+  `ecw_factclaimlinepayment`.withheldamt,
+  `ecw_factclaimlinepayment`.msgcode,
+  `ecw_factclaimlinepayment`.linetaxamt,
+  `ecw_factclaimlinepayment`.eraadjustmentamt,
+  `ecw_factclaimlinepayment`.createddatekey,
+  `ecw_factclaimlinepayment`.createdtime,
+  `ecw_factclaimlinepayment`.createdbyuserkey,
+  `ecw_factclaimlinepayment`.timestamp,
+  `ecw_factclaimlinepayment`.modifieddatekey,
+  `ecw_factclaimlinepayment`.modifiedtime,
+  `ecw_factclaimlinepayment`.modifiedbyuserkey,
+  `ecw_factclaimlinepayment`.sourceprimarykeyvalue,
+  `ecw_factclaimlinepayment`.sourcerecordlastupdated,
+  `ecw_factclaimlinepayment`.dwlastupdatedatetime,
+  `ecw_factclaimlinepayment`.sourcesystemcode,
+  `ecw_factclaimlinepayment`.insertedby,
+  `ecw_factclaimlinepayment`.inserteddtm,
+  `ecw_factclaimlinepayment`.modifiedby,
+  `ecw_factclaimlinepayment`.modifieddtm,
+  `ecw_factclaimlinepayment`.invcptid,
+  `ecw_factclaimlinepayment`.archivedrecord
+  FROM
+    edwpsc_base_views.`ecw_factclaimlinepayment`
+  INNER JOIN edwpsc_base_views.secref_facility
+  ON LPAD(TRIM(secref_facility.co_id, ' '), 5, '0') = LPAD(TRIM(`ecw_factclaimlinepayment`.coid, ' '), 5, '0')
+  AND TRIM(secref_facility.user_id, ' ') = TRIM(session_user(), ' ')
+;

@@ -1,0 +1,41 @@
+CREATE OR REPLACE VIEW {{ params.param_cr_base_views_dataset_name }}.cdm_encounter
+   OPTIONS(description='Contains all the patient encounters')
+  AS SELECT
+      cdm_encounter.patient_dw_id,
+      cdm_encounter.pat_acct_num,
+      cdm_encounter.coid,
+      cdm_encounter.company_code,
+      cdm_encounter.patient_sk,
+      cdm_encounter.facility_sk,
+      cdm_encounter.medical_record_num,
+      cdm_encounter.patient_market_urn,
+      cdm_encounter.arrival_mode_sk,
+      cdm_encounter.arrival_mode_code,
+      cdm_encounter.arrival_mode_desc,
+      cdm_encounter.admit_source_sk,
+      cdm_encounter.admit_source_code,
+      cdm_encounter.admit_source_desc,
+      cdm_encounter.admit_type_code,
+      cdm_encounter.visit_type_sk,
+      cdm_encounter.visit_type_code,
+      cdm_encounter.visit_type_desc,
+      cdm_encounter.special_program_sk,
+      cdm_encounter.special_program_code,
+      cdm_encounter.special_program_desc,
+      cdm_encounter.discharge_status_sk,
+      cdm_encounter.discharge_status_code,
+      cdm_encounter.discharge_status_desc,
+      cdm_encounter.encounter_date_time,
+      cdm_encounter.admission_date_time,
+      cdm_encounter.accident_date_time,
+      cdm_encounter.discharge_date_time,
+      cdm_encounter.reason_for_visit_text,
+      cdm_encounter.actual_los_cnt,
+      cdm_encounter.signature_date,
+      cdm_encounter.readmission_ind,
+      cdm_encounter.source_system_text,
+      cdm_encounter.source_system_code,
+      cdm_encounter.dw_last_update_date_time
+    FROM
+      {{ params.param_cr_core_dataset_name }}.cdm_encounter
+  ;

@@ -1,0 +1,27 @@
+#source system specific configuration values
+
+v_sourcesysnm: landmark 
+v_databasetype: db2
+v_user: dmxmrk
+v_pwd_secret_name: landmark_db2_jdbc_pwd/versions/latest
+v_jdbc_url: jdbc:db2://nadcupdbserp01a.unix.medcity.net:60000/LMPWHCA
+v_jdbc_class_name: com.ibm.db2.jcc.DB2Driver
+v_jdbc_jar: db2jcc4.jar
+v_jdkfile: jre-8u351-linux-x64.tar.gz
+v_jdkversion: jre1.8.0_351
+v_schedule_interval: 30 21 * * *
+v_frequency: daily
+v_machine_type: n2-highmem-16
+v_start_date: pendulum.datetime(2022, 1, 26, tz=timezone)
+v_jdbcbqpytemplate: Jdbc_to_BigQuery_PythonTemplate_2023-04-19.py
+
+
+#tblist [srctableid~srctablename~tgttablename~tgttableloadtype~srctablequery~v_chunksize]
+tblist1:  ["101~lmwf.pfiworkunitvariable~v_hr_stage_dataset_name.pfiworkunitvariable~truncate~select pfiworkunit, trim(pfiworkunitvariable) pfiworkunitvariable, variabletype, trim(variablevalue)variablevalue, seqnbr , 'v_currtimestamp' as dw_last_update_date_time  from lmwf.pfiworkunitvariable w where exists ( select 1  from lmwf.pfiactivity a where w.pfiworkunit = a.pfiworkunit  and (startdate >= current timestamp - 2 days  or enddate >= current timestamp - 2 days)) with ur~1000000", 
+  "201~lmwf.pfiworkunit~v_hr_stage_dataset_name.pfiworkunit~truncate~select  pfiworkunit, appsdataarea, appskey, appsvalue, checkpointstate, servicedefinition, eventtype, flowdefinition, flowversion, actor, authenticatedactor, worktitle, pfifilterkey, filtervalue, workpriority, executionstartdate, startdate, closedate, status, criterion1, criterion2, criterion3, sourcetype, source as source_1, configurationname, lastactivity, lasterrormessage, lastmessage, lastworkunitfolder, lastvariableseqnbr, parentworkunit, classicworkunit, archived, transactionrequest, logscleaned, activitiescleaned, workunitvarscleaned, keyfield1value, keyfield2value, keyfield3value, keyfield4value, keyfield5value, keyfield6value, keyfield7value, keyfield8value, keyfield9value, keyfield10value,  pfiwu01_ss_sw, pfiwu26_ss_sw, classicworkunitentered, ishistory, pfiwu17_ss_sw, pfiwu16_ss_sw, isprocess, pfiwu28_ss_sw, pfiwu25_ss_sw, canprune, pfiwu21_ss_sw, pfiwu20_ss_sw,  pfiwu23_ss_sw, pfiwu22_ss_sw, pfiwu03_ss_sw, pfiwu04_ss_sw, pfiwu19_ss_sw, pfiwu18_ss_sw, isfailed, isinprogress, pfiwu02_ss_sw  , 'v_currtimestamp' as dw_last_update_date_time from lmwf.pfiworkunit  w where exists ( select 1  from lmwf.pfiactivity a where w.pfiworkunit = a.pfiworkunit  and (startdate >= current timestamp - 2 days  or enddate >= current timestamp - 2 days)) with ur~125000", 
+ ]
+
+tblist2: ["301~lmwf.pfiqueue~v_hr_stage_dataset_name.pfiqueue~truncate~select  pfiworkunit, pfiactivity, workdescription, actiontaken, displaytype, displayname, hideactions, phonedisplaytype, phonedisplayname, tabletdisplaytype, tabletdisplayname, appsdata, appsfilter, dispstatus, waithours1, sendnotification, reminded1, waithours2, reminded2, currentassignment, reassigntask, reassignhours, pfifilterkey, filtervalue, routingrule,  notifyall1, addnotifytype1, addnotify1, notifyall2, addnotifytype2, addnotify2, prologictype, prologicval1, prologicval2, timeouttype, timeouthour, timeoutaction, timedout, failaction, lastqueueaction, configname, 'v_currtimestamp' as dw_last_update_date_time from lmwf.pfiqueue   w where exists ( select 1  from lmwf.pfiactivity a where w.pfiworkunit = a.pfiworkunit  and (startdate >= current timestamp - 2 days  or enddate >= current timestamp - 2 days)) with ur~50000", 
+  "401~lmwf.pfimetricssummary~v_hr_stage_dataset_name.pfimetricssummary~truncate~select pfiworkunit, pfiactivity , startdate , enddate ,trim(activityname)activityname, trim(nodecaption)nodecaption, trim(activitytype)activitytype, prologictype, trim(actiontaken)actiontaken, trim(pfiuserprofile)pfiuserprofile, authenticatedactor, trim(pttaskname)pttaskname, pttasktype,  'v_currtimestamp' as dw_last_update_date_time  from lmwf.pfimetricssummary where startdate >= current timestamp - 2 days   or enddate >= current timestamp - 2 days with ur~250000", 
+  "501~lmwf.pfimetrics~v_hr_stage_dataset_name.pfimetrics~truncate~select  pfiworkunit, pfiactivity, pfiqueueassignment, pmpfiuserprofile, pmpttaskname, pmpttasktype, actiondate, actiontaken, comment, authenticatedactor,  'v_currtimestamp' as dw_last_update_date_time  from lmwf.pfimetrics w where exists ( select 1  from lmwf.pfiactivity a where w.pfiworkunit = a.pfiworkunit  and (startdate >= current timestamp - 2 days  or enddate >= current timestamp - 2 days)) with ur~200000" ,
+ ]

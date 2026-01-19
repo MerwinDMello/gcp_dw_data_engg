@@ -1,0 +1,665 @@
+integrate:
+- source_system: psc
+  frequency: daily
+  dag_name_suffix: wave-epic
+  start_date: pendulum.datetime(2025, 2, 1, tz=current_timezone)
+  schedule: None
+  type: sqlserver
+  done_file: None
+  server-06:
+    trigger_dag_ids: []
+    tables:
+    - table: EPIC_FactAllClaimsCube
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_FactAllClaimsCube.sql
+      validation:
+      - name: NONE
+    - table: EPIC_FactARCube
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_FactARCube.sql
+      validation:
+      - name: NONE
+    - table: EPIC_FactBillDeniedCharge
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_FactBillDeniedCharge.sql
+      validation:
+      - name: NONE
+    - table: CCU_FactEPICCodeChange
+      has_sensor: 'No'
+      sql:
+      - name: CCU_FactEPICCodeChange.sql
+      validation:
+      - name: NONE
+    - table: CCU_FactEPICCodeQuality
+      has_sensor: 'No'
+      sql:
+      - name: CCU_FactEPICCodeQuality.sql
+      validation:
+      - name: NONE
+    - table: CCU_FactEPICInventory
+      has_sensor: 'No'
+      sql:
+      - name: CCU_FactEPICInventory.sql
+      validation:
+      - name: NONE
+    - table: EPIC_FactClaim
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_FactClaim.sql
+      validation:
+      - name: NONE
+    - table: EPIC_FactClaim_History
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_FactClaim_History.sql
+      validation:
+      - name: NONE
+    - table: EPIC_FactClaimBill
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_FactClaimBill.sql
+      validation:
+      - name: NONE
+    - table: EPIC_FactClaimDiagnosis
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_FactClaimDiagnosis.sql
+      validation:
+      - name: NONE
+    - table: EPIC_FactClaimFinancialAdjustment
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_FactClaimFinancialAdjustment.sql
+      validation:
+      - name: NONE
+    - table: EPIC_FactClaimLineCharge
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_FactClaimLineCharge.sql
+      validation:
+      - name: NONE
+    - table: EPIC_FactClaimLineFinancialAdjustment
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_FactClaimLineFinancialAdjustment.sql
+      validation:
+      - name: NONE
+    - table: EPIC_FactClaimLinePayment
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_FactClaimLinePayment.sql
+      validation:
+      - name: NONE
+    - table: EPIC_FactClaimPayer
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_FactClaimPayer.sql
+      validation:
+      - name: NONE
+    - table: EPIC_FactClaimPayerCPID
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_FactClaimPayerCPID.sql
+      validation:
+      - name: NONE
+    - table: EPIC_FactClaimPayment
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_FactClaimPayment.sql
+      validation:
+      - name: NONE
+    - table: EPIC_FactClaimsOnHold
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_FactClaimsOnHold.sql
+      validation:
+      - name: NONE
+    - table: EPIC_FactClaimStatusHistory
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_FactClaimStatusHistory.sql
+      validation:
+      - name: NONE
+    - table: EPIC_FactClaimUnBilledStatus
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_FactClaimUnBilledStatus.sql
+      validation:
+      - name: NONE
+    - table: EPIC_FactEncounter
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_FactEncounter.sql
+      validation:
+      - name: NONE
+    - table: EPIC_FactEncounterAnesthesia
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_FactEncounterAnesthesia.sql
+      validation:
+      - name: NONE
+    - table: EPIC_FactEncounterAnesthesiaNote
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_FactEncounterAnesthesiaNote.sql
+      validation:
+      - name: NONE
+    - table: EPIC_FactEncounterCPT
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_FactEncounterCPT.sql
+      validation:
+      - name: NONE
+    - table: EPIC_FactEncounterCPTRouter
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_FactEncounterCPTRouter.sql
+      validation:
+      - name: NONE
+    - table: EPIC_FactEncounterDiagnosis
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_FactEncounterDiagnosis.sql
+      validation:
+      - name: NONE
+    - table: EPIC_FactEncounterNotes
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_FactEncounterNotes.sql
+      validation:
+      - name: NONE
+    - table: EPIC_FactNoteHistory
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_FactNoteHistory.sql
+      validation:
+      - name: NONE
+    - table: EPIC_FactRH1201
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_FactRH1201.sql
+      validation:
+      - name: NONE
+    - table: EPIC_FactRH1301
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_FactRH1301.sql
+      validation:
+      - name: NONE
+    - table: EPIC_FactRiskAnalysis
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_FactRiskAnalysis.sql
+      validation:
+      - name: NONE
+    - table: EPIC_FactTransactionsClaimContractualAdjustment
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_FactTransactionsClaimContractualAdjustment.sql
+      validation:
+      - name: NONE
+    - table: EPIC_FactTransactionsClaimFinancialAdjustment
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_FactTransactionsClaimFinancialAdjustment.sql
+      validation:
+      - name: NONE
+    - table: EPIC_FactTransactionsClaimLineCharge
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_FactTransactionsClaimLineCharge.sql
+      validation:
+      - name: NONE
+    - table: EPIC_FactTransactionsClaimLineContractualAdjustment
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_FactTransactionsClaimLineContractualAdjustment.sql
+      validation:
+      - name: NONE
+    - table: EPIC_FactTransactionsClaimLineFinancialAdjustment
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_FactTransactionsClaimLineFinancialAdjustment.sql
+      validation:
+      - name: NONE
+    - table: EPIC_FactTransactionsClaimLinePayment
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_FactTransactionsClaimLinePayment.sql
+      validation:
+      - name: NONE
+    - table: EPIC_FactTransactionsClaimPayment
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_FactTransactionsClaimPayment.sql
+      validation:
+      - name: NONE
+    - table: EPIC_FactVendorProductivity
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_FactVendorProductivity.sql
+      validation:
+      - name: NONE
+    - table: EPIC_FactWorkQueueChargeReview
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_FactWorkQueueChargeReview.sql
+      validation:
+      - name: NONE
+    - table: EPIC_FactWorkQueueClaimEdit
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_FactWorkQueueClaimEdit.sql
+      validation:
+      - name: NONE
+    - table: EPIC_FactWorkQueueFollowUp
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_FactWorkQueueFollowUp.sql
+      validation:
+      - name: NONE
+    - table: EPIC_FactWorkQueuePatient
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_FactWorkQueuePatient.sql
+      validation:
+      - name: NONE
+    - table: EPIC_FactWorkQueuePatientErrors
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_FactWorkQueuePatientErrors.sql
+      validation:
+      - name: NONE
+    - table: EPIC_FactWorkQueuePreBillEditHistory
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_FactWorkQueuePreBillEditHistory.sql
+      validation:
+      - name: NONE
+    - table: EPIC_JuncArtivaPPItoClaim
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_JuncArtivaPPItoClaim.sql
+      validation:
+      - name: NONE
+    - table: EPIC_JuncClaimFirstLastKeyMeasure
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_JuncClaimFirstLastKeyMeasure.sql
+      validation:
+      - name: NONE
+    - table: EPIC_JuncClaimLineChargeFirstLastKeyMeasure
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_JuncClaimLineChargeFirstLastKeyMeasure.sql
+      validation:
+      - name: NONE
+    - table: EPIC_JuncClaimPayerFirstLastKeyMeasure
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_JuncClaimPayerFirstLastKeyMeasure.sql
+      validation:
+      - name: NONE
+    - table: EPIC_JuncContractualAdjustmentMatchingTransactions
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_JuncContractualAdjustmentMatchingTransactions.sql
+      validation:
+      - name: NONE
+    - table: EPIC_JuncDivisionCoid
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_JuncDivisionCoid.sql
+      validation:
+      - name: NONE
+    - table: EPIC_JuncEraDetail
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_JuncEraDetail.sql
+      validation:
+      - name: NONE
+    - table: EPIC_JuncFacilityCoid
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_JuncFacilityCoid.sql
+      validation:
+      - name: NONE
+    - table: EPIC_JuncFacilityResourceCoid
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_JuncFacilityResourceCoid.sql
+      validation:
+      - name: NONE
+    - table: EPIC_JuncFactClaimToPayer
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_JuncFactClaimToPayer.sql
+      validation:
+      - name: NONE
+    - table: EPIC_JuncGroupCoid
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_JuncGroupCoid.sql
+      validation:
+      - name: NONE
+    - table: EPIC_JuncIplanCoid
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_JuncIplanCoid.sql
+      validation:
+      - name: NONE
+    - table: EPIC_JuncMarketCoid
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_JuncMarketCoid.sql
+      validation:
+      - name: NONE
+    - table: EPIC_JuncPatientCoid
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_JuncPatientCoid.sql
+      validation:
+      - name: NONE
+    - table: EPIC_JuncPaymentMatchingTransactions
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_JuncPaymentMatchingTransactions.sql
+      validation:
+      - name: NONE
+    - table: EPIC_JuncPracticeCoid
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_JuncPracticeCoid.sql
+      validation:
+      - name: NONE
+    - table: EPIC_JuncProviderCoid
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_JuncProviderCoid.sql
+      validation:
+      - name: NONE
+    - table: EPIC_RefAccountCrosswalk
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_RefAccountCrosswalk.sql
+      validation:
+      - name: NONE
+    - table: EPIC_RefAdjustmentCategory
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_RefAdjustmentCategory.sql
+      validation:
+      - name: NONE
+    - table: EPIC_RefAdjustmentCode
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_RefAdjustmentCode.sql
+      validation:
+      - name: NONE
+    - table: EPIC_RefAdjustmentCodeCrosswalk
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_RefAdjustmentCodeCrosswalk.sql
+      validation:
+      - name: NONE
+    - table: EPIC_RefApptStatus
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_RefApptStatus.sql
+      validation:
+      - name: NONE
+    - table: EPIC_RefBillArea
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_RefBillArea.sql
+      validation:
+      - name: NONE
+    - table: EPIC_RefClaimStatus
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_RefClaimStatus.sql
+      validation:
+      - name: NONE
+    - table: EPIC_RefCoidConfiguration
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_RefCoidConfiguration.sql
+      validation:
+      - name: NONE
+    - table: EPIC_RefCPTCode
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_RefCPTCode.sql
+      validation:
+      - name: NONE
+    - table: EPIC_RefDiagnosisCode
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_RefDiagnosisCode.sql
+      validation:
+      - name: NONE
+    - table: EPIC_RefDispEncType
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_RefDispEncType.sql
+      validation:
+      - name: NONE
+    - table: EPIC_RefPaymentTypeEPIC
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_RefPaymentTypeEPIC.sql
+      validation:
+      - name: NONE
+    - table: EPIC_RefFacility
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_RefFacility.sql
+      validation:
+      - name: NONE
+    - table: EPIC_RefFinancialClass
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_RefFinancialClass.sql
+      validation:
+      - name: NONE
+    - table: EPIC_RefFinancialClassCrosswalk
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_RefFinancialClassCrosswalk.sql
+      validation:
+      - name: NONE
+    - table: EPIC_RefFinancialClassEPIC
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_RefFinancialClassEPIC.sql
+      validation:
+      - name: NONE
+    - table: EPIC_RefGeography
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_RefGeography.sql
+      validation:
+      - name: NONE
+    - table: EPIC_RefHoldCode
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_RefHoldCode.sql
+      validation:
+      - name: NONE
+    - table: EPIC_RefInvStatus
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_RefInvStatus.sql
+      validation:
+      - name: NONE
+    - table: EPIC_RefIplan
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_RefIplan.sql
+      validation:
+      - name: NONE
+    - table: EPIC_RefIplanFinancialGroupCrosswalk
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_RefIplanFinancialGroupCrosswalk.sql
+      validation:
+      - name: NONE
+    - table: EPIC_RefIplanGroupFinancial
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_RefIplanGroupFinancial.sql
+      validation:
+      - name: NONE
+    - table: EPIC_RefLiabilityType
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_RefLiabilityType.sql
+      validation:
+      - name: NONE
+    - table: EPIC_RefLOC
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_RefLOC.sql
+      validation:
+      - name: NONE
+    - table: EPIC_RefPatient
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_RefPatient.sql
+      validation:
+      - name: NONE
+    - table: EPIC_RefPatientInsurance
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_RefPatientInsurance.sql
+      validation:
+      - name: NONE
+    - table: EPIC_RefPaymentBatch
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_RefPaymentBatch.sql
+      validation:
+      - name: NONE
+    - table: EPIC_RefPaymentSource
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_RefPaymentSource.sql
+      validation:
+      - name: NONE
+    - table: EPIC_RefPaymentType
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_RefPaymentType.sql
+      validation:
+      - name: NONE
+    - table: EPIC_RefPbBillingStat
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_RefPbBillingStat.sql
+      validation:
+      - name: NONE
+    - table: EPIC_RefPOS
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_RefPOS.sql
+      validation:
+      - name: NONE
+    - table: EPIC_RefPosType
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_RefPosType.sql
+      validation:
+      - name: NONE
+    - table: EPIC_RefPractice
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_RefPractice.sql
+      validation:
+      - name: NONE
+    - table: EPIC_RefProcedureCode
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_RefProcedureCode.sql
+      validation:
+      - name: NONE
+    - table: EPIC_RefProvider
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_RefProvider.sql
+      validation:
+      - name: NONE
+    - table: EPIC_RefRegion
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_RefRegion.sql
+      validation:
+      - name: NONE
+    - table: EPIC_RefServiceArea
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_RefServiceArea.sql
+      validation:
+      - name: NONE
+    - table: EPIC_RefState
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_RefState.sql
+      validation:
+      - name: NONE
+    - table: EPIC_RefTOS
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_RefTOS.sql
+      validation:
+      - name: NONE
+    - table: EPIC_RefUnBilledStatus
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_RefUnBilledStatus.sql
+      validation:
+      - name: NONE
+    - table: EPIC_RefUser
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_RefUser.sql
+      validation:
+      - name: NONE
+    - table: EPIC_RefVirtualVisit
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_RefVirtualVisit.sql
+      validation:
+      - name: NONE
+    - table: EPIC_RefVisitType
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_RefVisitType.sql
+      validation:
+      - name: NONE
+    - table: EPIC_RefVisitTypeCrossWalk
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_RefVisitTypeCrossWalk.sql
+      validation:
+      - name: NONE
+    - table: EPIC_RprtCOVIDClaim
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_RprtCOVIDClaim.sql
+      validation:
+      - name: NONE
+    - table: EPIC_StgArpbCombinedFull
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_StgArpbCombinedFull.sql
+      validation:
+      - name: NONE
+    - table: EPIC_StgClarityTdlTranFull
+      has_sensor: 'No'
+      sql:
+      - name: EPIC_StgClarityTdlTranFull.sql
+      validation:
+      - name: NONE

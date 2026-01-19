@@ -1,0 +1,29 @@
+CREATE OR REPLACE VIEW {{ params.param_cr_base_views_dataset_name }}.clinical_patient_query AS SELECT
+    clinical_patient_query.clinical_patient_query_sid,
+    clinical_patient_query.patient_dw_id,
+    clinical_patient_query.company_code,
+    clinical_patient_query.coid,
+    clinical_patient_query.pat_acct_num,
+    clinical_patient_query.query_mnemonic_cs,
+    clinical_patient_query.multiple_query_answer_seq,
+    clinical_patient_query.intervention_assess_mnem_cs,
+    clinical_patient_query.nurs_intervention_ctr,
+    clinical_patient_query.nurs_intervention_base_num,
+    clinical_patient_query.nurs_intervention_urn,
+    clinical_patient_query.ed_intervention_assess_ctr,
+    clinical_patient_query.group_rspn_mnemonic_cs,
+    clinical_patient_query.group_rspn_elem_mnemonic_cs,
+    clinical_patient_query.query_response_text,
+    clinical_patient_query.query_response_activity_date,
+    clinical_patient_query.query_response_activity_time,
+    clinical_patient_query.query_response_activity_dt_tm,
+    clinical_patient_query.project_mnemonic_cs,
+    clinical_patient_query.project_query_seq,
+    clinical_patient_query.clinical_system_module_code,
+    clinical_patient_query.facility_mnemonic_cs,
+    clinical_patient_query.network_mnemonic_cs,
+    clinical_patient_query.source_system_code,
+    clinical_patient_query.dw_last_update_date_time
+  FROM
+    {{ params.param_auth_base_views_dataset_name }}.clinical_patient_query
+;

@@ -1,0 +1,33 @@
+CREATE TABLE IF NOT EXISTS edwpsc.ccu_rprtclaimsummarymodifierpk
+(
+  systemname STRING,
+  dosprovidername STRING,
+  regionname STRING,
+  claimnumber INT64,
+  encounterid INT64,
+  encountercount INT64 NOT NULL,
+  billingarea STRING,
+  coidspecialty STRING,
+  coid STRING NOT NULL,
+  claimcoid STRING,
+  regionkey INT64,
+  encounterdate DATE,
+  emrmodifiervsclaimmodifier STRING,
+  modifiercodechange STRING NOT NULL,
+  encountermodifier STRING,
+  claimmodifier STRING,
+  lastchangedby34 STRING,
+  lastchangedbydept STRING,
+  billingnotes STRING,
+  patientaccountnumber STRING,
+  financialnumber STRING,
+  patientname STRING,
+  encounterdateyyyymm STRING,
+  lasttoucheddate_yyyymm STRING,
+  encountercoidlob STRING,
+  encountercoidsublob STRING,
+  dwlastupdateddate DATE NOT NULL,
+  lasttoucheddate DATE,
+  dwlastupdatedatetime DATE
+)
+;

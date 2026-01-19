@@ -1,0 +1,7 @@
+
+        
+TRUNCATE TABLE {{ params.param_psc_core_dataset_name }}.ECW_FactRHException ;
+
+INSERT INTO {{ params.param_psc_core_dataset_name }}.ECW_FactRHException (RHExceptionKey, ClaimKey, ClaimNumber, Coid, ImportDateKey, RHExceptionClaimID, RHExceptionLastName, RHExceptionFirstName, RHExceptionMI, RHExceptionClaimDateKey, RHExceptionControlNumber, RHExceptionTotalAmt, RHExceptionPayorName, RHExceptionAttPhys, RHExceptionFieldName, RHExceptionErrData, RHExceptionDescription, RHExceptionStmtThruDateKey, RHExceptionRootID, SourcePrimaryKeyValue, DWLastUpdateDateTime, SourceSystemCode, InsertedBy, InsertedDTM, ModifiedBy, ModifiedDTM)
+SELECT source.RHExceptionKey, source.ClaimKey, source.ClaimNumber, TRIM(source.Coid), source.ImportDateKey, TRIM(source.RHExceptionClaimID), TRIM(source.RHExceptionLastName), TRIM(source.RHExceptionFirstName), TRIM(source.RHExceptionMI), source.RHExceptionClaimDateKey, TRIM(source.RHExceptionControlNumber), source.RHExceptionTotalAmt, TRIM(source.RHExceptionPayorName), TRIM(source.RHExceptionAttPhys), TRIM(source.RHExceptionFieldName), TRIM(source.RHExceptionErrData), TRIM(source.RHExceptionDescription), source.RHExceptionStmtThruDateKey, TRIM(source.RHExceptionRootID), source.SourcePrimaryKeyValue, source.DWLastUpdateDateTime, TRIM(source.SourceSystemCode), TRIM(source.InsertedBy), source.InsertedDTM, TRIM(source.ModifiedBy), source.ModifiedDTM
+FROM {{ params.param_psc_stage_dataset_name }}.ECW_FactRHException as source;

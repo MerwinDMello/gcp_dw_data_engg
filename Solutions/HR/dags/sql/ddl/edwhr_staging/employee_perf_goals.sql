@@ -1,0 +1,26 @@
+CREATE TABLE IF NOT EXISTS {{ params.param_hr_stage_dataset_name }}.employee_perf_goals
+(
+  employee_id STRING,
+  goal_title STRING,
+  goal_weight STRING,
+  goal_category STRING,
+  expected_result STRING,
+  measure STRING,
+  due_date DATE,
+  user_defined_date_1 DATE,
+  goal_status STRING,
+  goal_progress STRING,
+  emp_goal_rating STRING,
+  emp_goal_rating_numeric_value STRING,
+  mgr_goal_rating STRING,
+  mgr_goal_rating_numeric_value STRING,
+  plan_name STRING,
+  review_period STRING,
+  review_period_start_date DATE,
+  review_period_end_date DATE,
+  year_1 STRING,
+  individual_goal_id STRING,
+  job_code STRING,
+  hrco STRING,
+  dw_last_update_date_time DATETIME
+);

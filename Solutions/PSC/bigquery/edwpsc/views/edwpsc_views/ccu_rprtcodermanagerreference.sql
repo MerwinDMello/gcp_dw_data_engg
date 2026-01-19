@@ -1,0 +1,37 @@
+CREATE OR REPLACE VIEW edwpsc_views.`ccu_rprtcodermanagerreference`
+AS SELECT
+  `ccu_rprtcodermanagerreference`.codermanagerreferencekey,
+  `ccu_rprtcodermanagerreference`.employeenumber,
+  `ccu_rprtcodermanagerreference`.34id,
+  `ccu_rprtcodermanagerreference`.ecwusername,
+  `ccu_rprtcodermanagerreference`.sharepointusername,
+  `ccu_rprtcodermanagerreference`.employee,
+  `ccu_rprtcodermanagerreference`.managerii,
+  `ccu_rprtcodermanagerreference`.manageri,
+  `ccu_rprtcodermanagerreference`.reportrequired,
+  `ccu_rprtcodermanagerreference`.specialty,
+  `ccu_rprtcodermanagerreference`.hourlybenchmark,
+  `ccu_rprtcodermanagerreference`.title,
+  `ccu_rprtcodermanagerreference`.status,
+  `ccu_rprtcodermanagerreference`.dwlastupdatedatetime,
+  `ccu_rprtcodermanagerreference`.insertedby,
+  `ccu_rprtcodermanagerreference`.inserteddtm,
+  `ccu_rprtcodermanagerreference`.modifiedby,
+  `ccu_rprtcodermanagerreference`.modifieddtm,
+  `ccu_rprtcodermanagerreference`.sharepointdatemodified,
+  `ccu_rprtcodermanagerreference`.sharepointdatecreated,
+  `ccu_rprtcodermanagerreference`.group,
+  `ccu_rprtcodermanagerreference`.area,
+  `ccu_rprtcodermanagerreference`.directors,
+  `ccu_rprtcodermanagerreference`.manager,
+  `ccu_rprtcodermanagerreference`.termdate,
+  `ccu_rprtcodermanagerreference`.coderstatus,
+  `ccu_rprtcodermanagerreference`.subspecialty,
+  `ccu_rprtcodermanagerreference`.comments,
+  `ccu_rprtcodermanagerreference`.sharepointcreatedby,
+  `ccu_rprtcodermanagerreference`.sharepointmodifiedby,
+  `ccu_rprtcodermanagerreference`.lastname,
+  `ccu_rprtcodermanagerreference`.firstname
+  FROM
+    edwpsc_base_views.`ccu_rprtcodermanagerreference`
+;

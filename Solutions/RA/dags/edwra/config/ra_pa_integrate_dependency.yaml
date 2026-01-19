@@ -1,0 +1,14 @@
+integrate:
+- source_system: pa
+  frequency: daily
+  start_date: pendulum.datetime(2023, 6, 9, tz=timezone)
+  schedule: None
+  type: core_tables
+  dag_name_suffix: pagltxn
+  trigger_dag_ids: ['dag_notification_pa_db2_daily_pagltxn_group_counts']
+  dependency:
+  - table: pagl_transaction #CTDN0608 Step 20
+    has_sensor: 'No'
+    has_file_export: 'No'
+    sql:
+      - name: pagl_transaction.sql

@@ -1,0 +1,107 @@
+integrate:
+- source_system: psc
+  frequency: daily
+  dag_name_suffix: wave-other2
+  start_date: pendulum.datetime(2025, 2, 1, tz=current_timezone)
+  schedule: None
+  type: sqlserver
+  done_file: None
+  server-04:
+    trigger_dag_ids: []
+    tables:
+    - table: ECW_FactEncounterCPTMeditechExpanse
+      has_sensor: 'No'
+      sql:
+      - name: ECW_FactEncounterCPTMeditechExpanse.sql
+      validation:
+      - name: NONE
+    - table: ECW_FactEncounterDiagnosisMeditechExpanse
+      has_sensor: 'No'
+      sql:
+      - name: ECW_FactEncounterDiagnosisMeditechExpanse.sql
+      validation:
+      - name: NONE
+    - table: ECW_FactEncounterMedAxionWorkQueue
+      has_sensor: 'No'
+      sql:
+      - name: ECW_FactEncounterMedAxionWorkQueue.sql
+      validation:
+      - name: NONE
+    - table: ECW_FactEncounterMeditechExpanse
+      has_sensor: 'No'
+      sql:
+      - name: ECW_FactEncounterMeditechExpanse.sql
+      validation:
+      - name: NONE
+    - table: ECW_FactEncounterMeditechExpanseNotes
+      has_sensor: 'No'
+      sql:
+      - name: ECW_FactEncounterMeditechExpanseNotes.sql
+      validation:
+      - name: NONE
+    - table: ECW_FactEncounterToCharge
+      has_sensor: 'No'
+      sql:
+      - name: ECW_FactEncounterToCharge.sql
+      validation:
+      - name: NONE
+    - table: ECW_FactEncounterToChargeNote
+      has_sensor: 'No'
+      sql:
+      - name: ECW_FactEncounterToChargeNote.sql
+      validation:
+      - name: NONE
+    - table: ECW_FactEncounterToChargeProviderRole
+      has_sensor: 'No'
+      sql:
+      - name: ECW_FactEncounterToChargeProviderRole.sql
+      validation:
+      - name: NONE
+    - table: ECW_FactEncounterToChargeStatus
+      has_sensor: 'No'
+      sql:
+      - name: ECW_FactEncounterToChargeStatus.sql
+      validation:
+      - name: NONE
+    - table: ECW_FactEnvisionDemographicChange
+      has_sensor: 'No'
+      sql:
+      - name: ECW_FactEnvisionDemographicChange.sql
+      validation:
+      - name: NONE
+    - table: ECW_FactEnvisionProvider
+      has_sensor: 'No'
+      sql:
+      - name: ECW_FactEnvisionProvider.sql
+      validation:
+      - name: NONE
+    - table: ECW_FactEnvisionProvider_History
+      has_sensor: 'No'
+      sql:
+      - name: ECW_FactEnvisionProvider_History.sql
+      validation:
+      - name: NONE
+    - table: ECW_FactEnvisionTermination
+      has_sensor: 'No'
+      sql:
+      - name: ECW_FactEnvisionTermination.sql
+      validation:
+      - name: NONE
+    - table: ECW_FactERAClaimAdjustment
+      has_sensor: 'No'
+      sql:
+      - name: ECW_FactERAClaimAdjustment.sql
+      validation:
+      - name: NONE
+    - table: ECW_RefDiagnosisCodeMeditechExpanse
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RefDiagnosisCodeMeditechExpanse.sql
+      validation:
+      - name: NONE
+    - table: ECW_JuncEncounterToChargeFirstLastKeyMeasure
+      has_sensor: 'No'
+      sql:
+      - name: ECW_JuncEncounterToChargeFirstLastKeyMeasure.sql
+      validation:
+      - name: NONE

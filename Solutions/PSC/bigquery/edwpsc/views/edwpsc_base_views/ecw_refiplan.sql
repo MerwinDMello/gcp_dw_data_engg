@@ -1,0 +1,35 @@
+CREATE OR REPLACE VIEW edwpsc_base_views.`ecw_refiplan`
+AS SELECT
+  `ecw_refiplan`.iplankey,
+  `ecw_refiplan`.financialclasskey,
+  `ecw_refiplan`.iplangroupcactuskey,
+  `ecw_refiplan`.iplangroupfinancialkey,
+  `ecw_refiplan`.iplanname,
+  `ecw_refiplan`.iplanphone,
+  `ecw_refiplan`.iplanphone2,
+  `ecw_refiplan`.iplanfax,
+  `ecw_refiplan`.iplanemail,
+  `ecw_refiplan`.iplanprimaryaddressline1,
+  `ecw_refiplan`.iplanprimaryaddressline2,
+  `ecw_refiplan`.iplanprimarygeographykey,
+  `ecw_refiplan`.iplanpayorid,
+  `ecw_refiplan`.iplanerapayorid,
+  `ecw_refiplan`.iplanfeeschedid,
+  `ecw_refiplan`.sourceprimarykeyvalue,
+  `ecw_refiplan`.sourcearecordlastupdated,
+  `ecw_refiplan`.sourcebrecordlastupdated,
+  `ecw_refiplan`.dwlastupdatedatetime,
+  `ecw_refiplan`.sourcesystemcode,
+  `ecw_refiplan`.insertedby,
+  `ecw_refiplan`.inserteddtm,
+  `ecw_refiplan`.modifiedby,
+  `ecw_refiplan`.modifieddtm,
+  `ecw_refiplan`.deleteflag,
+  `ecw_refiplan`.inactive,
+  `ecw_refiplan`.notes,
+  `ecw_refiplan`.emcpayerid,
+  `ecw_refiplan`.sysstarttime,
+  `ecw_refiplan`.sysendtime
+  FROM
+    edwpsc.`ecw_refiplan`
+;

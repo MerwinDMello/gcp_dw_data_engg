@@ -1,0 +1,1 @@
+truncate table edwhr.ref_pay_grade;

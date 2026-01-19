@@ -1,0 +1,30 @@
+CREATE TABLE IF NOT EXISTS edwpsc.ecw_cashvaluelinepaymentsample
+(
+  claimlinechargekey INT64,
+  cptcodekey INT64,
+  cptmodifier1 STRING,
+  payer1iplankey INT64,
+  payer2iplankey INT64,
+  payer3iplankey INT64,
+  coid STRING,
+  patientguarantorpatientkey INT64,
+  renderingproviderkey INT64,
+  claimkey INT64,
+  cptunits INT64,
+  servicedatekey DATE,
+  deniedclaimlineflag INT64,
+  payer1firstbilldatekey DATE,
+  payer1firstpaymentdatekey DATE,
+  payer1paymentlagdays INT64,
+  cptcharges NUMERIC(33, 4),
+  payer1contractualadjustmentamt NUMERIC(33, 4),
+  payer1allowedamt NUMERIC(33, 4),
+  payer1paymentamt NUMERIC(33, 4),
+  payer1coinsuranceamt NUMERIC(33, 4),
+  payer1memberresponsibilityamt NUMERIC(33, 4),
+  payer1deductibleamt NUMERIC(33, 4),
+  payer2paymentamt NUMERIC(33, 4),
+  feeschedulerank INT64,
+  dwlastupdatedatetime DATETIME
+)
+;

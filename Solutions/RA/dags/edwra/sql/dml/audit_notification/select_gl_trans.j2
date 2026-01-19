@@ -1,0 +1,5 @@
+SELECT Stack, COUNT(*) as Rec_Count
+FROM {{ params.param_parallon_ra_stage_dataset_name }}.brbglx
+WHERE CAST(entered_ts AS DATE) = current_date('US/Central') - 1
+GROUP BY Stack
+ORDER BY Stack ASC;

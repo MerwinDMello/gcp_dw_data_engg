@@ -1,0 +1,21 @@
+name: Call Dataflow Build/Deploy Workflow
+on:
+  pull_request:
+    types:
+      - closed
+    branches:
+      - "dev"
+      - "qa"
+      - "prod"
+    paths:
+      - 'dataflow/**/**/**'
+
+jobs:
+  call_dataflow_build_deploy_workflow:
+    name: Call Dataflow Reusable Workflow to Build and Deploy jobs
+    uses: HCACloudDataEngineering/gcp-hin-workflows/.github/workflows/dataflow_build_deploy_workflow.yaml@main
+    with:
+      branch: ${{ github.base_ref }}
+      dataflow_path: dataflow
+    secrets: 
+      gh_token: ${{ secrets.GH_HIN_WORKFLOWS_API_TOKEN }}

@@ -1,0 +1,30 @@
+CREATE OR REPLACE VIEW edwpsc_base_views.`ecw_factbillvendorclaimstatushistory`
+AS SELECT
+  `ecw_factbillvendorclaimstatushistory`.billvendorclaimstatushistorykey,
+  `ecw_factbillvendorclaimstatushistory`.sourceprimarykeyvalue,
+  `ecw_factbillvendorclaimstatushistory`.fullclaimnumber,
+  `ecw_factbillvendorclaimstatushistory`.claimkey,
+  `ecw_factbillvendorclaimstatushistory`.tracenumber,
+  `ecw_factbillvendorclaimstatushistory`.patienticn,
+  `ecw_factbillvendorclaimstatushistory`.claimtotal,
+  `ecw_factbillvendorclaimstatushistory`.category277,
+  `ecw_factbillvendorclaimstatushistory`.status277,
+  `ecw_factbillvendorclaimstatushistory`.statdate,
+  `ecw_factbillvendorclaimstatushistory`.reporttype,
+  `ecw_factbillvendorclaimstatushistory`.processdate,
+  `ecw_factbillvendorclaimstatushistory`.payid,
+  `ecw_factbillvendorclaimstatushistory`.paysubid,
+  `ecw_factbillvendorclaimstatushistory`.claimrank,
+  `ecw_factbillvendorclaimstatushistory`.dwlastupdatedatetime,
+  `ecw_factbillvendorclaimstatushistory`.sourcesystemcode,
+  `ecw_factbillvendorclaimstatushistory`.insertedby,
+  `ecw_factbillvendorclaimstatushistory`.inserteddtm,
+  `ecw_factbillvendorclaimstatushistory`.modifiedby,
+  `ecw_factbillvendorclaimstatushistory`.modifieddtm,
+  `ecw_factbillvendorclaimstatushistory`.addstatus,
+  `ecw_factbillvendorclaimstatushistory`.delchrgloop,
+  `ecw_factbillvendorclaimstatushistory`.trackstat,
+  `ecw_factbillvendorclaimstatushistory`.stc12addstat
+  FROM
+    edwpsc.`ecw_factbillvendorclaimstatushistory`
+;

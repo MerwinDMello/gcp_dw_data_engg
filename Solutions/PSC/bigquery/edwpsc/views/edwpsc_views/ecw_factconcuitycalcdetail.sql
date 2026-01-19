@@ -1,0 +1,51 @@
+CREATE OR REPLACE VIEW edwpsc_views.`ecw_factconcuitycalcdetail`
+AS SELECT
+  `ecw_factconcuitycalcdetail`.concuitycalcdetailkey,
+  `ecw_factconcuitycalcdetail`.loadid,
+  `ecw_factconcuitycalcdetail`.loaddetail,
+  `ecw_factconcuitycalcdetail`.actiontaken,
+  `ecw_factconcuitycalcdetail`.actionstatus,
+  `ecw_factconcuitycalcdetail`.actiondatekey,
+  `ecw_factconcuitycalcdetail`.calcinitrequestid,
+  `ecw_factconcuitycalcdetail`.accountnumber,
+  `ecw_factconcuitycalcdetail`.unitnumber,
+  `ecw_factconcuitycalcdetail`.practitioner,
+  `ecw_factconcuitycalcdetail`.payercode,
+  `ecw_factconcuitycalcdetail`.totalexpectedpaymentamt,
+  `ecw_factconcuitycalcdetail`.detailtype,
+  `ecw_factconcuitycalcdetail`.amount,
+  `ecw_factconcuitycalcdetail`.rate,
+  `ecw_factconcuitycalcdetail`.servicedescription,
+  `ecw_factconcuitycalcdetail`.servicetype,
+  `ecw_factconcuitycalcdetail`.cptunits,
+  `ecw_factconcuitycalcdetail`.additionaldescription,
+  `ecw_factconcuitycalcdetail`.cptcode,
+  `ecw_factconcuitycalcdetail`.cptstartservicedatekey,
+  `ecw_factconcuitycalcdetail`.cptendservicedatekey,
+  `ecw_factconcuitycalcdetail`.cptmodifier1,
+  `ecw_factconcuitycalcdetail`.cptmodifier2,
+  `ecw_factconcuitycalcdetail`.quantity,
+  `ecw_factconcuitycalcdetail`.cptcharges,
+  `ecw_factconcuitycalcdetail`.baserate,
+  `ecw_factconcuitycalcdetail`.interestamt,
+  `ecw_factconcuitycalcdetail`.statetaxamt,
+  `ecw_factconcuitycalcdetail`.expectedpaymentamt,
+  `ecw_factconcuitycalcdetail`.active,
+  `ecw_factconcuitycalcdetail`.claimkey,
+  `ecw_factconcuitycalcdetail`.claimlinechargekey,
+  `ecw_factconcuitycalcdetail`.coid,
+  `ecw_factconcuitycalcdetail`.regionkey,
+  `ecw_factconcuitycalcdetail`.sourceprimarykeyvalue,
+  `ecw_factconcuitycalcdetail`.sourcerecordlastupdated,
+  `ecw_factconcuitycalcdetail`.dwlastupdatedatetime,
+  `ecw_factconcuitycalcdetail`.sourcesystemcode,
+  `ecw_factconcuitycalcdetail`.insertedby,
+  `ecw_factconcuitycalcdetail`.inserteddtm,
+  `ecw_factconcuitycalcdetail`.modifiedby,
+  `ecw_factconcuitycalcdetail`.modifieddtm
+  FROM
+    edwpsc_base_views.`ecw_factconcuitycalcdetail`
+  INNER JOIN edwpsc_base_views.secref_facility
+  ON LPAD(TRIM(secref_facility.co_id, ' '), 5, '0') = LPAD(TRIM(`ecw_factconcuitycalcdetail`.coid, ' '), 5, '0')
+  AND TRIM(secref_facility.user_id, ' ') = TRIM(session_user(), ' ')
+;

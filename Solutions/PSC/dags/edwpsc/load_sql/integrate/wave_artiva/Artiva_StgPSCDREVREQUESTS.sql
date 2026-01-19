@@ -1,0 +1,7 @@
+
+        
+TRUNCATE TABLE {{ params.param_psc_core_dataset_name }}.Artiva_StgPSCDREVREQUESTS ;
+
+INSERT INTO {{ params.param_psc_core_dataset_name }}.Artiva_StgPSCDREVREQUESTS (PSCDRACCTID, PSCDRCRTDTE, PSCDRCRTTIME, PSCDRCRTUSER, PSCDRENCNTRID, PSCDRKEY, PSCDRSTATUS, PSCDRUTILITYID)
+SELECT source.PSCDRACCTID, source.PSCDRCRTDTE, source.PSCDRCRTTIME, TRIM(source.PSCDRCRTUSER), source.PSCDRENCNTRID, source.PSCDRKEY, TRIM(source.PSCDRSTATUS), source.PSCDRUTILITYID
+FROM {{ params.param_psc_stage_dataset_name }}.Artiva_StgPSCDREVREQUESTS as source;

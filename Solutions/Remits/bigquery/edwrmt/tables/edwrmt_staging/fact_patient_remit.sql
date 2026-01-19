@@ -1,0 +1,31 @@
+CREATE TABLE IF NOT EXISTS {{ params.param_rmt_stage_dataset_name }}.fact_patient_remit
+(
+  patient_remit_sid STRING NOT NULL,
+  remit_id STRING NOT NULL,
+  remit_provider_id STRING,
+  remit_payer_id STRING,
+  patient_acct_num STRING NOT NULL,
+  unit_num STRING,
+  iplan STRING NOT NULL,
+  pas_coid STRING,
+  remit_file_path STRING,
+  remit_file_name STRING,
+  claim_file_name STRING,
+  remit_bill_dt DATE,
+  remit_claim_status_cd STRING,
+  remit_payment_amt NUMERIC(32, 3),
+  remit_claim_id STRING,
+  tot_claim_charge_amt NUMERIC(32, 3),
+  patient_resp_amt NUMERIC(32, 3),
+  claim_file_inc_cd STRING,
+  payer_claim_ctrll_num STRING,
+  facility_cd STRING,
+  claim_freq_type_cd STRING,
+  drg STRING,
+  drg_weight STRING,
+  discharge_fraction NUMERIC(33, 4),
+  dw_last_update_date_time DATETIME,
+  source_system_code STRING,
+  customer_cd STRING
+)
+CLUSTER BY patient_remit_sid;

@@ -1,0 +1,81 @@
+CREATE TABLE IF NOT EXISTS {{ params.param_pf_core_dataset_name }}.ga_hsptlst_patient_dtl_eom (
+patient_dw_id NUMERIC(18,0) NOT NULL
+, company_code STRING NOT NULL
+, coid STRING NOT NULL
+, unit_num STRING
+, sub_unit_num STRING
+, sub_unit_gl_coid STRING NOT NULL
+, pat_acct_num NUMERIC(12,0)
+, medical_record_num STRING
+, patient_market_urn STRING
+, social_security_num NUMERIC(11,0)
+, patient_name STRING
+, gender_code STRING
+, ethnicity_code STRING
+, patient_birth_date DATE
+, patient_discharge_month_age INT64
+, patient_zip_code STRING
+, admission_date DATE
+, admission_time INT64
+, discharge_date DATE
+, discharge_hour INT64
+, final_bill_date DATE
+, admission_source_code STRING
+, patient_type_code STRING
+, patient_type_code_pos1 STRING
+, mc_patient_type_code STRING
+, financial_class_code NUMERIC(3,0)
+, account_status_code STRING
+, service_code STRING
+, discharge_status_code INT64
+, final_location STRING
+, expiration_location STRING
+, expiration_hour INT64
+, iplan_id_ins1 INT64
+, iplan_id_desc_ins1 STRING
+, major_payor_id_ins1 NUMERIC(18,0)
+, major_payor_description STRING
+, calculated_los_days INT64
+, diag_code_final STRING
+, diag_type_code_final STRING
+, diag_code_final_desc STRING
+, drg_code_hcfa STRING
+, drg_pmt_weight_amt_hcfa NUMERIC(15,4)
+, drg_geometric_los_hcfa NUMERIC(15,4)
+, total_billed_charge_amt NUMERIC(18,3)
+, total_payment_amt NUMERIC(18,3)
+, total_write_off_amt NUMERIC(18,3)
+, total_adjustment_amt NUMERIC(18,3)
+, total_contract_allow_amt NUMERIC(18,3)
+, total_account_balance_amt NUMERIC(18,3)
+, total_expected_pmt_amt NUMERIC(18,3)
+, icu_charge_amt NUMERIC(18,3)
+, ed_hours INT64
+, icu_days INT64
+, ccu_days INT64
+, floor_days INT64
+, hosp_nonhosp_att_ind STRING
+, newborn_patient_ind STRING
+, hybrid_net_rev_amt NUMERIC(18,3)
+, total_fix_direct_cost_amt NUMERIC(18,6)
+, total_var_direct_cost_amt NUMERIC(18,6)
+, total_fix_indirect_cost_amt NUMERIC(18,6)
+, total_var_indirect_cost_amt NUMERIC(18,6)
+, pharmacy_var_cost_amt NUMERIC(18,3)
+, lab_var_cost_amt NUMERIC(18,3)
+, imag_rad_diag_var_cost_amt NUMERIC(18,3)
+, imag_mri_var_cost_amt NUMERIC(18,3)
+, imag_ct_scan_var_cost_amt NUMERIC(18,3)
+, imag_nuclear_med_var_cost_amt NUMERIC(18,3)
+, imag_ultrasound_var_cost_amt NUMERIC(18,3)
+, total_imaging_cost_amt NUMERIC(18,3)
+, other_var_cost_amt NUMERIC(18,3)
+, expected_complication_ind NUMERIC(15,5)
+, actual_complication_ind INT64
+, expected_mortality_ind NUMERIC(15,5)
+, actual_mortality_ind INT64
+, source_system_code STRING
+, dw_last_update_date_time DATETIME
+)
+ CLUSTER BY Patient_DW_ID
+;

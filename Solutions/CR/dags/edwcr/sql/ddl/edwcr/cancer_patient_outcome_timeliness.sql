@@ -1,0 +1,48 @@
+CREATE OR REPLACE TABLE {{ params.param_cr_core_dataset_name }}.cancer_patient_outcome_timeliness
+(
+  cancer_patient_tumor_driver_sk NUMERIC(29) NOT NULL OPTIONS(description='A unique surrogate key generated for a patient and tumor record'),
+  cancer_patient_driver_sk NUMERIC(29) NOT NULL OPTIONS(description='Unique patient key for consolidated patient records'),
+  cancer_tumor_driver_sk INT64 NOT NULL OPTIONS(description='A unique identifier for each tumor record'),
+  coid STRING NOT NULL OPTIONS(description='A five character code for each facility.'),
+  company_code STRING NOT NULL OPTIONS(description='Part of the unique identifier that identifies the company with which a facility is affiliated for application processing purposes.'),
+  length_to_chemo_day_num INT64 OPTIONS(description='Diagnosis Date to Summary Date Chemo in Days'),
+  length_to_hormone_day_num INT64 OPTIONS(description='Diagnosis Date to Summary Date Hormone in Days'),
+  length_to_immuno_day_num INT64 OPTIONS(description='Diagnosis date to summary date Immuno in Days'),
+  length_to_surgery_day_num INT64 OPTIONS(description='Diagnosis Date to Summary Date Surgery in Days'),
+  length_to_radiation_day_num INT64 OPTIONS(description='Diagnosis Date to Summary Date Radiation Started in Days'),
+  length_to_transplant_day_num INT64 OPTIONS(description='Diagnosis Date to Summary Date transplant in Days'),
+  length_to_first_treatment_day_num INT64 OPTIONS(description='Days Between Initial Diagnosis and first treatment'),
+  first_surgery_chemo_elapsed_day_num INT64 OPTIONS(description='Days from first surgery date to first chemo date'),
+  first_chemo_surgery_elapsed_day_num INT64 OPTIONS(description='Days from chemo date to first surgery date'),
+  radiation_elapsed_day_num INT64 OPTIONS(description='Days from first radiation oncology date to last radiation oncology date'),
+  length_to_surgery_last_contact_day_num INT64 OPTIONS(description='Days from surgery to last contact date'),
+  length_to_diagnosis_last_contact_day_num INT64 OPTIONS(description='Days from diagnosis to last contact date'),
+  length_to_diagnosis_last_contact_mth_num INT64 OPTIONS(description='Days from diagnosis to last contact month'),
+  last_contact_date DATE OPTIONS(description='Date patient was last contacted'),
+  admission_date DATE OPTIONS(description='Date of admission for the patient'),
+  rln10_concordant_ind STRING OPTIONS(description='At least 10 regional lymph nodes are removed and pathologically examined for AJCC stage IA, IB, IIA, and IIB resected NSCLC'),
+  rln12_concordant_ind STRING OPTIONS(description='At least 12 regional lymph nodes are removed and pathologically examined for resected colon cancer'),
+  act_concordant_ind STRING OPTIONS(description='Adjuvant chemotherapy is recommended or administered within 4 months (120 days) of diagnosis for patients under the age of 80 with AJCC Stage III (lymph node positive) colon cancer'),
+  bcs_concordant_ind STRING OPTIONS(description='Breast conservation surgery rate for women with AJCC clinical stage 0, I, or II breast cancer'),
+  bcsrt_concordant_ind STRING OPTIONS(description='Radiation therapy is administered within 1 year (365 days) of diagnosis for women under age 70 receiving breast conserving surgery for breast cancer'),
+  cbrrt_concordant_ind STRING OPTIONS(description='Use of brachytherapy in patients treated with primary radiation with curative intent in any stage of cervical cancer'),
+  cerct_concrodant_ind STRING OPTIONS(description='Chemotherapy administered to cervical cancer patients who received radiation for stages IB2-IV cancer (Group 1) or with positive pelvic nodes, positive surgical margin, and/or positive parametrium (Group 2)'),
+  cerrt_concrodant_ind STRING OPTIONS(description='Radiation therapy completed within 60 days of initiation of radiation among women diagnosed with any stage of cervical cancer'),
+  endctrt_concordant_ind STRING OPTIONS(description='Chemotherapy and/or radiation administered to patients with Stage IIIC or IV Endometrial cancer'),
+  endlrc_concordant_ind STRING OPTIONS(description='Endoscopic, laparoscopic, or robotic surgery performed for all Endometrial cancer (excluding sarcoma and lymphoma), for all stages except stage IV'),
+  g15rlnc_concordant_ind STRING OPTIONS(description='At least 15 regional lymph nodes are removed and pathologically examined for resected gastric cancer'),
+  lct_concordant_ind STRING OPTIONS(description='Systemic chemotherapy is administered within 4 months to day preoperatively or day of surgery to 6 months postoperatively, or it is recommended for surgically resected cases with pathologic, lymph node-positive (pN1) and (pN2) NSCLC'),
+  ht_concordant_ind STRING OPTIONS(description='Tamoxifen or third generation aromatase inhibitor is recommended or administered within 1 year (365 days) of diagnosis for women with AJCC T1cN0M0, or stage IB - III hormone receptor-positive breast cancer'),
+  lnosurg_concordant_ind STRING OPTIONS(description='Surgery is not the first course of treatment for cN2, M0 lung cases'),
+  mac_concordant_ind STRING OPTIONS(description='Combination chemotherapy is recommended or administered within 4 months (120 days) of diagnosis for women under 70 with AJCC T1cN0M0, or stage IB - III hormone receptor negative breast cancer'),
+  mastrt_concordant_ind STRING OPTIONS(description='Radiation therapy is recommended or administered following any mastectomy within 1 year (365 days) of diagnosis of breast cancer for women with = 4 positive regional lymph nodes'),
+  nb_concordant_ind STRING OPTIONS(description='Image or palpation-guided needle biopsy to the primary site is performed to establish diagnosis of breast cancer'),
+  ovsal_concordant_ind STRING OPTIONS(description='Salpingo-oophorectomy with omentectomy, debulking; cytoreductive surgery, or pelvic exenteration in Stages I-IIIC Ovarian cancer'),
+  recrtct_concordance_ind STRING OPTIONS(description='Preoperative chemo and radiation are administered for clinical AJCC T3N0, T4N0, or Stage III; or Postoperative chemo and radiation are administered within 180 days of diagnosis for clinical AJCC T1-2N0 with pathologic AJCC T3N0, T4N0, or Stage III'),
+  source_system_code STRING NOT NULL OPTIONS(description='Unique value to identify the system from which data is sourced'),
+  dw_last_update_date_time DATETIME NOT NULL OPTIONS(description='Timestamp of update or load of this record to the Enterprise Data Warehouse.')
+)
+CLUSTER BY cancer_patient_tumor_driver_sk
+OPTIONS(
+  description='Contains consolidated patients navigated by Sarah Cannon through Metriq iNavigate and Cancer Patient ID and tumor information for them'
+);

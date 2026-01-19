@@ -1,0 +1,164 @@
+name: Build Dataflow Flex Template
+
+inputs:
+  repository:
+    description: "The caller repository"
+  sdk_language:
+    description: "The programming language used for the dataflow job."
+  dataflow_path:
+    description: "The path to the dataflow directory"
+    default: "dataflow"
+  job_folder:
+    description: "The directory of the parent folder"  
+  workload_identity_provider:
+    description: "The workload identity provider for authentication"
+  service_account:
+    description: "The GitHub service account that connects to GCP"
+  target_gcr_image:
+    description:
+  template_spec_gcspath:
+    description: "The GCS path of the template file for the Dataflow job"    
+  metadata_filepath:
+    description:
+  # The following inputs are specific to Python dataflow jobs
+  region:
+    description: ""
+  # The following inputs are specific to Java dataflow jobs
+  proc_project_name:
+    description: "The name of the processing project"
+  command_spec:
+    description:
+  app_root:
+    description:
+  base_container_image:
+    description:
+  base_container_image_version:
+    description:
+  module_name:
+    description: "The name of the module"
+
+
+
+runs:
+  using: "composite"
+  steps:
+            
+    # For jobs that use Java, install and setup Maven and Java
+    - uses: actions/checkout@v4
+      with:
+        repository: ${{ inputs.repository }}
+
+    - name: Install Maven
+      if: contains(inputs.sdk_language, 'JAVA')
+      shell: bash
+      run: sudo apt-get update && sudo apt-get install -y maven
+    
+    - name: Setup Java
+      if: contains(inputs.sdk_language, 'JAVA')
+      uses: 'actions/setup-java@v4'
+      with:
+        distribution: 'temurin'
+        java-version: '11'
+        cache: 'maven'
+    
+    # Authenticate to Google Cloud
+    - name: 'Authenticate to Google Cloud' 
+      id: 'auth'
+      uses: 'google-github-actions/auth@v1.1.1'
+      with:
+        workload_identity_provider: ${{ inputs.workload_identity_provider }}
+        service_account: ${{ inputs.service_account }}
+
+    # Set up the Google Cloud SDK
+    - name: GCP setup
+      if: contains(inputs.sdk_language, 'python')
+      uses: 'google-github-actions/setup-gcloud@v1'
+    
+    - name: GCP setup
+      if: contains(inputs.sdk_language, 'JAVA')
+      uses: 'google-github-actions/setup-gcloud@v1'
+      with:
+        install_components: 'beta'
+
+    - name: Copy files from GCS
+      if: contains(inputs.repository, 'gcp-hin2-clinical-symed')
+      shell: bash
+      run: |
+        echo "copying files from GCS"
+        gsutil cp gs://hin2-dataflow-clinical-config-${{ github.base_ref }}-001/drivers/mssql-jdbc-9.2.1.jre8.jar ./data_engineering/dataflow/python/symed_mapping/src/mssql-jdbc-9.2.1.jre8.jar
+        gsutil cp gs://hin2-dataflow-clinical-config-${{ github.base_ref }}-001/drivers/jre-8u351-linux-x64.tar.gz ./data_engineering/dataflow/python/symed_mapping/src/jre-8u351-linux-x64.tar.gz
+        gsutil cp gs://hin2-dataflow-clinical-config-${{ github.base_ref }}-001/drivers/mssql-jdbc-12.2.0.jre8.jar  ./data_engineering/dataflow/python/symed_lite/src/mssql-jdbc-12.2.0.jre8.jar
+        gsutil cp gs://hin2-dataflow-clinical-config-${{ github.base_ref }}-001/drivers/jre-8u351-linux-x64.tar.gz ./data_engineering/dataflow/python/symed_lite/src/jre-8u351-linux-x64.tar.gz
+    # Get access token and configure Docker to use gcloud for authentication
+    # Need to either pick one of the below steps or make them dependent on the SDK language
+    - name: Authenticate Docker
+      if: contains(inputs.sdk_language, 'python')
+      shell: bash
+      run: |
+        echo "authentication start"
+        gcloud auth configure-docker us-docker.pkg.dev
+        gcloud auth configure-docker ${{ inputs.region }}-docker.pkg.dev
+
+    - name: Configure Docker
+      if: contains(inputs.sdk_language, 'JAVA')
+      shell: bash
+      run: |
+          gcloud auth configure-docker --quiet
+
+    # If the dataflow job is written in Python, build and deploy the Docker image
+    - name: Build and Deploy Python Docker Image
+      if: contains(inputs.sdk_language, 'python')
+      shell: bash
+      run: |
+        docker build -t ${{ inputs.target_gcr_image }} ./${{ inputs.dataflow_path }}/${{ inputs.sdk_language }}/${{ inputs.job_folder }}/src
+        docker push ${{ inputs.target_gcr_image }}
+
+    # If the dataflow job is written in Python, build the flex template
+    - name: Build Flex Template - Python
+      shell: bash
+      if: contains(inputs.sdk_language, 'python')
+      run: |
+        echo "creating the flex template at ${{ inputs.template_spec_gcspath }}"
+        sdk_language=${{ inputs.sdk_language }}
+        sdk_language="${sdk_language^^}"
+        gcloud dataflow flex-template build "${{ inputs.template_spec_gcspath }}" \
+        --image "${{ inputs.target_gcr_image }}" \
+        --sdk-language ${sdk_language} \
+        --metadata-file "${{ inputs.metadata_filepath }}"
+        
+    # If the dataflow job is written in Java, build the Maven package
+    - name: Clean Package Command
+      if: contains(inputs.sdk_language, 'JAVA')
+      shell: bash
+      working-directory: ${{ inputs.dataflow_path }}/java/${{ inputs.job_folder }}/src
+      run: |
+        bucket_name=$(echo "${{ inputs.template_spec_gcspath }}" | cut -d'/' -f3)
+        echo $bucket_name
+        mvn clean install -Dcheckstyle.skip -DskipTests  -Dtest=none -pl /plugins/templates-maven-plugin -am
+        mvn clean package -PtemplatesStage  \
+        -Dimage="${{ inputs.target_gcr_image }}" \
+        -Dbase-container-image="${{ inputs.base_container_image }}" \
+        -Dbase-container-image.version="${{ inputs.base_container_image_version }}" \
+        -DskipTests  -Dtest=none -Dcheckstyle.skip \
+        -DprojectId="${{ inputs.proc_project_name }}" \
+        -DbucketName=$bucket_name \
+        -DstagePrefix="images/kafka-to-bigquery-image-spec.json" \
+        -DtemplateName="${{ inputs.app_root }}" \
+        -Dapp-root="${{ inputs.app_root }}"  \
+        -Dcommand-spec="${{ inputs.command_spec }}" \
+        -Djib.applicationCache="./tmp-streaming-dataflow/" \
+        -pl "v2/${{ inputs.module_name }}" -am
+    
+    # If the dataflow job is written in Java, build the flex template
+    - name: Build Flex Template - Java
+      if: contains(inputs.sdk_language, 'JAVA')
+      shell: bash
+      run: |
+        gcloud dataflow flex-template build "${{ inputs.template_spec_gcspath }}" \
+        --image "${{ inputs.target_gcr_image }}" \
+        --sdk-language "${{ inputs.sdk_language }}" \
+        --metadata-file "${{ inputs.metadata_filepath }}"
+
+
+
+

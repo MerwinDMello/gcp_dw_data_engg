@@ -1,0 +1,37 @@
+CREATE OR REPLACE VIEW edwpsc_views.`artiva_stghcfacility`
+AS SELECT
+  `artiva_stghcfacility`.hcfaid,
+  `artiva_stghcfacility`.hcfadesc,
+  `artiva_stghcfacility`.hcfaadr1,
+  `artiva_stghcfacility`.hcfaadr2,
+  `artiva_stghcfacility`.hcfacity,
+  `artiva_stghcfacility`.hcfast,
+  `artiva_stghcfacility`.hcfazip,
+  `artiva_stghcfacility`.hcfafaxph,
+  `artiva_stghcfacility`.hcfaph,
+  `artiva_stghcfacility`.psfasiteid,
+  `artiva_stghcfacility`.psfagroupnpi,
+  `artiva_stghcfacility`.psfataxonomy,
+  `artiva_stghcfacility`.psfaspecialty,
+  `artiva_stghcfacility`.psfaname,
+  `artiva_stghcfacility`.psfacoidnum,
+  `artiva_stghcfacility`.psfaorgid,
+  `artiva_stghcfacility`.psfaorgname,
+  `artiva_stghcfacility`.psfaemail,
+  `artiva_stghcfacility`.psfalockboxadr1,
+  `artiva_stghcfacility`.psfalockboxadr2,
+  `artiva_stghcfacility`.psfalockboxcty,
+  `artiva_stghcfacility`.psfalockboxst,
+  `artiva_stghcfacility`.psfalockboxzip,
+  `artiva_stghcfacility`.psfaclosedflag,
+  `artiva_stghcfacility`.psfaclosedte,
+  `artiva_stghcfacility`.psfaclosetype,
+  `artiva_stghcfacility`.hcfapasid,
+  `artiva_stghcfacility`.hcpsdesc,
+  `artiva_stghcfacility`.psfaietreroute,
+  `artiva_stghcfacility`.psfaietactdte,
+  `artiva_stghcfacility`.psfaautocharge,
+  `artiva_stghcfacility`.psfaenvironment
+  FROM
+    edwpsc_base_views.`artiva_stghcfacility`
+;

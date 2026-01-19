@@ -1,0 +1,30 @@
+CREATE OR REPLACE VIEW edwpsc_views.`ecw_factencountercmc`
+AS SELECT
+  `ecw_factencountercmc`.encountercmckey,
+  `ecw_factencountercmc`.patientmrn,
+  `ecw_factencountercmc`.visitid,
+  `ecw_factencountercmc`.patientname,
+  `ecw_factencountercmc`.servicedatekey,
+  `ecw_factencountercmc`.authoreddatetime,
+  `ecw_factencountercmc`.providername,
+  `ecw_factencountercmc`.providernpi,
+  `ecw_factencountercmc`.admitdatetime,
+  `ecw_factencountercmc`.dischargedatetime,
+  `ecw_factencountercmc`.location,
+  `ecw_factencountercmc`.visitstatus,
+  `ecw_factencountercmc`.pos,
+  `ecw_factencountercmc`.derivedfrom,
+  `ecw_factencountercmc`.sourcereport,
+  `ecw_factencountercmc`.sourcesystemcode,
+  `ecw_factencountercmc`.filedate,
+  `ecw_factencountercmc`.filename,
+  `ecw_factencountercmc`.dwlastupdatedatetime,
+  `ecw_factencountercmc`.insertedby,
+  `ecw_factencountercmc`.inserteddtm,
+  `ecw_factencountercmc`.modifiedby,
+  `ecw_factencountercmc`.modifieddtm,
+  `ecw_factencountercmc`.docstatus,
+  `ecw_factencountercmc`.codingstatus
+  FROM
+    edwpsc_base_views.`ecw_factencountercmc`
+;

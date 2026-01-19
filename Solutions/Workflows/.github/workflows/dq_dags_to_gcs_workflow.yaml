@@ -1,0 +1,96 @@
+name: DAG Generation and GCS Upload
+
+on:
+  workflow_call:
+    inputs:
+      branch: 
+        description: "The branch, and thus the GCP environment, that is relevant to this workflow run"
+        required: true
+        type: string
+      previous_sha:
+        description: "The previous commit SHA before the push that triggered the workflow"
+        required: true
+        type: string
+      current_sha:
+        description: "The current commit SHA after the push that triggered the workflow"    
+        required: true
+        type: string  
+      event_name:
+        description: "The event name that triggered the workflow (workflow dispatch or push)."
+        required: true
+        type: string
+      dag_create_update_script_path:
+        description: "Path to the DAG create/update script"
+        required: true
+        type: string
+      dag_delete_script_path:
+        description: "Path to the DAG delete script"
+        required: true
+        type: string
+      domain_config_path:
+        description: "Path to the domain configuration file"
+        required: true
+        type: string
+
+jobs:
+  Setup:
+    runs-on: [self-hosted, onprem-k8s-arc, enterprise, lnx-amd64, fwdc]
+    name: Set Up DAGs Matrix
+    permissions:
+      contents: 'read'
+      id-token: 'write'   
+    outputs:
+      matrix: ${{ steps.dq_dags_setup.outputs.matrix }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      # Set dispatch variable to true if workflow was triggered via workflow dispatch
+      - name: Determine dispatch
+        id: determine_dispatch
+        shell: bash
+        run: |
+          if [[ "${{ inputs.event_name }}" == "workflow_dispatch" ]]; then
+          echo "dispatch=true" >> $GITHUB_OUTPUT
+          else
+          echo "dispatch=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Run DAG Set Up
+        id: dq_dags_setup
+        uses: HCACloudDataEngineering/gcp-hin-workflows/dq_dags/setup@main
+        with:
+          dispatch: ${{ steps.determine_dispatch.outputs.dispatch }}
+          previous_sha: ${{ inputs.previous_sha }}
+          current_sha: ${{ inputs.current_sha }}
+
+  Deploy:
+    name: Deploy DAGs to GCS
+    runs-on: [self-hosted, onprem-k8s-arc, enterprise, lnx-amd64, fwdc]
+    needs: Setup
+    if: ${{ needs.Setup.outputs.matrix != '[]' }}
+    environment: ${{ inputs.branch }}
+    strategy:
+      fail-fast: false
+      matrix:
+        entry: ${{ fromJson(needs.Setup.outputs.matrix) }}
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run DAG Deploy
+        uses: HCACloudDataEngineering/gcp-hin-workflows/dq_dags/deploy@main
+        with:
+          usecase: ${{ matrix.entry.usecase }}
+          branch: ${{ inputs.branch }}
+          domain_config_path: ${{ inputs.domain_config_path }}
+          dag_create_update_script_path: ${{ inputs.dag_create_update_script_path }}
+          dag_delete_script_path: ${{ inputs.dag_delete_script_path }}
+          workload_identity_provider: ${{ vars.WORKLOAD_IDENTITY_PROVIDER }}
+          service_account:  ${{ vars.SERVICEACCOUNT_GITHUB }}

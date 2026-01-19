@@ -1,0 +1,27 @@
+integrate:
+
+- source_system: paraedw
+  frequency: monthly
+  start_date: pendulum.datetime(2024, 2, 8, tz=timezone)
+  schedule: 0 14 6 * *
+  type: teradata
+  done_file: None
+  dependency:
+  - table: cc_gr_eom
+    has_sensor: 'Yes'
+    has_file_export: 'No'
+    sql:
+    - name: gl_gr_eom_toedwra.sql
+    sensor:
+      - dag_id: dag_ingest_ra_paraedw_teradata_monthly_12.00 
+        task_id: end_dag
+        schedule: 0 12 6 * *
+  - table: gr_gl_recn
+    has_sensor: 'No'
+    has_file_export: 'Yes'
+    source_file_name: 
+      - done_file
+    destination_file_name:
+      - GR_GL_Recn_Monthly.done
+    sql:
+    - name: gr_gl_recn_toedwra.sql

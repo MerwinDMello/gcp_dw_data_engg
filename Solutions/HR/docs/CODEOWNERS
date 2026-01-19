@@ -1,0 +1,8 @@
+##########################################
+#             code ownership
+##########################################
+
+# default ownership: default owners for everything in the repo (Unless a later match takes precedence)
+*       @HCACloudDataEngineering/hin-prd-codeowners
+# code owner restriction is removed from the dags/sql/adhoc directory so that after hours urgent fixes can be readily completed
+/dags/sql/adhoc/

@@ -1,0 +1,42 @@
+CREATE OR REPLACE VIEW edwpsc_views.`pv_facttransactionsclaimlinefinancialadjustment`
+AS SELECT
+  `pv_facttransactionsclaimlinefinancialadjustment`.transctionsclaimlinefinancialadjustmentkey,
+  `pv_facttransactionsclaimlinefinancialadjustment`.claimkey,
+  `pv_facttransactionsclaimlinefinancialadjustment`.claimnumber,
+  `pv_facttransactionsclaimlinefinancialadjustment`.regionkey,
+  `pv_facttransactionsclaimlinefinancialadjustment`.coid,
+  `pv_facttransactionsclaimlinefinancialadjustment`.coidconfigurationkey,
+  `pv_facttransactionsclaimlinefinancialadjustment`.servicingproviderkey,
+  `pv_facttransactionsclaimlinefinancialadjustment`.claimpayer1iplankey,
+  `pv_facttransactionsclaimlinefinancialadjustment`.facilitykey,
+  `pv_facttransactionsclaimlinefinancialadjustment`.claimlinefinancialadjustmentskey,
+  `pv_facttransactionsclaimlinefinancialadjustment`.transactiontype,
+  `pv_facttransactionsclaimlinefinancialadjustment`.transactionflag,
+  `pv_facttransactionsclaimlinefinancialadjustment`.transactionamt,
+  `pv_facttransactionsclaimlinefinancialadjustment`.transactiondatekey,
+  `pv_facttransactionsclaimlinefinancialadjustment`.transactiontime,
+  `pv_facttransactionsclaimlinefinancialadjustment`.transactionclosingdatekey,
+  `pv_facttransactionsclaimlinefinancialadjustment`.transactionbyuserkey,
+  `pv_facttransactionsclaimlinefinancialadjustment`.trrefid,
+  `pv_facttransactionsclaimlinefinancialadjustment`.practicekey,
+  `pv_facttransactionsclaimlinefinancialadjustment`.practicename,
+  `pv_facttransactionsclaimlinefinancialadjustment`.sourceaprimarykeyvalue,
+  `pv_facttransactionsclaimlinefinancialadjustment`.sourcearecordlastupdated,
+  `pv_facttransactionsclaimlinefinancialadjustment`.dwlastupdatedatetime,
+  `pv_facttransactionsclaimlinefinancialadjustment`.sourcesystemcode,
+  `pv_facttransactionsclaimlinefinancialadjustment`.insertedby,
+  `pv_facttransactionsclaimlinefinancialadjustment`.inserteddtm,
+  `pv_facttransactionsclaimlinefinancialadjustment`.modifiedby,
+  `pv_facttransactionsclaimlinefinancialadjustment`.modifieddtm,
+  `pv_facttransactionsclaimlinefinancialadjustment`.posteddatekey,
+  `pv_facttransactionsclaimlinefinancialadjustment`.paymentnumber,
+  `pv_facttransactionsclaimlinefinancialadjustment`.claimlinechargeskey,
+  `pv_facttransactionsclaimlinefinancialadjustment`.adjustmentcodekey,
+  `pv_facttransactionsclaimlinefinancialadjustment`.adjustmentcategorykey,
+  `pv_facttransactionsclaimlinefinancialadjustment`.firstdenialcategory
+  FROM
+    edwpsc_base_views.`pv_facttransactionsclaimlinefinancialadjustment`
+  INNER JOIN edwpsc_base_views.secref_facility
+  ON LPAD(TRIM(secref_facility.co_id, ' '), 5, '0') = LPAD(TRIM(`pv_facttransactionsclaimlinefinancialadjustment`.coid, ' '), 5, '0')
+  AND TRIM(secref_facility.user_id, ' ') = TRIM(session_user(), ' ')
+;

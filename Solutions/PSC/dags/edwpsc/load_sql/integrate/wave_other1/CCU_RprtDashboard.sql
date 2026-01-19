@@ -1,0 +1,6 @@
+TRUNCATE TABLE {{ params.param_psc_core_dataset_name }}.CCU_RprtDashboard ;
+
+INSERT INTO {{ params.param_psc_core_dataset_name }}.CCU_RprtDashboard
+(CCUDashboardKey, DashboardReportName, Coid, OWNER, EOMDate, EOMDateYYYYMM, Category1, Category2, MetricCategory, MTDCount, TotalMonthCount, ResolvedDaysBySubmitDate, ResolvedDaysByAssigneeModifiedDate, LoadDate, DWLastUpdateDateTime, InsertedBy, InsertedDTM, ModifiedBy, ModifiedDTM, SourceTableLastLoadDate, ProviderCountActive)
+SELECT  CCUDashboardKey, TRIM(DashboardReportName) AS DashboardReportName, TRIM(COID) AS COID, TRIM(Owner) AS Owner, CAST(EOMDate AS DATE) AS EOMDate, TRIM(EOMDateYYYYMM) AS EOMDateYYYYMM, TRIM(Category1) AS Category1, TRIM(Category2) AS Category2, TRIM(MetricCategory) AS MetricCategory, MTDCount, TotalMonthCount, ResolvedDaysBySubmitDate, ResolvedDaysByAssigneeModifiedDate, CAST(LoadDate AS DATE) AS LoadDate, CAST(DWLastUpdateDateTime AS DATETIME) AS DWLastUpdateDateTime, TRIM(InsertedBy) AS InsertedBy, CAST(InsertedDTM AS DATETIME) AS InsertedDTM, TRIM(ModifiedBy) AS ModifiedBy, CAST(ModifiedDTM AS DATETIME) AS ModifiedDTM, CAST(SourceTableLastLoadDate AS DATE) AS SourceTableLastLoadDate, ProviderCountActive
+FROM {{ params.param_psc_stage_dataset_name }}.CCU_RprtDashboard as source;

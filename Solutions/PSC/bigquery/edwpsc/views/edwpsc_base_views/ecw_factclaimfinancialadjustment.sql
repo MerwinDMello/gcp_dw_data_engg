@@ -1,0 +1,36 @@
+CREATE OR REPLACE VIEW edwpsc_base_views.`ecw_factclaimfinancialadjustment`
+AS SELECT
+  `ecw_factclaimfinancialadjustment`.claimfinancialadjustmentkey,
+  `ecw_factclaimfinancialadjustment`.claimkey,
+  `ecw_factclaimfinancialadjustment`.claimnumber,
+  `ecw_factclaimfinancialadjustment`.regionkey,
+  `ecw_factclaimfinancialadjustment`.coid,
+  `ecw_factclaimfinancialadjustment`.coidconfigurationkey,
+  `ecw_factclaimfinancialadjustment`.servicingproviderkey,
+  `ecw_factclaimfinancialadjustment`.claimpayer1iplankey,
+  `ecw_factclaimfinancialadjustment`.facilitykey,
+  `ecw_factclaimfinancialadjustment`.adjustmentcodekey,
+  `ecw_factclaimfinancialadjustment`.adjustmentamt,
+  `ecw_factclaimfinancialadjustment`.adjustmentdatekey,
+  `ecw_factclaimfinancialadjustment`.unpostedtocptamt,
+  `ecw_factclaimfinancialadjustment`.unpostedamt,
+  `ecw_factclaimfinancialadjustment`.modifieddatekey,
+  `ecw_factclaimfinancialadjustment`.modifiedtime,
+  `ecw_factclaimfinancialadjustment`.createdbyuserkey,
+  `ecw_factclaimfinancialadjustment`.deleteflag,
+  `ecw_factclaimfinancialadjustment`.sourceaprimarykeyvalue,
+  `ecw_factclaimfinancialadjustment`.sourcearecordlastupdated,
+  `ecw_factclaimfinancialadjustment`.sourcebprimarykeyvalue,
+  `ecw_factclaimfinancialadjustment`.sourcebrecordlastupdated,
+  `ecw_factclaimfinancialadjustment`.dwlastupdatedatetime,
+  `ecw_factclaimfinancialadjustment`.sourcesystemcode,
+  `ecw_factclaimfinancialadjustment`.insertedby,
+  `ecw_factclaimfinancialadjustment`.inserteddtm,
+  `ecw_factclaimfinancialadjustment`.modifiedby,
+  `ecw_factclaimfinancialadjustment`.modifieddtm,
+  `ecw_factclaimfinancialadjustment`.adjcode,
+  `ecw_factclaimfinancialadjustment`.adjustmentcategorykey,
+  `ecw_factclaimfinancialadjustment`.archivedrecord
+  FROM
+    edwpsc.`ecw_factclaimfinancialadjustment`
+;

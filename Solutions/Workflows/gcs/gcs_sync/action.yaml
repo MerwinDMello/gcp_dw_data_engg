@@ -1,0 +1,271 @@
+name: GCS Sync Composite Action
+description: 'GCS Sync'
+
+inputs:
+  workload_identity_provider:
+    description: 'Workload Identity Provider'
+  service_account:
+    description: 'Service Account'
+  branch:
+    description: 'The branch name'
+  gcs_file_path:
+    description: 'Path to GCS configuration files'
+    required: true
+  cf_region:
+    description: 'Cloud Function Region'
+    required: false
+    default: 'us-east4'
+  cf_project_id:
+    description: 'Cloud Function Project ID'
+    required: false
+    default: 'hca-hin-dev-datagov'
+  cf_name:
+    description: 'Cloud Function Name'
+    required: false
+    default: 'clinical_policy_tags_cf_centralized'
+  enable_gcs_sync:
+    description: 'Enable GCS Sync for CF Invoker'
+    required: false
+    default: 'false'
+  metagen_folder:
+    description: 'Specific metagen folder to process (when using matrix strategy)'
+    required: false
+  policytags_folder:
+    description: 'Specific policy tags folder to process (when using matrix strategy)'
+    required: false
+
+outputs:
+  COMBINED_DATA:
+    description: 'The combined data'
+    value: ${{ steps.gcs_sync.outputs.COMBINED_DATA }}  
+
+runs:
+  using: "composite"
+  steps:
+    - id: 'auth'
+      name: Authenticate to Google Cloud
+      uses: google-github-actions/auth@v2
+      with:
+        workload_identity_provider: ${{ inputs.workload_identity_provider }}
+        service_account: ${{ inputs.service_account }}
+
+    - name: GCP setup
+      uses: 'google-github-actions/setup-gcloud@v2'
+    
+    - name: Get changed files
+      id: changed-files
+      uses: tj-actions/changed-files@v46.0.1
+      with:
+        files: ${{ inputs.gcs_file_path }}
+
+    - name: Output changed files
+      shell: bash
+      run: |
+        echo "changed_files=${{ steps.changed-files.outputs.all_changed_files }}"
+
+    - name: GCS Sync for CF Invoker
+      id: gcs_sync_cf_invoker
+      if: ${{ inputs.enable_gcs_sync == 'true' }}
+      env:
+        GCS_PATTERN: ${{ inputs.gcs_file_path }}
+      shell: bash
+      run: |
+        # Only process files matching the input pattern
+        changed_files=$(echo "${{ steps.changed-files.outputs.all_changed_files }}" | grep "$GCS_PATTERN" || true)
+
+        if [[ -z "$changed_files" ]]; then
+          echo "No files matched the pattern: $GCS_PATTERN"
+          exit 0
+        fi
+
+        for file in $changed_files; do
+          # Skip copying config.yaml file to gcs bucket
+          if [[ "$(basename "$file")" == "config.yaml" ]]; then
+            echo "Skipping config.yaml: $file"
+            continue
+          fi
+
+          # Find the config.yaml in the parent directory of the file
+          config_dir=$(dirname "$file")
+          while [[ "$config_dir" != "." && ! -f "$config_dir/config.yaml" ]]; do
+            config_dir=$(dirname "$config_dir")
+          done
+
+          if [[ ! -f "$config_dir/config.yaml" ]]; then
+            echo "No config.yaml found for $file, skipping."
+            exit 0
+          fi
+
+          # Read the destination bucket from config.yaml
+          dest_path=$(yq eval '.env.${{ inputs.branch }}.dest_path' "$config_dir/config.yaml")
+          if [[ -z "$dest_path" || "$dest_path" == "null" ]]; then
+            echo "No dest_path found in $config_dir/config.yaml for branch ${{ inputs.branch }}, skipping."
+            exit 0
+          fi
+
+          # Remove the prefix up to the config folder for the destination path
+          rel_path=${file#"$config_dir/src/"}
+          echo "Copying $file to $dest_path/$rel_path"
+          gcloud storage cp "$file" "$dest_path/$rel_path"
+        done
+        echo "GCS Sync completed for files matching pattern: $GCS_PATTERN"
+
+    - name: GCS Sync for Metadata
+      id: gcs_sync_upload
+      shell: bash
+      env:
+        GCS_CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
+      run: |
+        if echo "${{ steps.changed-files.outputs.all_changed_files }}" | grep -q '.*data_governance.*/metadata/'; then
+          declare -A processed_paths
+          # Read the environment-specific configurations from environments/metadata/config.yaml
+          env_configs=$(yq eval '.env.${{ inputs.branch }} | tojson' "environments/metadata/config.yaml")
+          dest_path=$(echo "$env_configs" | jq -r ".dest_path")
+          echo "dest_path: $dest_path"
+
+          for file in $GCS_CHANGED_FILES; do
+            IFS='/' read -ra ADDR <<< "$file"
+            # Remove everything before and including 'data_governance/' to support any parent directory
+            dest_file=$(echo "$file" | sed -E 's@.*/data_governance/@@')
+            echo "dest_file: $dest_file"
+
+            path_depth="${ADDR[0]}/${ADDR[1]}/${ADDR[2]}/${ADDR[3]}"
+            echo "path_depth: $path_depth"
+            processed_paths["$path_depth"]=1
+            echo "processed_paths: ${!processed_paths[@]}"
+            gcloud storage cp $file $dest_path/$dest_file
+          done
+        else
+          echo "Looks like not a metadata change. Skipping GCS Sync."
+          exit 0
+        fi
+    
+    - name: GCS Sync for Policy Tags
+      id: gcs_sync
+      shell: bash
+      env:
+        GCS_CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
+      run: |
+        if echo ${{ steps.changed-files.outputs.all_changed_files }} | grep -q '.*data_governance.*/policy_tags'; then
+          echo "GCS Sync for Policy Tags"
+          declare -A processed_paths
+
+          for file in $GCS_CHANGED_FILES; do
+            # If policytags_folder is specified, only process files from that specific source folder
+            if [ -n "${{ inputs.policytags_folder }}" ]; then
+              if [[ "$file" != "${{ inputs.policytags_folder }}/"* ]]; then
+                echo "Skipping $file - not from target source folder: ${{ inputs.policytags_folder }}"
+                continue
+              fi
+            fi
+
+            # Check if the file is in the bronze or silver folder and is a .csv file
+            if [[ "$file" == *"/bronze/"* && "$file" == *.csv ]] || [[ "$file" == *"/silver/"* && "$file" == *.csv ]]; then
+              IFS='/' read -ra ADDR <<< "$file"
+              # Extract the path up to the bronze or silver folder
+              path_depth="${ADDR[0]}/${ADDR[1]}/${ADDR[2]}/${ADDR[3]}/${ADDR[4]}"
+              echo "path_depth: $path_depth"
+              processed_paths["$path_depth"]=1
+            fi
+          done
+
+          echo "processed_paths: ${!processed_paths[@]}"
+
+          # Create an empty array to store the combined data
+          combined_array=()
+
+          # Read the environment-specific configurations from silve or bronze or gold config.yaml
+          for path in "${!processed_paths[@]}"; do
+            echo "path: ${path}"
+            # Read the environment-specific configurations from config.yaml
+            env_configs=$(yq eval '.env.${{ inputs.branch }} | tojson' "$path/config.yaml")
+            echo "env_configs: ${env_configs}"
+
+            # Extract the destination path from the JSON
+            dest_path=$(echo "$env_configs" | jq -r ".dest_path")
+            echo "dest_path: $dest_path"
+
+            # Extract data_policy_project_id and source_project_id from JSON
+            data_policy_project_id=$(echo "$env_configs" | jq -r ".data_policy_project_id")
+            echo "DATA_POLICY_PROJECT_ID: $data_policy_project_id"
+            source_project_id=$(echo "$env_configs" | jq -r ".source_project_id")
+            echo "SOURCE_PROJECT_ID: $source_project_id"
+          done
+
+          for path in "${!processed_paths[@]}"; do
+            echo "path: ${path}"
+            # Find all .csv files under the path
+            csv_files=$(find "$path" -type f -name "*.csv")
+            for csv_file_path in $csv_files; do
+              # Remove everything before and including 'data_governance/' to support any parent directory
+              csv_file_path_trimmed=$(echo "$csv_file_path" | sed -E 's@.*/data_governance/@@')
+              echo "CSV_FILE_PATH: $csv_file_path_trimmed"
+
+              # Synchronize the .csv files from the path to the destination path
+              gcloud storage cp "$csv_file_path" "$dest_path/$csv_file_path_trimmed"
+
+              # Create a JSON object for the current entry
+              entry=$(jq -n \
+                --arg dest_path "$dest_path" \
+                --arg csv_file_path "$csv_file_path_trimmed" \
+                --arg data_policy_project_id "$data_policy_project_id" \
+                --arg source_project_id "$source_project_id" \
+                '{dest_path: $dest_path, csv_file_path: $csv_file_path, data_policy_project_id: $data_policy_project_id, source_project_id: $source_project_id}')
+
+              # Append the JSON object to the combined array
+              combined_array+=("$entry")
+            done
+          done
+
+          # Convert the combined array to a JSON string
+          combined_json=$(printf '%s\n' "${combined_array[@]}" | jq -s '.')
+
+          # Escape newlines and special characters for GitHub Actions output
+          escaped_combined_json=$(echo "$combined_json" | tr '\n' ' ' | tr -d '\r')
+
+          # Print the escaped JSON string for debugging
+          echo "escaped_combined_json: $escaped_combined_json"
+
+          # Set the escaped JSON string as an output variable
+          echo "COMBINED_DATA=$escaped_combined_json" >> $GITHUB_OUTPUT
+        else
+          echo "Looks like not a policy tag change. Skipping GCS Sync."
+          exit 0
+        fi
+
+    - name: GCS Sync for Metagen
+      shell: bash
+      env:
+        GCS_CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
+      run: |
+        if echo "${{ steps.changed-files.outputs.all_changed_files }}" | grep -q '.*/data_governance.*/metagen/'; then
+          declare -A processed_paths
+          # Read the environment-specific configurations from environments/metagen/config.yaml
+          env_configs=$(yq eval '.env.${{ inputs.branch }} | tojson' "environments/metagen/config.yaml")
+          dest_path=$(echo "$env_configs" | jq -r ".dest_path")
+          echo "dest_path: $dest_path"
+
+          for file in $GCS_CHANGED_FILES; do
+            # If metagen_folder is specified, only process files from that specific source folder
+            if [ -n "${{ inputs.metagen_folder }}" ]; then
+              if [[ "$file" != "${{ inputs.metagen_folder }}/"* ]]; then
+                echo "Skipping $file - not from target source folder: ${{ inputs.metagen_folder }}"
+                continue
+              fi
+            fi
+
+            IFS='/' read -ra ADDR <<< "$file"
+            # Remove everything before and including 'data_governance/' to support any parent directory
+            dest_file=$(echo "$file" | sed -E 's@.*/data_governance/@@')
+            echo "dest_file: $dest_file"
+
+            path_depth="${ADDR[0]}/${ADDR[1]}/${ADDR[2]}/${ADDR[3]}"
+            echo "path_depth: $path_depth"
+            processed_paths["$path_depth"]=1
+            echo "processed_paths: ${!processed_paths[@]}"
+            gcloud storage cp $file $dest_path/$dest_file
+          done
+        else
+          echo "Looks like not a metagen change. Skipping GCS Sync."
+          exit 0
+        fi

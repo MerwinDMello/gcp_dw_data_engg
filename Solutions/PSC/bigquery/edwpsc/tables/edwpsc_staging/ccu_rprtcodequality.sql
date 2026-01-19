@@ -1,0 +1,33 @@
+CREATE TABLE IF NOT EXISTS edwpsc_staging.ccu_rprtcodequality
+(
+  codequalitykey INT64 NOT NULL,
+  claimkey INT64,
+  claimnumber INT64,
+  regionkey INT64,
+  coid STRING,
+  servicedatekey DATE,
+  svcproviderspecialty STRING,
+  firstinsbilldatewkofmonth INT64,
+  firstdenialcategories STRING,
+  prebilleditcategories STRING,
+  qualitycategory STRING,
+  coder STRING,
+  coder34id STRING,
+  codertype STRING,
+  claimcount INT64,
+  practiceid STRING,
+  patientmrn STRING,
+  patientinternalid INT64,
+  visitnumber INT64,
+  transactionnumber_combined STRING,
+  sourcesystemcode STRING NOT NULL,
+  dwlastupdatedatetime DATE NOT NULL,
+  insertedby STRING,
+  inserteddtm DATETIME,
+  modifiedby STRING,
+  modifieddtm DATETIME,
+  coderactiondate DATE,
+  firstinsurancebilldate DATE,
+  minfirstdenialeradate DATE
+)
+;

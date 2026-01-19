@@ -1,0 +1,8 @@
+SOURCE_BLOBS : ["Ref_Lookup_Name.txt","Ref_Navigation_Measure.txt",]
+Ref_Lookup_Name.txt:
+  stage_table_name: ref_lookup_name_stg
+  target_table_name: ref_lookup_name
+
+Ref_Navigation_Measure.txt :
+  stage_table_name: ref_navigation_measure_stg
+  target_table_name: ref_navigation_measure

@@ -1,0 +1,259 @@
+name: Cloud Function CI/CD
+
+on:
+  workflow_call:
+    inputs:
+      repo_type:
+        description: "The type of repository (DDL, ETL, HIN2.0) that is relevant to this workflow run"
+        type: string
+        required: true
+      branch:
+        description: "The branch, and thus the GCP environment, that is relevant to this workflow run"
+        type: string
+        required: true
+      repository:
+        type: string
+        description: ""
+      cloudfunction_path:
+        required: false
+        type: string
+      deployment_type:
+        description: "Specify 'source' for source-based deployment or 'image' for container-based deployment"
+        type: string
+        required: false
+        # default: "source"
+
+    secrets:
+      workload_identity_provider:
+        description: "The workload identity provider for authentication."
+        required: false
+      service_account:
+        description: "The service account for authentication."
+        required: false
+      gh_token:
+        description: "The GitHub token for authentication."
+        required: true
+jobs:
+  # The first job of the workflow finds the most recent run of the Setup Workflow associated with the PR
+  CheckAndDownloadArtifacts:
+    name: Check Setup Workflow and Download Artifacts
+    if: ${{ github.event.pull_request.merged == true }}
+    runs-on: [self-hosted, dind, enterprise]
+    environment: ${{ github.base_ref }}
+    permissions:
+      # actions: read
+      contents: read
+      id-token: write
+      pull-requests: write
+    outputs:
+      setup_run_conclusion: ${{ steps.get-setup-workflow.outputs.setup_run_conclusion }}
+      cloudfunction_matrix: ${{ steps.fetch-and-download-artifacts.outputs.cloudfunction_matrix }}
+    steps:
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+  
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+      
+      - name: Save Environment Variables for Script
+        run: |
+          echo "HEAD_SHA=${{ github.event.pull_request.head.sha }}" >> $GITHUB_ENV
+          echo "GH_TOKEN=${{ secrets.gh_token }}" >> $GITHUB_ENV
+
+      - name: Get Relevant Setup Workflow Run
+        id: get-setup-workflow
+        run: |
+          python <<EOF
+          import os
+          import time
+          import requests
+  
+          MAX_RETRIES = 16  # 8 minutes (16 retries * 30 seconds)
+          RETRY_DELAY = 30  # seconds
+  
+          # Inputs
+          head_sha = os.getenv("HEAD_SHA")
+          repo_owner = os.getenv("GITHUB_REPOSITORY_OWNER")
+          repo_name = os.getenv("GITHUB_REPOSITORY").split("/")[-1]
+          token = os.getenv("GH_TOKEN")
+
+          # Confirm proper inputs are available
+          print(f" inputs: {head_sha}, {repo_owner}, {repo_name}, {token}")
+  
+          headers = {
+              "Authorization": f"Bearer {token}",
+              "Accept": "application/vnd.github.v3+json",
+          }
+  
+          url = f"https://api.github.com/repos/{repo_owner}/{repo_name}/actions/workflows/cloudfunction_setup_caller.yaml/runs"
+  
+          def get_relevant_setup_run():
+            for attempt in range(1, MAX_RETRIES + 1):
+                response = requests.get(url, headers=headers, params={"event": "pull_request", "per_page": 100})
+                # Provide error message if request is unsuccessful
+                if response.status_code != 200:
+                    raise Exception(f"Failed to fetch workflow runs: {response.status_code} {response.text}")
+
+                # Collect API responses into workflow_runs variable
+                workflow_runs = response.json().get("workflow_runs", [])
+
+                # Check if the most recent run is still in progress
+                most_recent_run = sorted(workflow_runs, key=lambda x: x["created_at"], reverse=True)[0]
+                print(f"Most Recent Workflow Run ID: {most_recent_run['id']}, Status: {most_recent_run['status']}")
+
+                # If run is still in progress, wait up to 8 minutes (16 attempts of 30 seconds each) for it to complete
+                if most_recent_run["status"] in ["in_progress", "queued"]:
+                    print(f"Most recent run is still in progress. Attempt {attempt} of {MAX_RETRIES}. Retrying in {RETRY_DELAY} seconds...")
+                    if attempt < MAX_RETRIES:
+                        time.sleep(RETRY_DELAY)
+                        continue
+                    else:
+                        raise Exception("Most recent Setup Workflow run is still in progress after maximum retries.")
+
+                # Filter runs by head SHA and status
+                matching_runs = [
+                    run for run in workflow_runs
+                    if run["head_sha"] == head_sha and run["status"] == "completed"
+                ]
+
+                if not matching_runs:
+                    raise Exception(f"No Setup Workflow runs found for SHA '{head_sha}'.")
+
+                # Return the most recent matching run
+                print("Found a successful Setup Workflow run.")
+                return matching_runs[0]
+
+            raise Exception("Failed to retrieve a completed Setup Workflow run.")
+
+          most_recent_run = get_relevant_setup_run()
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as file:
+            file.write(f"setup_run_id={most_recent_run['id']}\n")
+            file.write(f"setup_run_conclusion={most_recent_run['conclusion']}\n")
+          EOF
+
+      - name: Fetch and Download All Artifacts
+        id: fetch-and-download-artifacts
+        run: |
+          setup_run_id=${{ steps.get-setup-workflow.outputs.setup_run_id }}
+          artifacts_url="https://api.github.com/repos/${{ github.repository }}/actions/runs/$setup_run_id/artifacts"
+          echo "Fetching artifacts from: $artifacts_url"
+
+          # Fetch the list of artifacts
+          response=$(curl -s -H "Authorization: Bearer ${{ secrets.gh_token }}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            $artifacts_url)
+
+          # Parse the artifact names and download URLs
+          artifact_names=("matrix_artifacts" "cloudfunction_artifacts")
+          for artifact_name in "${artifact_names[@]}"; do
+            artifact_url=$(echo "$response" | jq -r --arg name "$artifact_name" '.artifacts[] | select(.name==$name) | .archive_download_url')
+
+            if [ -z "$artifact_url" ]; then
+              echo "::error::Artifact '$artifact_name' not found in setup workflow run."
+              exit 1
+            fi
+
+            echo "Downloading artifact: $artifact_name from $artifact_url"
+
+            # Download the artifact
+            curl -L -H "Authorization: Bearer ${{ secrets.gh_token }}" \
+              -o "$artifact_name.zip" \
+              "$artifact_url"
+
+            # Extract the artifact
+            mkdir -p "$artifact_name"
+            unzip -o "$artifact_name.zip" -d "$artifact_name"
+          done
+
+          # Save matrix.json as an output
+          if [ -f ./matrix_artifacts/matrix.json ]; then
+            echo "Contents of matrix.json:"
+            cat ./matrix_artifacts/matrix.json
+            
+            # Read the raw JSON string from matrix.json
+            cloudfunction_matrix=$(cat ./matrix_artifacts/matrix.json)
+            
+            # Write the JSON string directly to $GITHUB_OUTPUT
+            echo "cloudfunction_matrix=$cloudfunction_matrix" >> $GITHUB_OUTPUT
+            
+          else
+            echo "::error:: matrix_artifacts not found or matrix.json is missing."
+            exit 1
+          fi
+
+      # Upload the cloudfunction_matrix to the github workspace
+      - name: upload-github artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: cloudfunction_artifacts
+          path: cloudfunction_artifacts
+          retention-days: 7
+
+  Deploy:
+    if: ${{ needs.CheckAndDownloadArtifacts.outputs.setup_run_conclusion == 'success'  && needs.CheckAndDownloadArtifacts.outputs.cloudfunction_matrix != '[]' }}
+    needs: [CheckAndDownloadArtifacts]
+    name: Cloud Function CD Job
+    runs-on: [self-hosted, dind, enterprise]
+    environment: ${{ github.base_ref }}
+    strategy:
+      fail-fast: false
+      matrix:
+        manifest: ${{ fromJson(needs.CheckAndDownloadArtifacts.outputs.cloudfunction_matrix) }}
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Download Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: cloudfunction_artifacts
+          path: cloudfunction_artifacts
+
+      - name: JSON to variables
+        uses: rgarcia-phi/json-to-variables@v1.1.0
+        with:
+          filename: '${{ matrix.manifest }}'
+          prefix: infra
+          # masked: true
+
+      # - name: Validate Deployment Type
+      #   run: |
+      #     if [[ "${{ inputs.deployment_type }}" != "source" && "${{ inputs.deployment_type }}" != "image" ]]; then
+      #       echo "Invalid deployment_type: ${{ inputs.deployment_type }}"
+      #       exit 1
+      #     fi
+      - name: Cloud Function Deploy
+        uses: HCACloudDataEngineering/gcp-hin-workflows/cloud-function/deploy@main
+        with: 
+          repository: ${{ github.repository }}
+          projectname: ${{ env.infra_job_projectname  }}
+          run_service_account: ${{ env.infra_job_run_service_account }}
+          build_service_account: ${{ env.infra_job_build_service_account }}
+          cloudfunction_path: ${{ inputs.cloudfunction_path != '' && inputs.cloudfunction_path || env.infra_env_folder_path}}
+          job_folder_location: ${{ env.infra_job_job_folder_location }}
+          runtime: ${{ env.infra_job_runtime }}
+          region: ${{ env.infra_job_region }}
+          source: ${{ inputs.cloudfunction_path != '' && inputs.cloudfunction_path || env.infra_env_folder_path}}
+          memory: ${{ env.infra_job_memory }}
+          secret: ${{ env.infra_job_secret }}
+          entry_point: ${{ env.infra_job_entry_point }}
+          ingress_settings: ${{ env.infra_job_ingress_settings }}
+          egress_settings: ${{ env.infra_job_egress_settings }}
+          vpc_connector: ${{ env.infra_job_vpc_connector }}
+          timeout: ${{ env.infra_job_timeout }}
+          bucketname: ${{ env.infra_job_bucketname }}
+          environment_variables: ${{ env.infra_job_environment_variables }}
+          trigger_event: ${{ env.infra_job_trigger_event }}
+          trigger_event_method: ${{ env.infra_job_trigger_event_method }}
+          trigger_event_provider: ${{ env.infra_job_trigger_event_provider }}
+          trigger_resource: ${{ env.infra_job_trigger_resource }}
+          deployment_type: ${{ inputs.deployment_type != '' && inputs.deployment_type }}
+          workload_identity_provider: ${{ vars.WORKLOAD_IDENTITY_PROVIDER != '' && vars.WORKLOAD_IDENTITY_PROVIDER || secrets.workload_identity_provider }}
+          service_account: ${{ vars.SERVICEACCOUNT_GITHUB != '' && vars.SERVICEACCOUNT_GITHUB || secrets.service_account }}

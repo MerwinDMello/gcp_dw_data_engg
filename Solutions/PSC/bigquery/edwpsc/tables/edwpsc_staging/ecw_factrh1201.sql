@@ -1,0 +1,31 @@
+CREATE TABLE IF NOT EXISTS edwpsc_staging.ecw_factrh1201
+(
+  rh1201key INT64 NOT NULL,
+  importdatekey DATE,
+  claimkey INT64,
+  claimnumber INT64,
+  coid STRING,
+  rh1201claimid STRING,
+  rh1201insurancebilledname STRING,
+  rh1201billstatuscode STRING,
+  rh1201billclaimstatuskey STRING,
+  rh1201releasestatuskey STRING,
+  rh1201typeofbill STRING,
+  rh1201claimdatekey DATE,
+  rh1201stmtthrudatekey DATE,
+  rh1201totalamt NUMERIC(33, 4),
+  rh1201userid STRING,
+  rh1201holdcode STRING,
+  rh1201holdcodeprefixkey STRING,
+  sourceprimarykeyvalue INT64 NOT NULL,
+  dwlastupdatedatetime DATETIME NOT NULL,
+  sourcesystemcode STRING,
+  insertedby STRING,
+  inserteddtm DATETIME,
+  modifiedby STRING,
+  modifieddtm DATETIME,
+  fullclaimnumber STRING,
+  regionkey INT64,
+  PRIMARY KEY (rh1201key) NOT ENFORCED
+)
+;

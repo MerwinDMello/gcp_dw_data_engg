@@ -1,0 +1,1 @@
+DROP TABLE edwhr_staging.ats_cust_v3_jobapplication_stg;

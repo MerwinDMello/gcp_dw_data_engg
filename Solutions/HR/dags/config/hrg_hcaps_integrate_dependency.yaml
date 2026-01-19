@@ -1,0 +1,247 @@
+integrate:
+- source_system: hcaps
+  frequency: weekly
+  start_date: pendulum.datetime(2022, 12, 6, 2, 0, 0, tz=timezone)
+  schedule: ["0 2 * * 4"]
+  type: core_tables
+  dependency:
+  - table: edwhr_staging
+    has_sensor: 'Yes'
+    sql:
+    - name: hca_unique_records_from_hca_pat_resp_all.sql
+    - name: hdw_hca_pat_resp_detail_load.sql 
+    sensor:
+    - dag_id: dag_ingest_hcaps_files_weekly_02.00
+      task_id: end_dag
+      schedule: [0 2 * * 4]
+
+  - table: ref_survey
+    has_sensor: 'No'
+    sql:
+    - name: hdw_ref_survey_load.sql
+  - table: survey_question
+    has_sensor: 'No'
+    sql:
+    - name: hdw_survey_question_load.sql
+
+  - table: survey_response_master
+    has_sensor: 'No'
+    sql:
+    - name: hdw_survey_response_master_load.sql
+
+  - table: respondent_detail
+    has_sensor: 'No'
+    sql:
+    - name: hdw_hcap_respondent_detail_core_wrk.sql
+    - name: hdw_respondent_detail.sql
+
+  - table: respondent_patient_detail
+    has_sensor: 'No'
+    sql:
+    - name: hdw_respondent_patient_detail_wrk.sql
+    - name: hdw_respondent_patient_detail.sql
+
+  - table: survey_response
+    has_sensor: 'No'
+    sql:
+    - name: hdw_survey_resp_core_wrk.sql
+    - name: hdw_survey_resp_core.sql 
+
+  - table: fixed_respondent_patient_detail
+    has_sensor: 'No'
+    sql:
+    - name: hdw_fixed_respondent_patient_detail_core_wrk.sql
+    - name: hdw_fixed_respondent_patient_detail_core.sql
+
+  - table: bi_psat_question_level_score_smry 
+    has_sensor: 'No'
+    sql:
+    - name: hdw_bi_psat_question_level_score_smry.sql
+
+  - table: bi_psat_dept_level_smry
+    has_sensor: 'No'
+    sql:
+    - name: hdw_bi_psat_dept_level_smry.sql
+
+- source_system: hcaps
+  frequency: quarterly
+  start_date: pendulum.datetime(2021, 12, 6, 2, 0, 0, tz=timezone)
+  schedule: ["0 2 6 3 *","0 2 4 6 *","0 2 3 9 *","0 2 4 12 *"]
+  type: core_tables
+  dependency:
+  - table: edwhr_staging
+    has_sensor: 'Yes'
+    sql:
+    - name: hca_unique_records_from_hca_pat_resp_all.sql
+    - name: hdw_hca_pat_resp_detail_load.sql 
+    sensor:
+    - dag_id: dag_ingest_hcaps_files_quarterly_02.00
+      task_id: end_dag
+      schedule: ["0 2 6 3 *","0 2 4 6 *","0 2 3 9 *","0 2 4 12 *"]
+
+  - table: ref_survey
+    has_sensor: 'No'
+    sql:
+    - name: hdw_ref_survey_load.sql
+
+  - table: survey_question
+    has_sensor: 'No'
+    sql:
+    - name: hdw_survey_question_load.sql
+
+  - table: survey_response_master
+    has_sensor: 'No'
+    sql:
+    - name: hdw_survey_response_master_load.sql
+
+  - table: respondent_detail
+    has_sensor: 'No'
+    sql:
+    - name: hdw_hcap_respondent_detail_core_wrk.sql
+    - name: hdw_respondent_detail.sql
+
+  - table: respondent_patient_detail
+    has_sensor: 'No'
+    sql:
+    - name: hdw_respondent_patient_detail_wrk.sql
+    - name: hdw_respondent_patient_detail.sql
+
+  - table: survey_response
+    has_sensor: 'No'
+    sql:
+    - name: hdw_survey_resp_core_wrk.sql
+    - name: hdw_survey_resp_core.sql 
+
+  - table: fixed_respondent_patient_detail
+    has_sensor: 'No'
+    sql:
+    - name: hdw_fixed_respondent_patient_detail_core_wrk.sql
+    - name: hdw_fixed_respondent_patient_detail_core.sql
+
+  - table: bi_psat_question_level_score_smry 
+    has_sensor: 'No'
+    sql:
+    - name: hdw_bi_psat_question_level_score_smry.sql
+    
+- source_system: hcaps
+  frequency: quarterly
+  start_date: pendulum.datetime(2021, 12, 6, 2, 0, 0, tz=timezone)
+  schedule: [30 1 16 2-12/3 *]
+  type: core_tables
+  dependency:
+  - table: edwhr_staging
+    has_sensor: 'Yes'
+    sql:
+    - name: hca_unique_records_from_hca_pat_resp_all.sql
+    - name: hdw_hca_pat_resp_detail_load.sql 
+    sensor:
+    - dag_id: dag_ingest_hcaps_files_quarterly_01.30
+      task_id: TG-table-hca_pat_resp_all.archive_srcfile_hca_pat_resp_all
+      schedule: [30 1 16 2-12/3 *]
+
+  - table: ref_survey
+    has_sensor: 'No'
+    sql:
+    - name: hdw_ref_survey_load.sql
+
+  - table: survey_question
+    has_sensor: 'No'
+    sql:
+    - name: hdw_survey_question_load.sql
+
+  - table: survey_response_master
+    has_sensor: 'No'
+    sql:
+    - name: hdw_survey_response_master_load.sql
+
+  - table: respondent_detail
+    has_sensor: 'No'
+    sql:
+    - name: hdw_hcap_respondent_detail_core_wrk.sql
+    - name: hdw_respondent_detail.sql
+
+  - table: respondent_patient_detail
+    has_sensor: 'No'
+    sql:
+    - name: hdw_respondent_patient_detail_wrk.sql
+    - name: hdw_respondent_patient_detail.sql
+
+  - table: survey_response
+    has_sensor: 'No'
+    sql:
+    - name: hdw_survey_resp_core_wrk.sql
+    - name: hdw_survey_resp_core.sql 
+
+  - table: fixed_respondent_patient_detail
+    has_sensor: 'No'
+    sql:
+    - name: hdw_fixed_respondent_patient_detail_core_wrk.sql
+    - name: hdw_fixed_respondent_patient_detail_core.sql
+
+  - table: bi_psat_question_level_score_smry 
+    has_sensor: 'No'
+    sql:
+    - name: hdw_bi_psat_question_level_score_smry.sql
+
+
+- source_system: hcaps
+  frequency: quarterly
+  start_date: pendulum.datetime(2021, 12, 6, 2, 0, 0, tz=timezone)
+  schedule: [0 1 1 */3 *]
+  type: core_tables
+  dependency:
+  - table: patient_satisfaction_domain_data_eoq
+    has_sensor: 'Yes'
+    sql:
+    - name: hdw_hcaps_domain_data_eoq.sql
+    - name: hdw_hcaps_domain_data_rfq.sql
+    sensor:
+    - dag_id: dag_ingest_hcaps_files_quarterly_01.00
+      task_id: TG-table-domn_data_cms_rfq.archive_srcfile_domn_data_cms_rfq
+      schedule: [0 1 1 */3 *]
+
+- source_system: hcaps
+  frequency: None
+  start_date: pendulum.datetime(2022, 12, 6, 2, 0, 0, tz=timezone)
+  schedule: [None]
+  type: core_tables
+  dependency:
+  - table: patient_satisfaction_benchmark_eoq
+    has_sensor: 'Yes'
+    sql:
+    - name: hdw_patient_sat_benchmark_eoq.sql
+    sensor:
+    - dag_id: dag_ingest_hcaps_files_None_None
+      task_id: end_dag
+      schedule: [None]
+  - table: ref_patient_satisfaction_domain
+    has_sensor: 'No'
+    sql:
+    - name: hdw_hcaps_pat_satisfaction_dom.sql
+  - table: question_legacy_survey_xwalk
+    has_sensor: 'No'
+    sql:
+    - name: hdw_question_legacy_survey_xwalk.sql
+  - table: ref_phone_mode_adjustment
+    has_sensor: 'No'
+    sql:
+    - name: hdw_hcaps_ref_phone_mode_adj.sql
+  - table: patient_satisfaction_alt_org_hierarchy
+    has_sensor: 'No'
+    sql:
+    - name: hdw_hcahps_patient_satisfaction_alt_org_hierarchy_load.sql
+
+- source_system: hcaps
+  frequency: weekly
+  start_date: pendulum.datetime(2023, 7, 6, 6, 0, 0, tz=timezone)
+  schedule: ["0 6 * * 5"]
+  type: core_tables
+  dependency:
+  - table: bi_psat_weekly_rank_report
+    has_sensor: 'Yes'
+    sql:
+    - name: hdw_weekly_rank_report_core.sql 
+    sensor:
+    - dag_id: dag_ingest_hcaps_files_weekly_06.00
+      task_id: end_dag
+      schedule: [0 6 * * 5]

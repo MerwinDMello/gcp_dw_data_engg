@@ -1,0 +1,38 @@
+CREATE OR REPLACE VIEW edwpsc_views.`ecw_facttransactionsclaimlinefinancialadjustment`
+AS SELECT
+  `ecw_facttransactionsclaimlinefinancialadjustment`.transactionsclaimlinefinancialadjustmentkey,
+  `ecw_facttransactionsclaimlinefinancialadjustment`.claimkey,
+  `ecw_facttransactionsclaimlinefinancialadjustment`.claimnumber,
+  `ecw_facttransactionsclaimlinefinancialadjustment`.regionkey,
+  `ecw_facttransactionsclaimlinefinancialadjustment`.coid,
+  `ecw_facttransactionsclaimlinefinancialadjustment`.coidconfigurationkey,
+  `ecw_facttransactionsclaimlinefinancialadjustment`.servicingproviderkey,
+  `ecw_facttransactionsclaimlinefinancialadjustment`.claimpayer1iplankey,
+  `ecw_facttransactionsclaimlinefinancialadjustment`.facilitykey,
+  `ecw_facttransactionsclaimlinefinancialadjustment`.claimlinefinancialadjustmentskey,
+  `ecw_facttransactionsclaimlinefinancialadjustment`.transactiontype,
+  `ecw_facttransactionsclaimlinefinancialadjustment`.transactionflag,
+  `ecw_facttransactionsclaimlinefinancialadjustment`.transactionamt,
+  `ecw_facttransactionsclaimlinefinancialadjustment`.transactiondatekey,
+  `ecw_facttransactionsclaimlinefinancialadjustment`.transactiontime,
+  `ecw_facttransactionsclaimlinefinancialadjustment`.transactionbyuserkey,
+  `ecw_facttransactionsclaimlinefinancialadjustment`.sourceprimarykeyvalue,
+  `ecw_facttransactionsclaimlinefinancialadjustment`.sourcerecordlastupdated,
+  `ecw_facttransactionsclaimlinefinancialadjustment`.dwlastupdatedatetime,
+  `ecw_facttransactionsclaimlinefinancialadjustment`.sourcesystemcode,
+  `ecw_facttransactionsclaimlinefinancialadjustment`.insertedby,
+  `ecw_facttransactionsclaimlinefinancialadjustment`.inserteddtm,
+  `ecw_facttransactionsclaimlinefinancialadjustment`.modifiedby,
+  `ecw_facttransactionsclaimlinefinancialadjustment`.modifieddtm,
+  `ecw_facttransactionsclaimlinefinancialadjustment`.trrefid,
+  `ecw_facttransactionsclaimlinefinancialadjustment`.claimlinechargeskey,
+  `ecw_facttransactionsclaimlinefinancialadjustment`.adjustmentcodekey,
+  `ecw_facttransactionsclaimlinefinancialadjustment`.adjustmentcategorykey,
+  `ecw_facttransactionsclaimlinefinancialadjustment`.firstdenialcategory,
+  `ecw_facttransactionsclaimlinefinancialadjustment`.archivedrecord
+  FROM
+    edwpsc_base_views.`ecw_facttransactionsclaimlinefinancialadjustment`
+  INNER JOIN edwpsc_base_views.secref_facility
+  ON LPAD(TRIM(secref_facility.co_id, ' '), 5, '0') = LPAD(TRIM(`ecw_facttransactionsclaimlinefinancialadjustment`.coid, ' '), 5, '0')
+  AND TRIM(secref_facility.user_id, ' ') = TRIM(session_user(), ' ')
+;

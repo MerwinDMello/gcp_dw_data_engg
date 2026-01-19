@@ -1,0 +1,48 @@
+---
+integrate:
+- source_system: enwisen
+  frequency: daily
+  schedule: 30 7 * * *
+  type: tables
+  custom_tags: "cm5tickets,candidate_onboarding_event,onboarding_audit,candidate_onboarding"
+  dependency:
+  - table: ref_onboarding
+    has_sensor: 'Yes'
+    sql:
+    - name: hdw_enwisen_ref_onboarding_tour_status.sql
+    sensor:
+    - dag_id: dag_ingest_enwisen_files_daily_07.30
+      task_id: TG-table-HCA_CM5Tickets.archive_srcfile_enwisen_cm5tickets_stg
+      schedule: 30 7 * * *
+      special_check: ""
+  - table: candidate_onboarding
+    has_sensor: 'Yes'
+    sql:
+    - name: hdw_enwisen_candidate_onboarding_wrk.sql
+    - name: hdw_enwisen_candidate_onboarding_core.sql
+    sensor:
+    - dag_id: dag_integrate_enwisen_tables_daily_07.30
+      task_id: TG-table-ref_onboarding.run_hdw_enwisen_ref_onboarding_tour_status.sql
+      schedule: 30 7 * * *
+      special_check: ""
+    - dag_id: dag_integrate_taleo_core_tables_daily_06.00
+      task_id: end_job
+      schedule: 0 6 * * *
+      special_check: ""
+  - table: candidate_onboarding_event
+    has_sensor: 'Yes'
+    sql:
+    - name: hdw_enwisen_ref_onboarding_event_type.sql
+    - name: hdw_candidate_onboarding_resource_wrk.sql
+    - name: hdw_candidate_onboarding_resource.sql
+    - name: hdw_enwisen_candidate_onboarding_event_wrk.sql
+    - name: hdw_enwisen_candidate_onboarding_event_core.sql
+    sensor:
+    - dag_id: dag_ingest_enwisen_files_daily_07.30
+      task_id: TG-table-HCA_CM5Tickets.archive_srcfile_enwisen_cm5tickets_stg
+      schedule: 30 7 * * *
+      special_check: ""
+    - dag_id: dag_integrate_taleo_core_tables_daily_06.00
+      task_id: end_job
+      schedule: 0 6 * * *
+      special_check: ""

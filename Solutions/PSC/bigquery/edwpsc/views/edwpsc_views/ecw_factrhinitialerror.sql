@@ -1,0 +1,35 @@
+CREATE OR REPLACE VIEW edwpsc_views.`ecw_factrhinitialerror`
+AS SELECT
+  `ecw_factrhinitialerror`.rhinitialerrorkey,
+  `ecw_factrhinitialerror`.claimkey,
+  `ecw_factrhinitialerror`.claimnumber,
+  `ecw_factrhinitialerror`.coid,
+  `ecw_factrhinitialerror`.importdatekey,
+  `ecw_factrhinitialerror`.rhinitialerrorclientid,
+  `ecw_factrhinitialerror`.rhinitialerrorsubmissiondatekey,
+  `ecw_factrhinitialerror`.rhinitialerrorbridgefilenumber,
+  `ecw_factrhinitialerror`.rhinitialerrorclaimid,
+  `ecw_factrhinitialerror`.rhinitialerrorpatientcontrolnbr,
+  `ecw_factrhinitialerror`.rhinitialerrorreleaseddatekey,
+  `ecw_factrhinitialerror`.rhinitialerrorcategoryid,
+  `ecw_factrhinitialerror`.rhinitialerrorcategoryname,
+  `ecw_factrhinitialerror`.rhinitialerrorfielddescription,
+  `ecw_factrhinitialerror`.rhinitialerrorindex,
+  `ecw_factrhinitialerror`.rhinitialerrordata,
+  `ecw_factrhinitialerror`.rhinitialerrorcode,
+  `ecw_factrhinitialerror`.rhinitialerrororiginalerrorinx,
+  `ecw_factrhinitialerror`.sourceprimarykeyvalue,
+  `ecw_factrhinitialerror`.dwlastupdatedatetime,
+  `ecw_factrhinitialerror`.sourcesystemcode,
+  `ecw_factrhinitialerror`.insertedby,
+  `ecw_factrhinitialerror`.inserteddtm,
+  `ecw_factrhinitialerror`.modifiedby,
+  `ecw_factrhinitialerror`.modifieddtm,
+  `ecw_factrhinitialerror`.fullclaimnumber,
+  `ecw_factrhinitialerror`.regionkey
+  FROM
+    edwpsc_base_views.`ecw_factrhinitialerror`
+  INNER JOIN edwpsc_base_views.secref_facility
+  ON LPAD(TRIM(secref_facility.co_id, ' '), 5, '0') = LPAD(TRIM(`ecw_factrhinitialerror`.coid, ' '), 5, '0')
+  AND TRIM(secref_facility.user_id, ' ') = TRIM(session_user(), ' ')
+;

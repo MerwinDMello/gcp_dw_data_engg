@@ -1,0 +1,102 @@
+name: GCS CI
+
+inputs:
+  branch:
+    description: ""
+  args:
+    description: ""
+    default: ""
+  repository:
+    description: ""
+  jar_strings:
+    description: ""
+  destination_env:
+    description: ""
+  destination_bucket:
+    description: ""
+  destination_path:
+    description: ""
+  dev_workload_identity_provider:
+    description: ""
+  dev_service_account:
+    description: ""
+  qa_workload_identity_provider:
+    description: ""
+  qa_service_account:
+    description: ""
+  prd_workload_identity_provider:
+    description: ""
+  prd_service_account:
+    description: ""
+  
+
+
+
+
+runs:
+  using: "composite"
+  steps:  
+    # Authenticate to dev environment for downloading the jar files
+    - id: 'auth_dev'
+      name: 'Authenticate to Google Cloud'
+      uses: 'google-github-actions/auth@v0.8.3'
+      with:
+        workload_identity_provider: ${{ inputs.dev_workload_identity_provider }}
+        service_account: ${{ inputs.dev_service_account }}
+    
+    - name: GCP setup
+      uses: 'google-github-actions/setup-gcloud@v1'
+    
+    - name: Download Jar Files from Dev environment
+      shell: sh
+      run: |
+        echo "downloading the files"
+        mkdir dev_source
+        IFS=',' read -ra array <<< ${{ inputs.jar_strings }}
+
+        for src in "${array[@]}"; do
+          source="${src}"
+          if ! gcloud storage cp $source dev_source/ ; then
+            echo "${source} not found in dev bucket"
+          fi
+        done
+    
+    # Authenticate to Respective Environment for Deployment
+    - name: Upload Jar file to env
+      shell: sh
+      run: |
+        echo ${{ inputs.destination_env }}
+    - id: 'qa_auth'
+      if: contains(inputs.destination_env, 'qa')
+      name: 'Authenticate to Google Cloud QA'
+      uses: 'google-github-actions/auth@v0.8.3'
+      with:
+        workload_identity_provider: ${{ inputs.qa_workload_identity_provider }}
+        service_account: ${{ inputs.qa_service_account }}
+    
+    - id: 'prd_auth'
+      if: contains(inputs.destination_env, 'prd')
+      name: 'Authenticate to Google Cloud PRD'
+      uses: 'google-github-actions/auth@v0.8.3'
+      with:
+        workload_identity_provider: ${{ inputs.prd_workload_identity_provider }}
+        service_account: ${{ inputs.prd_service_account }}
+
+    - name: Upload Jar Files to Respective Environment
+      shell: sh
+      run: |
+        ls
+        for file in dev_source/*;do
+          echo "uploading file $file to  bucket"
+          if [ -f "$file" ]; then
+            gcloud storage cp ${file} "gs://${{ inputs.destination_bucket }}/${{ inputs.destination_path }}/"
+          fi
+        done
+    
+    
+    
+
+    
+    
+
+    

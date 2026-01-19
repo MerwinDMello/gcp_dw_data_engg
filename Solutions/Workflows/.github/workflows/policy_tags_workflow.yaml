@@ -1,0 +1,174 @@
+on:
+  workflow_call:
+    inputs:
+      branch:
+        description: 'The branch name'
+        required: true
+        type: string
+      gcs_file_path:
+        description: 'Path to GCS configuration files'
+        required: false
+        type: string
+        default: "**/policy_tags/**"
+      cf_region:
+        description: 'Cloud Function Region'
+        required: false
+        type: string
+        default: 'us-east4'
+      cf_project_id:
+        description: 'Cloud Function Project ID'
+        required: false
+        type: string
+        default: 'hca-hin-dev-datagov'
+      cf_name:
+        description: 'Cloud Function Name'
+        required: false
+        type: string
+        default: 'clinical_policy_tags_cf_centralized'
+    secrets:
+      workload_identity_provider:
+        description: 'The workload identity provider for authentication'
+        required: false
+      service_account:
+        description: 'The service account for authentication'
+        required: false
+      gh_token:
+        description: 'The GitHub token for authentication'
+        required: true
+
+jobs:
+  set-matrix:
+    runs-on: [self-hosted, onprem-k8s-arc, dind, enterprise, lnx-amd64]
+    name: Set Matrix Job
+    environment: ${{ inputs.branch || github.ref_name }}
+    permissions:
+      contents: "read"
+      id-token: "write"
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Get changed files in policy_tags folders
+        id: changed-files
+        uses: tj-actions/changed-files@v46.0.1
+        with:
+          files: "**/policy_tags/**"
+
+      - name: Set Matrix
+        id: set-matrix
+        run: |
+          # Check if any policy_tags files have changed
+          if [[ -z "${{ steps.changed-files.outputs.all_changed_files }}" ]]; then
+            echo "No changed files detected in policy_tags folders. Skipping workflow."
+            echo "matrix=[]" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          echo "Changed files: ${{ steps.changed-files.outputs.all_changed_files }}"
+
+          # Extract unique policy_tags folder names from changed files
+          echo "${{ steps.changed-files.outputs.all_changed_files }}" | tr ' ' '\n' | while IFS= read -r file; do
+            echo "Processing changed file: $file"
+            # Extract parent folder from path - handles both structures:
+            # - ctrax_documents/data_governance/ctrax_documents/policy_tags/silver/file.yaml -> ctrax_documents
+            # - data_engineering/data_governance/clinical/policy_tags/foo/bronze/file.yaml -> data_engineering
+            folder_name=$(echo "$file" | sed -n 's|^\([^/]*\)/.*|\1|p')
+            if [[ -n "$folder_name" ]]; then
+              echo "Extracted folder: $folder_name"
+              echo "$folder_name" >> /tmp/changed_folders.txt
+            fi
+          done
+
+          # Get unique folder names that actually have changes
+          if [[ -f /tmp/changed_folders.txt ]]; then
+            folders=$(cat /tmp/changed_folders.txt | sort | uniq)
+            rm -f /tmp/changed_folders.txt
+          else
+            folders=""
+          fi
+
+          if [ -z "$folders" ]; then
+            echo "No valid policy_tags folders found with changes"
+            echo "matrix=[]" >> $GITHUB_OUTPUT
+          else
+            echo "Found changed policy_tags folders: $folders"
+            json_array=$(echo "$folders" | jq -R . | jq -sc .)
+            echo "matrix=$json_array" >> $GITHUB_OUTPUT
+            echo "Generated matrix: $json_array"
+          fi
+  gcs_sync:
+    name: GCS Sync & Policy Tags Invoker
+    needs: set-matrix
+    if: ${{ needs.set-matrix.outputs.matrix != '[]' }}
+    strategy:
+      matrix:
+        policytags_folder: ${{ fromJson(needs.set-matrix.outputs.matrix) }}
+    runs-on: [self-hosted, onprem-k8s-arc, dind, enterprise, lnx-amd64] 
+    environment: ${{ inputs.branch || github.ref_name }}
+    permissions:
+      contents: "read"
+      id-token: "write"
+    outputs:
+      COMBINED_DATA: ${{ steps.gcs_sync.outputs.COMBINED_DATA }}
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: GCS Sync Step
+        id: gcs_sync
+        uses: HCACloudDataEngineering/gcp-hin-workflows/gcs/gcs_sync@main
+        with:
+          workload_identity_provider: ${{ vars.WORKLOAD_IDENTITY_PROVIDER != '' && vars.WORKLOAD_IDENTITY_PROVIDER || secrets.workload_identity_provider }}
+          service_account: ${{ vars.SERVICEACCOUNT_GITHUB != '' && vars.SERVICEACCOUNT_GITHUB || secrets.service_account }}
+          branch: ${{ inputs.branch || github.ref_name }}
+          gcs_file_path: ${{ inputs.gcs_file_path }}
+          policytags_folder: ${{ matrix.policytags_folder }}
+
+      - name: Debug gcs_sync outputs
+        shell: bash
+        run: |
+          echo "COMBINED_DATA: ${{ steps.gcs_sync.outputs.COMBINED_DATA }}"
+
+      - name: Set cf_project_id
+        id: set_project
+        shell: bash
+        run:
+          echo "cf_project_id=$(echo ${{ inputs.cf_project_id }} | sed "s/dev/${{ inputs.branch }}/")" >> $GITHUB_OUTPUT
+
+      - id: 'auth'
+        name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ vars.WORKLOAD_IDENTITY_PROVIDER != '' && vars.WORKLOAD_IDENTITY_PROVIDER || secrets.workload_identity_provider }}
+          service_account: ${{ vars.SERVICEACCOUNT_GITHUB != '' && vars.SERVICEACCOUNT_GITHUB || secrets.service_account }}
+          id_token_audience: https://${{ inputs.cf_region }}-${{ steps.set_project.outputs.cf_project_id }}.cloudfunctions.net/${{ inputs.cf_name }}
+          token_format: id_token
+
+      - name: Invoke Policy Tags Cloud Function
+        id: invoke_policy_tags
+        shell: bash
+        env:
+          COMBINED_DATA: ${{ steps.gcs_sync.outputs.COMBINED_DATA }}
+          GH_TOKEN: ${{ secrets.gh_token }}
+        run: |
+          echo "Invoking Policy Tags Cloud Function..."
+          # Convert the JSON array to a Bash array
+          combined_array=$(echo $COMBINED_DATA | jq -c '.[]')
+
+          for entry in $combined_array; do
+            dest_path=$(echo $entry | jq -r '.dest_path')
+            csv_file_path=$(echo $entry | jq -r '.csv_file_path')
+            data_policy_project_id=$(echo $entry | jq -r '.data_policy_project_id')
+            source_project_id=$(echo $entry | jq -r '.source_project_id')
+
+            curl -X POST "https://us-east4-hca-hin-${{ inputs.branch }}-datagov.cloudfunctions.net/clinical_policy_tags_cf_centralized" \
+            -H "Authorization: Bearer ${{ steps.auth.outputs.id_token }}" \
+            -H "Content-Type: application/json" \
+            -d "{
+              \"gcs_csv_path\": \"$dest_path/$csv_file_path\",
+              \"data_policy_project_id\": \"$data_policy_project_id\",
+              \"source_project_id\": \"$source_project_id\"
+            }"
+          done

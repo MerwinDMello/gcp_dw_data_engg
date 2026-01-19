@@ -1,0 +1,169 @@
+name: Dataproc CI
+
+inputs:
+  branch:
+    description: "The relevant branch name"
+  subdomain:
+    description: "The relevant subdomain"
+  args:
+    description: "Additional arguments"
+    default: ""
+  repository:
+    description: ""
+  token:
+    description: "The access token"
+  deploy_all:
+    description: "Set this input to true to deploy all files."
+    default: "false"
+
+outputs:
+  matrix:
+    description: "Matrix for Dataproc deployment"
+    value: ${{ steps.changed-paths.outputs.matrix }}
+
+runs:
+  using: "composite"
+  steps:
+    # Get changed environment files
+    - name: Get changed Files Environment
+      id: changed-env-files
+      uses: tj-actions/changed-files@v46.0.1
+      with:
+        files: 'environments/dataproc/**'
+
+   # steps to check if current environment config changed
+    - name: Detect Environment Config Change
+      id: changed-env-config
+      shell: bash
+      run: |
+        env=${{ inputs.branch }}
+        for file in "${{ steps.changed-env-files.outputs.all_changed_files }}"; do
+          if [[ $file == *"${env}"* ]]; then
+            echo "contains ${env}"
+            echo "env_present=true" >> $GITHUB_ENV
+          fi
+        done
+
+    # Get all the folders in the service if environment config changed
+    # This will cause all resources to be deployed again in the service
+    - name: Get ALL Files
+      if: env.env_present == 'true'
+      id: all_files
+      shell: bash
+      run: |
+        echo "env files detected $env_present"
+        file_path=()
+        for file in dataproc/*/*/*; do
+          echo $file
+          file_path+=("$file")
+        done
+        file_path_string="${file_path[*]}"
+        echo ${file_path_string}
+        echo "file_path_string=$file_path_string" >> $GITHUB_ENV
+
+    - name: Get changed Files
+      if: env.env_present != 'true'
+      id: changed-files
+      uses: tj-actions/changed-files@v46.0.1
+      with:
+        files: 'dataproc/**' 
+
+    # List all changed files and create matrix
+    - name: List All Changed Files
+      id: changed-paths
+      shell: bash
+      run: |
+        # Get folders based on environment config change
+        if [[ "${env_present}" == 'true' ]]; then
+          IFS=' ' read -ra files <<< "${file_path_string}"
+        else
+          IFS=' ' read -ra files <<< "${{ steps.changed-files.outputs.all_changed_files }}"
+        fi
+        declare -A processed_paths
+        echo ${files[@]}
+        for file in "${files[@]}"; do
+          IFS='/' read -ra ADDR <<< "$file"
+          if [ "${#ADDR[@]}" -gt 1 ]; then
+            if [[ "${ADDR[2]}" == "config" ]]; then
+              cfile="${ADDR[3]}"
+              flder=${cfile%.yaml}
+              path_depth_3="${ADDR[0]}/${ADDR[1]}/${flder}"
+            else
+              path_depth_3="${ADDR[0]}/${ADDR[1]}/${ADDR[2]}"
+            fi
+            processed_paths["$path_depth_3"]=1
+          fi
+        done
+
+        for path in "${!processed_paths[@]}"; do
+          echo "path: ${path}" 
+        done
+
+        add_or_update_key(){
+          local key=$1
+          local value=$2
+          local configFile=$3
+
+          key_exists=$(yq eval ".env.${key}" "$configFile")
+
+          if [ -z "$key_exists" ]; then
+            #key is empty so add it
+            yq eval -i ".env.${key} = \"$value\"" "$configFile"
+          else
+            yq eval -i ".env.${key} = \"$value\"" "$configFile"
+          fi
+        }
+
+        # Convert associative array keys to an indexed array to remove dups
+        processed_array=("${!processed_paths[@]}")
+
+        # Prepare output matrix
+        output_array=()
+        for path in "${!processed_paths[@]}"; do
+          job_name=$(basename "$path")
+          IFS='/' read -ra ADDR <<< "$path"
+          config_dir="${ADDR[0]}/${ADDR[1]}/config"
+          config_file="${config_dir}/${job_name}.yaml"
+          if [[ -f "$config_file" ]]; then
+            echo "Configuration file $config_file exists."
+            yq eval-all 'select(fileIndex == 1) * select(fileIndex == 0)' "$config_file" "./environments/dataproc/${{ inputs.branch }}_${{ inputs.subdomain }}_config.yaml" > ${job_name}_merged.yaml
+          else
+            echo "Configuration file $config_file does not exist."
+            cat "./environments/dataproc/${{ inputs.branch }}_${{ inputs.subdomain }}_config.yaml" > ${job_name}_merged.yaml
+          fi
+
+          add_or_update_key "src" $job_name ${job_name}_merged.yaml
+          add_or_update_key "name" $job_name ${job_name}_merged.yaml
+
+          jar_strings=$( yq eval '.env.additional_jars | join(",")' ${job_name}_merged.yaml )
+            
+          add_or_update_key "additional_jars_string" $jar_strings ${job_name}_merged.yaml
+
+          cat ${job_name}_merged.yaml
+          
+          output_array+=(${job_name}_merged.yaml)
+        done
+
+        # Convert YAML to JSON and save artifacts
+        mkdir artifacts
+        configFiles=()
+        for ymlfile in ${output_array[@]}; do
+          json_file="${ymlfile%.yaml}.json"
+          yq eval -o=json "$ymlfile" > "artifacts/${json_file}"
+          configFiles+=("artifacts/${json_file}")
+        done
+        ls artifacts
+        jsonString=$( echo ${configFiles[@]}  | jq  -R -s -c 'sub("\n$";"") | split(" ")'  )
+        echo $jsonString
+        echo "matrix=$jsonString" >> $GITHUB_OUTPUT
+
+    # Upload artifacts
+    - name: upload-github artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: dataproc_artifacts
+        path: artifacts
+        retention-days: 1
+
+    # get the jar files from internet
+    # upload to the gcs bucket

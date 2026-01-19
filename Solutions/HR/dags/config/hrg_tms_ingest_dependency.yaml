@@ -1,0 +1,114 @@
+ingest:
+    - source_system: tms
+      frequency: daily
+      start_date: pendulum.datetime(2022, 12, 6, tz=timezone)
+      schedule: [0 6 * * *]
+      type: files
+      sftp_files:
+      - directory: //outgoing/prodnew/
+        files:
+          - name: ^.*_EDWHR_EMP_INFO_RPT\.csv$   
+      dependency:
+      - source:
+          type: file
+          name: ^.*_EDWHR_EMP_INFO_RPT\.csv$
+          delimiter: ","
+          sensor: 'No'
+        target:
+          type: table
+          name: employee_info
+          sql: tms_update_employee_info_stg.sql
+
+    - source_system: tms
+      frequency: weekly
+      start_date: pendulum.datetime(2022, 12, 20, tz=timezone)
+      schedule: [0 6 * * 1]
+      type: files
+      sftp_files:
+      - directory: //outgoing/prodnew/
+        files:
+          - name: ^.*_EDWHR_EMP_PERF_GOALS_RPT-REVISED_CY\.csv$
+          - name: ^.*_EDWHR_DEV_ACTIVITY_HISTORY_RPT\.csv$
+      dependency:
+      - source:
+          type: file
+          name: ^.*_EDWHR_DEV_ACTIVITY_HISTORY_RPT\.csv$ 
+          delimiter: ","
+        target:
+          type: table
+          name: development_activities_report
+          sql:  tms_update_development_activities_report_stg.sql
+      - source:
+          type: file
+          name: ^.*_EDWHR_EMP_PERF_GOALS_RPT-REVISED_CY\.csv$ 
+          delimiter: ","
+        target:
+          type: table
+          name: employee_perf_goals
+          sql: tms_update_employee_perf_goals_stg.sql
+      
+    - source_system: tms
+      frequency: monthly
+      start_date: pendulum.datetime(2022, 12, 20, tz=timezone)
+      schedule: [0 6 1 * *]
+      type: files
+      sftp_files:
+      - directory: //outgoing/prodnew/
+        files:
+          - name: ^.*_EDWHR_EDUC_HIST_RPT\.csv$
+          - name: ^.*_EDWHR_WORK_HIST_RPT\.csv$
+          - name: ^.*_EDWHR_COMP_RATING_RPT\.csv$
+          - name: ^.*_EDWHR_PERF_RATING_HISTORY_RPT\.csv$
+      dependency:
+      - source:
+          type: file
+          name: ^.*_EDWHR_COMP_RATING_RPT\.csv$
+          delimiter: ","
+        target:
+          type: table
+          name: competency_ratings_report
+          sql: tms_update_competency_ratings_report_stg.sql
+      - source:
+          type: file
+          name: ^.*_EDWHR_EDUC_HIST_RPT\.csv$
+          delimiter: ","
+        target:
+          type: table
+          name: education_history_report
+          sql: tms_update_education_history_report_stg.sql
+      - source:
+          type: file
+          name: ^.*_EDWHR_PERF_RATING_HISTORY_RPT\.csv$
+          delimiter: ","
+        target:
+          type: table
+          name: performance_ratings_report
+          sql: tms_update_performance_ratings_report_stg.sql
+      - source:
+          type: file
+          name: ^.*_EDWHR_WORK_HIST_RPT\.csv$
+          delimiter: ","
+        target:
+          type: table
+          name: work_history_report
+          sql: tms_update_work_history_report_stg.sql
+    - source_system: tms
+      frequency: None
+      start_date: pendulum.datetime(2022, 12, 6, tz=timezone)
+      schedule: ["None"]
+      type: files
+      sftp_files:
+      - directory: //outgoing/prodnew/
+        files:
+          - name: Ref_Address_Type.txt   
+      dependency:
+      - source:
+          type: file
+          name: Ref_Address_Type.txt
+          delimiter: "|"
+          sensor: 'No'
+        target:
+          type: table
+          name: ref_address_type_stg
+          sql: ref_address_type_stg.sql
+    

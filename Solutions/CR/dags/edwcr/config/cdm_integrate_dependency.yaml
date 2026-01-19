@@ -1,0 +1,16 @@
+integrate:
+- source_system: cdm
+  frequency: daily
+  dag_id_suffix: 1
+  start_date: pendulum.datetime(2024, 5, 6, tz=timezone)
+  schedule: None
+  type: sqlserver
+  done_file: None
+  trigger_dag_ids: []
+  dependency:
+  - table: cdm_patient
+    has_sensor: 'No'
+    sql:
+    - name: cn_cdm_encounter.sql
+    validation:
+    - name: NONE

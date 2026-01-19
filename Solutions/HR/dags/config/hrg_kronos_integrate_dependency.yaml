@@ -1,0 +1,79 @@
+integrate:
+- source_system: kronos
+  frequency: daily
+  start_date: pendulum.datetime(2022, 12, 6, tz=timezone)
+  schedule: [30 0 * * *  ]
+  type: core_tables  
+  dependency:
+  - table: time_entry_pay_code_detail
+    has_sensor: 'Yes'
+    sql:
+    - name: hdw_kronos_time_entry_pay_code_detail_wrk.sql
+    - name: hdw_kronos_time_entry_pay_code_detail.sql
+    sensor:
+    - dag_id: dag_ingest_kronos_files_daily_00.30
+      task_id: TG-table-time_entry_pay_code_detail_stg.archive_srcfile_time_entry_pay_code_detail_stg
+      schedule: 30 0 * * *
+  - table: time_entry
+    has_sensor: 'Yes'
+    sql:
+    - name: hdw_kronos_combined_edw_punchdetail.sql
+    - name: hdw_kronos_time_entry_wrk.sql
+    - name: hdw_kronos_time_entry.sql
+    sensor:
+    - dag_id: dag_ingest_kronos_files_daily_00.30
+      task_id: TG-table-kronos_combined_edw_punchdetail_rej.archive_srcfile_kronos_combined_edw_punchdetail_rej
+      schedule: 30 0 * * *
+- source_system: kronos
+  frequency: weekly
+  start_date: pendulum.datetime(2022, 3, 31, tz=timezone)
+  schedule: [ 30 19 * * 2]
+  type: core_tables
+  dependency:
+  - table: ref_clock
+    has_sensor: 'Yes'
+    sql:
+    - name: hdw_kronos_ref_clock.sql
+    sensor:
+    - dag_id: dag_ingest_kronos_files_weekly_19.30
+      task_id: TG-table-ref_clock_stg.archive_srcfile_ref_clock_stg
+      schedule: 30 19 * * 2
+  - table: pay_code_pay_summary_group_crosswalk
+    has_sensor: 'Yes'
+    sql:
+    - name: hdw_kronos_pay_code_pay_summary_group_crosswalk.sql
+    sensor:
+    - dag_id: dag_ingest_kronos_files_weekly_19.30
+      task_id: TG-table-pay_code_pay_summary_group_crosswalk_stg.archive_srcfile_pay_code_pay_summary_group_crosswalk_stg
+      schedule: 30 19 * * 2
+  - table: time_entry
+    has_sensor: 'Yes'
+    sql:
+    - name: hdw_kronos_combined_edw_punchdetail.sql
+    - name: hdw_kronos_time_entry_wrk.sql
+    - name: hdw_kronos_time_entry.sql
+    sensor:
+    - dag_id: dag_ingest_kronos_files_weekly_19.30
+      task_id: TG-table-kronos_combined_edw_punchdetail_rej.archive_srcfile_kronos_combined_edw_punchdetail_rej
+      schedule: 30 19 * * 2
+  - table: personnel_time
+    has_sensor: 'Yes'
+    sql:
+    - name: hdw_kronos_personnel_time.sql
+    sensor:
+    - dag_id: dag_ingest_kronos_files_weekly_19.30
+      task_id: TG-table-krono_combined_edw_employee.archive_srcfile_krono_combined_edw_employee
+      schedule: 30 19 * * 2
+  - table: time_entry_pay_code_detail
+    has_sensor: 'Yes'
+    sql:
+    - name: hdw_kronos_time_entry_pay_code_detail_wrk.sql
+    - name: hdw_kronos_time_entry_pay_code_detail.sql
+    sensor:
+    - dag_id: dag_ingest_kronos_files_weekly_19.30
+      task_id: TG-table-time_entry_pay_code_detail_stg.archive_srcfile_time_entry_pay_code_detail_stg
+      schedule: 30 19 * * 2
+  - table: ref_exception
+    has_sensor: 'No'
+    sql:
+    - name: hdw_kronos_ref_exception.sql

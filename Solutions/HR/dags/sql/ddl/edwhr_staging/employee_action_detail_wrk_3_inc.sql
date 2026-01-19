@@ -1,0 +1,27 @@
+create table if not exists `{{ params.param_hr_stage_dataset_name }}.employee_action_detail_wrk_3_inc`
+(
+  employee_sid INT64 NOT NULL,
+  hr_company_sid INT64 NOT NULL,
+  company INT64 NOT NULL,
+  action_code STRING NOT NULL,
+  effect_date DATE NOT NULL,
+  action_nbr INT64 NOT NULL,
+  employee INT64 NOT NULL,
+  ant_end_date DATE,
+  reason_01 STRING,
+  user_id STRING,
+  date_stamp DATE,
+  action_type STRING,
+  description STRING,
+  pos_level INT64,
+  hr_employee_value_alphanumeric_text STRING,
+  hr_employee_value_num NUMERIC,
+  hr_employee_value_date DATE,
+  lawson_element_num INT64 NOT NULL,
+  sequence_num INT64 NOT NULL,
+  val_type STRING,
+  lawson_company_num INT64 NOT NULL,
+  process_level_code STRING NOT NULL,
+  source_system_code STRING,
+  dw_last_update_date_time DATETIME
+)

@@ -1,0 +1,202 @@
+name: Cloud Run Setup
+
+inputs:
+  branch:
+    description: "The branch, and thus the GCP environment, that is relevant to this workflow run"
+    required: true
+  dispatch:
+    description: "Whether the workflow was triggered by a workflow dispatch event"
+    required: true
+  env_folder:
+    description: "The name of the folder containing environment yamls"
+  cloud_run_path:
+    description: "The path to the cloud run folder in the repo."
+  repo_type:
+    description: "The caller repository type, either ETL or HIN2.0"
+    required: true
+    type: string
+  domain:
+    description: "The domain/subdomain of the caller repo, directs to the correct environments config file name"
+    required: true
+    type: string
+  
+
+outputs:
+  matrix:
+    description: "Matrix for cloud function deployment"
+    value: ${{ steps.process-job-configs.outputs.matrix }}
+
+runs:
+  using: "composite"
+  steps:
+    # Get all the folders in the service if caller workflow trigger via workflow dispatch
+    # This will cause all resources to be deployed again in the service
+    - name: Get ALL Files
+      if: ${{ inputs.dispatch == 'true' }}
+      id: all_files
+      shell: bash
+      run: |
+        echo "Workflow dispatch triggered ${{ inputs.branch }}"
+        file_path=()
+        for file in cloud-run/*/* */cloud-run/*/*; do
+          # Exclude .md files
+          if [[ "$file" == *.md ]]; then
+            continue
+          fi  
+          echo $file
+          file_path+=("$file")
+        done
+        
+        file_path_string="${file_path[*]}"
+        echo "${file_path_string}"
+        echo "file_path_string=${file_path_string}" >> $GITHUB_ENV
+
+
+    # get all changed files in the service folder
+    - name: Get changed Files
+      if: ${{ inputs.dispatch != 'true' }}
+      id: changed-files
+      uses: tj-actions/changed-files@v46.0.1
+      with:
+        files: '${{inputs.cloud_run_path}}/**'
+        #  Exclude README files
+        files_ignore: |
+          **/*.md
+    
+    # Process the files paths from previous steps
+    - name: Process file paths
+      id: changed-paths
+      shell: bash
+      run: |
+        # Get the list of files based on how the workflow was triggered
+        if [[ "${{ inputs.dispatch }}" == 'true' ]]; then
+          echo " debug ${file_path_string} ${{ env.file_path_string }}"
+          IFS=' ' read -ra files <<< "${file_path_string}"
+        else
+          IFS=' ' read -ra files <<< "${{ steps.changed-files.outputs.all_changed_files }}"
+        fi
+
+        # Declare an associative array to deduplicate paths
+        declare -A processed_paths
+
+        # Loop through the files and extract paths one folder deeper than the cloud-run directory
+        for file in "${files[@]}"; do
+          if [[ "$file" =~ (^.*cloud-run/[^/]+) ]]; then
+            path="${BASH_REMATCH[1]}"
+            processed_paths["$path"]=1
+          fi
+        done
+
+        # Output the deduplicated paths
+        echo "processed_paths: ${!processed_paths[@]}"
+
+        # Create a space-separated list of paths
+        changed_paths=$(echo "${!processed_paths[@]}")
+        echo "changed_paths=$changed_paths" >> $GITHUB_ENV
+
+
+
+    - name: Prepare env_config.yaml
+      id: prepare-env-config-etl
+      shell: bash
+      if: ${{ inputs.repo_type == 'ETL' }}
+      run: |
+        if [ ! -f "env_config.yaml" ]; then
+          echo "env:" > "env_config.yaml" 
+        fi
+
+        # Grab the environments config that corresponds to ${{ inputs.branch }}, read the relevant components and write to env_config.yaml
+        yq eval '{"cloud_run": {"v_proc_project_id": .env.v_proc_project_id} + .env.cloud_run}' "${{ inputs.env_folder }}/${{ inputs.branch }}_${{ inputs.domain }}_config.yaml" > "env_config.yaml"
+                
+        echo "------------------env configs start------------------"
+        cat env_config.yaml
+        echo "------------------env configs end------------------"
+
+    - name: Prepare env_config.yaml
+      id: prepare-env-config-hin2
+      shell: bash
+      if: ${{ inputs.repo_type == 'HIN2.0' }}
+      run: |
+       if [ ! -f "env_config.yaml" ]; then
+          echo "env:" > "env_config.yaml" 
+        fi
+
+        # Grab the environments config, read the section of the file that corresponds to ${{ inputs.branch }} and write it into a section titled cloud_run
+        yq eval '{"cloud_run": {"v_proc_project_id": .${{ inputs.branch }}.v_proc_project_id} + .${{ inputs.branch }}.cloud_run}' "environments/${{ inputs.domain }}_config.yaml" > "env_config.yaml"
+            
+        echo "------------------env configs start------------------"
+        cat env_config.yaml
+        echo "------------------env configs end------------------"
+
+    - name: Process Job Configurations
+      id: process-job-configs
+      shell: bash
+      run: |
+        changed_paths=($changed_paths)
+
+        # Create an empty array to store the processed job config files
+        output_array=()
+            
+        # Find the config file for each job that has changed files
+        for path in ${changed_paths[@]}; do
+          job_folder=$(basename "$path")
+          config_file="$path/config/${job_folder}.yaml"
+
+          # Check if the job-specific config file exists
+          if [[ -f "$config_file" ]]; then
+            echo "Configuration file $config_file exists."
+
+            # Extract folder_path up to and including the first 'cloud-run', preserving any preceding folders but nothing after
+            folder_path=$(echo "$path" | sed -E 's|(.*cloud-run).*|\1|')
+            echo "Setting folder_path to: $folder_path"
+
+            # Add folder_path to env_config.yaml (make a temp copy to avoid overwriting original)
+            cp env_config.yaml temp_env_config.yaml
+            yq eval ".cloud_run.folder_path = \"$folder_path\"" -i temp_env_config.yaml
+
+            # Merge the job-specific config with the modified environment-specific config (env_config.yaml)
+            # Job-specific config values take precedence over environment config values
+            yq eval-all 'select(fileIndex == 1) * select(fileIndex == 0)' "$config_file" "temp_env_config.yaml" > "${job_folder}_merged.yaml"
+          
+          else
+            # Alert that the job-specific config file does not exist
+            echo ":warning::Configuration file $config_file does not exist. Provide a proper config file."
+            continue
+          fi
+
+          # Print the merged configuration for debugging
+          echo "Merged config for $job_folder:"
+          cat ${job_folder}_merged.yaml
+
+          # Add the merged configuration file to the output array
+          output_array+=(${job_folder}_merged.yaml)
+        done
+            
+        # Create artifacts directory to store processed config files
+        mkdir -p artifacts
+        # Create an empty array to store the paths of the config files
+        configFiles=()
+        for ymlfile in "${output_array[@]}"; do
+          # Define the file name for the json file
+          json_file="${ymlfile%.yaml}.json"
+          # Convert the yaml file to json and save it to the artifacts directory
+          yq eval -o=json "$ymlfile" > "artifacts/${json_file}"
+          # Save the file path to the json in the configFiles array
+          configFiles+=("artifacts/${json_file}")
+        done
+
+        echo "configFiles=${configFiles[@]}"
+
+        # List the contents of the artifacts directory for debugging
+        ls artifacts
+
+        # Create a JSON string of config file paths for the matrix output
+        jsonString=$(echo "${configFiles[@]}" | jq -R -s -c 'sub("\n$";"") | split(" ")')
+        echo $jsonString
+        echo "matrix=$jsonString" >> $GITHUB_OUTPUT
+  
+    - name: upload-github artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: cloud_run_artifacts
+        path: artifacts

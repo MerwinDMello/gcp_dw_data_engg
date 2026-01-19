@@ -1,0 +1,43 @@
+v_sourcesysnm: remits
+v_databasetype: sqlserver
+v_database: AdmitToRemit
+v_port: 1433
+v_secret_name: revapp_claims_remits_sql/versions/latest
+v_jdbc_class_name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+v_jdbc_jar: mssql-jdbc-12.4.0.jre8.jar
+v_jdkfile: jre-8u351-linux-x64.tar.gz
+v_jdkversion: jre1.8.0_351
+v_jdbcbqpytemplate: BigQuery_to_Remits_PythonTemplate.py
+v_machine_type: n1-standard-4
+
+fact_master_remit_sql: SELECT COUNT(*) as DW_Count , 'v_currtimestamp' as ModifiedDateTime FROM edwrmt.Fact_Master_Remit WHERE DATE(dw_last_update_date_time) = current_date('US/Central')~update~10
+fact_patient_remit_sql: Select COUNT(*) as DW_Count , 'v_currtimestamp' as ModifiedDateTime FROM edwrmt.Fact_Patient_Remit p Join edwrmt.Fact_Master_Remit m on p.Remit_ID = m.Remit_ID where CAST(m.DW_Last_Update_Date_Time as Date) = current_date('US/Central')~update~10
+fact_patient_qual_sql: SELECT COUNT(*) as DW_Count , 'v_currtimestamp' as ModifiedDateTime FROM edwrmt.Fact_Patient_Qual WHERE DATE(dw_last_update_date_time) = current_date('US/Central')~update~10
+fact_patient_remit_adj_sql: SELECT COUNT(*) as DW_Count , 'v_currtimestamp' as ModifiedDateTime FROM edwrmt.Fact_Patient_Remit_Adj WHERE DATE(dw_last_update_date_time) = current_date('US/Central')~update~10
+fact_svc_line_sql: SELECT COUNT(*) as DW_Count , 'v_currtimestamp' as ModifiedDateTime FROM edwrmt.Fact_Svc_Line WHERE DATE(dw_last_update_date_time) = current_date('US/Central')~update~10
+fact_svc_line_claim_adj_sql: SELECT COUNT(*) as DW_Count , 'v_currtimestamp' as ModifiedDateTime FROM edwrmt.Fact_Svc_Line_Claim_Adj WHERE DATE(dw_last_update_date_time) = current_date('US/Central')~update~10
+lu_remit_payer_sql: SELECT COUNT(*) as DW_Count , 'v_currtimestamp' as ModifiedDateTime FROM edwrmt.LU_Remit_Payer WHERE DATE(dw_last_update_date_time) = current_date('US/Central')~update~10
+lu_remit_provider_sql: SELECT COUNT(*) as DW_Count , 'v_currtimestamp' as ModifiedDateTime FROM edwrmt.LU_Remit_Provider WHERE DATE(dw_last_update_date_time) = current_date('US/Central')~update~10
+ep_rmt_recon_sql: SELECT COUNT(*) as DW_Count , 'v_currtimestamp' as ModifiedDateTime FROM edwrmt_staging.ep_rmt_recon WHERE 1=1~update~10
+
+remits:
+  - schedule_interval: None
+    start_date: pendulum.datetime(2024, 9, 1, tz=timezone)
+    frequency: daily
+    dag_name_suffix: core_remits
+    done_file: NONE
+    has_sensor: 'No'
+    sql: [fact_master_remit_sql,fact_patient_remit_sql,fact_patient_qual_sql,fact_patient_remit_adj_sql,fact_svc_line_sql,fact_svc_line_claim_adj_sql,lu_remit_payer_sql,lu_remit_provider_sql]
+    srctablename: [Fact_Master_Remit,Fact_Patient_Remit,Fact_Patient_Qual,Fact_Patient_Remit_Adj,Fact_Svc_Line,Fact_Svc_Line_Claim_Adj,LU_Remit_Payer,LU_Remit_Provider]
+    tgttablename: fact_record_count
+    trigger_dag_ids: ['dag_postprocesspolling_remits_sqlserver_daily_core_remits']
+  - schedule_interval: None
+    start_date: pendulum.datetime(2024, 9, 1, tz=timezone)
+    frequency: daily
+    dag_name_suffix: ep_payer_recon
+    done_file: NONE
+    has_sensor: 'No'
+    sql: [ep_rmt_recon_sql]
+    srctablename: [EP_RMT_RECON]
+    tgttablename: fact_record_count
+    trigger_dag_ids: ['dag_postprocesspolling_remits_sqlserver_daily_ep_payer_recon']

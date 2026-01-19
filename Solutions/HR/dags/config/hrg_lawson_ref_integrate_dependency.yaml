@@ -1,0 +1,84 @@
+integrate:
+- source_system: lawson
+  frequency: daily
+  start_date: pendulum.datetime(2022, 12, 6, tz=timezone)
+  schedule: ["0 4 * * *"]
+  type: ref_core_tables
+  dependency:
+  - table: ref_account_unit
+    has_sensor: 'Yes'
+    sql:
+    - name: hdw_ref_account_unit.sql
+    sensor:
+    - dag_id: dag_ingest_lawson_ref_files_daily_04.00
+      task_id: end_dag
+      schedule: ["0 4 * * *"]
+  - table: ref_action
+    has_sensor: 'No'
+    sql:
+    - name: hdw_ref_action.sql
+  - table: ref_action_type
+    has_sensor: 'No'
+    sql:
+    - name: hdw_ref_action_type.sql
+  - table: ref_address_type
+    has_sensor: 'No'
+    sql:
+    - name: hdw_ref_address_type.sql
+  - table: ref_applicant_type
+    has_sensor: 'No'
+    sql:
+    - name: hdw_ref_applicant_type.sql
+  - table: ref_approval_type
+    has_sensor: 'No'
+    sql:
+    - name: hdw_ref_approval_type.sql
+  - table: ref_employee_detail
+    has_sensor: 'No'
+    sql:
+    - name: hdw_ref_employee_detail.sql
+  - table: ref_employee_detail_type
+    has_sensor: 'No'
+    sql:
+    - name: hdw_ref_employee_detail_type.sql
+  - table: ref_lawson_element
+    has_sensor: 'No'
+    sql:
+    - name: hdw_ref_lawson_element.sql
+  - table: ref_location
+    has_sensor: 'No'
+    sql:
+    - name: hdw_ref_location.sql
+  - table: ref_pay_grade
+    has_sensor: 'No'
+    sql:
+    - name: hdw_ref_pay_grade.sql
+  - table: ref_sector
+    has_sensor: 'No'
+    sql:
+    - name: hdw_ref_sector.sql
+  - table: ref_status_type
+    has_sensor: 'No'
+    sql:
+    - name: hdw_ref_status_type.sql
+  - table: gl_lawson_dept_crosswalk_wrk
+    has_sensor: 'No'
+    sql:
+    - name: hdw_gl_lawson_dept_crosswalk_load_wrk.sql
+  - table: gl_lawson_dept_crosswalk
+    has_sensor: 'No'
+    sql:
+    - name: hdw_gl_lawson_dept_crosswalk_load.sql
+  - table: ref_action_reason
+    has_sensor: 'No'
+    sql:
+    - name: hdw_ref_action_reason.sql
+  - table: ref_comment_type
+    has_sensor: 'No'
+    sql:
+    - name: hdw_ref_comment_type.sql
+  - table: phone_country
+    has_sensor: 'No'
+    sql:
+    - name: hdw_phone_country.sql
+

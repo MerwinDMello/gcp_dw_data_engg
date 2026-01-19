@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS {{ params.param_hr_stage_dataset_name }}.competency_ratings_report
+(
+  employee_id STRING,
+  review_period STRING,
+  review_period_start_date DATE,
+  review_period_end_date DATE,
+  review_year STRING,
+  plan_name STRING,
+  competency_group STRING,
+  competency STRING,
+  employee_rating_numeric_value STRING,
+  employee_rating_scale_value STRING,
+  manager_rating_numeric_value STRING,
+  manager_rating_scale_value STRING,
+  manager_employee_gap STRING,
+  evaluation_workflow_state STRING,
+  comp_record_id STRING,
+  job_code STRING,
+  dw_last_update_date_time DATETIME,
+);

@@ -1,0 +1,281 @@
+integrate:
+- source_system: psc
+  frequency: daily
+  dag_name_suffix: wave-other5
+  start_date: pendulum.datetime(2025, 2, 1, tz=current_timezone)
+  schedule: None
+  type: sqlserver
+  done_file: None
+
+  server-04:
+    trigger_dag_ids: []
+    tables:
+
+    - table: ECW_RefPhyNavigationURL
+      has_sensor: 'No'
+      sql:
+        - name: ECW_RefPhyNavigationURL.sql
+      validation:
+        - name: NONE
+
+    - table: ECW_RefPhyNavigationUser
+      has_sensor: 'No'
+      sql:
+        - name: ECW_RefPhyNavigationUser.sql
+      validation:
+        - name: NONE
+
+    - table: ECW_FactClaim837P
+      has_sensor: 'No'
+      sql:
+        - name: ECW_FactClaim837P.sql
+      validation:
+        - name: NONE
+
+    - table: ECW_FactKronos
+      has_sensor: 'No'
+      sql:
+        - name: ECW_FactKronos.sql
+      validation:
+        - name: NONE
+
+    - table: ECW_FactMeditechORAuth
+      has_sensor: 'No'
+      sql:
+        - name: ECW_FactMeditechORAuth.sql
+      validation:
+        - name: NONE
+
+    - table: ECW_FactMeditechVisit
+      has_sensor: 'No'
+      sql:
+        - name: ECW_FactMeditechVisit.sql
+      validation:
+        - name: NONE
+
+    - table: ECW_FactMeditechVisitEMPI
+      has_sensor: 'No'
+      sql:
+        - name: ECW_FactMeditechVisitEMPI.sql
+      validation:
+        - name: NONE
+
+    - table: ECW_FactNBTGLCoIDDepartmentCurrent
+      has_sensor: 'No'
+      sql:
+        - name: ECW_FactNBTGLCoIDDepartmentCurrent.sql
+      validation:
+        - name: NONE
+
+    - table: ECW_FactNBTGLCoIDDepartmentProvider
+      has_sensor: 'No'
+      sql:
+        - name: ECW_FactNBTGLCoIDDepartmentProvider.sql
+      validation:
+        - name: NONE
+
+    - table: ECW_FactNBTGLCompanyMaster
+      has_sensor: 'No'
+      sql:
+        - name: ECW_FactNBTGLCompanyMaster.sql
+      validation:
+        - name: NONE
+
+    - table: ECW_FactNBTProvider
+      has_sensor: 'No'
+      sql:
+        - name: ECW_FactNBTProvider.sql
+      validation:
+        - name: NONE
+
+    - table: ECW_FactNBTProviderByNPI
+      has_sensor: 'No'
+      sql:
+        - name: ECW_FactNBTProviderByNPI.sql
+      validation:
+        - name: NONE
+
+    - table: ECW_FactNHXS
+      has_sensor: 'No'
+      sql:
+        - name: ECW_FactNHXS.sql
+      validation:
+        - name: NONE
+
+    - table: ECW_FactUserTouch
+      has_sensor: 'No'
+      sql:
+        - name: ECW_FactUserTouch.sql
+      validation:
+        - name: NONE
+
+    - table: CCU_RprtHcaFacilityList
+      has_sensor: 'No'
+      sql:
+        - name: CCU_RprtHcaFacilityList.sql
+      validation:
+        - name: NONE
+
+    - table: CCU_RprtCoderManagerReference
+      has_sensor: 'No'
+      sql:
+        - name: CCU_RprtCoderManagerReference.sql
+      validation:
+        - name: NONE
+
+    - table: CCU_RprtRolloutScheduleList
+      has_sensor: 'No'
+      sql:
+        - name: CCU_RprtRolloutScheduleList.sql
+      validation:
+        - name: NONE
+
+    - table: CCU_RprtVendorReference
+      has_sensor: 'No'
+      sql:
+        - name: CCU_RprtVendorReference.sql
+      validation:
+        - name: NONE
+
+    - table: ECW_FactERAClaimPaymentInformation
+      has_sensor: 'No'
+      sql:
+        - name: ECW_FactERAClaimPaymentInformation.sql
+      validation:
+        - name: NONE
+
+    - table: ECW_FactERAFilesProcessed
+      has_sensor: 'No'
+      sql:
+        - name: ECW_FactERAFilesProcessed.sql
+      validation:
+        - name: NONE
+
+    - table: ECW_FactERAInpatientAdjudicationInformation
+      has_sensor: 'No'
+      sql:
+        - name: ECW_FactERAInpatientAdjudicationInformation.sql
+      validation:
+        - name: NONE
+
+    - table: ECW_FactERAOutpatientAdjudicationInformation
+      has_sensor: 'No'
+      sql:
+        - name: ECW_FactERAOutpatientAdjudicationInformation.sql
+      validation:
+        - name: NONE
+
+    - table: ECW_FactERAPayerIdentification
+      has_sensor: 'No'
+      sql:
+        - name: ECW_FactERAPayerIdentification.sql
+      validation:
+        - name: NONE
+
+    - table: ECW_FactERAReassociationTraceNumber
+      has_sensor: 'No'
+      sql:
+        - name: ECW_FactERAReassociationTraceNumber.sql
+      validation:
+        - name: NONE
+
+    - table: ECW_FactERARemarkCodes
+      has_sensor: 'No'
+      sql:
+        - name: ECW_FactERARemarkCodes.sql
+      validation:
+        - name: NONE
+
+    - table: ECW_FactERAServiceAdjustment
+      has_sensor: 'No'
+      sql:
+        - name: ECW_FactERAServiceAdjustment.sql
+      validation:
+        - name: NONE
+
+    - table: ECW_FactERAServicePaymentInformation
+      has_sensor: 'No'
+      sql:
+        - name: ECW_FactERAServicePaymentInformation.sql
+      validation:
+        - name: NONE
+
+    - table: EBOC_FactEdiDiscriminatorDeposit
+      has_sensor: 'No'
+      sql:
+        - name: EBOC_FactEdiDiscriminatorDeposit.sql
+      validation:
+        - name: NONE
+        
+    - table: CCU_RprtProductivity
+      has_sensor: 'No'
+      sql:
+      - name: CCU_RprtProductivity.sql
+      validation:
+      - name: NONE
+
+    - table: CCU_FactSnapshotInventory
+      has_sensor: 'No'
+      sql:
+      - name: CCU_FactSnapshotInventory.sql
+      validation:
+      - name: NONE
+
+    - table: CCU_FactSnapShot3MInventory
+      has_sensor: 'No'
+      sql:
+      - name: CCU_FactSnapShot3MInventory.sql
+      validation:
+      - name: NONE
+
+    - table: CCU_FactSnapShotEcwInventory
+      has_sensor: 'No'
+      sql:
+      - name: CCU_FactSnapShotEcwInventory.sql
+      validation:
+      - name: NONE
+
+    - table: CCU_FactSnapShotEpicInventory
+      has_sensor: 'No'
+      sql:
+      - name: CCU_FactSnapShotEpicInventory.sql
+      validation:
+      - name: NONE
+
+    - table: CCU_FactSnapShotMedaxionInventory
+      has_sensor: 'No'
+      sql:
+      - name: CCU_FactSnapShotMedaxionInventory.sql
+      validation:
+      - name: NONE
+
+    - table: CCU_FactSnapShotMTXInventory
+      has_sensor: 'No'
+      sql:
+      - name: CCU_FactSnapShotMTXInventory.sql
+      validation:
+      - name: NONE
+
+    - table: CCU_FactSnapShotPKInventory
+      has_sensor: 'No'
+      sql:
+      - name: CCU_FactSnapShotPKInventory.sql
+      validation:
+      - name: NONE
+      
+    - table: CCU_FactSnapShotPVInventory
+      has_sensor: 'No'
+      sql:
+      - name: CCU_FactSnapShotPVInventory.sql
+      validation:
+      - name: NONE
+
+  server-07:
+      trigger_dag_ids: []
+      tables:
+      - table: PK_FactChangeData
+        has_sensor: 'No'
+        sql:
+        - name: PK_FactChangeData.sql
+        validation:
+        - name: NONE

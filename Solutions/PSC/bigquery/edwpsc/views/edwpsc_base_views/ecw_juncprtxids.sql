@@ -1,0 +1,30 @@
+CREATE OR REPLACE VIEW edwpsc_base_views.`ecw_juncprtxids`
+AS SELECT
+  `ecw_juncprtxids`.ecwprtxidskey,
+  `ecw_juncprtxids`.regionkey,
+  `ecw_juncprtxids`.startsvcdate,
+  `ecw_juncprtxids`.endsvcdate,
+  `ecw_juncprtxids`.providerid,
+  `ecw_juncprtxids`.providerkey,
+  `ecw_juncprtxids`.insuranceid,
+  `ecw_juncprtxids`.iplankey,
+  `ecw_juncprtxids`.taxid,
+  `ecw_juncprtxids`.taxidtype,
+  `ecw_juncprtxids`.billingfacilityid,
+  `ecw_juncprtxids`.billingfacilitykey,
+  `ecw_juncprtxids`.siteid,
+  `ecw_juncprtxids`.apptfacilityid,
+  `ecw_juncprtxids`.apptfacilitykey,
+  `ecw_juncprtxids`.allservicedates,
+  `ecw_juncprtxids`.allappointmentfacilities,
+  `ecw_juncprtxids`.deleteflag,
+  `ecw_juncprtxids`.sourceprimarykeyvalue,
+  `ecw_juncprtxids`.dwlastupdatedatetime,
+  `ecw_juncprtxids`.sourcesystemcode,
+  `ecw_juncprtxids`.insertedby,
+  `ecw_juncprtxids`.inserteddtm,
+  `ecw_juncprtxids`.modifiedby,
+  `ecw_juncprtxids`.modifieddtm
+  FROM
+    edwpsc.`ecw_juncprtxids`
+;

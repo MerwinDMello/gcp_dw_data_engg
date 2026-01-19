@@ -1,0 +1,50 @@
+CREATE OR REPLACE VIEW edwpsc_views.`ecw_factchargelagsummary`
+AS SELECT
+  `ecw_factchargelagsummary`.chargelagsummarykey,
+  `ecw_factchargelagsummary`.groupname,
+  `ecw_factchargelagsummary`.divisionname,
+  `ecw_factchargelagsummary`.marketname,
+  `ecw_factchargelagsummary`.coidname,
+  `ecw_factchargelagsummary`.coid,
+  `ecw_factchargelagsummary`.lobcode,
+  `ecw_factchargelagsummary`.sublobcode,
+  `ecw_factchargelagsummary`.sublobname,
+  `ecw_factchargelagsummary`.poscode,
+  `ecw_factchargelagsummary`.gldeptnum,
+  `ecw_factchargelagsummary`.fromservicepedate,
+  `ecw_factchargelagsummary`.startentrydate,
+  `ecw_factchargelagsummary`.glpostingpedate,
+  `ecw_factchargelagsummary`.chargelagstartdate,
+  `ecw_factchargelagsummary`.chargelagstartpedate,
+  `ecw_factchargelagsummary`.chargelagbucket,
+  `ecw_factchargelagsummary`.sourcesystemcode,
+  `ecw_factchargelagsummary`.sourcesystemdesc,
+  `ecw_factchargelagsummary`.flevel,
+  `ecw_factchargelagsummary`.providername,
+  `ecw_factchargelagsummary`.largepractice,
+  `ecw_factchargelagsummary`.providerspecialtycategory,
+  `ecw_factchargelagsummary`.providerspecialtytype,
+  `ecw_factchargelagsummary`.providerspecialty,
+  `ecw_factchargelagsummary`.lagdaytotalden,
+  `ecw_factchargelagsummary`.lagdaytotalnum,
+  `ecw_factchargelagsummary`.lag02den,
+  `ecw_factchargelagsummary`.lag35den,
+  `ecw_factchargelagsummary`.laggt5den,
+  `ecw_factchargelagsummary`.laglt0den,
+  `ecw_factchargelagsummary`.lagunknownden,
+  `ecw_factchargelagsummary`.lag02num,
+  `ecw_factchargelagsummary`.lag35num,
+  `ecw_factchargelagsummary`.laggt5num,
+  `ecw_factchargelagsummary`.laglt0num,
+  `ecw_factchargelagsummary`.lagunknownnum,
+  `ecw_factchargelagsummary`.insertedby,
+  `ecw_factchargelagsummary`.inserteddtm,
+  `ecw_factchargelagsummary`.modifiedby,
+  `ecw_factchargelagsummary`.modifieddtm,
+  `ecw_factchargelagsummary`.dwlastupdatedatetime
+  FROM
+    edwpsc_base_views.`ecw_factchargelagsummary`
+  INNER JOIN edwpsc_base_views.secref_facility
+  ON LPAD(TRIM(secref_facility.co_id, ' '), 5, '0') = LPAD(TRIM(`ecw_factchargelagsummary`.coid, ' '), 5, '0')
+  AND TRIM(secref_facility.user_id, ' ') = TRIM(session_user(), ' ')
+;

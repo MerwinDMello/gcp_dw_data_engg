@@ -1,0 +1,32 @@
+CREATE OR REPLACE VIEW edwpsc_base_views.`pv_junceraheader`
+AS SELECT
+  `pv_junceraheader`.pveraheaderkey,
+  `pv_junceraheader`.regionkey,
+  `pv_junceraheader`.importedby,
+  `pv_junceraheader`.importedbyuserkey,
+  `pv_junceraheader`.importeddate,
+  `pv_junceraheader`.rawfilename,
+  `pv_junceraheader`.xml,
+  `pv_junceraheader`.isa13,
+  `pv_junceraheader`.isa06,
+  `pv_junceraheader`.deletedby,
+  `pv_junceraheader`.deletedbyuserkey,
+  `pv_junceraheader`.deleteddate,
+  `pv_junceraheader`.deletedreason,
+  `pv_junceraheader`.trn02,
+  `pv_junceraheader`.trn03,
+  `pv_junceraheader`.ansi5010,
+  `pv_junceraheader`.deleteflag,
+  `pv_junceraheader`.sourceaprimarykeyvalue,
+  `pv_junceraheader`.sourcearecordlastupdated,
+  `pv_junceraheader`.sourcebprimarykeyvalue,
+  `pv_junceraheader`.sourcebrecordlastupdated,
+  `pv_junceraheader`.dwlastupdatedatetime,
+  `pv_junceraheader`.sourcesystemcode,
+  `pv_junceraheader`.insertedby,
+  `pv_junceraheader`.inserteddtm,
+  `pv_junceraheader`.modifiedby,
+  `pv_junceraheader`.modifieddtm
+  FROM
+    edwpsc.`pv_junceraheader`
+;

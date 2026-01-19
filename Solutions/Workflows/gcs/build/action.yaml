@@ -1,0 +1,89 @@
+name: GCS CI
+
+inputs:
+  branch:
+    description: ""
+  args:
+    description: ""
+    default: ""
+  repository:
+    description: ""
+
+
+runs:
+  using: "composite"
+  steps:
+    # steps to get environment changed files
+    - name: Get changed Files Environment
+      id: changed-env-files
+      uses: tj-actions/changed-files@v46.0.1
+      with:
+        files: 'environment/gcs/**'
+
+    # steps to check if current environment config changed
+    - name: Detect Environment Config Change
+      id: changed-env-config
+      shell: bash
+      run: |
+        env=${{ inputs.branch }}
+        for file in "${{ steps.changed-env-files.outputs.all_changed_files }}"; do
+          if [[ $file == *"${env}"* ]]; then
+            echo "contains ${env}"
+            echo "env_present=true" >> $GITHUB_ENV
+          fi
+        done
+    
+    # Get all the folders in the service if environment config changed
+    # This will cause all resources to be deployed again in the service
+    - name: Get ALL Files
+      if: env.env_present == 'true'
+      id: all_files
+      shell: bash
+      run: |
+        echo "env files detected $env_present"
+        #create artifacts directory
+        mkdir artifacts
+        cp -r gcs artifacts/gcs
+
+    - name: Get changed files
+      if: env.env_present != 'true'
+      id: changed-files
+      uses: tj-actions/changed-files@v46.0.1
+      with:
+        files: 'gcs/**'
+
+    - name: create artifact director
+      if: env.env_present != 'true'
+      shell: bash
+      run: |
+        mkdir  artifacts
+    
+    - name: get all changed files
+      if: env.env_present != 'true'
+      shell: bash
+      run: |  
+          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+            echo $file
+            mkdir -p $(dirname artifacts/$file)
+            cp $file artifacts/$file
+          done
+    
+    - name: upload-github artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: gcs_artifacts
+        path: artifacts
+        retention-days: 1
+
+
+
+    
+    
+
+
+    
+
+
+
+        
+ 

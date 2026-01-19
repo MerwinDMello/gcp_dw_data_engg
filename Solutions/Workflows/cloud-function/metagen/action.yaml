@@ -1,0 +1,175 @@
+name: Invoke Metagen Cloud Function
+inputs:
+  workload_identity_provider:
+    description: "Workload Identity Provider for Google Cloud authentication."
+    required: true
+  service_account:
+    description: "Service Account for Google Cloud authentication."
+    required: true
+  dest_path:
+    description: Destination path in GCS.
+    required: true
+  cf_region:
+    description: Cloud Function region.
+    required: true
+  cf_project_id:
+    description: Cloud Function project ID.
+    required: true
+  cf_name:
+    description: Cloud Function name.
+    required: true
+  gcs_file_path:
+    description: Path to metagen files.
+    required: true
+  execute_sql:
+    description: Execute SQL flag.
+    required: false
+    default: "False"
+  context_file:
+    description: Path to the context file in GCS.
+    required: false
+  update_alation:
+    description: Update Alation flag.
+    required: false
+    default: "False"
+  bq_alation_cr_table:
+    description: BigQuery Alation CR table.
+    required: false
+  ddl_gcs_location:
+    description: DDL GCS file location.
+    required: false
+  metagen_folder:
+    description: 'Specific metagen folder to process (when using matrix strategy)'
+    required: false
+    
+runs:
+  using: "composite"
+  steps:
+    - id: auth
+      uses: google-github-actions/auth@v1
+      with:
+        workload_identity_provider: ${{ inputs.workload_identity_provider }}
+        service_account: ${{ inputs.service_account }}
+        id_token_audience: https://${{ inputs.cf_region }}-${{ inputs.cf_project_id }}.cloudfunctions.net/${{ inputs.cf_name }}
+        token_format: 'id_token'
+
+    - name: Detect changed files
+      id: changed-files
+      uses: tj-actions/changed-files@v46.0.1
+      with:
+        files: ${{ inputs.gcs_file_path }}
+
+    - name: Output changed files
+      shell: bash
+      run: |
+        if [[ -z "${{ steps.changed-files.outputs.all_changed_files }}" ]]; then
+          echo "No changed files detected. Exiting..."
+          exit 0
+        fi
+        echo "changed_files=${{ steps.changed-files.outputs.all_changed_files }}"
+
+    - name: Process and invoke Cloud Function
+      shell: bash
+      run: |
+        echo "Invoking Cloud Function for changed files..."
+        processed_yaml_files=()
+
+        has_been_processed() {
+          local file="$1"
+          for processed_file in "${processed_yaml_files[@]}"; do
+            if [[ "$processed_file" == "$file" ]]; then
+              return 0
+            fi
+          done
+          return 1
+        }
+
+        process_yaml_file() {
+          local yaml_file="$1"
+          if [[ -f "$yaml_file" ]] && ! has_been_processed "$yaml_file"; then
+            echo "Processing YAML file: $yaml_file"
+            processed_yaml_files+=("$yaml_file")
+          else
+            echo "YAML file $yaml_file does not exist or has already been processed. Skipping..."
+          fi
+        }
+
+        for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+          echo "Processing changed file: $file"
+
+          # Skip environment configuration files
+          if [[ "$file" == environments/metagen/* ]]; then
+            echo "Skipping environment config file: $file"
+            continue
+          fi
+
+          # If metagen_folder is specified, only process files from that specific folder
+          if [ -n "${{ inputs.metagen_folder }}" ]; then
+            if [[ "$file" != "${{ inputs.metagen_folder }}/"* ]]; then
+              echo "Skipping $file - not in target metagen folder: ${{ inputs.metagen_folder }}"
+              continue
+            fi
+          fi
+
+          if [[ "$file" == *.txt ]]; then
+            base_name=$(basename "$file" | sed -E 's/_(table|schema)_description_prompt_template\.txt$//')
+            dir_path=$(dirname "$file")
+            yaml_file="${dir_path}/${base_name}.yaml"
+            echo "Derived YAML file from .txt: $yaml_file"
+            process_yaml_file "$yaml_file"
+          fi
+
+          if [[ "$file" == *.yaml ]]; then
+            process_yaml_file "$file"
+          fi
+        done
+
+        for yaml_file in "${processed_yaml_files[@]}"; do
+          # Strip everything before data_governance/ to get a generic relative path
+          relative_path=$(echo "$yaml_file" | sed -E 's@.*/data_governance/@@')
+          gcs_yaml_path="${{ inputs.dest_path }}/${relative_path}"
+
+          # Validate gcs_yaml_path
+          if [[ -z "$gcs_yaml_path" || ! "$gcs_yaml_path" =~ ^gs:// ]]; then
+            echo "Invalid GCS Path: $gcs_yaml_path"
+            exit 1
+          fi
+
+          metagen_dir=$(dirname "$yaml_file")
+          # Extract all document_path values from context_documents array and output as a single-line JSON array
+          context_file=$(yq eval ".files.context_documents[].document_path" "$metagen_dir"/*.yaml 2>/dev/null | grep -v '^---$' | grep -v '^null$' | jq -R -s -c 'split("\n") | map(select(. != ""))')
+          if [ "$context_file" == "null" ] || [ "$context_file" == "[]" ] || [ -z "$context_file" ]; then
+            context_file="[]"
+          fi
+          echo "context_file=$context_file" >> $GITHUB_ENV
+          echo "context_file=$context_file"
+
+          # Extract unique non-null output_gcs_location values and pick the first one
+          ddl_gcs_location=$(yq eval ".files.output_gcs_location" "$metagen_dir"/*.yaml | grep -v '^null$' | grep -v '^---$' | sort | uniq | head -n 1)
+          if [ -z "$ddl_gcs_location" ] || [ "$ddl_gcs_location" == "null" ]; then
+            ddl_gcs_location=""
+          fi
+          echo "ddl_gcs_location=$ddl_gcs_location" >> $GITHUB_ENV
+          echo "ddl_gcs_location=$ddl_gcs_location"
+
+          echo "Invoking Cloud Function for GCS Path: $gcs_yaml_path"
+
+          curl -X POST -H "Authorization: Bearer ${{ steps.auth.outputs.id_token }}" \
+            -H "Content-Type: application/json" \
+            -d "$(jq -n --argjson context_files "$context_file" --arg ddl_location "$ddl_gcs_location" \
+              '{
+                yaml_source_path: "'${gcs_yaml_path}'",
+                data_dictionary_gcs_path: $context_files,
+                execute_sql: "'${{ inputs.execute_sql }}'",
+                update_alation: "'${{ inputs.update_alation }}'",
+                bq_alation_cr_table: "'${{ inputs.bq_alation_cr_table }}'",
+                ddl_gcs_location: $ddl_location
+              }'
+            )" \
+            "https://${{ inputs.cf_region }}-${{ inputs.cf_project_id }}.cloudfunctions.net/${{ inputs.cf_name }}"
+
+          if [[ $? -ne 0 ]]; then
+            echo "Error invoking Cloud Function for $gcs_yaml_path"
+            exit 1
+          fi
+        done

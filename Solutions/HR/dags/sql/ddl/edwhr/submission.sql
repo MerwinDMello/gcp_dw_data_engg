@@ -1,0 +1,25 @@
+CREATE TABLE IF NOT EXISTS {{ params.param_hr_core_dataset_name }}.submission
+(
+submission_sid INT64 NOT NULL OPTIONS(description="A unique identifier for each submission ")
+, valid_from_date DATETIME NOT NULL OPTIONS(description="Date on which the record became valid. Load date typically.")
+, valid_to_date DATETIME NOT NULL OPTIONS(description="Date on which the record was invalidated.")
+, submission_num NUMERIC OPTIONS(description="A unique identifier for each submission from the source.")
+, last_modified_date DATE OPTIONS(description="Date the submission was last modified.")
+, new_submission_sw INT64 OPTIONS(description="Numeric boolean to where 0 = false/no and 1 = true/yes")
+, candidate_sid INT64 OPTIONS(description="Unique identifier for each candidate.")
+, recruitment_requisition_sid INT64 OPTIONS(description="A unique identifier for each requisition coming from the recruitment system.")
+, candidate_profile_sid INT64 OPTIONS(description="A unique identifier for each candidate profile.")
+, current_submission_status_id INT64 NOT NULL OPTIONS(description="A unique identifier for status of the submission process.")
+, current_submission_step_id INT64 NOT NULL OPTIONS(description="A unique identifier for each step a submission can take.")
+, current_submission_workflow_id INT64 NOT NULL OPTIONS(description="A unique identifier for the workflow of current submission")
+, requisition_num INT64 OPTIONS(description="Unique id of an lawson generated requisition.")
+, job_application_num INT64 OPTIONS(description="Number corresponding with the job application filled out by the candidate. This number only changes when the original application is deleted or withdrawn.")
+, candidate_num INT64 OPTIONS(description="The unique number for a candidate coming from the source.")
+, matched_from_requisition_num INT64 OPTIONS(description="Contains the requisition number that a candidate originally applied to as recruiters can sometimes move applications to other requisitions.")
+, matched_candidate_flag STRING OPTIONS(description="Indicates if this is the application number with which the candidate originally applied.")
+, submission_source_code STRING OPTIONS(description="Code from the source that shows where an applicant found a requisition.")
+, source_system_code STRING NOT NULL OPTIONS(description="A one character code indicating the specific source system from which the data originated.")
+, dw_last_update_date_time DATETIME NOT NULL OPTIONS(description="Datetime of update or load of this record to the Enterprise Data Warehouse.")
+)
+CLUSTER BY submission_sid
+OPTIONS(description="Contains details for  the submission application of a candidate to a requisition");

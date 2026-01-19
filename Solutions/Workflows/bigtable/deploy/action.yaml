@@ -1,0 +1,60 @@
+name: Bigtable Deploy Action
+# This YAML file defines a GitHub Actions workflow for deploying to Bigtable
+# It takes several inputs such as branch, domain, default_project_id, workload_identity_provider, service_account, and args.
+# The workflow consists of multiple steps including authentication to Google Cloud, downloading artifacts, listing artifacts, and deploying the Bigtable script
+# The necessary dependencies are installed and the deployment script is executed using the specified inputs.
+
+inputs:
+  workload_identity_provider:
+    description: "The workload identity provider for authentication"
+    required: true
+  service_account:
+    description: "The service account for authentication."
+    required: true
+
+
+runs:
+  using: "composite"
+  steps:
+
+    - name: Authenticate to Google Cloud
+      id: "auth"
+      uses: 'google-github-actions/auth@v1.1.1'
+      with:
+        workload_identity_provider: ${{ inputs.workload_identity_provider }}
+        service_account: ${{ inputs.service_account }}
+    
+    - name: Download Artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: bigtable_artifacts
+        path: artifacts
+
+    - name: Download Script Artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: script_artifacts
+        path: artifacts
+
+    - name: Artifacts List
+      shell: bash
+      run: |
+        echo "Listing all files in artifacts:"
+        ls -alhR artifacts
+   
+    - name: Python Setup
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+    
+    - name: Install Python dependencies
+      shell: bash
+      run: |
+        pip install setuptools google-cloud-bigtable==2.34.0 pyyaml schema
+    
+    - name: Deploy Bigtable Resources
+      shell: sh
+      run: |
+        pwd
+        ls
+        python3  ./artifacts/deploy.py --path artifacts

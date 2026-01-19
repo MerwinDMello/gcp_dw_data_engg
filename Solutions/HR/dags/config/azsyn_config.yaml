@@ -1,0 +1,17 @@
+#source system specific configuration values
+
+v_sourcesysnm: azsyn    
+v_databasetype: sqlserver
+v_user: CorpSvcEdwRpt
+v_pwd_secret_name: synapse_jdbc_pwd/versions/latest
+v_jdbc_url: jdbc:sqlserver://ghratsdatalake.sql.azuresynapse.net;databaseName=ghratscompare
+v_jdbc_class_name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+v_jdbc_jar: mssql-jdbc-9.2.1.jre8.jar
+v_jdkfile: jre-8u351-linux-x64.tar.gz
+v_jdkversion: jre1.8.0_351
+v_schedule_interval: 0 1 * * *
+v_jdbcbqpytemplate: Jdbc_to_BigQuery_PythonTemplate_2023-02-14.py
+v_machine_type: n2-standard-2
+
+#srctablelist [srctableid~srctablename~tgttablename~tgttableloadtype~srctablequery~rowcommitsize]
+srctablelist: ["1~ghratscompare.dbo.vw_applmatchedfromreq~v_hr_stage_dataset_name.taleo_matched_requisition~truncate~select application_number as app_number, matchedFrom_requisitionnumber as requisition_number, 'T' as source_system_code, 'v_currtimestamp' as dw_last_update_date_time  from  ghratscompare.dbo.vw_ApplMatchedFromReq  where 1 = 1  ~100000"]

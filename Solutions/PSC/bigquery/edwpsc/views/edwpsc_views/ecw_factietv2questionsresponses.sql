@@ -1,0 +1,33 @@
+CREATE OR REPLACE VIEW edwpsc_views.`ecw_factietv2questionsresponses`
+AS SELECT
+  `ecw_factietv2questionsresponses`.ietv2questionresponsekey,
+  `ecw_factietv2questionsresponses`.claimkey,
+  `ecw_factietv2questionsresponses`.claimnumber,
+  `ecw_factietv2questionsresponses`.questionnumber,
+  `ecw_factietv2questionsresponses`.question,
+  `ecw_factietv2questionsresponses`.questiondatekey,
+  `ecw_factietv2questionsresponses`.questiontime,
+  `ecw_factietv2questionsresponses`.questionuserid,
+  `ecw_factietv2questionsresponses`.questioncorrespondenceid,
+  `ecw_factietv2questionsresponses`.response,
+  `ecw_factietv2questionsresponses`.responsedatekey,
+  `ecw_factietv2questionsresponses`.responsetime,
+  `ecw_factietv2questionsresponses`.responseuserid,
+  `ecw_factietv2questionsresponses`.responsecorrespondenceid,
+  `ecw_factietv2questionsresponses`.daystorespond,
+  `ecw_factietv2questionsresponses`.resolution,
+  `ecw_factietv2questionsresponses`.resolutionid,
+  `ecw_factietv2questionsresponses`.resolutiondatekey,
+  `ecw_factietv2questionsresponses`.resolutiontime,
+  `ecw_factietv2questionsresponses`.resolutionuserid,
+  `ecw_factietv2questionsresponses`.claimcaseid,
+  `ecw_factietv2questionsresponses`.correspondencesubjectid,
+  `ecw_factietv2questionsresponses`.lastquestionflag,
+  `ecw_factietv2questionsresponses`.insertedby,
+  `ecw_factietv2questionsresponses`.inserteddtm,
+  `ecw_factietv2questionsresponses`.modifiedby,
+  `ecw_factietv2questionsresponses`.modifieddtm,
+  `ecw_factietv2questionsresponses`.dwlastupdatedatetime
+  FROM
+    edwpsc_base_views.`ecw_factietv2questionsresponses`
+;

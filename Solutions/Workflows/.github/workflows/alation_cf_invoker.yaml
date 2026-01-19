@@ -1,0 +1,40 @@
+name: Alation Cloud Functions Workflow
+on:
+  workflow_call:
+    inputs:
+      function_type:
+        description: "Type of Cloud Function to invoke (processor or collector)"
+        required: true
+        type: string
+      branch:
+        description: "Branch name to determine the environment (e.g., dev, qa, prod)"
+        required: true
+        type: string
+
+jobs:
+  invoke-alation-cloud-function:
+    runs-on: [self-hosted, onprem-k8s-arc, dind, enterprise, lnx-amd64]
+    name: Invoke Alation Processor and Collector Cloud Function
+    environment: ${{ inputs.branch || github.ref_name }}
+    permissions:
+      contents: "read"
+      id-token: "write"
+    steps:
+      # Check out the repository
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      # Use the composite action to invoke the cloud function
+      - name: Invoke Alation Cloud Function
+        uses: HCACloudDataEngineering/gcp-hin-workflows/cloud-function/alation@main
+        with:
+          function_type: ${{ inputs.function_type }}
+          branch: ${{ inputs.branch || github.ref_name }}
+          workload_identity_provider: ${{ vars.WORKLOAD_IDENTITY_PROVIDER != '' && vars.WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ vars.SERVICEACCOUNT_GITHUB != '' && vars.SERVICEACCOUNT_GITHUB }}
+
+      - name: Output Summary
+        run: |
+          echo "Function Type: ${{ inputs.function_type }}" >> $GITHUB_STEP_SUMMARY
+          echo "Branch: ${{ inputs.branch || github.ref_name }}" >> $GITHUB_STEP_SUMMARY
+          echo "Deployed by: ${{ github.actor }}" >> $GITHUB_STEP_SUMMARY

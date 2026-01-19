@@ -1,0 +1,33 @@
+CREATE OR REPLACE VIEW edwpsc_views.`epic_factvendorproductivity`
+AS SELECT
+  `epic_factvendorproductivity`.productivitytype,
+  `epic_factvendorproductivity`.workqueuecid,
+  `epic_factvendorproductivity`.workqueueid,
+  `epic_factvendorproductivity`.workqueuename,
+  `epic_factvendorproductivity`.recordcid,
+  `epic_factvendorproductivity`.recordinternalid,
+  `epic_factvendorproductivity`.activity,
+  `epic_factvendorproductivity`.activityname,
+  `epic_factvendorproductivity`.epicuserid,
+  `epic_factvendorproductivity`.user34,
+  `epic_factvendorproductivity`.username,
+  `epic_factvendorproductivity`.activitydate,
+  `epic_factvendorproductivity`.activitytime,
+  `epic_factvendorproductivity`.invoicenumber,
+  `epic_factvendorproductivity`.epicaccountid,
+  `epic_factvendorproductivity`.guarantorid,
+  `epic_factvendorproductivity`.guarantorname,
+  `epic_factvendorproductivity`.billcid,
+  `epic_factvendorproductivity`.billareaid,
+  `epic_factvendorproductivity`.servicedate,
+  `epic_factvendorproductivity`.regionkey,
+  `epic_factvendorproductivity`.dwlastupdatedatetime,
+  `epic_factvendorproductivity`.sourcesystemcode,
+  `epic_factvendorproductivity`.insertedby,
+  `epic_factvendorproductivity`.inserteddtm,
+  `epic_factvendorproductivity`.modifiedby,
+  `epic_factvendorproductivity`.modifieddtm,
+  `epic_factvendorproductivity`.vendorproductivitykey
+  FROM
+    edwpsc_base_views.`epic_factvendorproductivity`
+;

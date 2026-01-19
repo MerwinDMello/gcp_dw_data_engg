@@ -1,0 +1,232 @@
+# This workflow executes several linters on changed files based on languages
+# used in your code base wheneveryou push a code or open a pull request.
+#
+# You can adjust the behavior by modifying this file.
+# For more information, see:
+# https://github.com/github/super-linter
+name: Lint Code Base
+
+# A reusable workflow to consistently apply super-linter for HCA Codebase
+on: # yamllint disable-line rule:truthy
+  workflow_call:
+    inputs:
+      exclude_regex:
+        description: "Regex string of directories/files to exclude"
+        required: false
+        type: string
+        default: ''
+      apply_fix:
+        description: "Boolean value to determine if the super linter should apply fixes"
+        required: false
+        type: boolean
+        default: true
+    secrets:
+        gh_token:
+          description: "The GitHub token for authentication."
+          required: true
+jobs:
+  run-lint:
+    runs-on: ubuntu-latest
+    # The reusable workflow must explicitly request all permissions it needs.
+    # the pass/fail status of the linter back to the PR/commit.
+    permissions:
+      contents: "write"        # To checkout code and push fixes
+      id-token: "write"        # For OIDC, if needed
+      pull-requests: "write"   # To post inline annotations on the PR
+      statuses: "write"        # To post the pass/fail status check
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          # Full git history is needed to get a proper list of changed files
+          # within `super-linter`
+          fetch-depth: 0
+
+      - name: Set up Git
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          pwd
+          ls -al
+          git checkout ${{ github.head_ref }}
+          git pull origin ${{ github.head_ref }}
+          ls -al
+
+      # Check if local repo specified linter config for super-linter
+      - name: Check for local linter config
+        run: |
+          if [ -d ${{ github.workspace }}/.github/linters ]; then
+            echo "Local linters directory exists..."
+            cd ${{ github.workspace }}/.github/linters
+            echo "Local linters directory contents"
+            ls -al
+          else 
+            echo "Local linters directory doesnt exist, creating..."
+            mkdir -p ${{ github.workspace }}/.github/linters/
+          fi
+
+      - name: Get workflow version
+        id: workflow-version
+        uses: canonical/get-workflow-version-action@v1
+        with:
+          # Repository where reusable workflow is located
+          repository-name: HCACloudDataEngineering/gcp-hin-workflows
+          # Name of reusable workflow
+          file-name: super_linter.yaml
+          # Only required for private repositories
+          github-token: ${{ secrets.gh_token }}
+
+      - name: Checkout linter config
+        uses: actions/checkout@v4
+        with:
+          repository: HCACloudDataEngineering/gcp-hin-workflows
+          ref: ${{ steps.workflow-version.outputs.sha }}
+          token: ${{ secrets.gh_token }}
+          path: ${{ github.workspace }}/tmp/
+          sparse-checkout: linters
+
+      - name: Prettier ignore
+        run: |
+          cd ${{ github.workspace }}
+          ls -al
+          if [[ "${{ github.repository }}" == *"HIN2"* ]]; then
+            cp -r --update=none ${{ github.workspace }}/tmp/linters/hin2/. ${{ github.workspace }}/.github/linters/
+          else
+            cp -r --update=none ${{ github.workspace }}/tmp/linters/hin/. ${{ github.workspace }}/.github/linters/
+          fi
+          cd ${{ github.workspace }}/.github/linters
+          ls -al
+          echo ".github/**" > ${{ github.workspace }}/.prettierignore
+
+      - name: Super Linter Env Vars
+        run: |
+          if [ ${{ inputs.apply_fix }} ]; then
+            echo "FIX_SQLFLUFF=${{ inputs.apply_fix }}" >> $GITHUB_ENV
+            echo "FIX_PYTHON_BLACK=${{ inputs.apply_fix }}" >> $GITHUB_ENV
+            echo "FIX_YAML_PRETTIER=${{ inputs.apply_fix }}" >> $GITHUB_ENV
+          fi
+
+          if [ ${{ inputs.exclude_regex }} != '' ]; then
+            echo "FILTER_REGEX_EXCLUDE=${{ inputs.exclude_regex }}" >> $GITHUB_ENV
+          fi
+
+
+      - name: Lint & Fix Code Base
+        uses: github/super-linter@v7
+        env:
+          VALIDATE_ALL_CODEBASE: ${{ github.event_name != 'pull_request' }}
+          VALIDATE_PYTHON_BLACK: true
+          VALIDATE_SQLFLUFF: true
+          VALIDATE_YAML_PRETTIER: true
+          # Set the DEFAULT_BRANCH as the Target Branch of the PR
+          DEFAULT_BRANCH: ${{ github.head_ref }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CREATE_LOG_FILE: true
+          LOG_LEVEL: NOTICE
+          DISABLE_ERRORS: true
+
+      - name: View linter summary
+        run: |
+          echo "In the linter summary step...."
+          if [ -d ${{ github.workspace }}/super-linter-output ]; then
+            echo "Linter summary directory exists..."
+            cat ${{ github.workspace }}/super-linter-output/super-linter-summary.md
+            cd ${{ github.workspace }}/super-linter-output
+            ls -l
+          fi
+
+          if [ -f ${{ github.workspace }}/super-linter.log ]; then
+            echo "Super Linter log exists..."
+            sudo chmod 777 ${{ github.workspace }}/super-linter.log
+            sudo chown runner:docker ${{ github.workspace }}/super-linter.log
+            cat ${{ github.workspace }}/super-linter.log
+          fi
+
+      - name: PR Comment
+        uses: thollander/actions-comment-pull-request@v3
+        if: ${{ github.event_name == 'pull_request'}}
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          file-path: ${{ github.workspace }}/super-linter.log
+          pr-number: ${{ github.event.number}}
+          comment-tag: ${{ github.sha }}
+
+      - name: Capture linter results and commit changes
+        if: ${{ inputs.apply_fix }}
+        run: |
+          # Initialize commit message
+          COMMIT_MSG="Super-Linter: Automated fixes applied"
+          
+          # Check if there are any modified files
+          if git status --porcelain --untracked-files=no | grep '^.M' > /dev/null; then
+            echo "Changes detected, preparing commit message..."
+            
+            # Get the list of modified files
+            MODIFIED_FILES=$(git status --porcelain --untracked-files=no | grep '^.M' | cut -c4-)
+            
+            # Count the number of files modified
+            FILE_COUNT=$(echo "$MODIFIED_FILES" | wc -l)
+            
+            # Build detailed commit message
+            COMMIT_MSG="Super-Linter: Applied fixes to $FILE_COUNT file(s)
+          
+          Files modified:
+          $(echo "$MODIFIED_FILES" | sed 's/^/- /')"
+            
+            # Add linter-specific information if available
+            if [ -f "/tmp/lint-results.log" ]; then
+              COMMIT_MSG="$COMMIT_MSG
+          
+          Linter Results Summary:
+          $(cat /tmp/lint-results.log | tail -20)"
+            fi
+            
+            # Check super-linter log for specific fixes
+            if docker logs $(docker ps -lq) 2>/dev/null | grep -i "fixed\|formatted\|corrected" > /tmp/fixes.log 2>/dev/null; then
+              COMMIT_MSG="$COMMIT_MSG
+          
+          Fixes Applied:
+          $(cat /tmp/fixes.log | head -10)"
+            fi
+            
+            # Add information about which linters were run
+            LINTERS_RUN=""
+            if echo "$MODIFIED_FILES" | grep -q "\.py$"; then
+              LINTERS_RUN="$LINTERS_RUN Python (Black), "
+            fi
+            if echo "$MODIFIED_FILES" | grep -q "\.sql$"; then
+              LINTERS_RUN="$LINTERS_RUN SQL (SQLFluff), "
+            fi
+            if echo "$MODIFIED_FILES" | grep -q "\.ya?ml$"; then
+              LINTERS_RUN="$LINTERS_RUN YAML (Prettier), "
+            fi
+            
+            if [ -n "$LINTERS_RUN" ]; then
+              LINTERS_RUN=$(echo "$LINTERS_RUN" | sed 's/, $//')
+              COMMIT_MSG="$COMMIT_MSG
+          
+          Linters executed: $LINTERS_RUN"
+            fi
+            
+            # Add super-linter exit code information
+            COMMIT_MSG="$COMMIT_MSG
+          
+          Super-Linter exit code: ${{ steps.super-linter.outcome }}
+          Workflow run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+            
+            # Stage the modified files
+            echo "$MODIFIED_FILES" | xargs git add
+            
+            # Commit with the detailed message
+            git commit -m "$COMMIT_MSG"
+            git push origin ${{ github.head_ref }}
+            
+            echo "✅ Committed changes with detailed linter output"
+            echo "📝 Commit message preview:"
+            echo "$COMMIT_MSG"
+          else
+            echo "ℹ️  No changes to commit - linting complete"
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}

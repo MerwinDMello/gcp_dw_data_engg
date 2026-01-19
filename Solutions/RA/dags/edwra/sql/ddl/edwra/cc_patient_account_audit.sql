@@ -1,0 +1,77 @@
+-- Translation time: 2024-02-16T20:48:08.013760Z
+-- Translation job ID: 825ffe95-5d09-4d28-9bed-a2d58826a821
+-- Source: internal_metastore/db_hca-hin-dev-cur-parallon/schema_edwra/cc_patient_account_audit.memory
+-- Translated from: Teradata
+-- Translated to: BigQuery
+
+CREATE TABLE IF NOT EXISTS {{ params.param_parallon_ra_core_dataset_name }}.cc_patient_account_audit
+(
+  patient_dw_id NUMERIC(29) NOT NULL OPTIONS(description='Used to distinguish one PATIENT in the Datawarehouse from another.\r'),
+  payor_dw_id NUMERIC(29) NOT NULL OPTIONS(description='Used to distinguish one PAYOR in the Datawarehouse from another.\r'),
+  company_code STRING NOT NULL OPTIONS(description='Part of the unique identifier that identifies the company with which a facility is affiliated for application processing purposes.\r'),
+  coid STRING NOT NULL OPTIONS(description='The company identifier which uniquely identifies a facility to corporate and all other facilities.\r'),
+  unit_num STRING OPTIONS(description='4-digit corporate assigned number which uniquely identifies each facility.  [F:4/N]'),
+  pat_acct_num NUMERIC(29) NOT NULL OPTIONS(description='Unique identification number assigned by the facility to a patient at admit/registration time.'),
+  iplan_id INT64 OPTIONS(description='Unique Identification number for the Insurance Plan'),
+  pat_acct_audit_id BIGNUMERIC(38) OPTIONS(description='Patient Account Audit Identifier in Concuity Database'),
+  acct_payor_id BIGNUMERIC(38) OPTIONS(description='Payer number associated with Patient Account'),
+  claim_num STRING OPTIONS(description='Claim number withing PIT Tool'),
+  record_id INT64 OPTIONS(description='Record Identifier within Payment Integrity Tool(PIT)'),
+  record_type_txt STRING OPTIONS(description='Record Type (Either Audit or Refund)'),
+  corp_control_txt STRING OPTIONS(description='Corporate Project  associated with Audit'),
+  ssc_control_txt STRING OPTIONS(description='SSC Project associated with Audit. '),
+  corp_status_date DATE OPTIONS(description='Date that the corporate status is updated in system'),
+  audit_eligibility_txt STRING OPTIONS(description='Audit Eligibility either starts with E(Eligible) Or IE(Ineligible)\r'),
+  audit_status_txt STRING OPTIONS(description='Current Audit status'),
+  pre_audit_type_txt STRING OPTIONS(description='Type of Audit at the time of medical record request\r'),
+  post_audit_type_txt STRING OPTIONS(description='Actual Audit performed once medical record recieved\r'),
+  other_audit_type_desc STRING OPTIONS(description='Free text field for Audit types not in system'),
+  audit_status_date DATE OPTIONS(description='Date of Audit status change\r'),
+  prev_audit_drg_nm STRING OPTIONS(description='Account DRG at the beginning of Audit'),
+  post_audit_drg_nm STRING OPTIONS(description='Account DRG at end of Audit\r'),
+  payer_of_audit_txt STRING OPTIONS(description='Major Payer group associated with Audit\r'),
+  audit_schedule_date DATE OPTIONS(description='Date of onsite Audit when Audits are expected to start\r'),
+  expt_audit_fee_amt NUMERIC(31, 2) OPTIONS(description='Expected fees of Audit\r'),
+  act_audit_fee_coll_amt NUMERIC(31, 2) OPTIONS(description='Actual Audit fee amount collected'),
+  audit_location_txt STRING OPTIONS(description='Audit Location Onsite/Desktop/Remote/Onsite SSC'),
+  final_audit_outcome_txt STRING OPTIONS(description='Outcome of final Audit\r'),
+  work_again_date DATE OPTIONS(description='Date Audit is due to be worked and user should take action\r'),
+  service_start_date DATE OPTIONS(description='Begion Date of services which Audit will take place(used for recurring patients with span of care)'),
+  service_end_date DATE OPTIONS(description='End Date of services which Audit will take place\r'),
+  corp_status_desc STRING OPTIONS(description='Corporate Status tied to Audit\r'),
+  addl_project_desc STRING OPTIONS(description='Extra project fields used for miscellaneous purposes \r'),
+  finding_letter_result_txt STRING OPTIONS(description='Contents of Audit from Auditor\r'),
+  initiation_date DATE OPTIONS(description='Date Audit comes into PIT tool'),
+  letter_date DATE OPTIONS(description='Date on the letter we recieve from Audit\r'),
+  response_date DATE OPTIONS(description='Date response is requested from Audit'),
+  mr_trk_id STRING OPTIONS(description='Medical Records Tracking Id from SIOX'),
+  mr_req_txt STRING OPTIONS(description='Entity performing the Audit\r'),
+  mr_rls_req_to_roi_date DATE OPTIONS(description='Date that letter was sent SIOX to release Medical Record'),
+  mr_rls_method_txt STRING OPTIONS(description='How medical record was provided to auditor\r'),
+  mr_rls_date DATE OPTIONS(description='Date MR was provided to auditor'),
+  mr_miss_notf_date DATE OPTIONS(description='Date letter from Payer Or auditor with missing documents listed'),
+  miss_doc_req_txt STRING OPTIONS(description='Types of Documents missing from letter to payer\r'),
+  payer_drg_code STRING OPTIONS(description='DRG Payer would like account changed to.'),
+  payer_ref_id STRING OPTIONS(description='Unique Id tied to the auditor or payer'),
+  risk_amt NUMERIC(31, 2) OPTIONS(description='Dollar at Risk, amount of dollar at risk for losing if audit findings are no overturned. \r'),
+  disc_amt NUMERIC(31, 2) OPTIONS(description='Discrepancy Amount,Payer due amount in Concuity\r'),
+  refund_req_amt NUMERIC(31, 2) OPTIONS(description='Refund amount that is requested.\r'),
+  refund_amt NUMERIC(31, 2) OPTIONS(description='Amount that is actually refunded'),
+  refund_req_reason_txt STRING OPTIONS(description='Refund Request Reason\r'),
+  refund_status_txt STRING OPTIONS(description='Current Refund Status\r'),
+  refund_status_date DATE OPTIONS(description='Date that refund status updated\r'),
+  final_refund_outcome_txt STRING OPTIONS(description='Final Refund Outcome\r'),
+  creation_date DATE OPTIONS(description='Date record was created in Concuity'),
+  creation_user_id STRING OPTIONS(description='Concuity User Id which created record in Concuity DB\r'),
+  modification_date DATE OPTIONS(description='Date record was updated in Concuity\r'),
+  modification_user_id STRING OPTIONS(description='Concuity User Id which updated record in Concuity DB\r'),
+  map_to_record_type_txt STRING OPTIONS(description='Used to define additional documents mapped to an audit or refund\r'),
+  map_to_record_id INT64 OPTIONS(description='DCN number from Onbase for additional documents added to audit or refund'),
+  refund_prcs_tool_status_txt STRING OPTIONS(description='Status of refund from the refund tool. Separate status from PIT refund status.'),
+  source_system_code STRING NOT NULL OPTIONS(description='Source Origination Indicator'),
+  dw_last_update_date_time DATETIME NOT NULL OPTIONS(description='Last time record was updated in the Data Warehouse from the source')
+)
+CLUSTER BY patient_dw_id, payor_dw_id, pat_acct_audit_id
+OPTIONS(
+  description='Display Audits and Refund information tied to a Concuity accounts.'
+);

@@ -1,0 +1,29 @@
+name: Composer DAG Sync
+on:
+  push:
+    branches:
+      - "dev"
+      - "qa"
+      - "prd"
+    paths:
+      - 'environments/**'
+      - 'dags/**'
+       
+    # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+    
+jobs:
+  call_composer_workflow:
+    name: Call Composer Reusable Workflow
+    uses: HCACloudDataEngineering/gcp-hin-nonclinical-parent/.github/workflows/composer_workflow.yaml@main
+    with:
+      branch: ${{ github.ref_name }}
+      config_filepath: dags/edwra/config
+      dags_subdomain_folder_path: /edwra
+      two_way_sync: "" # Empty quotes here mean that 2-way sync/deletion is NOT enabled
+      # If it becomes desirable to eventually enable deletion/2-way sync, replace the empty quotes with "--delete-unmatched-destination-objects"
+      # exclude_path: "" # optional input, example code would be --exclude='folder_name\/.*$' (note use of Python Regex syntax)
+      # For more information on gcloud storage rsync and associated commands/flags: https://cloud.google.com/sdk/gcloud/reference/storage/rsync
+    secrets: 
+      workload_identity_provider: ${{secrets[format('WORKLOAD_IDENTITY_PROVIDER_{0}', github.ref_name)] }}
+      service_account: ${{ secrets[format('SERVICEACCOUNT_GITHUB_{0}', github.ref_name)] }} 

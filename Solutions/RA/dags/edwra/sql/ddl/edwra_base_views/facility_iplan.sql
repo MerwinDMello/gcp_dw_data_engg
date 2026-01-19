@@ -1,0 +1,62 @@
+-- Translation time: 2024-02-16T20:48:08.013760Z
+-- Translation job ID: 825ffe95-5d09-4d28-9bed-a2d58826a821
+-- Source: internal_metastore/db_hca-hin-dev-cur-parallon/schema_edwra_base_views/facility_iplan.memory
+-- Translated from: Teradata
+-- Translated to: BigQuery
+
+CREATE OR REPLACE VIEW {{ params.param_parallon_ra_base_views_dataset_name }}.facility_iplan AS SELECT
+    facility_iplan.payor_dw_id,
+    facility_iplan.plan_desc,
+    facility_iplan.payor_name,
+    facility_iplan.major_payor_group_id,
+    facility_iplan.coid,
+    facility_iplan.company_code,
+    facility_iplan.iplan_id,
+    facility_iplan.eff_from_date,
+    facility_iplan.eff_to_date,
+    facility_iplan.iplan_financial_class_code,
+    facility_iplan.iplan_inactive_date,
+    facility_iplan.payment_model_num,
+    facility_iplan.payor_auth_length_stay_days,
+    facility_iplan.length_of_stay_extension_num,
+    facility_iplan.verification_ind,
+    facility_iplan.precertification_ind,
+    facility_iplan.recertification_day_count,
+    facility_iplan.pro_review_ind,
+    facility_iplan.log_id,
+    facility_iplan.charge_benefit_code,
+    facility_iplan.op_coinsurance_code,
+    facility_iplan.emc_process_code,
+    facility_iplan.separate_ub82_ind,
+    facility_iplan.hold_claim_ind,
+    facility_iplan.ub92_format_code,
+    facility_iplan.b1500_format_code,
+    facility_iplan.b1500_coding_scheme_code,
+    facility_iplan.ancillary_chg_incl_room_ind,
+    facility_iplan.ancillary_maximum_amt,
+    facility_iplan.processor_id,
+    facility_iplan.processor_sub_id,
+    facility_iplan.accelerated_billing_code,
+    facility_iplan.source_system_code,
+    facility_iplan.bill_code,
+    facility_iplan.health_plan_id,
+    facility_iplan.inpatient_npi,
+    facility_iplan.outpatient_npi,
+    facility_iplan.hosp_acquired_cond_ind,
+    facility_iplan.inpatient_taxonomy_code,
+    facility_iplan.outpatient_taxonomy_code,
+    facility_iplan.admit_disch_date_flag,
+    facility_iplan.outpatient_pps_flag,
+    facility_iplan.outpatient_pps_flag_tricare,
+    facility_iplan.outpatient_apc_edit_ind,
+    facility_iplan.federal_tax_identifier,
+    facility_iplan.subunit_tax_identifier,
+    facility_iplan.type_of_claim_code,
+    facility_iplan.sub_payor_group_id,
+    facility_iplan.meditech_mnemonic,
+    facility_iplan.inpatient_provider_number,
+    facility_iplan.outpatient_provider_number,
+    facility_iplan.part_b_ind
+  FROM
+    {{ params.param_auth_base_views_dataset_name }}.facility_iplan
+;

@@ -1,0 +1,37 @@
+CREATE OR REPLACE VIEW edwpsc_base_views.`ecw_refpractice_history`
+AS SELECT
+  `ecw_refpractice_history`.practicekey,
+  `ecw_refpractice_history`.practicename,
+  `ecw_refpractice_history`.practiceprimaryaddressline1,
+  `ecw_refpractice_history`.practiceprimaryaddressline2,
+  `ecw_refpractice_history`.practiceprimarygeographykey,
+  `ecw_refpractice_history`.practicetelephone,
+  `ecw_refpractice_history`.practicefax,
+  `ecw_refpractice_history`.practiceemail,
+  `ecw_refpractice_history`.practicesiteid,
+  `ecw_refpractice_history`.practicefederaltaxid,
+  `ecw_refpractice_history`.practicecliaid,
+  `ecw_refpractice_history`.practiceparenttin,
+  `ecw_refpractice_history`.practicegroupnpi,
+  `ecw_refpractice_history`.practicetaxonomycode,
+  `ecw_refpractice_history`.practicelockboxno,
+  `ecw_refpractice_history`.practicecob,
+  `ecw_refpractice_history`.practiceprimarycoid,
+  `ecw_refpractice_history`.practicestartdatekey,
+  `ecw_refpractice_history`.practiceenddatekey,
+  `ecw_refpractice_history`.practicespindowndatekey,
+  `ecw_refpractice_history`.sourceprimarykeyvalue,
+  `ecw_refpractice_history`.sourcerecordlastupdated,
+  `ecw_refpractice_history`.dwlastupdatedatetime,
+  `ecw_refpractice_history`.sourcesystemcode,
+  `ecw_refpractice_history`.insertedby,
+  `ecw_refpractice_history`.inserteddtm,
+  `ecw_refpractice_history`.modifiedby,
+  `ecw_refpractice_history`.modifieddtm,
+  `ecw_refpractice_history`.deleteflag,
+  `ecw_refpractice_history`.regionkey,
+  `ecw_refpractice_history`.sysstarttime,
+  `ecw_refpractice_history`.sysendtime
+  FROM
+    edwpsc.`ecw_refpractice_history`
+;

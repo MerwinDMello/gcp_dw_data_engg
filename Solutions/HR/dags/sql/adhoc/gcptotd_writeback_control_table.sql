@@ -1,0 +1,21 @@
+INSERT INTO hca-hin-dev-cur-hr.edwhr_ac.gcptotd_writeback_control_table values(
+1,
+'employee_roster' ,
+'edwhr' ,
+'eim-cs-da-gmek-5764-prod' ,
+'temp/writeback_test/' ,
+'employee_roster' ,
+'-' ,
+'.csv.gz' ,
+'CSV' ,
+'GZIP' ,
+'tptscript.tpt.txt' ,
+'tptscript.var.txt' ,
+'edwhr_staging.employee_roster_gcp_to_td' ,
+'',
+'FullLoad',
+'' ,
+'' ,
+20 ,
+2600 
+);

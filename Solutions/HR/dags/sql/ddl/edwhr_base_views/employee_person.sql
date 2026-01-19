@@ -1,0 +1,31 @@
+create or replace view `{{ params.param_hr_base_views_dataset_name }}.employee_person`
+AS SELECT
+  employee_person.employee_sid,
+  employee_person.valid_from_date,
+  employee_person.valid_to_date,
+  employee_person.hr_company_sid,
+  employee_person.home_phone_country_code,
+  employee_person.employee_sector_code,
+  employee_person.employee_num,
+  employee_person.employee_ssn,
+  employee_person.lawson_company_num,
+  employee_person.employee_first_name,
+  employee_person.employee_last_name,
+  employee_person.employee_middle_name,
+  employee_person.employee_home_phone_num,
+  employee_person.employee_work_phone_num,
+  employee_person.ethnic_origin_code,
+  employee_person.gender_code,
+  employee_person.birth_date,
+  employee_person.email_text,
+  employee_person.veteran_ind,
+  employee_person.disability_ind,
+  employee_person.benefit_salary_amt,
+  employee_person.badge_code,
+  employee_person.process_level_code,
+  employee_person.delete_ind,
+  employee_person.active_dw_ind,
+  employee_person.source_system_code,
+  employee_person.dw_last_update_date_time
+FROM
+ {{ params.param_hr_core_dataset_name }}.employee_person;

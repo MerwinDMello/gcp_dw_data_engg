@@ -1,0 +1,34 @@
+CREATE OR REPLACE VIEW edwpsc_base_views.`artiva_rprttieramt`
+AS SELECT
+  `artiva_rprttieramt`.snapshotdate,
+  `artiva_rprttieramt`.systemname,
+  `artiva_rprttieramt`.patientaccountingnumber,
+  `artiva_rprttieramt`.ecwclaimkey,
+  `artiva_rprttieramt`.ecwclaimnumber,
+  `artiva_rprttieramt`.ecwregionkey,
+  `artiva_rprttieramt`.pvclaimkey,
+  `artiva_rprttieramt`.pvclaimnumber,
+  `artiva_rprttieramt`.pvregionkey,
+  `artiva_rprttieramt`.artivahcenid,
+  `artiva_rprttieramt`.artivabalanceamt,
+  `artiva_rprttieramt`.artivaprimaryfinancialclass,
+  `artiva_rprttieramt`.artivalastloaddate,
+  `artiva_rprttieramt`.artivalastworkeddate,
+  `artiva_rprttieramt`.artivacoid,
+  `artiva_rprttieramt`.artivaservicedatekey,
+  `artiva_rprttieramt`.artivafinalbilldatekey,
+  `artiva_rprttieramt`.artivaoriginalbalance,
+  `artiva_rprttieramt`.artivatotaladjustments,
+  `artiva_rprttieramt`.artivatotalpayments,
+  `artiva_rprttieramt`.artivatotalcharges,
+  `artiva_rprttieramt`.artivatieramt,
+  `artiva_rprttieramt`.systemarclaimflag,
+  `artiva_rprttieramt`.systemtotalbalanceamt,
+  `artiva_rprttieramt`.systemvoidflag,
+  `artiva_rprttieramt`.systemdeleteflag,
+  `artiva_rprttieramt`.insertedby,
+  `artiva_rprttieramt`.inserteddtm,
+  `artiva_rprttieramt`.dwlastupdatedatetime
+  FROM
+    edwpsc.`artiva_rprttieramt`
+;

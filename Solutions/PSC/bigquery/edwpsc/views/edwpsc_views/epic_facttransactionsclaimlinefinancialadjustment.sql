@@ -1,0 +1,53 @@
+CREATE OR REPLACE VIEW edwpsc_views.`epic_facttransactionsclaimlinefinancialadjustment`
+AS SELECT
+  `epic_facttransactionsclaimlinefinancialadjustment`.transactionsclaimlinefinancialadjustmentkey,
+  `epic_facttransactionsclaimlinefinancialadjustment`.claimkey,
+  `epic_facttransactionsclaimlinefinancialadjustment`.claimnumber,
+  `epic_facttransactionsclaimlinefinancialadjustment`.transactionnumber,
+  `epic_facttransactionsclaimlinefinancialadjustment`.visitnumber,
+  `epic_facttransactionsclaimlinefinancialadjustment`.regionkey,
+  `epic_facttransactionsclaimlinefinancialadjustment`.coid,
+  `epic_facttransactionsclaimlinefinancialadjustment`.coidconfigurationkey,
+  `epic_facttransactionsclaimlinefinancialadjustment`.servicingproviderkey,
+  `epic_facttransactionsclaimlinefinancialadjustment`.claimpayer1iplankey,
+  `epic_facttransactionsclaimlinefinancialadjustment`.claimlineliabilityiplankey,
+  `epic_facttransactionsclaimlinefinancialadjustment`.facilitykey,
+  `epic_facttransactionsclaimlinefinancialadjustment`.claimlinefinancialadjustmentkey,
+  `epic_facttransactionsclaimlinefinancialadjustment`.adjustmentcodekey,
+  `epic_facttransactionsclaimlinefinancialadjustment`.trrefid,
+  `epic_facttransactionsclaimlinefinancialadjustment`.transactiontype,
+  `epic_facttransactionsclaimlinefinancialadjustment`.transactionflag,
+  `epic_facttransactionsclaimlinefinancialadjustment`.transactionamt,
+  `epic_facttransactionsclaimlinefinancialadjustment`.transactiondatekey,
+  `epic_facttransactionsclaimlinefinancialadjustment`.transactiontime,
+  `epic_facttransactionsclaimlinefinancialadjustment`.transactionbyuserkey,
+  `epic_facttransactionsclaimlinefinancialadjustment`.transactionperiod,
+  `epic_facttransactionsclaimlinefinancialadjustment`.sourceaprimarykeyvalue,
+  `epic_facttransactionsclaimlinefinancialadjustment`.sourcearecordlastupdated,
+  `epic_facttransactionsclaimlinefinancialadjustment`.sourcebprimarykeyvalue,
+  `epic_facttransactionsclaimlinefinancialadjustment`.sourcebrecordlastupdated,
+  `epic_facttransactionsclaimlinefinancialadjustment`.dwlastupdatedatetime,
+  `epic_facttransactionsclaimlinefinancialadjustment`.sourcesystemcode,
+  `epic_facttransactionsclaimlinefinancialadjustment`.insertedby,
+  `epic_facttransactionsclaimlinefinancialadjustment`.inserteddtm,
+  `epic_facttransactionsclaimlinefinancialadjustment`.modifiedby,
+  `epic_facttransactionsclaimlinefinancialadjustment`.modifieddtm,
+  `epic_facttransactionsclaimlinefinancialadjustment`.debitcreditflag,
+  `epic_facttransactionsclaimlinefinancialadjustment`.matchingtrrefid,
+  `epic_facttransactionsclaimlinefinancialadjustment`.accountkey,
+  `epic_facttransactionsclaimlinefinancialadjustment`.patientkey,
+  `epic_facttransactionsclaimlinefinancialadjustment`.distributedbyuserkey,
+  `epic_facttransactionsclaimlinefinancialadjustment`.undistributedbyuserkey,
+  `epic_facttransactionsclaimlinefinancialadjustment`.histmatchbatch,
+  `epic_facttransactionsclaimlinefinancialadjustment`.histmatchunbatch,
+  `epic_facttransactionsclaimlinefinancialadjustment`.etrid,
+  `epic_facttransactionsclaimlinefinancialadjustment`.matchingetrid,
+  `epic_facttransactionsclaimlinefinancialadjustment`.claimlinechargeskey,
+  `epic_facttransactionsclaimlinefinancialadjustment`.adjustmentcategorykey,
+  `epic_facttransactionsclaimlinefinancialadjustment`.firstdenialcategory
+  FROM
+    edwpsc_base_views.`epic_facttransactionsclaimlinefinancialadjustment`
+  INNER JOIN edwpsc_base_views.secref_facility
+  ON LPAD(TRIM(secref_facility.co_id, ' '), 5, '0') = LPAD(TRIM(`epic_facttransactionsclaimlinefinancialadjustment`.coid, ' '), 5, '0')
+  AND TRIM(secref_facility.user_id, ' ') = TRIM(session_user(), ' ')
+;

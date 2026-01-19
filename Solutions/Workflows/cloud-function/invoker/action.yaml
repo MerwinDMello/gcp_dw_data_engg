@@ -1,0 +1,123 @@
+name: CF Invoker Composite Action
+description: 'A composite action to invoke cloud functions based on changed configuration files'
+
+inputs:
+  workload_identity_provider:
+    description: 'Workload Identity Provider'
+    required: true
+  service_account:
+    description: 'Service Account'
+    required: true
+  cf_region:
+    description: 'Cloud Function Region'
+    required: true
+  cf_project_id:
+    description: 'Cloud Function Project ID'
+    required: true
+  cf_name:
+    description: 'Cloud Function Name'
+    required: true
+  cf_trigger_file_path:
+    description: 'Path to cf tigger configuration files'
+    required: false
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Get changed files
+      id: changed-config-files
+      uses: tj-actions/changed-files@v44
+      with:
+        files_yaml: |
+          cf_config:
+            - '**/cf_trigger_configs/*.yaml'
+    
+    - name: List all changed files
+      id: json_files
+      shell: bash
+      run: |
+        configFiles=()
+        mkdir artifacts
+        for file in ${{ steps.changed-config-files.outputs.cf_config_all_changed_files }}; do
+          ymlfile=$(basename "$file")
+          json_file="${ymlfile%.yaml}.json"
+          yq eval '.${{ github.ref_name }} | tojson' "$file" > "artifacts/${json_file}"
+          configFiles+=("artifacts/${json_file}")
+        done
+
+        echo "configFiles: ${configFiles[@]}"
+        echo "configFiles: ${!configFiles[@]}"
+        
+        jsonString=$( echo ${configFiles[@]}  | jq  -R -s -c 'sub("\n$";"") | split(" ")'  )
+        echo "matrix=$jsonString"
+        echo "matrix=$jsonString" >> $GITHUB_OUTPUT
+    
+    - name: upload-github artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: cloud_function_artifacts
+        path: artifacts
+        retention-days: 1
+
+    # - name: Download artifacts
+    #   uses: actions/download-artifact@v4
+    #   with:
+    #     name: cloud_function_artifacts
+    #     path: artifacts
+
+    - name: Debug artifacts directory
+      shell: bash
+      run: |
+        echo "Contents of artifacts directory:"
+        ls -l artifacts
+
+    - name: Debug matrix manifest
+      shell: bash
+      run: |
+        echo "Matrix manifest:"
+        echo "${{ steps.json_files.outputs.matrix }}"
+
+    - name: Extract filename
+      id: extract_filename
+      shell: bash
+      run: |
+        filename=$(echo '${{ steps.json_files.outputs.matrix }}' | jq -r .[0])
+        echo "filename=$filename" >> $GITHUB_ENV    
+
+    - name: JSON to variables
+      uses: rgarcia-phi/json-to-variables@v1.1.0
+      with:
+        filename: ${{ env.filename }}
+        prefix: v
+    
+    - id: auth
+      uses: google-github-actions/auth@v2
+      with:
+        workload_identity_provider: ${{ inputs.workload_identity_provider }}
+        service_account: ${{ inputs.service_account }}
+        id_token_audience: https://${{ env.v_cf_region }}-${{ env.v_cf_project_id }}.cloudfunctions.net/${{ env.v_cf_name }}
+        token_format: 'id_token'
+
+    - name: run code
+      shell: bash
+      run: |
+        # Loop through each file in the matrix and invoke the Cloud Function
+        for filename in $(echo '${{ steps.json_files.outputs.matrix }}' | jq -r '.[]'); do
+          # Use jq to extract the `.json_data` field from the JSON file
+          jq -r '.json_data' "$filename" > "file.json"
+
+          # Print the contents of the JSON file
+          echo "Contents of file.json:"
+          cat file.json
+
+          CMD="curl -m 180 -X POST https://${{ env.v_cf_region }}-${{ env.v_cf_project_id }}.cloudfunctions.net/${{ env.v_cf_name }} \
+          -H \"Authorization: Bearer ${{ steps.auth.outputs.id_token }}\" \
+          -H \"Content-Type: application/json\" \
+          -d @file.json"
+
+          echo "CMD: $CMD"
+          eval $CMD
+        done

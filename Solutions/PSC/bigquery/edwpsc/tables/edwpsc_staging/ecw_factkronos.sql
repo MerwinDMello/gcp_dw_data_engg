@@ -1,0 +1,33 @@
+CREATE TABLE IF NOT EXISTS edwpsc_staging.ecw_factkronos
+(
+  kronoskey INT64 NOT NULL,
+  employeedailytimelogsk NUMERIC(29),
+  coid STRING,
+  companycode STRING,
+  employeesk NUMERIC(29),
+  vendoremployeesrcsyskey NUMERIC(29),
+  companyid INT64,
+  employee34id STRING,
+  npi STRING,
+  deptcode STRING,
+  jobcode STRING,
+  employeeactuallogindatetime DATETIME,
+  employeeactuallogoutdatetime DATETIME,
+  employeeactualelapsedtimecnt NUMERIC(33, 4),
+  employeeroundedlogindatetime DATETIME,
+  employeeroundedlogoutdatetime DATETIME,
+  employeeroundedelapsedtimecnt NUMERIC(33, 4),
+  paysmrygroupcode STRING,
+  paycodehourcnt NUMERIC(33, 4),
+  dataservercode STRING,
+  systemcode STRING,
+  sourcelastupdatedatetime DATETIME,
+  deptdesc STRING,
+  dwlastupdatedatetime DATETIME NOT NULL,
+  sourcesystemcode STRING,
+  insertedby STRING,
+  inserteddtm DATETIME,
+  modifiedby STRING,
+  modifieddtm DATETIME
+)
+;

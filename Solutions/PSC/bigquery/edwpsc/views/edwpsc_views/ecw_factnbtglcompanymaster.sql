@@ -1,0 +1,39 @@
+CREATE OR REPLACE VIEW edwpsc_views.`ecw_factnbtglcompanymaster`
+AS SELECT
+  `ecw_factnbtglcompanymaster`.nbtglcompanymasterkey,
+  `ecw_factnbtglcompanymaster`.glperiod,
+  `ecw_factnbtglcompanymaster`.coid,
+  `ecw_factnbtglcompanymaster`.coidname,
+  `ecw_factnbtglcompanymaster`.consind,
+  `ecw_factnbtglcompanymaster`.divisionno,
+  `ecw_factnbtglcompanymaster`.divisionname,
+  `ecw_factnbtglcompanymaster`.groupno,
+  `ecw_factnbtglcompanymaster`.groupname,
+  `ecw_factnbtglcompanymaster`.hbpaffiliationtypedescription,
+  `ecw_factnbtglcompanymaster`.hbpaffiliationtypeid,
+  `ecw_factnbtglcompanymaster`.hospitalno,
+  `ecw_factnbtglcompanymaster`.hospitalname,
+  `ecw_factnbtglcompanymaster`.jvflag,
+  `ecw_factnbtglcompanymaster`.lob,
+  `ecw_factnbtglcompanymaster`.marketno,
+  `ecw_factnbtglcompanymaster`.marketname,
+  `ecw_factnbtglcompanymaster`.sublob,
+  `ecw_factnbtglcompanymaster`.coidstartdate,
+  `ecw_factnbtglcompanymaster`.hbpprogramstartdate,
+  `ecw_factnbtglcompanymaster`.arsystem,
+  `ecw_factnbtglcompanymaster`.coidstatusid,
+  `ecw_factnbtglcompanymaster`.coidstatus,
+  `ecw_factnbtglcompanymaster`.coidstatusdetailid,
+  `ecw_factnbtglcompanymaster`.coidstatusdetail,
+  `ecw_factnbtglcompanymaster`.dwlastupdatedatetime,
+  `ecw_factnbtglcompanymaster`.sourcesystemcode,
+  `ecw_factnbtglcompanymaster`.insertedby,
+  `ecw_factnbtglcompanymaster`.inserteddtm,
+  `ecw_factnbtglcompanymaster`.modifiedby,
+  `ecw_factnbtglcompanymaster`.modifieddtm
+  FROM
+    edwpsc_base_views.`ecw_factnbtglcompanymaster`
+  INNER JOIN edwpsc_base_views.secref_facility
+  ON LPAD(TRIM(secref_facility.co_id, ' '), 5, '0') = LPAD(TRIM(CAST(`ecw_factnbtglcompanymaster`.coid AS STRING), ' '), 5, '0')
+  AND TRIM(secref_facility.user_id, ' ') = TRIM(session_user(), ' ')
+;

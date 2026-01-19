@@ -1,0 +1,115 @@
+name: Cloud Function Deploy Job
+
+inputs:
+  projectname:
+    description: ""
+  repository:
+    description: ""
+  runtime:
+    description: ""
+  region:
+    description: ""
+  source:
+    description: ""
+  entry_point:
+    description: ""
+  ingress_settings:
+    description: ""
+    default: "internal-only"
+  egress_settings:
+    description: ""
+  vpc_connector:
+    description: ""
+  timeout:
+    description: ""
+  job_folder_location:
+    description: ""
+  bucketname: 
+    description: ""
+  environment_variables:
+    description: ""
+  workload_identity_provider:
+    description: ""
+  service_account:
+    description: ""
+  run_service_account:
+    description: ""
+  build_service_account:
+    description: ""
+  schedule: 
+    description: ""
+  task_id:
+    description: ""
+  secret:
+    description: ""
+  memory:
+    description: ""
+    default: "256MB"
+  args: 
+    description: ""
+  cloudfunction_path:
+    description: ""
+  trigger_event:
+    description: ""
+  trigger_event_method:
+    description: ""
+  trigger_event_provider:
+    description: ""
+  trigger_resource:
+    description: ""
+  deployment_type:
+    description: "Specify 'source' for source-based deployment or 'image' for container-based deployment"
+    # default: "source"
+
+
+runs:
+  using: "composite"
+  steps:
+    - id: 'auth'
+      name: 'Authenticate to Google Cloud'
+      uses: 'google-github-actions/auth@v2'
+      with:
+        workload_identity_provider: ${{ inputs.workload_identity_provider }}
+        service_account: ${{ inputs.service_account }}
+
+    - name: GCP setup
+      uses: 'google-github-actions/setup-gcloud@v1'
+
+    - name: Extract branch name
+      id: extract_branch
+      shell: bash
+      run: echo "branch=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_OUTPUT
+
+    - name: Cloud Function Deploy 
+      shell: bash
+      run: |
+        CMD="gcloud functions deploy ${{ inputs.job_folder_location }} \
+          --gen2 --run-service-account=${{ inputs.run_service_account }} \
+          --build-service-account=${{ inputs.build_service_account }} \
+          --memory=${{ inputs.memory }} \
+          --project=${{ inputs.projectname }} --region=${{ inputs.region }} \
+          --timeout=${{ inputs.timeout }} --vpc-connector=${{ inputs.vpc_connector }} \
+          --ingress-settings=${{ inputs.ingress_settings }} --egress-settings=${{ inputs.egress_settings }} \
+          --set-env-vars ${{ inputs.environment_variables }} ${{ inputs.secret }} ${{ inputs.args }} \
+          --no-allow-unauthenticated \
+          --source=${{ inputs.cloudfunction_path }}/${{ inputs.job_folder_location }}/src --entry-point=${{ inputs.entry_point }}"
+
+        if [[ "${{ inputs.deployment_type }}" == "image" ]]; then
+          CMD+=" --runtime=custom"
+        else
+          CMD+=" --runtime=${{ inputs.runtime }}"
+        fi
+
+        if [[ "${{ inputs.trigger_event }}" == *"storage"* ]] || [[ "${{ inputs.trigger_event }}" == *"pubsub"* ]]; then
+          CMD+=" --trigger-event=${{ inputs.trigger_event }} --trigger-resource=${{ inputs.trigger_resource }}"
+        elif [[ "${{ inputs.trigger_event }}" == *"audit"* ]]; then
+          CMD+=" --trigger-event-filters='type=${{ inputs.trigger_event }}' \
+              --trigger-event-filters='methodName=${{ inputs.trigger_event_method }}' \
+              --trigger-event-filters='serviceName=${{ inputs.trigger_event_provider }}' \
+              --trigger-event-filters-path-pattern='resourceName=${{ inputs.trigger_resource }}'"
+        else
+          CMD+=" --trigger-http"
+        fi
+
+        echo "CMD: $CMD"
+        eval $CMD

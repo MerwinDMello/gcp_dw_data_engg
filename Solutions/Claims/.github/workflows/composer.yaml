@@ -1,0 +1,24 @@
+name: Composer DAG Sync
+on:
+  push:
+    branches:
+      - "dev"
+      - "qa"
+      - "prod"
+    paths:
+      - 'dags/**/**'
+       
+    # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+    
+jobs:
+  call_composer_workflow:
+    name: Call Composer Reusable Workflow
+    uses: HCACloudDataEngineering/gcp-hin-workflows/.github/workflows/composer_workflow.yaml@main
+    with:
+      branch: ${{ github.ref_name }}
+      config_filepath: dags/edwclm/config
+      dags_subdomain_folder_path: "/edwclm" # Empty quotes here would mean the entire dags folder is synced
+      two_way_sync: "--delete-unmatched-destination-objects"
+      exclude_path: "" # Optional, example codes such as --exclude='edw.*\/.*$'" (note, this flag used Python Regex syntax) to exclude subdomain folders
+      # For more information on gcloud storage rsync and associated commands/flags: https://cloud.google.com/sdk/gcloud/reference/storage/rsync

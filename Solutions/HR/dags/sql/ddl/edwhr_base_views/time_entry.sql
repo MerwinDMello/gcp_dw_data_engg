@@ -1,0 +1,32 @@
+CREATE OR REPLACE VIEW `{{ params.param_hr_base_views_dataset_name }}.time_entry`
+AS SELECT
+    time_entry.employee_num,
+    time_entry.kronos_num,
+    time_entry.clock_library_code,
+    time_entry.valid_from_date,
+    time_entry.valid_to_date,
+    time_entry.clock_code,
+    time_entry.clock_in_time,
+    time_entry.clock_out_time,
+    time_entry.clocked_hour_num,
+    time_entry.rounded_clock_in_time,
+    time_entry.rounded_clock_out_time,
+    time_entry.rounded_clocked_hour_num,
+    time_entry.time_approval_date_time,
+    time_entry.time_approver_34_login_code,
+    time_entry.scheduled_shift_date_time,
+    time_entry.pay_period_start_date_time,
+    time_entry.pay_period_end_date_time,
+    time_entry.pay_type_code,
+    time_entry.long_meal_code,
+    time_entry.other_dept_code,
+    time_entry.out_of_pay_period_code,
+    time_entry.short_meal_code,
+    time_entry.dept_code,
+    time_entry.posted_ind,
+    time_entry.lawson_company_num,
+    time_entry.process_level_code,
+    time_entry.source_system_code,
+    time_entry.dw_last_update_date_time
+  FROM
+    {{ params.param_hr_core_dataset_name }}.time_entry;

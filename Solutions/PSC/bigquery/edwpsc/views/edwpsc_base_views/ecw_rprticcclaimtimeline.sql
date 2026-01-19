@@ -1,0 +1,37 @@
+CREATE OR REPLACE VIEW edwpsc_base_views.`ecw_rprticcclaimtimeline`
+AS SELECT
+  `ecw_rprticcclaimtimeline`.snapshotdate,
+  `ecw_rprticcclaimtimeline`.claimkey,
+  `ecw_rprticcclaimtimeline`.coid,
+  `ecw_rprticcclaimtimeline`.servicingprovidername,
+  `ecw_rprticcclaimtimeline`.iplan1iplankey,
+  `ecw_rprticcclaimtimeline`.primaryiplanname,
+  `ecw_rprticcclaimtimeline`.primaryinsfinancialclass,
+  `ecw_rprticcclaimtimeline`.servicedatekey,
+  `ecw_rprticcclaimtimeline`.claimdatekey,
+  `ecw_rprticcclaimtimeline`.firstpatientstatementbilldatekey,
+  `ecw_rprticcclaimtimeline`.firstpatientclaimpaymentdatekey,
+  `ecw_rprticcclaimtimeline`.daysfromservicetoclaimkeydate,
+  `ecw_rprticcclaimtimeline`.rhprimaryminsubmissiondatekey,
+  `ecw_rprticcclaimtimeline`.daysfromclaimkeytosubmitdate,
+  `ecw_rprticcclaimtimeline`.rhprimaryminreleasedatekey,
+  `ecw_rprticcclaimtimeline`.rhprimaryreleasecount,
+  `ecw_rprticcclaimtimeline`.daysfromsubmittoreleasedate,
+  `ecw_rprticcclaimtimeline`.relayreleasestatus,
+  `ecw_rprticcclaimtimeline`.payerfirstclaimpaymentdatekey,
+  `ecw_rprticcclaimtimeline`.daysfromreleasetofirstpaymentdate,
+  `ecw_rprticcclaimtimeline`.payerlastclaimpaymentdatekey,
+  `ecw_rprticcclaimtimeline`.daysfromreleasetolastpaymentdate,
+  `ecw_rprticcclaimtimeline`.daysfromfirsttolastpaymentdate,
+  `ecw_rprticcclaimtimeline`.totalchargesamt,
+  `ecw_rprticcclaimtimeline`.totalprimaryinsurancepayments,
+  `ecw_rprticcclaimtimeline`.firstprimaryinsurancepayment,
+  `ecw_rprticcclaimtimeline`.lastminusfirstpayment,
+  `ecw_rprticcclaimtimeline`.insertedby,
+  `ecw_rprticcclaimtimeline`.inserteddtm,
+  `ecw_rprticcclaimtimeline`.modifiedby,
+  `ecw_rprticcclaimtimeline`.modifieddtm,
+  `ecw_rprticcclaimtimeline`.dwlastupdatedatetime
+  FROM
+    edwpsc.`ecw_rprticcclaimtimeline`
+;

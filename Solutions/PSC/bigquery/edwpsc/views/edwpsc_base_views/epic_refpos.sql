@@ -1,0 +1,29 @@
+CREATE OR REPLACE VIEW edwpsc_base_views.`epic_refpos`
+AS SELECT
+  `epic_refpos`.poskey,
+  `epic_refpos`.posname,
+  `epic_refpos`.posabbr,
+  `epic_refpos`.posglprefix,
+  `epic_refpos`.posservareaid,
+  `epic_refpos`.serviceareakey,
+  `epic_refpos`.posaddr1,
+  `epic_refpos`.posaddr2,
+  `epic_refpos`.poscity,
+  `epic_refpos`.posstate,
+  `epic_refpos`.poszip,
+  `epic_refpos`.postype,
+  `epic_refpos`.poscode,
+  `epic_refpos`.deleteflag,
+  `epic_refpos`.posid,
+  `epic_refpos`.regionkey,
+  `epic_refpos`.sourceaprimarykey,
+  `epic_refpos`.dwlastupdatedatetime,
+  `epic_refpos`.sourcesystemcode,
+  `epic_refpos`.insertedby,
+  `epic_refpos`.inserteddtm,
+  `epic_refpos`.modifiedby,
+  `epic_refpos`.modifieddtm,
+  `epic_refpos`.postypec
+  FROM
+    edwpsc.`epic_refpos`
+;

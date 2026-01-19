@@ -1,0 +1,24 @@
+v_sourcesysnm: claims
+v_databasetype: sqlserver
+v_database: ClaimsConnectDB
+v_port: 1433
+v_secret_name: revapp_claims_remits_sql/versions/latest
+v_jdbc_class_name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+v_jdbc_jar: mssql-jdbc-12.4.0.jre8.jar
+v_jdkfile: jre-8u351-linux-x64.tar.gz
+v_jdkversion: jre1.8.0_351
+v_jdbcbqpytemplate: BigQuery_to_Claims_PythonTemplate.py
+v_machine_type: n1-standard-4
+
+fact_claim_stats_sql: SELECT substr(Claim_File_Name,1,36) as activity_id, count(*) as rec_count ,'v_currtimestamp' as dw_last_update_date_time  FROM edwclm_staging.Fact_Claim group by 1,3~truncate~100000
+
+claims:
+  - schedule_interval: None
+    start_date: pendulum.datetime(2024, 9, 1, tz=timezone)
+    frequency: daily
+    dag_name_suffix: core_claims
+    done_file: NONE
+    has_sensor: 'No'
+    sql: [fact_claim_stats_sql]
+    tgttablename: [fact_claim_stats]
+    trigger_dag_ids: ['dag_outbound_claims_sqlserver_daily_dwcount_core_claims']

@@ -1,0 +1,32 @@
+CREATE OR REPLACE VIEW edwpsc_base_views.`pv_factnotehistory`
+AS SELECT
+  `pv_factnotehistory`.notehistorykey,
+  `pv_factnotehistory`.regionkey,
+  `pv_factnotehistory`.practicekey,
+  `pv_factnotehistory`.coid,
+  `pv_factnotehistory`.patientkey,
+  `pv_factnotehistory`.note,
+  `pv_factnotehistory`.notetype,
+  `pv_factnotehistory`.notecreateddate,
+  `pv_factnotehistory`.notecreatedtime,
+  `pv_factnotehistory`.notecreatedbyuserkey,
+  `pv_factnotehistory`.notecreatedbyuserid,
+  `pv_factnotehistory`.notelastupdatedbyuserkey,
+  `pv_factnotehistory`.notelastupdatedbyuserid,
+  `pv_factnotehistory`.sourceprimarykeyvalue,
+  `pv_factnotehistory`.notespk,
+  `pv_factnotehistory`.patientsourceguid,
+  `pv_factnotehistory`.activeflag,
+  `pv_factnotehistory`.sourcerecordlastupdated,
+  `pv_factnotehistory`.dwlastupdatedatetime,
+  `pv_factnotehistory`.sourcesystemcode,
+  `pv_factnotehistory`.insertedby,
+  `pv_factnotehistory`.inserteddtm,
+  `pv_factnotehistory`.modifiedby,
+  `pv_factnotehistory`.modifieddtm,
+  `pv_factnotehistory`.claimkey,
+  `pv_factnotehistory`.claimnumber,
+  `pv_factnotehistory`.codernoteflag
+  FROM
+    edwpsc.`pv_factnotehistory`
+;

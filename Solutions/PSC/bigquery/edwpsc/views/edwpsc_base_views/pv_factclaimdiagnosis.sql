@@ -1,0 +1,30 @@
+CREATE OR REPLACE VIEW edwpsc_base_views.`pv_factclaimdiagnosis`
+AS SELECT
+  `pv_factclaimdiagnosis`.claimdiagnosiskey,
+  `pv_factclaimdiagnosis`.claimkey,
+  `pv_factclaimdiagnosis`.claimnumber,
+  `pv_factclaimdiagnosis`.regionkey,
+  `pv_factclaimdiagnosis`.coid,
+  `pv_factclaimdiagnosis`.coidconfigurationkey,
+  `pv_factclaimdiagnosis`.servicingproviderkey,
+  `pv_factclaimdiagnosis`.claimpayer1iplankey,
+  `pv_factclaimdiagnosis`.facilitykey,
+  `pv_factclaimdiagnosis`.diagnosiscodekey,
+  `pv_factclaimdiagnosis`.primarycode,
+  `pv_factclaimdiagnosis`.icdorder,
+  `pv_factclaimdiagnosis`.icdcode,
+  `pv_factclaimdiagnosis`.deleteflag,
+  `pv_factclaimdiagnosis`.sourceaprimarykeyvalue,
+  `pv_factclaimdiagnosis`.sourcerecordlastupdated,
+  `pv_factclaimdiagnosis`.snomedvalue,
+  `pv_factclaimdiagnosis`.dwlastupdatedatetime,
+  `pv_factclaimdiagnosis`.sourcesystemcode,
+  `pv_factclaimdiagnosis`.insertedby,
+  `pv_factclaimdiagnosis`.inserteddtm,
+  `pv_factclaimdiagnosis`.modifiedby,
+  `pv_factclaimdiagnosis`.modifieddtm,
+  `pv_factclaimdiagnosis`.createddate,
+  `pv_factclaimdiagnosis`.createdbyuserkey
+  FROM
+    edwpsc.`pv_factclaimdiagnosis`
+;

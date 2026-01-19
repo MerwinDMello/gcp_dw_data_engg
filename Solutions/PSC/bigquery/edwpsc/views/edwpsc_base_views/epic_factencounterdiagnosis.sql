@@ -1,0 +1,32 @@
+CREATE OR REPLACE VIEW edwpsc_base_views.`epic_factencounterdiagnosis`
+AS SELECT
+  `epic_factencounterdiagnosis`.encounterdiagnosiskey,
+  `epic_factencounterdiagnosis`.regionkey,
+  `epic_factencounterdiagnosis`.encounterkey,
+  `epic_factencounterdiagnosis`.encounterid,
+  `epic_factencounterdiagnosis`.patientkey,
+  `epic_factencounterdiagnosis`.patientid,
+  `epic_factencounterdiagnosis`.diagnosiscodekey,
+  `epic_factencounterdiagnosis`.diagnosiscode,
+  `epic_factencounterdiagnosis`.dxid,
+  `epic_factencounterdiagnosis`.primarydxflag,
+  `epic_factencounterdiagnosis`.annotation,
+  `epic_factencounterdiagnosis`.qualifier,
+  `epic_factencounterdiagnosis`.comments,
+  `epic_factencounterdiagnosis`.chronicdxflag,
+  `epic_factencounterdiagnosis`.encounterdate,
+  `epic_factencounterdiagnosis`.diagnosisupdatedate,
+  `epic_factencounterdiagnosis`.uniquelineid,
+  `epic_factencounterdiagnosis`.dxeditflag,
+  `epic_factencounterdiagnosis`.linkedproblemid,
+  `epic_factencounterdiagnosis`.dwlastupdatedatetime,
+  `epic_factencounterdiagnosis`.sourceaprimarykeyvalue,
+  `epic_factencounterdiagnosis`.sourcebprimarykeyvalue,
+  `epic_factencounterdiagnosis`.sourcesystemcode,
+  `epic_factencounterdiagnosis`.insertedby,
+  `epic_factencounterdiagnosis`.inserteddtm,
+  `epic_factencounterdiagnosis`.modifiedby,
+  `epic_factencounterdiagnosis`.modifieddtm
+  FROM
+    edwpsc.`epic_factencounterdiagnosis`
+;

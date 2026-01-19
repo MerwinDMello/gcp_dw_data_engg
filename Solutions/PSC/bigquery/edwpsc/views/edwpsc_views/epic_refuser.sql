@@ -1,0 +1,32 @@
+CREATE OR REPLACE VIEW edwpsc_views.`epic_refuser`
+AS SELECT
+  `epic_refuser`.userkey,
+  `epic_refuser`.username,
+  `epic_refuser`.userfirstname,
+  `epic_refuser`.usermiddlename,
+  `epic_refuser`.userlastname,
+  `epic_refuser`.user34,
+  `epic_refuser`.activeflag,
+  `epic_refuser`.deleteflag,
+  `epic_refuser`.useraddress,
+  `epic_refuser`.usercity,
+  `epic_refuser`.userstate,
+  `epic_refuser`.userzip,
+  `epic_refuser`.userphone,
+  `epic_refuser`.useralias,
+  `epic_refuser`.epicempid,
+  `epic_refuser`.userid,
+  `epic_refuser`.regionkey,
+  `epic_refuser`.sourceaprimarykey,
+  `epic_refuser`.dwlastupdatedatetime,
+  `epic_refuser`.sourcesystemcode,
+  `epic_refuser`.insertedby,
+  `epic_refuser`.inserteddtm,
+  `epic_refuser`.modifiedby,
+  `epic_refuser`.modifieddtm,
+  `epic_refuser`.epicusername,
+  `epic_refuser`.userprimaryservicelocation,
+  `epic_refuser`.usertype
+  FROM
+    edwpsc_base_views.`epic_refuser`
+;

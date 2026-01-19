@@ -1,0 +1,56 @@
+CREATE OR REPLACE TABLE {{ params.param_cr_stage_dataset_name }}.stg_dimactivitytransaction (
+dimsiteid STRING
+, dimactivitytransactionid STRING
+, dimactivityid STRING
+, dimresourceid STRING
+, dimlookupid_appointmentstatus STRING
+, dimlookupid_actualresourcetype STRING
+, dimuserid_activitycreatedby STRING
+, dimdateid_scheduledendtime STRING
+, dimdateid_appointmentdttm STRING
+, dimdateid_activitystartdttm STRING
+, dimdateid_activityenddttm STRING
+, dimdateid_patientarrivaldttm STRING
+, dimpatientid STRING
+, dimhospitaldepartmentid STRING
+, scheduledendtime STRING
+, appointmentdatetime STRING
+, isscheduled STRING
+, activitystartdatetime STRING
+, activityenddatetime STRING
+, activitypriority STRING
+, activitynote STRING
+, checkedin STRING
+, patientarrivaldatetime STRING
+, patientlocation STRING
+, waitlistedflag STRING
+, ctrscheduledactivityser STRING
+, ctractivityinstanceser STRING
+, ctractivityser STRING
+, ctractivitycategoryser STRING
+, ctrresourceser STRING
+, ctrcreatedbyresourceser STRING
+, activityinstancerevcount STRING
+, appointmentstatus STRING
+, logid STRING
+, runid STRING
+, dimdateid_creationdate STRING
+, appointmentinstanceflag STRING
+, moroindicator STRING
+, dimmotreatmentplanid STRING
+, dimclinicid STRING
+, dimlookupid_cancelreasontype STRING
+, visitcyclenumber STRING
+, visitcycleday STRING
+, ctrpt_visit_id STRING
+, dimmedoncplanid STRING
+, dimmedoncplanphaseid STRING
+, derivedappointmenttaskdate STRING
+, dimlookupid_appointmentrsrcsta STRING
+, appointmentresourcestatus STRING
+, dxsite_derivedappointmenttskdt STRING
+, activityownerflag STRING
+, isvisittypeopenchart STRING
+, dw_last_update_date_time DATETIME
+)
+  ;

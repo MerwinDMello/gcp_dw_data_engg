@@ -1,0 +1,256 @@
+on:
+  workflow_call:
+    inputs:
+        branch:
+          description: "The branch, and thus the GCP environment, that is relevant to this workflow run"
+          required: true
+          type: string
+        env_folder:
+          description: "The name of the folder containing environment yamls"
+          required: false
+          type: string
+          default: "environments"
+        config_filepath:
+          description: "filepath to save the config file to; will  always start with 'dags'; leave off final '/' as that is already hard coded "
+          required: false
+          type: string
+        dags_folder_path: 
+          description: "The path to the dags folder in the repo."
+          required: false
+          type: string
+        dags_subdomain_folder_path:
+          description: "If only a subdomain folder is needed, enter the path to the subdomain folder(include leading /), otherwise use empty quotes."
+          required: false
+          type: string
+        two_way_sync:
+          description: "Enter code to allow 2-way sync, meaning deletion of files in the bucket that do not match the repo, or leave blank"
+          type: string
+          # '--delete-unmatched-destination-objects' (can add syntax to exclude specific files/folders as well)
+          # For more information on gcloud storage rsync and associated commands/flags: https://cloud.google.com/sdk/gcloud/reference/storage/rsync
+          required: true
+          default: ''
+        exclude_path:
+          description: "Enter code to allow for exclusion of specific path(s) when running the sync"
+          type: string
+          required: false
+          default: ''
+        repo_type:
+          description: "The type of repository (ETL, HIN2.0) that is relevant to this workflow run"
+          required: false
+          type: string
+          default: 'ETL'
+        source_name:
+          description: "The name of the source, used to determine folder to sync when triggered via workflow_dispatch and build config paths"
+          required: false
+          type: string
+    secrets:
+        workload_identity_provider:
+          description: "The workload identity provider for authentication."
+          required: false
+        service_account:
+          description: "The service account for authentication."
+          required: false
+
+jobs:
+  # This job detects changed files in any 'dags' folder and builds a matrix of config paths for downstream jobs.
+  setup:
+      
+    runs-on: [ onprem-k8s-arc, lnx-amd64, enterprise, std, self-hosted ]
+    name: Setup Matrix for Changed Dags
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+    outputs:
+      matrix: ${{ steps.set-matrix-output.outputs.matrix }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Build matrix for ETL repo
+        id: set-matrix-etl
+        if: ${{ inputs.repo_type == 'ETL' }}
+        shell: bash
+        run: |
+          MATRIX="{\"include\":[{\"config_filepath\":\"${{ inputs.config_filepath }}\",\"dags_folder_path\":\"./dags\",\"dags_subfolder_path\":\"${{ inputs.dags_subdomain_folder_path }}\"}]}"
+          echo "Matrix contents: $MATRIX"
+          echo "MATRIX=$MATRIX" >> $GITHUB_ENV
+
+      - name: Get changed files in dags folders
+        id: changed-files
+        if: ${{ github.event_name != 'workflow_dispatch' && inputs.repo_type != 'ETL'}}
+        uses: tj-actions/changed-files@v46.0.1
+        with:
+          dir_names: 'true'
+          files: '**/dags/**'
+
+      - name: Build matrix from changed dags config directories
+        id: set-matrix
+        if: ${{ github.event_name != 'workflow_dispatch'  && inputs.repo_type != 'ETL'}}
+        shell: bash
+        env:
+          CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
+        run: |
+          MATRIX=""
+          # Find all unique directories under 'dags' folders one folder deep from the root, e.g., source/dags/source
+          FILTERED_DIRS=$(echo "$CHANGED_FILES" | tr ' ' '\n' | grep -oE '^[^/]+/dags/[^/]+' | sort | uniq)
+          echo "FILTERED_DIRS: $FILTERED_DIRS"
+          # For each detected path, determine the correct dags folder, subdomain folder, and config file path for the matrix.
+          for DIR_PATH in $FILTERED_DIRS; do
+
+            echo "Processing DIR_PATH: $DIR_PATH"
+            # Use caller-provided dags_folder_path if set, otherwise extract from the path one past dags and ensure it starts with './'.
+            if [ -n "${{ inputs.dags_folder_path }}" ]; then
+              DAGS_PATH="${{ inputs.dags_folder_path }}"
+            else
+              # DIR_PATH is like root/dags/subfolder, so DAGS_PATH should be ./root/dags
+              DAGS_PATH="./$(dirname "$DIR_PATH")"
+            fi
+            # Use caller-provided dags_subdomain_folder_path if set (including empty quotes or a value like '/subfolder').
+            # Otherwise, auto-detect the subfolder one past dags from DIR_PATH.
+            if [ -n "${{ inputs.dags_subdomain_folder_path }}" ]; then
+              DAGS_SUBFOLDER_PATH="${{ inputs.dags_subdomain_folder_path }}"
+            else
+              # DIR_PATH is like root/dags/subfolder, so subfolder is basename of DIR_PATH
+              SUBFOLDER=$(basename "$DIR_PATH")
+              DAGS_SUBFOLDER_PATH="/$SUBFOLDER"
+            fi
+            # Use caller-provided config_filepath if set, otherwise append /config to DIR_PATH.
+            if [ -n "${{ inputs.config_filepath }}" ]; then
+              MATRIX_CONFIG_PATH="${{ inputs.config_filepath }}"
+            else
+              MATRIX_CONFIG_PATH="$DIR_PATH/config"
+            fi
+            ENTRY="{\"config_filepath\":\"$MATRIX_CONFIG_PATH\",\"dags_folder_path\":\"$DAGS_PATH\",\"dags_subfolder_path\":\"$DAGS_SUBFOLDER_PATH\"}"
+            MATRIX="$MATRIX$ENTRY," # accumulate entries
+          done
+          # Always wrap entries in [ ... ] for the include array
+          MATRIX="{\"include\":[${MATRIX%,}]}"
+
+          # Print the matrix contents for debugging and visibility.
+          echo "Matrix contents: $MATRIX"
+
+          # If no entries are saved, print an error and stop the workflow.
+          if [ "$MATRIX" = '{"include":[]}' ]; then
+            echo "ERROR: No valid paths were identified. Workflow will not proceed." >&2
+            exit 1
+          fi
+
+          echo "MATRIX=$MATRIX" >> $GITHUB_ENV
+      
+      - name: Build matrix from source_name input (workflow_dispatch)
+        id: set-matrix-dispatch-source-specific
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.source_name != '' && inputs.repo_type != 'ETL' }}
+        shell: bash
+        run: |
+          MATRIX="{\"include\":[{\"config_filepath\":\"${{ inputs.source_name }}/dags/${{ inputs.source_name }}/config\",\"dags_folder_path\":\"./${{ inputs.source_name }}/dags\",\"dags_subfolder_path\":\"/${{ inputs.source_name }}\"}]}"
+          echo "Matrix contents: $MATRIX"
+          echo "MATRIX=$MATRIX" >> $GITHUB_ENV   
+
+
+      - name: Build matrix from all dags config directories (workflow_dispatch, no source_name)
+        id: set-matrix-dispatch-all
+        if: ${{ github.event_name == 'workflow_dispatch' && (inputs.source_name == '' || inputs.source_name == null) && inputs.repo_type != 'ETL' }}
+        shell: bash
+        env:
+          dags_subdomain_folder_path: ${{ inputs.dags_subdomain_folder_path }}
+        run: |
+          MATRIX=""
+          CONFIG_DIRS=$(echo ./*/dags/*/config | tr ' ' '\n' | sort | uniq)
+          echo "CONFIG_DIRS: $CONFIG_DIRS"
+          for CONFIG_PATH in $CONFIG_DIRS; do
+            # Remove leading ./ from path for consistency
+            CONFIG_PATH_CLEAN=$(echo "$CONFIG_PATH" | sed 's|^./||')
+            echo "Processing CONFIG_PATH: $CONFIG_PATH_CLEAN"
+
+            # Use caller-provided dags_folder_path if set, otherwise extract from the config path and ensure it starts with './'.
+            if [ -n "${{ inputs.dags_folder_path }}" ]; then
+              DAGS_PATH="${{ inputs.dags_folder_path }}"
+            else
+              DAGS_PATH="./$(dirname $(dirname "$CONFIG_PATH_CLEAN"))"
+            fi
+
+            # Use caller-provided dags_subdomain_folder_path if set (including empty quotes or a value like '/subfolder').
+            if [ -n "${{ inputs.dags_subdomain_folder_path }}" ]; then
+              DAGS_SUBFOLDER_PATH="${{ inputs.dags_subdomain_folder_path }}"
+            else
+              SUBFOLDER=$(basename $(dirname "$CONFIG_PATH_CLEAN"))
+              DAGS_SUBFOLDER_PATH="/$SUBFOLDER"
+            fi
+
+            # Use caller-provided config_filepath if set, otherwise use the detected config path.
+            if [ -n "${{ inputs.config_filepath }}" ]; then
+              MATRIX_CONFIG_PATH="${{ inputs.config_filepath }}"
+            else
+              MATRIX_CONFIG_PATH="$CONFIG_PATH_CLEAN"
+            fi
+            ENTRY="{\"config_filepath\":\"$MATRIX_CONFIG_PATH\",\"dags_folder_path\":\"$DAGS_PATH\",\"dags_subfolder_path\":\"$DAGS_SUBFOLDER_PATH\"}"
+            MATRIX="$MATRIX$ENTRY," # accumulate entries
+          done
+          # Always wrap entries in [ ... ] for the include array
+          MATRIX="{\"include\":[${MATRIX%,}]}"
+
+          echo "Matrix contents: $MATRIX"
+          if [ "$MATRIX" = "{\"include\":[]}" ]; then
+            echo "ERROR: No valid dags/config paths were identified. Workflow will not proceed." >&2
+            exit 1
+          fi
+          echo "MATRIX=$MATRIX" >> $GITHUB_ENV
+
+      - name: Set matrix output
+        id: set-matrix-output
+        shell: bash
+        run: |
+          echo "matrix=$MATRIX" >> $GITHUB_OUTPUT
+          
+  # This job uses the matrix from the setup job to build and deploy each valid config path.
+  build_and_deploy:
+    needs: setup
+    strategy:
+      matrix: ${{ fromJson(needs.setup.outputs.matrix) }}
+    runs-on: [ onprem-k8s-arc, lnx-amd64, enterprise, std, self-hosted ]
+    environment: ${{ inputs.branch }}
+    name: Build and Deploy Dags to Composer Bucket
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set Domain
+        id: set_domain
+        shell: bash
+        if : ${{ vars.DOMAIN == '' }}
+        run: |
+          for file in ./${{ inputs.env_folder }}/${GITHUB_REF_NAME}*.yaml; do
+              if [[ $(basename "$file") =~ _(.*)_ ]]; then
+                  echo "domain=${BASH_REMATCH[1]}" >> $GITHUB_OUTPUT
+                  break
+              fi
+          done 
+          
+      - name: Composer Config Build Step
+        id: composer_config_build
+        uses: HCACloudDataEngineering/gcp-hin-workflows/composer/build@main
+        with:
+          branch: ${{ inputs.branch }}
+          subdomain : ${{ vars.DOMAIN != '' && vars.DOMAIN || steps.set_domain.outputs.domain }}
+          config_filepath: ${{ matrix.config_filepath }}
+          env_folder: ${{ inputs.env_folder }}
+          proc_project_id: ${{ vars.PROC_PROJECT_ID }}
+          dag_bucket: ${{ vars.DAG_BUCKET_NAME }}
+          repo_type: ${{ inputs.repo_type }}
+
+      - name: Composer Sync Step
+        id: composer_sync
+        uses: HCACloudDataEngineering/gcp-hin-workflows/composer/deploy@main
+        with:
+          branch: ${{ inputs.branch }}
+          bucket_name: ${{ vars.DAG_BUCKET_NAME != '' && vars.DAG_BUCKET_NAME || steps.composer_config_build.outputs.v_dag_bucket_name }}
+          proc_project_id: ${{ vars.PROC_PROJECT_ID != '' && vars.PROC_PROJECT_ID || steps.composer_config_build.outputs.v_proc_project_id }}
+          workload_identity_provider: ${{ vars.WORKLOAD_IDENTITY_PROVIDER != '' && vars.WORKLOAD_IDENTITY_PROVIDER || secrets.workload_identity_provider }}
+          service_account: ${{ vars.SERVICEACCOUNT_GITHUB != '' && vars.SERVICEACCOUNT_GITHUB || secrets.service_account }} 
+          dags_folder_path: ${{ matrix.dags_folder_path }}
+          dags_subdomain_folder_path: ${{ matrix.dags_subfolder_path }}
+          two_way_sync: ${{ inputs.two_way_sync }}
+          exclude_path: ${{ inputs.exclude_path }}

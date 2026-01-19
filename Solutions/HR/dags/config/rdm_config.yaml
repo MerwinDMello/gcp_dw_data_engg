@@ -1,0 +1,39 @@
+{
+  v_sourcesysnm: rdm,
+  v_databasetype: sqlserver,
+  v_user: rdm_hr_gcp_read1,
+  v_pwd_secret_name: rdm_jdbc_pwd/versions/latest,
+  v_jdbc_url: jdbc:sqlserver://xrdcwpdbsrdm01a.hca.corpad.net;databaseName=RDM_HR,
+  v_jdbc_class_name: com.microsoft.sqlserver.jdbc.SQLServerDriver,
+  v_jdbc_jar: mssql-jdbc-9.2.1.jre8.jar,
+  v_jdkfile: jre-8u351-linux-x64.tar.gz,
+  v_jdkversion: jre1.8.0_351,
+  v_schedule_interval: "0 1 * * *",
+  v_frequency: daily,
+  v_machine_type: n2-standard-2,
+  v_start_date: "pendulum.datetime(2022, 1, 26, tz=timezone)",
+  v_jdbcbqpytemplate: Jdbc_to_BigQuery_PythonTemplate_2023-02-14.py,
+
+#srctablelist [srctableid~srctablename~tgttablename~tgttableloadtype~srctablequery]
+"srctablelist1": ["1~rdm_hr.dbo.ref_action_reason_detail~v_hr_core_dataset_name.ref_action_reason_detail~truncate~SELECT action_reason_text, mapped_action_reason_text, action_reason_group_text, action_reason_sub_group_text, action_reason_desc, governance_group_desc, action_reason_type_desc, 'L' as source_system_code, 'v_currtimestamp' as dw_last_update_date_time FROM rdm_hr.dbo.ref_action_reason_detail where 1  = 1~10000",
+"2~rdm_hr.dbo.ref_bi_key_talent~v_hr_core_dataset_name.ref_bi_key_talent~truncate~SELECT key_talent_id, job_code, facility_level_code, key_talent_group_text, job_title_text, lob_code, job_code_desc, process_level_code, match_level_num, match_level_desc, 'L' as source_system_code, 'v_currtimestamp' as dw_last_update_date_time FROM rdm_hr.dbo.ref_bi_key_talent where 1  = 1~10000",
+"3~rdm_hr.dbo.ref_bi_movement_reason~v_hr_core_dataset_name.ref_bi_movement_reason~truncate~SELECT movement_reason_id, external_candidate_sw, lob_change_sw, division_change_sw, location_change_sw, department_change_sw, position_change_sw, status_change_sw, action_desc, reason_desc, 'L' as source_system_code, 'v_currtimestamp' as dw_last_update_date_time FROM rdm_hr.dbo.ref_bi_movement_reason where 1  = 1~10000",
+"4~rdm_hr.dbo.ref_coid_hospital_category~v_hr_core_dataset_name.ref_coid_hospital_category~truncate~SELECT coid, company_code, year_num, hospital_level_code, prev_year_change_ind, manual_hold_ind, quartile_rank_num, total_rank_num, 'L' as source_system_code, 'v_currtimestamp' as dw_last_update_date_time FROM rdm_hr.dbo.ref_coid_hospital_category where 1  = 1~10000",
+"5~rdm_hr.dbo.ref_degree_rank~v_hr_core_dataset_name.ref_degree_rank~truncate~select degree_rank_level_num, subject_code, education_code, 'L' as source_system_code, 'v_currtimestamp' as dw_last_update_date_time from rdm_hr.dbo.ref_degree_rank where 1  = 1~10000",
+"6~rdm_hr.dbo.ref_diversity_inclusion~v_hr_core_dataset_name.ref_diversity_inclusion~truncate~select leadership_level_id, match_level_num, match_level_desc, lob_code, job_class_code, job_code, leadership_level_desc, leadership_level_code, leadership_role_name, 'L' as source_system_code, 'v_currtimestamp' as dw_last_update_date_time  from rdm_hr.dbo.ref_diversity_inclusion where 1  = 1~10000",
+"7~rdm_hr.dbo.ref_hiring_step_order~v_hr_core_dataset_name.ref_hiring_step_order~truncate~select step_order_id, step_name, 'L' as source_system_code, 'v_currtimestamp' as dw_last_update_date_time  from rdm_hr.dbo.ref_hiring_step_order where 1  = 1~10000",
+"8~rdm_hr.dbo.ref_hiring_step_status_order~v_hr_core_dataset_name.ref_hiring_step_status_order~truncate~select step_status_order_id, step_name, submission_status_name, step_status_order_num, step_status_name, 'L' as source_system_code, 'v_currtimestamp' as dw_last_update_date_time  from rdm_hr.dbo.ref_hiring_step_status_order where 1  = 1~10000",
+"9~rdm_hr.dbo.ref_hr_credential~v_hr_core_dataset_name.ref_hr_credential~truncate~select credential_code, credential_type_code, credential_group_desc, credential_desc, credential_report_desc, 'L' as source_system_code, 'v_currtimestamp' as dw_last_update_date_time  from rdm_hr.dbo.ref_hr_credential where 1  = 1~10000",
+"10~rdm_hr.dbo.ref_hr_operations~v_hr_core_dataset_name.ref_hr_operations~truncate~select process_level_code, business_unit_name, business_unit_segment_name, 'L' as source_system_code, 'v_currtimestamp' as dw_last_update_date_time  from rdm_hr.dbo.ref_hr_operations where 1  = 1~10000",
+"11~rdm_hr.dbo.ref_integrated_lob~v_hr_core_dataset_name.ref_integrated_lob~truncate~select integrated_lob_id, category_desc, sub_category_desc, process_level_code, dept_code, lob_code, sub_lob_code, functional_dept_desc, sub_functional_dept_desc, match_level_num, match_level_desc, 'L' as source_system_code, 'v_currtimestamp' as dw_last_update_date_time  from rdm_hr.dbo.ref_integrated_lob where 1  = 1~10000",
+"12~rdm_hr.dbo.ref_lawson_location_hospital_category~v_hr_core_dataset_name.ref_lawson_location_hospital_category~truncate~select lawson_location_code, hospital_category_code_year, hospital_category_code, 'L' as source_system_code, 'v_currtimestamp' as dw_last_update_date_time  from rdm_hr.dbo.ref_lawson_location_hospital_category where 1  = 1~10000",
+"13~rdm_hr.dbo.ref_nursing_director~v_hr_core_dataset_name.ref_nursing_director~truncate~select job_code, director_grouping_desc, 'L' as source_system_code, 'v_currtimestamp' as dw_last_update_date_time  from rdm_hr.dbo.ref_nursing_director where 1  = 1~10000",
+"14~rdm_hr.dbo.ref_patient_care_position~v_hr_core_dataset_name.ref_patient_care_position~truncate~select job_code, job_title_text, job_code_desc, 'L' as source_system_code, 'v_currtimestamp' as dw_last_update_date_time  from rdm_hr.dbo.ref_patient_care_position where 1  = 1~10000",
+"15~rdm_hr.dbo.ref_position_pfte~v_hr_core_dataset_name.ref_position_pfte~truncate~select position_code_desc, pfte_value_num, 'L' as source_system_code, 'v_currtimestamp' as dw_last_update_date_time  from rdm_hr.dbo.ref_position_pfte where 1  = 1~10000",
+"16~rdm_hr.dbo.ref_sub_functional_dept_nurse_spcl~v_hr_core_dataset_name.ref_sub_functional_dept_nurse_spcl~truncate~select sub_functional_dept_num, functional_dept_num, nurse_specialty_desc, 'L' as source_system_code, 'v_currtimestamp' as dw_last_update_date_time from rdm_hr.dbo.ref_sub_functional_dept_nurse_spcl where 1  = 1~10000",
+"17~rdm_psat.dbo.patient_satisfaction_alt_org_hierarchy~v_hr_core_dataset_name.patient_satisfaction_alt_org_hierarchy~truncate~select company_code, coid, facility_name, group_code, division_code,market_code, parent_coid, parent_coid_cons_facility_code, lob_code,sub_lob_code, client_id, facility_claim_control_num, facility_claim_control_num_name,facility_rollup_sw, fsed_ind, asd_region_name, location_mnemonic_cs,unit_num,cast(survey_start_date as date) as survey_start_date ,case when cast(survey_end_date as date)='9999-01-01' then '2200-01-01' else cast(survey_end_date as date)  end as  survey_end_date,  source_system_code ,'v_currtimestamp' as dw_last_update_date_time from rdm_psat.dbo.patient_satisfaction_alt_org_hierarchy where 1  = 1~10000",
+"18~rdm_hr.dbo.ref_division_pfte~v_hr_core_dataset_name.ref_division_pfte~truncate~select division_name, period_end_date, division_abbreviation_code,pfte_value_num, 'L' as source_system_code, 'v_currtimestamp' as dw_last_update_date_time from rdm_hr.dbo.ref_division_pfte where 1  = 1~10000",
+"19~rdm_hr.dbo.ref_workforce_planning_target~v_hr_core_dataset_name.ref_workforce_planning_target~truncate~select division_name, measure_name, period_end_date, metric_cnt, 'L' as source_system_code, 'v_currtimestamp' as dw_last_update_date_time from rdm_hr.dbo.ref_workforce_planning_target where 1  = 1~10000"
+]
+
+}

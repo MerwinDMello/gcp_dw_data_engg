@@ -1,0 +1,31 @@
+CREATE TABLE IF NOT EXISTS edwpsc_staging.epic_factclaimpayer
+(
+  claimpayerkey INT64 NOT NULL,
+  claimkey INT64,
+  claimnumber INT64,
+  visitnumber INT64,
+  regionkey INT64,
+  coid STRING,
+  seqnumber INT64,
+  payeriplankey INT64,
+  payergroupnumber STRING,
+  payergroupname STRING,
+  payersubscribernumber STRING,
+  payerclaimindicator STRING,
+  payerliabilityowner STRING,
+  priorauthno STRING,
+  deleteflag INT64,
+  payersourcechangedflag INT64,
+  sourceaprimarykeyvalue INT64,
+  sourceatablelastupdated DATETIME,
+  sourcebprimarykeyvalue STRING,
+  sourcebtablelastupdated DATETIME,
+  dwlastupdatedatetime DATETIME NOT NULL,
+  sourcesystemcode STRING,
+  insertedby STRING,
+  inserteddtm DATETIME,
+  modifiedby STRING,
+  modifieddtm DATETIME,
+  PRIMARY KEY (claimpayerkey) NOT ENFORCED
+)
+;

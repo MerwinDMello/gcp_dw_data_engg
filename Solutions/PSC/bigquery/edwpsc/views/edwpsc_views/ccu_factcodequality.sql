@@ -1,0 +1,48 @@
+CREATE OR REPLACE VIEW edwpsc_views.`ccu_factcodequality`
+AS SELECT
+  `ccu_factcodequality`.codequalitykey,
+  `ccu_factcodequality`.claimkey,
+  `ccu_factcodequality`.claimnumber,
+  `ccu_factcodequality`.regionkey,
+  `ccu_factcodequality`.coid,
+  `ccu_factcodequality`.servicedate,
+  `ccu_factcodequality`.claimcreatedate,
+  `ccu_factcodequality`.initialcoderprebilleditdate,
+  `ccu_factcodequality`.firstinsurancebilldate,
+  `ccu_factcodequality`.minfirstdenialeradate,
+  `ccu_factcodequality`.numberofinsurancebills,
+  `ccu_factcodequality`.coderprebilleditcount,
+  `ccu_factcodequality`.psscactgrp_initial_combined,
+  `ccu_factcodequality`.pssccat_initial_combined,
+  `ccu_factcodequality`.psscsubcatdesc_initial_combined,
+  `ccu_factcodequality`.payer1iplanname,
+  `ccu_factcodequality`.qualitycategory,
+  `ccu_factcodequality`.totalchargesamt,
+  `ccu_factcodequality`.paymentamt,
+  `ccu_factcodequality`.contractualadjamt,
+  `ccu_factcodequality`.financialadjamt,
+  `ccu_factcodequality`.financialadjcategory_combined,
+  `ccu_factcodequality`.financialadjname_combined,
+  `ccu_factcodequality`.firstdenialcategories,
+  `ccu_factcodequality`.firstdenialcarccodes,
+  `ccu_factcodequality`.firstdenialrarccodes,
+  `ccu_factcodequality`.firstdenialpayername,
+  `ccu_factcodequality`.claimcreatedby34id,
+  `ccu_factcodequality`.claimcreatedbyuser,
+  `ccu_factcodequality`.claimcreatedbydept,
+  `ccu_factcodequality`.claimcreatedbycompany,
+  `ccu_factcodequality`.claimcount,
+  `ccu_factcodequality`.dwlastupdatedatetime,
+  `ccu_factcodequality`.sourcesystemcode,
+  `ccu_factcodequality`.insertedby,
+  `ccu_factcodequality`.inserteddtm,
+  `ccu_factcodequality`.modifiedby,
+  `ccu_factcodequality`.modifieddtm,
+  `ccu_factcodequality`.lastchangedby,
+  `ccu_factcodequality`.changeddate
+  FROM
+    edwpsc_base_views.`ccu_factcodequality`
+  INNER JOIN edwpsc_base_views.secref_facility
+  ON LPAD(TRIM(secref_facility.co_id, ' '), 5, '0') = LPAD(TRIM(`ccu_factcodequality`.coid, ' '), 5, '0')
+  AND TRIM(secref_facility.user_id, ' ') = TRIM(session_user(), ' ')
+;

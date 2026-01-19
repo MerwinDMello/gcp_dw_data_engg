@@ -1,0 +1,320 @@
+integrate :
+- source_system: tms
+  frequency: daily
+  start_date: pendulum.datetime(2022, 12, 6, 6, 0, 0, tz=timezone)
+  schedule: 0 6 * * *
+  type: core_tables
+  custom_tags: "integrate"
+  dependency:
+  - table: ref_future_role_attribute
+    has_sensor: 'Yes'
+    sql:
+    - name: hdw_tms_ref_future_role_attribute_wrk.sql
+    - name: hdw_tms_ref_future_role_attribute_core.sql
+    sensor:
+    - dag_id: dag_ingest_tms_files_daily_06.00
+      task_id: TG-table-employee_info.archive_srcfile_employee_info
+      schedule: 0 6 * * *
+  - table: ref_location_willingness
+    has_sensor: 'Yes'
+    sql:
+    - name: hdw_tms_ref_location_willingness.sql
+    sensor:
+    - dag_id: dag_ingest_tms_files_daily_06.00
+      task_id: TG-table-employee_info.archive_srcfile_employee_info
+      schedule: 0 6 * * *
+  - table: ref_timeframe
+    has_sensor: 'Yes'
+    sql:
+    - name: hdw_ref_timeframe.sql
+    sensor:
+    - dag_id: dag_ingest_tms_files_daily_06.00
+      task_id: TG-table-employee_info.archive_srcfile_employee_info
+      schedule: 0 6 * * *
+  - table: ref_probability_potential
+    has_sensor: 'Yes'
+    sql:
+    - name: hdw_tms_ref_probability_potential.sql
+    sensor:
+    - dag_id: dag_ingest_tms_files_daily_06.00
+      task_id: TG-table-employee_info.archive_srcfile_employee_info
+      schedule: 0 6 * * * 
+  - table: ref_performance_rating
+    has_sensor: 'Yes'
+    sql:
+    - name: hdw_tms_ref_performance_rating.sql
+    sensor:
+    - dag_id: dag_ingest_tms_files_daily_06.00
+      task_id: TG-table-employee_info.archive_srcfile_employee_info
+      schedule: 0 6 * * *
+  - table: ref_performance_rating_box_score
+    has_sensor: 'Yes'
+    sql:
+    - name: hdw_tms_ref_performance_rating_box_score.sql
+    sensor:
+    - dag_id: dag_ingest_tms_files_daily_06.00
+      task_id: TG-table-employee_info.archive_srcfile_employee_info
+      schedule: 0 6 * * *
+    - dag_id: dag_integrate_tms_core_tables_daily_06.00
+      task_id: TG-table-ref_probability_potential.audit_table_ref_probability_potential
+      schedule: 0 6 * * *
+    - dag_id: dag_integrate_tms_core_tables_daily_06.00
+      task_id: TG-table-ref_performance_rating.audit_table_ref_performance_rating
+      schedule: 0 6 * * *
+  - table: ref_leadership_level
+    has_sensor: 'Yes'
+    sql:
+    - name: hdw_ref_leadership_level_load.sql
+    sensor:
+    - dag_id: dag_ingest_tms_files_daily_06.00
+      task_id: TG-table-employee_info.archive_srcfile_employee_info
+      schedule: 0 6 * * *  
+  - table: ref_percentage_range
+    has_sensor: 'Yes'
+    sql:
+    - name: hdw_ref_percentage_range_load.sql
+    sensor:
+    - dag_id: dag_ingest_tms_files_daily_06.00
+      task_id: TG-table-employee_info.archive_srcfile_employee_info
+      schedule: 0 6 * * *       
+  - table: employee_talent_profile
+    has_sensor: 'Yes'
+    sql:
+    - name: hdw_tms_employee_talent_profile_load.sql
+    sensor:
+    - dag_id: dag_ingest_tms_files_daily_06.00
+      task_id: TG-table-employee_info.archive_srcfile_employee_info
+      schedule: 0 6 * * *
+    - dag_id: dag_integrate_lawson_core_tables_daily_04.00
+      task_id: end_job
+      schedule: 0 4 * * *
+    - dag_id: dag_integrate_tms_core_tables_daily_06.00
+      task_id: TG-table-ref_location_willingness.audit_table_ref_location_willingness
+      schedule: 0 6 * * *
+    - dag_id: dag_integrate_tms_core_tables_daily_06.00
+      task_id: TG-table-ref_performance_rating.audit_table_ref_performance_rating
+      schedule: 0 6 * * *
+    - dag_id: dag_integrate_tms_core_tables_daily_06.00
+      task_id: TG-table-ref_probability_potential.audit_table_ref_probability_potential
+      schedule: 0 6 * * *
+    - dag_id: dag_integrate_tms_core_tables_daily_06.00
+      task_id: TG-table-ref_future_role_attribute.audit_table_ref_future_role_attribute
+      schedule: 0 6 * * *
+    - dag_id: dag_integrate_tms_core_tables_daily_06.00
+      task_id: TG-table-ref_timeframe.audit_table_ref_timeframe
+      schedule: 0 6 * * *
+  - table: fact_employee_availability
+    has_sensor: 'Yes'
+    sql:
+    - name: hdw_tms_fact_employee_availability_wrk.sql
+    - name: hdw_tms_fact_employee_availability_core.sql
+    sensor:
+    - dag_id: dag_integrate_tms_core_tables_daily_06.00
+      task_id: TG-table-employee_talent_profile.audit_table_employee_talent_profile
+      schedule: 0 6 * * *
+- source_system: tms
+  frequency: weekly
+  start_date: pendulum.datetime(2022, 12, 6, 6, 0, 0, tz=timezone)
+  schedule: 0 6 * * 1
+  type: core_tables
+  custom_tags: "integrate"
+  dependency:
+  - table: ref_performance_category
+    has_sensor: 'Yes'
+    sql:
+    - name: hdw_tms_ref_performance_category.sql
+    sensor:
+    - dag_id: dag_ingest_tms_files_weekly_06.00
+      task_id: TG-table-employee_perf_goals.archive_srcfile_employee_perf_goals
+      schedule: 0 6 * * 1
+  - table: ref_performance_plan
+    has_sensor: 'Yes'
+    sql:
+    - name: hdw_tms_ref_performance_plan.sql
+    sensor:
+    - dag_id: dag_ingest_tms_files_weekly_06.00
+      task_id: TG-table-employee_perf_goals.archive_srcfile_employee_perf_goals
+      schedule: 0 6 * * 1
+  - table: employee_goal_detail
+    has_sensor: 'Yes'
+    sql:
+    - name: hdw_tms_employee_goal_detail.sql
+    sensor:
+    - dag_id: dag_ingest_tms_files_weekly_06.00
+      task_id: TG-table-employee_perf_goals.archive_srcfile_employee_perf_goals
+      schedule: 0 6 * * 1
+    - dag_id: dag_integrate_lawson_core_tables_daily_04.00
+      task_id: TG-table-t23_employee.audit_table_t23_employee
+      schedule: 0 4 * * *
+    - dag_id: dag_integrate_tms_core_tables_daily_06.00
+      task_id: TG-table-employee_talent_profile.audit_table_employee_talent_profile
+      schedule: 0 6 * * *
+    - dag_id: dag_integrate_tms_core_tables_weekly_06.00
+      task_id: TG-table-ref_performance_plan.audit_table_ref_performance_plan
+      schedule: 0 6 * * 1
+    - dag_id: dag_integrate_tms_core_tables_weekly_06.00
+      task_id: TG-table-ref_performance_category.audit_table_ref_performance_category
+      schedule: 0 6 * * 1
+    - dag_id: dag_integrate_tms_core_tables_daily_06.00
+      task_id: TG-table-ref_performance_rating.audit_table_ref_performance_rating
+      schedule: 0 6 * * *
+    - dag_id: dag_integrate_tms_core_tables_monthly_06.00
+      task_id: TG-table-ref_performance_period.audit_table_ref_performance_period
+      schedule: 0 6 1 * *
+    - dag_id: dag_integrate_tms_core_tables_monthly_06.00
+      task_id: TG-table-ref_performance_status.audit_table_ref_performance_status
+      schedule: 0 6 1 * *
+  - table: employee_development_activity
+    has_sensor: 'Yes'
+    sql:
+    - name: hdw_tms_employee_development_activity.sql
+    sensor:
+    - dag_id: dag_ingest_tms_files_weekly_06.00
+      task_id: TG-table-development_activities_report.archive_srcfile_development_activities_report
+      schedule: 0 6 * * 1
+    - dag_id: dag_integrate_lawson_core_tables_daily_04.00
+      task_id: TG-table-t23_employee.audit_table_t23_employee
+      schedule: 0 4 * * *
+    - dag_id: dag_integrate_tms_core_tables_daily_06.00
+      task_id: TG-table-employee_talent_profile.audit_table_employee_talent_profile
+      schedule: 0 6 * * *
+    - dag_id: dag_integrate_tms_core_tables_monthly_06.00
+      task_id: TG-table-ref_performance_status.audit_table_ref_performance_status
+      schedule: 0 6 1 * *
+    - dag_id: dag_integrate_tms_core_tables_daily_06.00
+      task_id: TG-table-ref_probability_potential.audit_table_ref_probability_potential
+      schedule: 0 6 * * *
+- source_system: tms
+  frequency: monthly
+  start_date: pendulum.datetime(2022, 12, 6, 6, 0, 0, tz=timezone)
+  schedule: 0 6 1 * *
+  type: core_tables
+  custom_tags: "integrate"
+  dependency:
+  - table: ref_competency
+    has_sensor: 'Yes'
+    sql:
+    - name: hdw_tms_ref_competency.sql
+    sensor:
+    - dag_id: dag_ingest_tms_files_monthly_06.00
+      task_id: end_dag
+      schedule: 0 6 1 * *
+  - table: ref_competency_group
+    has_sensor: 'Yes'
+    sql:
+    - name: hdw_tms_ref_competency_group.sql
+    sensor:
+    - dag_id: dag_ingest_tms_files_monthly_06.00
+      task_id: end_dag
+      schedule: 0 6 1 * *
+  - table: ref_performance_period
+    has_sensor: 'Yes'
+    sql:
+    - name: hdw_tms_ref_performance_period.sql
+    sensor:
+    - dag_id: dag_ingest_tms_files_monthly_06.00
+      task_id: end_dag
+      schedule: 0 6 1 * *
+  - table: ref_performance_status
+    has_sensor: 'Yes'
+    sql:
+    - name: hdw_tms_ref_performance_status.sql
+    sensor:
+    - dag_id: dag_ingest_tms_files_monthly_06.00
+      task_id: end_dag
+      schedule: 0 6 1 * *
+  - table: address
+    has_sensor: 'Yes'
+    sql:
+    - name: hdw_tms_address_load.sql
+    sensor:
+    - dag_id: dag_ingest_tms_files_monthly_06.00
+      task_id: end_dag
+      schedule: 0 6 1 * *
+  - table: employee_competency_detail
+    has_sensor: 'Yes'
+    sql:
+    - name: hdw_tms_employee_competency_detail.sql
+    sensor:
+    - dag_id: dag_integrate_tms_core_tables_daily_06.00
+      task_id: end_job
+      schedule: 0 6 * * *
+    - dag_id: dag_integrate_tms_core_tables_weekly_06.00
+      task_id: TG-table-ref_performance_plan.audit_table_ref_performance_plan
+      schedule: 0 6 * * 1
+    - dag_id: dag_integrate_tms_core_tables_monthly_06.00
+      task_id: TG-table-ref_competency.audit_table_ref_competency
+      schedule: 0 6 1 * *
+    - dag_id: dag_integrate_tms_core_tables_monthly_06.00
+      task_id: TG-table-ref_competency_group.audit_table_ref_competency_group
+      schedule: 0 6 1 * *
+    - dag_id: dag_integrate_tms_core_tables_monthly_06.00
+      task_id: TG-table-ref_performance_period.audit_table_ref_performance_period
+      schedule: 0 6 1 * *
+    - dag_id: dag_integrate_tms_core_tables_monthly_06.00
+      task_id: TG-table-ref_performance_status.audit_table_ref_performance_status
+      schedule: 0 6 1 * *
+    - dag_id: dag_integrate_lawson_core_tables_daily_04.00
+      task_id: TG-table-t23_employee.audit_table_t23_employee
+      schedule: 0 4 * * *
+  - table: employee_education_profile
+    has_sensor: 'Yes'
+    sql:
+    - name: hdw_tms_employee_education_profile.sql
+    sensor:
+    - dag_id: dag_integrate_tms_core_tables_daily_06.00
+      task_id: TG-table-employee_talent_profile.audit_table_employee_talent_profile
+      schedule: 0 6 * * *
+    - dag_id: dag_integrate_lawson_core_tables_daily_04.00
+      task_id: TG-table-t23_employee.audit_table_t23_employee
+      schedule: 0 4 * * *
+  - table: employee_performance_detail
+    has_sensor: 'Yes'
+    sql:
+    - name: hdw_tms_employee_performance_detail.sql
+    sensor:
+    - dag_id: dag_integrate_tms_core_tables_daily_06.00
+      task_id: end_job
+      schedule: 0 6 * * *
+    - dag_id: dag_integrate_tms_core_tables_weekly_06.00
+      task_id: TG-table-ref_performance_plan.audit_table_ref_performance_plan
+      schedule: 0 6 * * 1
+    - dag_id: dag_integrate_tms_core_tables_monthly_06.00
+      task_id: TG-table-ref_performance_period.audit_table_ref_performance_period
+      schedule: 0 6 1 * *
+    - dag_id: dag_integrate_tms_core_tables_monthly_06.00
+      task_id: TG-table-ref_performance_status.audit_table_ref_performance_status
+      schedule: 0 6 1 * *
+    - dag_id: dag_integrate_lawson_core_tables_daily_04.00
+      task_id: TG-table-t23_employee.audit_table_t23_employee
+      schedule: 0 4 * * *
+  - table: employee_work_history
+    has_sensor: 'Yes'
+    sql:
+    - name: hdw_tms_employee_work_history_wrk.sql
+    - name: hdw_tms_employee_work_history_core.sql
+    sensor:
+    - dag_id: dag_integrate_tms_core_tables_daily_06.00
+      task_id: end_dag
+      schedule: 0 6 * * *
+    - dag_id: dag_integrate_tms_core_tables_monthly_06.00
+      task_id: TG-table-address.audit_table_address
+      schedule: 0 6 1 * *
+    - dag_id: dag_integrate_lawson_core_tables_daily_04.00
+      task_id: TG-table-t23_employee.audit_table_t23_employee
+      schedule: 0 4 * * *
+- source_system: tms
+  frequency: None
+  start_date: pendulum.datetime(2022, 12, 6, 6, 0, 0, tz=timezone)
+  schedule: None
+  type: core_tables
+  custom_tags: "integrate,ref_address_type"
+  dependency:
+  - table: ref_address_type
+    has_sensor: 'Yes'
+    sql:
+    - name: hdw_tms_ref_address_type.sql
+    sensor:
+    - dag_id: dag_ingest_tms_files_daily_06.00
+      task_id: TG-table-employee_info.archive_srcfile_employee_info
+      schedule: 0 6 1 * *

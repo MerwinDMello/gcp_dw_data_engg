@@ -1,0 +1,30 @@
+CREATE OR REPLACE VIEW edwpsc_views.`ecw_factencountermeditechexpansenotes`
+AS SELECT
+  `ecw_factencountermeditechexpansenotes`.encountermtxnoteskey,
+  `ecw_factencountermeditechexpansenotes`.sourceid,
+  `ecw_factencountermeditechexpansenotes`.visitid,
+  `ecw_factencountermeditechexpansenotes`.codingaccountvisitdatetimeid,
+  `ecw_factencountermeditechexpansenotes`.codinghistoryurnid,
+  `ecw_factencountermeditechexpansenotes`.rowupdatedatetime,
+  `ecw_factencountermeditechexpansenotes`.codinghistorydatetime,
+  `ecw_factencountermeditechexpansenotes`.codinghistorytype,
+  `ecw_factencountermeditechexpansenotes`.codinghistoryuser_unvuserid,
+  `ecw_factencountermeditechexpansenotes`.codinghistoryoldvalue,
+  `ecw_factencountermeditechexpansenotes`.codinghistorynewvalue,
+  `ecw_factencountermeditechexpansenotes`.codinghistoryinformationonly,
+  `ecw_factencountermeditechexpansenotes`.codinghistoryadditionaldata,
+  `ecw_factencountermeditechexpansenotes`.regionid,
+  `ecw_factencountermeditechexpansenotes`.accountnumber,
+  `ecw_factencountermeditechexpansenotes`.textseqid,
+  `ecw_factencountermeditechexpansenotes`.textid,
+  `ecw_factencountermeditechexpansenotes`.textline,
+  `ecw_factencountermeditechexpansenotes`.texttimestamp,
+  `ecw_factencountermeditechexpansenotes`.sourcesystemcode,
+  `ecw_factencountermeditechexpansenotes`.dwlastupdatedatetime,
+  `ecw_factencountermeditechexpansenotes`.insertedby,
+  `ecw_factencountermeditechexpansenotes`.inserteddtm,
+  `ecw_factencountermeditechexpansenotes`.modifiedby,
+  `ecw_factencountermeditechexpansenotes`.modifieddtm
+  FROM
+    edwpsc_base_views.`ecw_factencountermeditechexpansenotes`
+;

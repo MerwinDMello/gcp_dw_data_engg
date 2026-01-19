@@ -17,14 +17,16 @@ pass_word = "G4rfdV!#hu88TceR9"
 src_db_type = 'sqlserver'
 port = '1433'
 
-jdbc_lib_path = r"C:\Users\KHU9683\OneDrive - HCA Healthcare\Merwin\Utilities\JarFiles" + "\\"
+jdbc_lib_path = 'C:\\Merwin\\Utilities\\JarFiles\\'
+jre_path = r'C:\Program Files\Java\jre1.8.0_461\bin'
 print("=== Lib Path {} ===".format(str(jdbc_lib_path)))
 
 def get_jdbc_details(host_name, port, db_instance=''):
     if src_db_type == 'sqlserver':
         jdbc_url = f"jdbc:sqlserver://{host_name}:{port};encrypt=false;trustServerCertificate=true"
         jdbc_class_name = 'com.microsoft.sqlserver.jdbc.SQLServerDriver'
-        jdbc_jar = 'mssql-jdbc-12.4.0.jre8.jar'
+        # jdbc_jar = 'mssql-jdbc-12.4.0.jre8.jar'
+        jdbc_jar = 'mssql-jdbc-13.2.0.jre11.jar'        
     elif src_db_type == 'cache':
         jdbc_url = f"jdbc:Cache://{host_name}:{port}/{db_instance}"
         jdbc_class_name = 'com.intersys.jdbc.CacheDriver'
@@ -68,14 +70,19 @@ def get_missing_columns():
         try:
             server_name = str(row['Server']).strip().lower()
             if server_name != prev_server_name:
-                jdbc_url, jdbc_class_name, jdbc_jar = get_jdbc_details(server_name, port)
-                jdbc_jar_path = os.path.join(jdbc_lib_path, jdbc_jar)
-                print("=== JDBC URL {} ===".format(str(jdbc_url)))
-                print("=== Class {} ===".format(str(jdbc_class_name)))
-                print("=== JAR {} ===".format(str(jdbc_jar)))
-                print("=== JAR Path {} ===".format(str(jdbc_jar_path)))
-                conn = jaydebeapi.connect(jdbc_class_name, jdbc_url, {'user': user_name, 'password': pass_word}, jdbc_jar_path, jdbc_lib_path)
-                prev_server_name = server_name
+                try:
+                    jdbc_url, jdbc_class_name, jdbc_jar = get_jdbc_details(server_name, port)
+                    # jdbc_jar_path = os.path.join(jdbc_lib_path, jdbc_jar)
+                    print("=== JDBC URL {} ===".format(str(jdbc_url)))
+                    print("=== Class {} ===".format(str(jdbc_class_name)))
+                    print("=== JAR {} ===".format(str(jdbc_jar)))
+                    # print("=== JAR Path {} ===".format(str(jdbc_jar_path)))
+                    print("=== JRE Path {} ===".format(str(jre_path)))
+                    conn = jaydebeapi.connect(jdbc_class_name, jdbc_url, {'user': user_name, 'password': pass_word}, jdbc_lib_path + jdbc_jar, jre_path)
+                    prev_server_name = server_name
+                except jaydebeapi.Error as e:
+                    print(f"Connection failed: {e}")
+
             database_name = str(row['DatabaseName']).strip().lower()
             schema_name = str(row['Schema']).strip().lower()
             table_name = str(row['TableName']).strip().lower()
@@ -94,21 +101,21 @@ def get_missing_columns():
                 "ORDER BY vw_col.ordinal_position ASC, tb_col.ordinal_position ASC "\
                 ";".format(database_name, view_name, schema_name, table_name)
             print(query)
-            tbl_df = pd.read_sql(query, conn)
-            if tbl_df.empty:
-                table_present = False
-            else:
-                table_present = True
+            # tbl_df = pd.read_sql(query, conn)
+            # if tbl_df.empty:
+            #     table_present = False
+            # else:
+            #     table_present = True
 
-            for index, row in tbl_df.iterrows():
-                table_info.append((',').join([database_name, schema_name, table_name, view_name, table_present, 
-                                              row['tb_column_name'].strip(), row['tb_data_type'].strip(), 
-                                              row['vw_column_name'].strip(), row['vw_data_type'].strip()]))
-
+            # for index, row in tbl_df.iterrows():
+            #     table_info.append((',').join([database_name, schema_name, table_name, view_name, table_present, 
+            #                                   row['tb_column_name'].strip(), row['tb_data_type'].strip(), 
+            #                                   row['vw_column_name'].strip(), row['vw_data_type'].strip()]))
+        
         except Exception as e1:
             print(e1)
             print("Database : {}, Table : {}".format(database_name,table_name))
-            pass
+            # pass
 
     write_file_local(output_path, json.dumps(table_info))
 

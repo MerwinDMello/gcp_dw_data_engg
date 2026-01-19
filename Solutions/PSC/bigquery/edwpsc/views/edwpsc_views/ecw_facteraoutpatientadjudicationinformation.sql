@@ -1,0 +1,32 @@
+CREATE OR REPLACE VIEW edwpsc_views.`ecw_facteraoutpatientadjudicationinformation`
+AS SELECT
+  `ecw_facteraoutpatientadjudicationinformation`.eraoutpatientadjustmentinformationkey,
+  `ecw_facteraoutpatientadjudicationinformation`.claimkey,
+  `ecw_facteraoutpatientadjudicationinformation`.claimnumber,
+  `ecw_facteraoutpatientadjudicationinformation`.moa01,
+  `ecw_facteraoutpatientadjudicationinformation`.moa02,
+  `ecw_facteraoutpatientadjudicationinformation`.moa03,
+  `ecw_facteraoutpatientadjudicationinformation`.moa04,
+  `ecw_facteraoutpatientadjudicationinformation`.moa05,
+  `ecw_facteraoutpatientadjudicationinformation`.moa06,
+  `ecw_facteraoutpatientadjudicationinformation`.moa07,
+  `ecw_facteraoutpatientadjudicationinformation`.moa08,
+  `ecw_facteraoutpatientadjudicationinformation`.moa09,
+  `ecw_facteraoutpatientadjudicationinformation`.segment,
+  `ecw_facteraoutpatientadjudicationinformation`.sourcefilename,
+  `ecw_facteraoutpatientadjudicationinformation`.sourcefilecreateddate,
+  `ecw_facteraoutpatientadjudicationinformation`.seq,
+  `ecw_facteraoutpatientadjudicationinformation`.datecreated,
+  `ecw_facteraoutpatientadjudicationinformation`.sourceprimarykeyvalue,
+  `ecw_facteraoutpatientadjudicationinformation`.dwlastupdatedatetime,
+  `ecw_facteraoutpatientadjudicationinformation`.sourcesystemcode,
+  `ecw_facteraoutpatientadjudicationinformation`.insertedby,
+  `ecw_facteraoutpatientadjudicationinformation`.inserteddtm,
+  `ecw_facteraoutpatientadjudicationinformation`.modifiedby,
+  `ecw_facteraoutpatientadjudicationinformation`.modifieddtm,
+  `ecw_facteraoutpatientadjudicationinformation`.deletedflag,
+  `ecw_facteraoutpatientadjudicationinformation`.fullclaimnumber,
+  `ecw_facteraoutpatientadjudicationinformation`.regionkey
+  FROM
+    edwpsc_base_views.`ecw_facteraoutpatientadjudicationinformation`
+;

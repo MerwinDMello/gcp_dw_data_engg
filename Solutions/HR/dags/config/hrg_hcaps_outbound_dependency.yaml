@@ -1,0 +1,216 @@
+outbound:
+- source_system: hcaps
+  frequency: weekly
+  schedule: ["0 2 * * 4"]
+  type: files
+  dependency:
+  - source:
+      type: table
+      name: respondent_detail_rej
+      sql: respondent_detail_rej.sql
+      sensor: 'Yes'
+    target:
+      type: file
+      name: Reject_HCAPS_Respondent_Detail_Core
+      extension: csv
+      delimiter: ","
+      quote_char: ""
+      encoding_scheme: utf-8
+    sensor:
+    - dag_id: dag_ingest_hcaps_files_weekly_02.00
+      task_id: end_dag
+      schedule: ["0 2 * * 4"]
+  - source:
+      type: table
+      name: fixed_resp_pat_dtl_core_rej
+      sql: fixed_resp_pat_dtl_core_rej.sql
+      sensor: 'Yes'
+    target:
+      type: file
+      name: Reject_HCAPS_Fixed_Respondent_Detail_Core
+      extension: csv
+      delimiter: ","
+      quote_char: ""
+      encoding_scheme: utf-8
+    sensor:
+    - dag_id: dag_ingest_hcaps_files_weekly_02.00
+      task_id: end_dag
+      schedule: ["0 2 * * 4"]
+  - source:
+      type: table
+      name: rspndnt_pat_dtl_rej
+      sql: rspndnt_pat_dtl_rej.sql
+      sensor: 'Yes'
+    target:
+      type: file
+      name: Reject_HCAPS_Respondent_Patient_Detail
+      extension: csv
+      delimiter: ","
+      quote_char: ""
+      encoding_scheme: utf-8
+    sensor:
+    - dag_id: dag_ingest_hcaps_files_weekly_02.00
+      task_id: end_dag
+      schedule: ["0 2 * * 4"]
+  - source:
+      type: table
+      name: survey_response_core_rej
+      sql: survey_response_core_rej.sql
+      sensor: 'Yes'
+    target:
+      type: file
+      name: Reject_HCAPS_Survey_Resp_Core
+      extension: csv
+      delimiter: ","
+      quote_char: ""
+      encoding_scheme: utf-8
+    sensor:
+    - dag_id: dag_ingest_hcaps_files_weekly_02.00
+      task_id: end_dag
+      schedule: ["0 2 * * 4"]
+- source_system: hcaps
+  frequency: quarterly
+  schedule: ["0 2 6 3 *","0 2 4 6 *","0 2 3 9 *","0 2 4 12 *"]
+  type: files
+  dependency:
+  - source:
+      type: table
+      name: respondent_detail_rej
+      sql: respondent_detail_rej.sql
+      sensor: 'Yes'
+    target:
+      type: file
+      name: Reject_HCAPS_Respondent_Detail_Core
+      extension: csv
+      delimiter: ","
+      quote_char: ""
+      encoding_scheme: utf-8
+    sensor:
+    - dag_id: dag_ingest_hcaps_files_quarterly_02.00
+      task_id: end_dag
+      schedule: ["0 2 6 3 *","0 2 4 6 *","0 2 3 9 *","0 2 4 12 *"]
+  - source:
+      type: table
+      name: fixed_resp_pat_dtl_core_rej
+      sql: fixed_resp_pat_dtl_core_rej.sql
+      sensor: 'Yes'
+    target:
+      type: file
+      name: Reject_HCAPS_Fixed_Respondent_Detail_Core
+      extension: csv
+      delimiter: ","
+      quote_char: ""
+      encoding_scheme: utf-8
+    sensor:
+    - dag_id: dag_ingest_hcaps_files_quarterly_02.00
+      task_id: end_dag
+      schedule: ["0 2 6 3 *","0 2 4 6 *","0 2 3 9 *","0 2 4 12 *"]
+  - source:
+      type: table
+      name: rspndnt_pat_dtl_rej
+      sql: rspndnt_pat_dtl_rej.sql
+      sensor: 'Yes'
+    target:
+      type: file
+      name: Reject_HCAPS_Respondent_Patient_Detail
+      extension: csv
+      delimiter: ","
+      quote_char: ""
+      encoding_scheme: utf-8
+    sensor:
+    - dag_id: dag_ingest_hcaps_files_quarterly_02.00
+      task_id: end_dag
+      schedule: ["0 2 6 3 *","0 2 4 6 *","0 2 3 9 *","0 2 4 12 *"]
+  - source:
+      type: table
+      name: survey_response_core_rej
+      sql: survey_response_core_rej.sql
+      sensor: 'Yes'
+    target:
+      type: file
+      name: Reject_HCAPS_Survey_Resp_Core
+      extension: csv
+      delimiter: ","
+      quote_char: ""
+      encoding_scheme: utf-8
+    sensor:
+    - dag_id: dag_ingest_hcaps_files_quarterly_02.00
+      task_id: end_dag
+      schedule: ["0 2 6 3 *"]       
+- source_system: hcaps
+  frequency: quarterly
+  schedule: ["30 1 16 2-12/3 *"]
+  type: files
+  dependency:
+  - source:
+      type: table
+      name: respondent_detail_rej
+      sql: respondent_detail_rej.sql
+      sensor: 'Yes'
+    target:
+      type: file
+      name: Reject_HCAPS_Respondent_Detail_Core
+      extension: csv
+      delimiter: ","
+      quote_char: ""
+      encoding_scheme: utf-8
+    sensor:
+    - dag_id: dag_ingest_hcaps_files_quarterly_01.30
+      task_id: end_dag
+      schedule: ["30 1 16 2-12/3 *"]
+  - source:
+      type: table
+      name: fixed_resp_pat_dtl_core_rej
+      sql: fixed_resp_pat_dtl_core_rej.sql
+      sensor: 'Yes'
+    target:
+      type: file
+      name: Reject_HCAPS_Fixed_Respondent_Detail_Core
+      extension: csv
+      delimiter: ","
+      quote_char: ""
+      encoding_scheme: utf-8
+    sensor:
+    - dag_id: dag_ingest_hcaps_files_quarterly_01.30
+      task_id: end_dag
+      schedule: ["30 1 16 2-12/3 *"]
+  - source:
+      type: table
+      name: rspndnt_pat_dtl_rej
+      sql: rspndnt_pat_dtl_rej.sql
+      sensor: 'Yes'
+    target:
+      type: file
+      name: Reject_HCAPS_Respondent_Patient_Detail
+      extension: csv
+      delimiter: ","
+      quote_char: ""
+      encoding_scheme: utf-8
+    sensor:
+    - dag_id: dag_ingest_hcaps_files_quarterly_01.30
+      task_id: end_dag
+      schedule: ["30 1 16 2-12/3 *"]
+  - source:
+      type: table
+      name: survey_response_core_rej
+      sql: survey_response_core_rej.sql
+      sensor: 'Yes'
+    target:
+      type: file
+      name: Reject_HCAPS_Survey_Resp_Core
+      extension: csv
+      delimiter: ","
+      quote_char: ""
+      encoding_scheme: utf-8
+    sensor:
+    - dag_id: dag_ingest_hcaps_files_quarterly_01.30
+      task_id: end_dag
+      schedule: ["30 1 16 2-12/3 *"]
+      
+      
+      
+
+
+
+      
+      

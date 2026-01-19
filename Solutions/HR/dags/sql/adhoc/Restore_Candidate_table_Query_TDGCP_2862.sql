@@ -1,0 +1,7 @@
+-- Restore query for edwhr_staging.candidate_profile_wrk
+
+insert into edwhr_staging.candidate_profile_wrk(candidate_profile_sid, valid_from_date, candidate_sid, profile_medium_id, candidate_profile_num, submission_date, completion_date, creation_date, recruitment_source_id, recruitment_source_auto_filled_sw, job_application_num, requisition_num, candidate_num, valid_to_date, source_system_code, dw_last_update_date_time) select candidate_profile_sid, valid_from_date, candidate_sid, profile_medium_id, candidate_profile_num, submission_date, completion_date, creation_date, recruitment_source_id, recruitment_source_auto_filled_sw, job_application_num, requisition_num, candidate_num, valid_to_date, source_system_code, dw_last_update_date_time from prod_support.candidate_profile_wrk_bkp_prod;
+
+-- Restore query for edwhr.candidate_profile
+
+insert into edwhr.candidate_profile(candidate_profile_sid, valid_from_date, candidate_sid, profile_medium_id, candidate_profile_num, submission_date, completion_date, creation_date, recruitment_source_id, recruitment_source_auto_filled_sw, job_application_num, requisition_num, candidate_num, valid_to_date, source_system_code, dw_last_update_date_time) select candidate_profile_sid, valid_from_date, candidate_sid, profile_medium_id, candidate_profile_num, submission_date, completion_date, creation_date, recruitment_source_id, recruitment_source_auto_filled_sw, job_application_num, requisition_num, candidate_num, valid_to_date, source_system_code, dw_last_update_date_time from prod_support.candidate_profile_bkp_prod;

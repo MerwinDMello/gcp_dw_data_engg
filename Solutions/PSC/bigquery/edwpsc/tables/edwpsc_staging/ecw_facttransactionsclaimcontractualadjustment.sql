@@ -1,0 +1,30 @@
+CREATE TABLE IF NOT EXISTS edwpsc_staging.ecw_facttransactionsclaimcontractualadjustment
+(
+  transactionsclaimcontractualadjustmentkey INT64 NOT NULL,
+  claimkey INT64 NOT NULL,
+  claimnumber INT64 NOT NULL,
+  regionkey INT64 NOT NULL,
+  coid STRING NOT NULL,
+  coidconfigurationkey INT64 NOT NULL,
+  servicingproviderkey INT64 NOT NULL,
+  claimpayer1iplankey INT64 NOT NULL,
+  facilitykey INT64 NOT NULL,
+  claimpaymentkey INT64 NOT NULL,
+  transactiontype STRING NOT NULL,
+  transactionflag STRING NOT NULL,
+  transactionamt NUMERIC(33, 4) NOT NULL,
+  transactiondatekey DATE NOT NULL,
+  transactiontime TIME NOT NULL,
+  transactionbyuserkey INT64 NOT NULL,
+  sourceaprimarykeyvalue INT64 NOT NULL,
+  sourcearecordlastupdated DATETIME NOT NULL,
+  dwlastupdatedatetime DATETIME NOT NULL,
+  sourcesystemcode STRING,
+  insertedby STRING,
+  inserteddtm DATETIME,
+  modifiedby STRING,
+  modifieddtm DATETIME,
+  trrefid INT64,
+  archivedrecord STRING NOT NULL
+)
+;

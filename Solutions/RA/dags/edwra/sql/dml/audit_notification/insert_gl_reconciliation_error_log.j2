@@ -1,0 +1,17 @@
+INSERT INTO {{ params.param_parallon_ra_stage_dataset_name }}.gl_reconciliation_error_log(
+  file_name,
+  file_path,
+  ssc_name,
+  description,
+  load_date,
+  coid
+) 
+VALUES 
+  (
+    '{{ file_name }}', 
+    '{{ file_path }}', 
+    '{{ operational_group }}', 
+    '{{ description }}',
+    datetime_trunc(current_datetime('US/Central'), SECOND), 
+    '{{ co_id }}'
+  );

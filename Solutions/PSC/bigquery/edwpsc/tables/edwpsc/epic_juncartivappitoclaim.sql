@@ -1,0 +1,30 @@
+CREATE TABLE IF NOT EXISTS edwpsc.epic_juncartivappitoclaim
+(
+  artivappitoclaimkey INT64 NOT NULL,
+  claimkey INT64,
+  claimnumber INT64,
+  regionkey INT64,
+  coid STRING,
+  practicefederaltaxid STRING,
+  cpid STRING,
+  providerid STRING,
+  providernpi STRING,
+  facilityid STRING,
+  payerfinancialclass STRING,
+  ppikey STRING,
+  ppieffectivedate DATE,
+  holdruleid INT64,
+  dwlastupdatedatetime DATETIME,
+  sourcesystemcode STRING,
+  insertedby STRING,
+  inserteddtm DATETIME,
+  modifiedby STRING,
+  modifieddtm DATETIME,
+  payer1cpid STRING,
+  payer1ppikey STRING,
+  payer1ppieffectivedate DATE,
+  payer1ppialternateeffectivedate DATE,
+  payer1financialclass STRING,
+  PRIMARY KEY (artivappitoclaimkey) NOT ENFORCED
+)
+;

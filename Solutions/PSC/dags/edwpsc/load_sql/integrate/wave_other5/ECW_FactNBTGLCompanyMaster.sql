@@ -1,0 +1,8 @@
+
+TRUNCATE TABLE {{ params.param_psc_core_dataset_name }}.ECW_FactNBTGLCompanyMaster ;
+
+INSERT INTO {{ params.param_psc_core_dataset_name }}.ECW_FactNBTGLCompanyMaster (NBTGLCompanyMasterKey, GLPeriod, CoID, CoIDName, ConsInd, DivisionNo, DivisionName, GroupNo, GroupName, HBPAffiliationTypeDescription, HBPAffiliationTypeID, HospitalNo, HospitalName, JVFlag, LOB, MarketNo, MarketName, SubLOB, CoIDStartDate, HBPProgramStartDate, ARSystem, CoIDStatusId, CoIDStatus, CoIDStatusDetailId, CoIDStatusDetail, DWLastUpdateDateTime, SourceSystemCode, InsertedBy, InsertedDTM, ModifiedBy, ModifiedDTM)
+SELECT source.NBTGLCompanyMasterKey, TRIM(source.GLPeriod), source.CoID, TRIM(source.CoIDName), source.ConsInd, source.DivisionNo, TRIM(source.DivisionName), source.GroupNo, TRIM(source.GroupName), TRIM(source.HBPAffiliationTypeDescription), source.HBPAffiliationTypeID, source.HospitalNo, TRIM(source.HospitalName), source.JVFlag, TRIM(source.LOB), source.MarketNo, TRIM(source.MarketName), TRIM(source.SubLOB), source.CoIDStartDate, source.HBPProgramStartDate, TRIM(source.ARSystem), source.CoIDStatusId, TRIM(source.CoIDStatus), source.CoIDStatusDetailId, TRIM(source.CoIDStatusDetail), source.DWLastUpdateDateTime, TRIM(source.SourceSystemCode), TRIM(source.InsertedBy), source.InsertedDTM, TRIM(source.ModifiedBy), source.ModifiedDTM
+FROM {{ params.param_psc_stage_dataset_name }}.ECW_FactNBTGLCompanyMaster as source;
+
+  

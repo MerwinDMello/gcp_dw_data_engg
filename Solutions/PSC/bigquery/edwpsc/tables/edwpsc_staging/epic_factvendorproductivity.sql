@@ -1,0 +1,32 @@
+CREATE TABLE IF NOT EXISTS edwpsc_staging.epic_factvendorproductivity
+(
+  productivitytype STRING,
+  workqueuecid INT64,
+  workqueueid INT64,
+  workqueuename STRING,
+  recordcid NUMERIC(29),
+  recordinternalid INT64,
+  activity INT64,
+  activityname STRING,
+  epicuserid STRING,
+  user34 STRING,
+  username STRING,
+  activitydate DATE,
+  activitytime TIME,
+  invoicenumber STRING,
+  epicaccountid INT64,
+  guarantorid INT64,
+  guarantorname STRING,
+  billcid INT64,
+  billareaid INT64,
+  servicedate DATE,
+  regionkey INT64,
+  dwlastupdatedatetime DATETIME NOT NULL,
+  sourcesystemcode STRING NOT NULL,
+  insertedby STRING,
+  inserteddtm DATETIME,
+  modifiedby STRING,
+  modifieddtm DATETIME,
+  vendorproductivitykey INT64 NOT NULL
+)
+;

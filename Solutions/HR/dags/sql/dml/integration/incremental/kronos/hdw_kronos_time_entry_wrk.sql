@@ -1,0 +1,66 @@
+BEGIN
+
+  TRUNCATE TABLE {{ params.param_hr_stage_dataset_name }}.time_entry_wrk;
+
+  INSERT INTO
+    {{ params.param_hr_stage_dataset_name }}.time_entry_wrk (employee_num,
+      kronos_num,
+      clock_library_code,
+      valid_from_date,
+      valid_to_date,
+      clock_code,
+      clock_in_time,
+      clock_out_time,
+      clocked_hour_num,
+      rounded_clock_in_time,
+      rounded_clock_out_time,
+      rounded_clocked_hour_num,
+      time_approval_date_time,
+      time_approver_34_login_code,
+      scheduled_shift_date_time,
+      pay_period_start_date_time,
+      pay_period_end_date_time,
+      pay_type_code,
+      long_meal_code,
+      other_dept_code,
+      out_of_pay_period_code,
+      short_meal_code,
+      dept_code,
+      lawson_company_num,
+      process_level_code,
+      source_system_code,
+      posted_ind,
+      dw_last_update_date_time)
+  SELECT
+    kronos_combined_edw_punchdetail.employee_num AS employee_num,
+    kronos_combined_edw_punchdetail.kronos_time_id AS kronos_num,
+    kronos_combined_edw_punchdetail.kronos_clock_library AS clock_library_code,
+    TIMESTAMP_TRUNC(current_datetime('US/Central'),SECOND) AS valid_from_date,
+    DATETIME("9999-12-31 23:59:59") AS valid_to_date,
+    kronos_combined_edw_punchdetail.clock_code AS clock_code,
+    kronos_combined_edw_punchdetail.actual_time_id AS clock_in_time,
+    kronos_combined_edw_punchdetail.actual_time_out AS clock_out_time,
+    kronos_combined_edw_punchdetail.actual_elapsed_time_hours AS clocked_hour_num,
+    kronos_combined_edw_punchdetail.rounded_time_in AS rounded_clock_in_time,
+    kronos_combined_edw_punchdetail.rounded_time_out AS rounded_clock_out_time,
+    kronos_combined_edw_punchdetail.rounded_elapsed_time_hours AS rounded_clocked_hour_num,
+    kronos_combined_edw_punchdetail.approval_date AS time_approval_date_time,
+    kronos_combined_edw_punchdetail.approver_3_4 AS time_approver_34_login_code,
+    kronos_combined_edw_punchdetail.shift_start_date AS scheduled_shift_date_time,
+    kronos_combined_edw_punchdetail.ppd_start_date AS pay_period_start_date_time,
+    kronos_combined_edw_punchdetail.ppd_end_date AS pay_period_end_date_time,
+    kronos_combined_edw_punchdetail.pay_type AS pay_type_code,
+    SUBSTR(CONCAT(TRIM(kronos_combined_edw_punchdetail.long_meal), ' '), 1, 1) AS long_meal_code,
+    SUBSTR(CONCAT(TRIM(kronos_combined_edw_punchdetail.other_dept), ' '), 1, 1) AS other_dept_code,
+    SUBSTR(CONCAT(TRIM(kronos_combined_edw_punchdetail.out_of_ppd), ' '), 1, 1) AS out_of_pay_period_code,
+    SUBSTR(CONCAT(TRIM(kronos_combined_edw_punchdetail.short_meal), ' '), 1, 1) AS short_meal_code,
+    kronos_combined_edw_punchdetail.department AS dept_code,
+    kronos_combined_edw_punchdetail.hr_company AS lawson_company_num,
+    LPAD(TRIM(kronos_combined_edw_punchdetail.process_level), 5, '0') AS process_level_code,
+    kronos_combined_edw_punchdetail.source_system_code,
+    kronos_combined_edw_punchdetail.posted_ind,
+    TIMESTAMP_TRUNC(current_datetime('US/Central'), SECOND) AS dw_last_update_date_time
+  FROM
+  {{ params.param_hr_stage_dataset_name }}.kronos_combined_edw_punchdetail ;
+
+END;

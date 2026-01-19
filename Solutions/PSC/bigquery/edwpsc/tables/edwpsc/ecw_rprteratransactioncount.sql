@@ -1,0 +1,36 @@
+CREATE TABLE IF NOT EXISTS edwpsc.ecw_rprteratransactioncount
+(
+  snapshotdate DATE,
+  createyear STRING,
+  createmonth STRING,
+  ecwregionid INT64,
+  groupname STRING,
+  divisionname STRING,
+  marketname STRING,
+  lob STRING,
+  coid STRING,
+  coidname STRING,
+  coidstartmonth DATE,
+  coidtermmonth DATE,
+  practicefederaltaxid STRING,
+  groupnpi STRING,
+  insurancegroupname STRING,
+  payorname STRING,
+  renderingprovider STRING,
+  renderingproviderstartmonth DATE,
+  renderingprovidertermmonth DATE,
+  claimcount INT64,
+  erapaid NUMERIC(33, 4),
+  manualpaid NUMERIC(33, 4),
+  eracount INT64,
+  manualcount INT64,
+  fifththirdpaid NUMERIC(33, 4),
+  nonfifththirdpaid NUMERIC(33, 4),
+  fifththirdcount INT64,
+  nonfifththirdcount INT64,
+  insertedby STRING,
+  inserteddtm DATETIME,
+  dwlastupdatedatetime DATETIME
+)
+PARTITION BY snapshotdate
+;

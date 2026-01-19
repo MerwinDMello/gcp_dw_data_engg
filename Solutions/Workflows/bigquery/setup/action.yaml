@@ -1,0 +1,131 @@
+name: BigQuery Setup Action
+description: "A composite action to set up BigQuery DDLs by fetching relevant files and preparing artifacts"
+
+inputs:
+  repo_type:
+    description: "The type of repository (DDL, ETL, HIN2.0)"
+    required: true
+  branch:
+    description: "The relevant branch name"
+    required: true
+  domain:
+    description: "The relevant domain"
+    required: true
+  token: 
+    description: "The access token"
+    required: true
+  dispatch:
+    description: "This is set to true when the workflow is triggered via workflow dispatch and causes all scripts to be re-deployed"
+    default: "false"
+
+runs:
+  using: "composite"
+  steps:
+    # Get all the files in the bigquery folder if dispatch variable is set to true (workflow manually triggered)
+    # This will cause all sql script to be re-deployed to BigQuery in the associated environment
+    - name: Get ALL Files
+      if: ${{ inputs.dispatch == 'true' }}
+      id: all_files
+      shell: bash
+      run: |
+        echo "workflow dispatch triggered ${{ inputs.dispatch }}"
+        # create artifacts directory
+        mkdir artifacts
+        #rsync -a --exclude='*/adhoc/*' --exclude='*/hotfix/*' **/bigquery/ artifacts/
+        find . -type d -name 'bigquery' -exec rsync -a --exclude='*/adhoc/*' --exclude='*/hotfix/*' {}/ artifacts/ \;
+
+    # If the workflow was automatically triggered via PR merge, get only changed files in the bigquery folder   
+    - name: Find Changed Files
+      if: ${{ inputs.dispatch != 'true' }}
+      id: changed-files
+      uses: tj-actions/changed-files@v46.0.1
+      with:
+        files: '**/bigquery/**/**'
+
+    - name: Create Artifacts Directory
+      if: ${{ inputs.dispatch != 'true' }}
+      shell: bash
+      run: |
+        mkdir artifacts
+    
+    - name: Get Changed Files
+      if: ${{ inputs.dispatch != 'true' }}
+      id: changed_file_list
+      shell: bash
+      run: |  
+        set -e #Exit on error
+        
+        files="${{steps.changed-files.outputs.all_changed_files}}"
+        
+        if [ -z $files ]; then
+          echo "No changed files detected in folders."
+          exit 0
+        fi
+
+        echo "Changed files detected:"
+        for file in $files; do
+          if [ -f "$file" ]; then
+
+            echo "Processing file: $file"
+
+            # Extract the bigquery directory path
+            target_dir="artifacts/$(dirname "$file")"
+
+            echo "Creating target directory: $target_dir"
+            mkdir -p "$target_dir"
+
+            # Copy the changed file to the artifacts directory, preserving structure
+            cp "$file" "artifacts/$file"
+          else
+            echo "Warning: File not found: $file"
+          fi
+        done
+
+
+    # Get the relevant environment config file, set up to align with ETL repo config structure
+    - name: Get the Environment Config File - ETL repos
+      if: ${{ inputs.repo_type == 'ETL' }}
+      shell: bash
+      run: |
+        echo "Creating JSON file from YAML config..."      
+        yq eval -o=json environments/${{ inputs.branch }}_${{ inputs.domain }}_config.yaml > environments/${{ inputs.domain }}_config.json
+        echo "Copying JSON file to artifacts/bigquery..."
+        cp environments/${{ inputs.domain }}_config.json artifacts
+
+    # Get the relevant environment config file, set up to align with DDL & HIN2.0 repo config structure
+    - name: Get the Environment Config File
+      if: ${{ inputs.repo_type != 'ETL' }}
+      shell: bash
+      run: |
+        echo "Creating JSON file from YAML config..."
+        yq eval -o=json ".${{ inputs.branch }} | {\"env\": .}" environments/${{ inputs.domain }}_config.yaml > environments/${{ inputs.domain }}_config.json
+        echo "Copying JSON file to artifacts/bigquery..."
+        cp environments/${{ inputs.domain }}_config.json artifacts
+
+    # Upload artifacts from the bigquery folder
+    - name: Upload BigQuery Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: bigquery_artifacts
+        path: artifacts
+        retention-days: 1
+
+    # Checkout the parent repository to provide access to the deployment script
+    - name: Checkout Parent Repo
+      uses: actions/checkout@v4
+      with:
+        repository: 'HCACloudDataEngineering/gcp-hin-workflows'
+        token: ${{ inputs.token }}
+    
+    - name: ls Scripts Folder
+      shell: bash
+      run: |
+        ls bigquery/scripts
+    
+    # Upload the deployment script
+    - name: Upload GitHub Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: script_artifacts
+        path: bigquery/scripts
+        retention-days: 1

@@ -1,0 +1,33 @@
+#source system specific configuration values
+schedule:
+  - schedule_interval: None  #CTDN0608 Step 30
+    start_date: pendulum.datetime(2025, 4, 30, tz=timezone)
+    frequency: daily
+    done_file: None
+    has_sensor: "No"
+    source_name: pa
+    database_type: db2
+    dag_name_suffix: pagltxn_group_counts
+    notifications:
+      - notification_type: pagl_daily_update
+        subject: PAGL Data Load Completed
+        html_template_file_name: pagl_template.j2
+        sql_script_file_name: select_gl_trans.j2
+    trigger_dag_ids: []
+  - schedule_interval: None
+    start_date: pendulum.datetime(2025, 5, 15, tz=timezone)
+    frequency: monthly
+    done_file: None
+    has_sensor: "No"
+    source_name: govreports
+    database_type: file
+    dag_name_suffix: load_discrepancies
+    notifications:
+      - notification_type: govt_reports_monthly_load
+        subject: Government LOG Reports - Data Load Updates
+        html_template_file_name: govt_reports_template.j2
+        process_groups: ['American','Atlantic','National']
+        file_extension: xlsx
+        file_patterns: ['PROCESSING_GROUP_Load_Discrepancies.FILE_EXTENSION']
+        directory_hierarchy: SRC_FOLDER|SRC_SYSTEM|PROCESSING_GROUP|FILE_EXTENSION|
+    trigger_dag_ids: []

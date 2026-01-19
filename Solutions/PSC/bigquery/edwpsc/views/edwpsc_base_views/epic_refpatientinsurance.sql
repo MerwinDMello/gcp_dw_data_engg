@@ -1,0 +1,32 @@
+CREATE OR REPLACE VIEW edwpsc_base_views.`epic_refpatientinsurance`
+AS SELECT
+  `epic_refpatientinsurance`.patientinsurancekey,
+  `epic_refpatientinsurance`.patientkey,
+  `epic_refpatientinsurance`.iplankey,
+  `epic_refpatientinsurance`.patientinsuranceorder,
+  `epic_refpatientinsurance`.patientinsurancestartdate,
+  `epic_refpatientinsurance`.patientinsuranceenddate,
+  `epic_refpatientinsurance`.patientinsurancegroupno,
+  `epic_refpatientinsurance`.patientinsurancegroupname,
+  `epic_refpatientinsurance`.patientinsurancesubscriberno,
+  `epic_refpatientinsurance`.patientinsurancecopay,
+  `epic_refpatientinsurance`.patientinsurancedeleteflag,
+  `epic_refpatientinsurance`.patientinsuranceguaranterpatientkey,
+  `epic_refpatientinsurance`.patientinsuranceguaranterrel,
+  `epic_refpatientinsurance`.patientinsuranceisguaranterpatient,
+  `epic_refpatientinsurance`.patientinsurancesequenceno,
+  `epic_refpatientinsurance`.patientinsuranceenceligibilitystatus,
+  `epic_refpatientinsurance`.patientinsuranceeligibilitymessage,
+  `epic_refpatientinsurance`.deleteflag,
+  `epic_refpatientinsurance`.regionkey,
+  `epic_refpatientinsurance`.sourceprimarykey,
+  `epic_refpatientinsurance`.sourcerecordlastupdated,
+  `epic_refpatientinsurance`.dwlastupdatedatetime,
+  `epic_refpatientinsurance`.sourcesystemcode,
+  `epic_refpatientinsurance`.insertedby,
+  `epic_refpatientinsurance`.inserteddtm,
+  `epic_refpatientinsurance`.modifiedby,
+  `epic_refpatientinsurance`.modifieddtm
+  FROM
+    edwpsc.`epic_refpatientinsurance`
+;

@@ -1,0 +1,34 @@
+CREATE OR REPLACE VIEW edwpsc_base_views.`artiva_stgpspegrplocation`
+AS SELECT
+  `artiva_stgpspegrplocation`.pspegrplocactive,
+  `artiva_stgpspegrplocation`.pspegrplocaddrtyp,
+  `artiva_stgpspegrplocation`.pspegrplocaltname,
+  `artiva_stgpspegrplocation`.pspegrploccliaexpdte,
+  `artiva_stgpspegrplocation`.pspegrploccliafrdte,
+  `artiva_stgpspegrplocation`.pspegrplocclianum,
+  `artiva_stgpspegrplocation`.pspegrploccliatyp,
+  `artiva_stgpspegrplocation`.pspegrplocecwfacid,
+  `artiva_stgpspegrplocation`.pspegrplocfclose,
+  `artiva_stgpspegrplocation`.pspegrplocfopen,
+  `artiva_stgpspegrplocation`.pspegrplocgafid,
+  `artiva_stgpspegrplocation`.pspegrplockey,
+  `artiva_stgpspegrplocation`.pspegrploclocid,
+  `artiva_stgpspegrplocation`.pspegrplocmclose,
+  `artiva_stgpspegrplocation`.pspegrplocmopen,
+  `artiva_stgpspegrplocation`.pspegrplocsatclose,
+  `artiva_stgpspegrplocation`.pspegrplocsatopen,
+  `artiva_stgpspegrplocation`.pspegrplocsrvfac,
+  `artiva_stgpspegrplocation`.pspegrplocsunclose,
+  `artiva_stgpspegrplocation`.pspegrplocsunopen,
+  `artiva_stgpspegrplocation`.pspegrploctclose,
+  `artiva_stgpspegrplocation`.pspegrplocthclose,
+  `artiva_stgpspegrplocation`.pspegrplocthopen,
+  `artiva_stgpspegrplocation`.pspegrploctopen,
+  `artiva_stgpspegrplocation`.pspegrplocwclose,
+  `artiva_stgpspegrplocation`.pspegrplocwopen,
+  `artiva_stgpspegrplocation`.pspegrplocextcoid,
+  `artiva_stgpspegrplocation`.pspegrplocloaddte,
+  `artiva_stgpspegrplocation`.pspegrplocnpi
+  FROM
+    edwpsc.`artiva_stgpspegrplocation`
+;

@@ -1,0 +1,56 @@
+v_sourcesysnm: ra
+v_databasetype: oracle
+v_user: RPT_EXTRACT
+hostname: xrps5-scan1.unix.medcity.net:1551
+servicename_d5: ccmnasd5_etl
+servicename_d6: ccmnasd6_etl
+servicename_p1: ccmnasp1_gcp
+servicename_p2: ccmnasp2_gcp
+v_pwd_secret_name_p1: oracle_concuity_ha_pwd_p1/versions/latest
+v_pwd_secret_name_p2: oracle_concuity_ha_pwd_p2/versions/latest
+v_jdbc_class_name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+v_jdbc_jar: mssql-jdbc-12.4.0.jre8.jar
+v_jdkfile: jre-8u351-linux-x64.tar.gz
+v_jdkversion: jre1.8.0_351
+v_external_load_template: external_load.py
+v_oracle_to_bq_template: BQ_to_Oracle_PythonTemplate.py
+v_machine_type: n2-standard-2
+
+
+
+ACCT_PYR_EXT_DATA_STAGE_sql: "select distinct 1 as src_sys_id, iplan_id, iplan_order_num, cast(account_payor_id as bigint) as account_payor_id, org_id, first_doc_request_mr_date,  last_doc_request_mr_date, first_doc_sent_mr_date,  last_doc_sent_mr_date,	 first_doc_request_ib_date,  last_doc_request_ib_date,  first_doc_sent_ib_date,  last_doc_sent_ib_date,  first_doc_request_date,  last_doc_request_date, first_doc_sent_date,  last_doc_sent_date, first_doc_received_date,  last_doc_received_date, first_doc_approved_date,  last_doc_approved_date, first_doc_denied_date,  last_doc_denied_date, payer_type_code, sub_payor_group_id, treatment_authorization_num, credit_status, refund_create_date, refund_requested_by, split_bill_ind, cast(last_scrted_appl_date_time as Date) as last_scrted_appl_date_time, scripted_overpayment_desc, cast(last_letter_sent_date_time as Date) as last_letter_sent_date_time, takeback_follow_up_ltr_ind, cast(payer_refund_last_update_date_time as DATE) as pyr_ref_last_update_date_time, tmr_ma_ereq_auto_nonbillable_review_ind as tmr_ma_ereq_auto_nonbil_ind, artiva_claim_num,recoup_date,recoup_flag, CURRENT_DATE as CREATION_DT, 'RPT_EXTRACT' as CREATION_USER from edwra_staging.cc_external_data_full_load where upper(concuity_schema) ='{schema}' qualify ROW_NUMBER() OVER (PARTITION BY org_id, account_payor_id ORDER BY iplan_order_num ASC) = 1"
+ACCT_EXT_DATA_STAGE_sql: "select distinct 1 as src_sys_id, cast(account_id as bigint) as account_id, org_id, discrepancy_source_desc, reimbursement_impact_desc, cast(discrepancy_date_time as Date) as discrepancy_date_time, cast(request_date_time as Date) as request_date_time, reprocess_reason_text, status_desc, esl_level_1_desc, esl_level_2_desc, esl_level_3_desc, esl_level_4_desc, esl_level_5_desc, chois_product_line_code, chois_product_line_desc, denial_in_midas_status, midas_date_of_denial, all_days_approved_ind, ptp_performed, cm_xf_ind, cm_xg_ind, cm_last_xf_code_applied_date, cm_last_xg_code_applied_date, midas_acct_num, last_appeal_status, last_appeal_employee_id, last_appeal_employee_name, last_conc_review_disp, midas_principal_payer_auth_num, midas_principal_pyr_auth_type, cm_last_iq_revi_crit_met_desc, cm_last_iq_review_version_desc, cm_last_iq_review_subset_desc, status_cause_name, last_appeal_date, drg_medical_surgical_ind, apr_drg_code, apr_drg_grouper_name, apr_severity_of_illness_desc, apr_risk_of_mortality_desc, cond_code_xf_xg_ind , cond_code_nu_ind , cond_code_ne_ind , cond_code_ns_ind , cond_code_np_ind , cond_code_no_ind , pdu_determination_reason_desc, cast(refund_amt as INT64) as refund_amt, refund_create_date, refund_requested_by, covid_positive_flag, cast(ins1_payor_balance_amt as INT64) as ins1_payor_balance_amt, cast(ins2_payor_balance_amt as INT64) as ins2_payor_balance_amt, cast(ins3_payor_balance_amt as INT64) as ins3_payor_balance_amt, cast(first_ptp_completed_date as Date) as first_ptp_completed_date, first_strength_of_case, cast(last_ptp_completed_date as Date) as last_ptp_completed_date, last_strength_of_case, total_ptp_closure_status_completed as total_ptp_closure_stts_compltd, total_midnights, cast(total_inhouse_midnights as INT64) as total_inhouse_midnights, gov_sec_tert_iplan, cast(patient_refund_last_update_date_time as Date) as pat_ref_last_update_date_time, presentation_date,ground_transportation_ind, dna_clinical_rationale_1, dna_clinical_rationale_2, dna_clinical_rationale_3, dna_clinical_rationale_4, dna_clinical_rationale_5, dna_clinical_rationale_6, dna_clinical_rationale_6_notes, dna_ip_only_proc_waterpark_ind, dna_ip_only_proc_user_ind, psr_agree_disagree_flag, cast(first_psr_note_date_time as Date) first_psr_note_date_time, cast(last_psr_note_date_time as Date) as last_psr_note_date_time, CURRENT_DATE as CREATION_DT, 'RPT_EXTRACT' as CREATION_USER from edwra_staging.cc_external_data_full_load where upper(concuity_schema) ='{schema}' qualify ROW_NUMBER() OVER (PARTITION BY org_id, account_id ORDER BY refund_create_date, pat_ref_last_update_date_time DESC) = 1"
+
+schedule:
+ - schedule_interval: None
+   start_date: pendulum.datetime(2024, 3, 19, tz=timezone)
+   frequency: ondemand
+   tbl_name: cc_external_data_full_load
+   query: cc_external_data_day0_load.sql
+   schema: None
+   dependent_dags: [dag_ra_acct_ext_data_stage_p1, dag_ra_acct_ext_data_stage_p2, dag_ra_acct_pyr_ext_data_stage_p1, dag_ra_acct_pyr_ext_data_stage_p2]
+   oracle_load: 'No'
+
+ - schedule_interval: None
+   start_date: pendulum.datetime(2024, 3, 19, tz=timezone)
+   frequency: ondemand
+   tbl_name: ACCT_PYR_EXT_DATA_STAGE
+   schema: ['P1','P2']
+   dependent_dags: [dag_ra_acct_pyr_ext_data_stage]
+   oracle_load: 'No'
+
+ - schedule_interval: None
+   start_date: pendulum.datetime(2024, 3, 19, tz=timezone)
+   frequency: ondemand
+   tbl_name: ACCT_EXT_DATA_STAGE
+   schema: ['P1','P2']
+   dependent_dags: [dag_ra_acct_ext_data_stage]
+   oracle_load: 'No'
+
+ - schedule_interval: None
+   start_date: pendulum.datetime(2024, 3, 19, tz=timezone)
+   frequency: ondemand
+   tbl_name: ['ACCT_EXT_DATA_STAGE', 'ACCT_PYR_EXT_DATA_STAGE']
+   schema: ['P1','P2']
+   dependent_dags: 'None'
+   oracle_load: 'Yes'

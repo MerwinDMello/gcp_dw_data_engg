@@ -1,0 +1,41 @@
+integrate:
+- source_system: landmark
+  frequency: daily
+  start_date: pendulum.datetime(2022, 12, 6, tz=timezone)
+  schedule: [0 2 * * *]
+  type: core_tables
+  dependency:
+  - table: hr_workunit
+    has_sensor: 'Yes'
+    sql:
+    - name: hdw_hr_workunit_wrk.sql
+    - name: hdw_hr_workunit_core.sql
+    sensor:
+    - dag_id: dag_ingest_landmark_db2_daily_21.30
+      task_id: end_dag
+      schedule: [30 21 * * *]
+
+
+  - table: hr_workunit_action_queue
+    has_sensor: 'No'
+    sql:
+    - name: hdw_hr_workunit_action_queue_wrk.sql
+    - name: hdw_hr_workunit_action_queue.sql
+  - table: hr_workunit_variable
+    has_sensor: 'No'
+    sql:
+    - name: hdw_hr_workunit_variable_wrk.sql
+    - name: hdw_hr_workunit_variable_core.sql
+  - table: hr_workunit_activity
+    has_sensor: 'No'
+    sql:
+    - name: hdw_hr_workunit_activity_wrk.sql
+    - name: hdw_hr_workunit_activity_core.sql
+  - table: hr_workunit_metric
+    has_sensor: 'No'
+    sql:    
+    - name: hdw_hr_workunit_metric_wrk.sql
+    - name: hdw_hr_workunit_metric_core.sql
+    
+
+    

@@ -1,0 +1,37 @@
+CREATE OR REPLACE VIEW edwpsc_views.`ecw_refprovidermasterlistmedicaid`
+AS SELECT
+  `ecw_refprovidermasterlistmedicaid`.providermasterlistmedicaidkey,
+  `ecw_refprovidermasterlistmedicaid`.medicaidproviderid,
+  `ecw_refprovidermasterlistmedicaid`.sourcesystem,
+  `ecw_refprovidermasterlistmedicaid`.providername,
+  `ecw_refprovidermasterlistmedicaid`.dbaname,
+  `ecw_refprovidermasterlistmedicaid`.providertypecode,
+  `ecw_refprovidermasterlistmedicaid`.providerspecialtycode,
+  `ecw_refprovidermasterlistmedicaid`.taxonomycode,
+  `ecw_refprovidermasterlistmedicaid`.servicelocationaddress1,
+  `ecw_refprovidermasterlistmedicaid`.servicelocationaddress2,
+  `ecw_refprovidermasterlistmedicaid`.servicelocationaddresscity,
+  `ecw_refprovidermasterlistmedicaid`.servicelocationaddressstate,
+  `ecw_refprovidermasterlistmedicaid`.servicelocationaddresszip,
+  `ecw_refprovidermasterlistmedicaid`.enrollmenttype,
+  `ecw_refprovidermasterlistmedicaid`.npitype,
+  `ecw_refprovidermasterlistmedicaid`.npi,
+  `ecw_refprovidermasterlistmedicaid`.npieffectivedate,
+  `ecw_refprovidermasterlistmedicaid`.npienddate,
+  `ecw_refprovidermasterlistmedicaid`.npistatus,
+  `ecw_refprovidermasterlistmedicaid`.individualororganizational,
+  `ecw_refprovidermasterlistmedicaid`.license,
+  `ecw_refprovidermasterlistmedicaid`.currentmedicaidenrollmentstatus,
+  `ecw_refprovidermasterlistmedicaid`.medicaidclaimseligibilityeffectivedate,
+  `ecw_refprovidermasterlistmedicaid`.medicaidclaimseligibilityenddate,
+  `ecw_refprovidermasterlistmedicaid`.nextrevalidationdate,
+  `ecw_refprovidermasterlistmedicaid`.dwlastupdatedatetime,
+  `ecw_refprovidermasterlistmedicaid`.insertedby,
+  `ecw_refprovidermasterlistmedicaid`.inserteddtm,
+  `ecw_refprovidermasterlistmedicaid`.modifiedby,
+  `ecw_refprovidermasterlistmedicaid`.modifieddtm,
+  `ecw_refprovidermasterlistmedicaid`.filename,
+  `ecw_refprovidermasterlistmedicaid`.filedate
+  FROM
+    edwpsc_base_views.`ecw_refprovidermasterlistmedicaid`
+;

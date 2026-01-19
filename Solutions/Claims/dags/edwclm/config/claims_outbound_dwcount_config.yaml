@@ -1,0 +1,32 @@
+v_sourcesysnm: claims
+v_databasetype: sqlserver
+v_database: ClaimsConnectDB
+v_port: 1433
+v_secret_name: revapp_claims_remits_sql/versions/latest
+v_jdbc_class_name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+v_jdbc_jar: mssql-jdbc-12.4.0.jre8.jar
+v_jdkfile: jre-8u351-linux-x64.tar.gz
+v_jdkversion: jre1.8.0_351
+v_jdbcbqpytemplate: BigQuery_to_Claims_PythonTemplate.py
+v_machine_type: n1-standard-4
+
+fact_claim_sql: SELECT COUNT(*) as DW_Count ,'v_currtimestamp' as ModifiedDateTime  FROM edwclm.Fact_Claim WHERE DATE(dw_last_update_date_time) = current_date('US/Central')~update~10
+fact_charge_sql: SELECT COUNT(*) as DW_Count ,'v_currtimestamp' as ModifiedDateTime  FROM edwclm.Fact_Charge WHERE DATE(dw_last_update_date_time) = current_date('US/Central')~update~10
+fact_code_sql: SELECT COUNT(*) as DW_Count ,'v_currtimestamp' as ModifiedDateTime  FROM edwclm.Fact_Code WHERE DATE(dw_last_update_date_time) = current_date('US/Central')~update~10
+fact_claim_patient_sql: SELECT COUNT(*) as DW_Count ,'v_currtimestamp' as ModifiedDateTime  FROM edwclm.Fact_Claim_Patient WHERE DATE(dw_last_update_date_time) = current_date('US/Central')~update~10
+fact_claim_physician_sql: SELECT COUNT(*) as DW_Count ,'v_currtimestamp' as ModifiedDateTime  FROM edwclm.Fact_Claim_Physician WHERE DATE(dw_last_update_date_time) = current_date('US/Central')~update~10
+fact_claim_insurance_sql: SELECT COUNT(*) as DW_Count ,'v_currtimestamp' as ModifiedDateTime  FROM edwclm.Fact_Claim_Insurance WHERE DATE(dw_last_update_date_time) = current_date('US/Central')~update~10
+dw_billing_provider_sql: SELECT COUNT(*) as DW_Count ,'v_currtimestamp' as ModifiedDateTime  FROM edwclm.lu_Billing_Provider WHERE DATE(dw_last_update_date_time) = current_date('US/Central')~update~10
+dw_pay_to_provider_sql: SELECT COUNT(*) as DW_Count ,'v_currtimestamp' as ModifiedDateTime  FROM edwclm.lu_Pay_To_Provider WHERE DATE(dw_last_update_date_time) = current_date('US/Central')~update~10
+
+claims:
+  - schedule_interval: None
+    start_date: pendulum.datetime(2024, 9, 1, tz=timezone)
+    frequency: daily
+    dag_name_suffix: core_claims
+    done_file: NONE
+    has_sensor: 'No'
+    sql: [fact_claim_sql,fact_charge_sql,fact_code_sql,fact_claim_patient_sql,fact_claim_physician_sql,fact_claim_insurance_sql,dw_billing_provider_sql,dw_pay_to_provider_sql]
+    srctablename: [Fact_Claim,Fact_Charge,Fact_Code,Fact_Claim_Patient,Fact_Claim_Physician,Fact_Claim_Insurance,Dw_Billing_Provider,Dw_Pay_To_Provider]
+    tgttablename: fact_record_count
+    trigger_dag_ids: ['dag_postprocesspolling_claims_sqlserver_daily_core_claims']

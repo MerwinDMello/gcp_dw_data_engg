@@ -1,0 +1,182 @@
+# Generate DQ DAGs and upload to GCS
+name: DAG Deploy
+
+inputs:
+  usecase: 
+    description: "Use case relevant for the DAG generation"
+    required: true
+  branch:
+    description: "The branch, and thus the GCP environment, that is relevant to this workflow run"
+    required: true
+  domain_config_path:
+    description: "Path to the domain configuration file"
+    required: true
+  dag_create_update_script_path:
+    description: "Path to the DAG create/update script"
+    required: true
+  dag_delete_script_path:
+    description: "Path to the DAG delete script"
+    required: true
+  workload_identity_provider:
+    description: "Workload identity provider for Google Cloud authentication"
+    required: true
+  service_account:
+    description: "Service account for Google Cloud authentication"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+
+    - name: Install Python dependencies
+      shell: bash
+      run: |
+        python -m pip install --upgrade pip
+        pip install pyyaml
+
+    - name: Install yq
+      shell: bash
+      run: |
+        if ! command -v yq &> /dev/null; then
+          echo "yq not found, installing..."
+          YQ_VERSION="v4.44.3"
+          wget -q "https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/yq_linux_amd64" -O /tmp/yq
+          sudo mv /tmp/yq /usr/local/bin/yq
+          sudo chmod +x /usr/local/bin/yq
+        else
+          echo "yq is already installed: $(yq --version)"
+        fi
+
+    - name: Generate DAGs
+      shell: bash
+      run: |
+        echo "Starting DAG generation for usecase: '${{ inputs.usecase }}', environment: '${{ inputs.branch }}'"
+
+        usecase="${{ inputs.usecase }}"
+        ENV_NAME="${{ inputs.branch  }}"
+
+        ENV_CONFIG_PATH="data_quality/$usecase/config/env_config.yaml"
+        DOMAIN_CONFIG_PATH="${{ inputs.domain_config_path }}"
+        OUTPUT_DIR="data_quality/$usecase/final_script"
+
+        mkdir -p "$OUTPUT_DIR"
+
+        # Skip this usecase if environment is not defined in env_config.yaml
+        if ! python -c "import yaml; cfg=yaml.safe_load(open('$ENV_CONFIG_PATH')); exit(0 if '$ENV_NAME' in cfg else 1)"; then
+          echo "Environment $ENV_NAME not found in $ENV_CONFIG_PATH, skipping..."
+          exit 0
+        fi
+
+        # Generate create/update DAG
+        OUTPUT_DAG="$OUTPUT_DIR/datascan_quality_dag_create_update.py"
+        python data_quality/src/gen_script/generate_dag.py \
+          --env "$ENV_NAME" \
+          --env_config_path "$ENV_CONFIG_PATH" \
+          --domain_config_path "$DOMAIN_CONFIG_PATH" \
+          --dag_create_update_script_path "${{ inputs.dag_create_update_script_path }}" \
+          --output_dag_path "$OUTPUT_DAG"
+
+        # Generate delete DAG 
+        OUTPUT_DAG="$OUTPUT_DIR/datascan_quality_dag_delete.py"
+        python data_quality/src/gen_script/generate_dag.py \
+          --env "$ENV_NAME" \
+          --env_config_path "$ENV_CONFIG_PATH" \
+          --domain_config_path "$DOMAIN_CONFIG_PATH" \
+          --dag_create_update_script_path "${{ inputs.dag_delete_script_path }}" \
+          --output_dag_path "$OUTPUT_DAG"
+
+    - name: Prepare composer upload directory
+      shell: bash
+      run: |
+        COMPOSER_DIR="upload_composer"
+        mkdir -p "$COMPOSER_DIR"
+        cp "data_quality/${{ inputs.usecase }}/final_script/"*.py "$COMPOSER_DIR/" || true
+        
+        cp "data_quality/${{ inputs.usecase }}/config/dq_config.yaml" "$COMPOSER_DIR/" || true
+
+    - name: Prepare spec upload directory
+      shell: bash
+      run: |
+        SPEC_DIR="upload_spec"
+        mkdir -p "$SPEC_DIR"
+        cp data_quality/${{ inputs.usecase }}/spec_files/*.yaml "$SPEC_DIR/" || true
+
+    - id: auth
+      name: 'Authenticate to Google Cloud'
+      uses: google-github-actions/auth@v3
+      with:
+        token_format: access_token
+        workload_identity_provider: ${{ inputs.workload_identity_provider }}
+        service_account: ${{ inputs.service_account }}
+
+    - name: Get composer bucket
+      id: get_composer_bucket
+      shell: bash
+      run: |
+        DOMAIN_CONFIG_PATH="${{ inputs.domain_config_path }}"
+        ENV_NAME="${{ inputs.branch }}"
+
+        raw_bucket=$(yq e ".${ENV_NAME}.composer_bucket" "$DOMAIN_CONFIG_PATH")
+        if [[ -z "$raw_bucket" || "$raw_bucket" == "null" ]]; then
+          echo "Error: composer_bucket not found for env '$ENV_NAME' in $DOMAIN_CONFIG_PATH"
+          exit 1
+        fi
+
+        # Clean bucket string
+        raw_bucket="${raw_bucket#gs://}"
+        raw_bucket="${raw_bucket%/}"
+
+        # Default to dags/ if no subpath is specified
+        if [[ -n "$raw_bucket" && "$raw_bucket" != */* ]]; then
+          raw_bucket="$raw_bucket/dags"
+        fi
+
+        echo "composer_bucket=$raw_bucket" >> $GITHUB_OUTPUT
+
+    - name: Upload composer files
+      uses: google-github-actions/upload-cloud-storage@v3
+      with:
+        path: "upload_composer"
+        destination: "${{ steps.get_composer_bucket.outputs.composer_bucket }}/data_quality/${{ inputs.usecase }}"
+        parent: false
+        process_gcloudignore: false
+
+    - name: Get spec bucket
+      id: get_spec_bucket
+      shell: bash
+      run: |
+        ENV_CONFIG_PATH="data_quality/${{ inputs.usecase }}/config/env_config.yaml"
+        DOMAIN_CONFIG_PATH="${{ inputs.domain_config_path }}"
+        ENV_NAME="${{ inputs.branch }}"
+
+        # Try env_config first
+        raw=$(yq e ".${ENV_NAME}.yaml_spec_bucket" "$ENV_CONFIG_PATH")
+
+        # Fallback to domain_config if empty/null
+        if [[ -z "$raw" || "$raw" == "null" ]]; then
+          raw=$(yq e ".${ENV_NAME}.spec_bucket" "$DOMAIN_CONFIG_PATH")
+        fi
+
+        # Error if still not found
+        if [[ -z "$raw" || "$raw" == "null" ]]; then
+          echo "Error: No spec_bucket found for environment '$ENV_NAME' in either $ENV_CONFIG_PATH or $DOMAIN_CONFIG_PATH"
+          exit 1
+        fi
+
+        # Clean bucket string
+        raw="${raw#gs://}"
+        raw="${raw%/}"
+
+        echo "spec_bucket=$raw" >> $GITHUB_OUTPUT
+
+    - name: Upload spec files
+      uses: google-github-actions/upload-cloud-storage@v3
+      with:
+        path: "upload_spec"
+        destination: "${{ steps.get_spec_bucket.outputs.spec_bucket }}/data_quality/${{ inputs.usecase }}/spec_files"
+        parent: false
+        process_gcloudignore: false

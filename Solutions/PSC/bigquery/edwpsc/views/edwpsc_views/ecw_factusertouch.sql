@@ -1,0 +1,33 @@
+CREATE OR REPLACE VIEW edwpsc_views.`ecw_factusertouch`
+AS SELECT
+  `ecw_factusertouch`.usertouchkey,
+  `ecw_factusertouch`.sourcesystemcode,
+  `ecw_factusertouch`.user34,
+  `ecw_factusertouch`.regionkey,
+  `ecw_factusertouch`.encounterkey,
+  `ecw_factusertouch`.encounterid,
+  `ecw_factusertouch`.claimkey,
+  `ecw_factusertouch`.claimnumber,
+  `ecw_factusertouch`.touchdatekey,
+  `ecw_factusertouch`.touchbegindatetime,
+  `ecw_factusertouch`.touchenddatetime,
+  `ecw_factusertouch`.touchtype,
+  `ecw_factusertouch`.coid,
+  `ecw_factusertouch`.dwlastupdatedatetime,
+  `ecw_factusertouch`.insertedby,
+  `ecw_factusertouch`.inserteddtm,
+  `ecw_factusertouch`.actiontablename,
+  `ecw_factusertouch`.actioncolumnname,
+  `ecw_factusertouch`.actionkey,
+  `ecw_factusertouch`.additionaldatatype1,
+  `ecw_factusertouch`.additionaldatavalue1,
+  `ecw_factusertouch`.additionaldatatype2,
+  `ecw_factusertouch`.additionaldatavalue2,
+  `ecw_factusertouch`.timeinminutes,
+  `ecw_factusertouch`.timegapminutes
+  FROM
+    edwpsc_base_views.`ecw_factusertouch`
+  INNER JOIN edwpsc_base_views.secref_facility
+  ON LPAD(TRIM(secref_facility.co_id, ' '), 5, '0') = LPAD(TRIM(`ecw_factusertouch`.coid, ' '), 5, '0')
+  AND TRIM(secref_facility.user_id, ' ') = TRIM(session_user(), ' ')
+;

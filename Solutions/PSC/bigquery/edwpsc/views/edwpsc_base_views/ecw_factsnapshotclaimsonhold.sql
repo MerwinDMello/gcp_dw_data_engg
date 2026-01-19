@@ -1,0 +1,35 @@
+CREATE OR REPLACE VIEW edwpsc_base_views.`ecw_factsnapshotclaimsonhold`
+AS SELECT
+  `ecw_factsnapshotclaimsonhold`.monthid,
+  `ecw_factsnapshotclaimsonhold`.snapshotdate,
+  `ecw_factsnapshotclaimsonhold`.loaddatekey,
+  `ecw_factsnapshotclaimsonhold`.claimkey,
+  `ecw_factsnapshotclaimsonhold`.claimnumber,
+  `ecw_factsnapshotclaimsonhold`.claimbalance,
+  `ecw_factsnapshotclaimsonhold`.regionkey,
+  `ecw_factsnapshotclaimsonhold`.artivaruleid,
+  `ecw_factsnapshotclaimsonhold`.artivaruledesc,
+  `ecw_factsnapshotclaimsonhold`.artivaruleowner,
+  `ecw_factsnapshotclaimsonhold`.artivarulecategoryid,
+  `ecw_factsnapshotclaimsonhold`.artivaholdcodeid,
+  `ecw_factsnapshotclaimsonhold`.artivaholdcodedescription,
+  `ecw_factsnapshotclaimsonhold`.artivaholdcodetype,
+  `ecw_factsnapshotclaimsonhold`.artivappiidpe,
+  `ecw_factsnapshotclaimsonhold`.artivappitypepe,
+  `ecw_factsnapshotclaimsonhold`.artivappiidedi,
+  `ecw_factsnapshotclaimsonhold`.artivappitypeedi,
+  `ecw_factsnapshotclaimsonhold`.artivappiphase,
+  `ecw_factsnapshotclaimsonhold`.artivarulecreatedate,
+  `ecw_factsnapshotclaimsonhold`.artivaruleactiveflag,
+  `ecw_factsnapshotclaimsonhold`.artivaruleglobalflag,
+  `ecw_factsnapshotclaimsonhold`.artivarulesource,
+  `ecw_factsnapshotclaimsonhold`.artivarulelastupdatedate,
+  `ecw_factsnapshotclaimsonhold`.artivarulelastupdatenote,
+  `ecw_factsnapshotclaimsonhold`.artivarulelastupdateby,
+  `ecw_factsnapshotclaimsonhold`.artivaholdcoderiskreportflag,
+  `ecw_factsnapshotclaimsonhold`.sourcesystemcode,
+  `ecw_factsnapshotclaimsonhold`.insertedby,
+  `ecw_factsnapshotclaimsonhold`.inserteddtm
+  FROM
+    edwpsc.`ecw_factsnapshotclaimsonhold`
+;

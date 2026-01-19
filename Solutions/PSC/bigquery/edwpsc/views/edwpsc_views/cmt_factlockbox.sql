@@ -1,0 +1,37 @@
+CREATE OR REPLACE VIEW edwpsc_views.`cmt_factlockbox`
+AS SELECT
+  `cmt_factlockbox`.lockboxkey,
+  `cmt_factlockbox`.lockboxfileid,
+  `cmt_factlockbox`.dataimportid,
+  `cmt_factlockbox`.bankname,
+  `cmt_factlockbox`.depositdate,
+  `cmt_factlockbox`.accountnumber,
+  `cmt_factlockbox`.checkamount,
+  `cmt_factlockbox`.checknumber,
+  `cmt_factlockbox`.lockboxnumber,
+  `cmt_factlockbox`.batchnumber,
+  `cmt_factlockbox`.batchtotal,
+  `cmt_factlockbox`.appenddate,
+  `cmt_factlockbox`.createbatchid,
+  `cmt_factlockbox`.bankaccountid,
+  `cmt_factlockbox`.bankaccountnumber,
+  `cmt_factlockbox`.accountname,
+  `cmt_factlockbox`.routingnumber,
+  `cmt_factlockbox`.glaccountsid,
+  `cmt_factlockbox`.legalentityid,
+  `cmt_factlockbox`.depositcoid,
+  `cmt_factlockbox`.bankid,
+  `cmt_factlockbox`.enddate,
+  `cmt_factlockbox`.createdate,
+  `cmt_factlockbox`.createuserid,
+  `cmt_factlockbox`.isbatch,
+  `cmt_factlockbox`.controlsaccountid,
+  `cmt_factlockbox`.iszbt,
+  `cmt_factlockbox`.insertedby,
+  `cmt_factlockbox`.inserteddtm,
+  `cmt_factlockbox`.modifiedby,
+  `cmt_factlockbox`.modifieddtm,
+  `cmt_factlockbox`.dwlastupdatedatetime
+  FROM
+    edwpsc_base_views.`cmt_factlockbox`
+;

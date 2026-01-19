@@ -1,0 +1,86 @@
+# Detect changed DAG use cases and build matrix, upload artifacts
+name: DAG Set Up
+
+inputs:
+  dispatch: 
+    description: 'Whether the workflow was triggered via workflow dispatch'
+    required: true
+  previous_sha:
+    description: 'The previous commit SHA before the push that triggered the workflow'
+    required: true
+  current_sha:
+    description: 'The current commit SHA after the push that triggered the workflow'
+    required: true
+
+outputs:
+  matrix:
+    description: "Matrix of use case to process"
+    value: ${{ steps.build_matrix.outputs.matrix }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+
+    - name: Install dependencies
+      shell: bash
+      run: |
+        python -m pip install --upgrade pip
+        pip install pyyaml
+
+    - name: Detect changed use cases and generate DAGs matrix
+      id: build_matrix
+      shell: bash
+      run: |
+        # Set the redeploy flag from based on dispatch input (it will be true if workflow was triggered via workflow_dispatch)
+        redeploy_all="${{ inputs.dispatch }}"
+
+        declare -A processed_paths
+        # If workflow was not triggered via dispatch, get only changed usecase files
+        if [[ "$redeploy_all" != "true" ]]; then
+          # Try to get changed files; if git diff fails, fall back to all files in data_quality directory
+          CHANGED_FILES=$(git diff --name-only ${{ inputs.previous_sha }} ${{ inputs.current_sha }}) || {
+            echo "Warning: git diff failed, falling back to all files in data_quality directory"
+            CHANGED_FILES=$(git ls-files "data_quality/**")
+          }
+          # Loop through each changed file
+          for file in $CHANGED_FILES; do
+            [[ "$file" == *.md ]] && continue
+            if [[ "$file" == data_quality/usecase_*/* ]]; then
+              # Extract the usecase folder name from the path
+              IFS='/' read -ra ADDR <<< "$file"
+              usecase="${ADDR[1]}"
+              # Mark this usecase for processing
+              processed_paths["$usecase"]=1
+            fi
+          done
+        # If workflow was triggered via dispatch, get all usecase directories
+        else
+          # List all usecase directories and mark each for processing
+          for usecase in $(ls -d data_quality/usecase_* 2>/dev/null | xargs -n1 basename); do
+            processed_paths["$usecase"]=1
+          done
+        fi
+
+        # Build the matrix JSON array from the processed usecases
+        matrix_entries=()
+        for key in "${!processed_paths[@]}"; do
+          matrix_entries+=("{\"usecase\":\"$key\"}")
+        done
+
+        # If no usecases were found, output an empty matrix and exit
+        if [ ${#matrix_entries[@]} -eq 0 ]; then
+          echo "matrix=[]" >> $GITHUB_OUTPUT
+          exit 0
+        fi
+
+        # Format the matrix as a JSON array and output it for downstream steps
+        matrix_json="[$(IFS=,; echo "${matrix_entries[*]}")]"
+        echo "$matrix_json" > matrix.json
+        echo "matrix=$matrix_json" >> $GITHUB_OUTPUT
+        
+        # Print matrix contents to GitHub Action log for visibility
+        echo "Matrix contents: $matrix_json"

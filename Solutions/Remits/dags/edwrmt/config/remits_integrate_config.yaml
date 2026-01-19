@@ -1,0 +1,73 @@
+integrate:
+- source_system: remits
+  frequency: daily
+  dag_name_suffix: core_remits
+  start_date: pendulum.datetime(2025, 2, 1, tz=current_timezone)
+  schedule: None
+  type: sqlserver
+  done_file: None
+  trigger_dag_ids: ['dag_outbound_remits_sqlserver_daily_dwcount_core_remits']
+  dependency:
+  - table: lu_remit_payer
+    has_sensor: 'No'
+    sql:
+    - name: rmt_lu_remit_payer.sql
+    validation:
+    - name: NONE
+  - table: lu_remit_provider
+    has_sensor: 'No'
+    sql:
+    - name: rmt_lu_remit_provider.sql
+    validation:
+    - name: NONE
+  - table: fact_master_remit
+    has_sensor: 'No'
+    sql:
+    - name: rmt_fact_master_remit.sql
+    validation:
+    - name: NONE
+  - table: fact_patient_remit
+    has_sensor: 'No'
+    sql:
+    - name: rmt_fact_patient_remit.sql
+    validation:
+    - name: NONE
+  - table: fact_patient_remit_adj
+    has_sensor: 'No'
+    sql:
+    - name: rmt_fact_patient_remit_adj.sql
+    validation:
+    - name: NONE
+  - table: fact_svc_line
+    has_sensor: 'No'
+    sql:
+    - name: rmt_fact_svc_line.sql
+    validation:
+    - name: NONE
+  - table: fact_svc_line_claim_adj
+    has_sensor: 'No'
+    sql:
+    - name: rmt_fact_svc_line_claim_adj.sql
+    validation:
+    - name: NONE
+  - table: fact_patient_qual
+    has_sensor: 'No'
+    sql:
+    - name: rmt_fact_patient_qual.sql
+    validation:
+    - name: NONE
+- source_system: remits
+  frequency: daily
+  dag_name_suffix: ep_payer_recon
+  start_date: pendulum.datetime(2025, 2, 1, tz=current_timezone)
+  schedule: None
+  type: sqlserver
+  done_file: None
+  trigger_dag_ids: ['dag_outbound_remits_sqlserver_daily_dwcount_ep_payer_recon']
+  dependency:
+  - table: ep_rmt_recon
+    has_sensor: 'No'
+    sql:
+    - name: rmt_ep_rmt_recon.sql
+    validation:
+    - name: NONE

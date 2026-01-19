@@ -1,0 +1,24 @@
+name: BigQuery DDL Deployment
+# NOTE: only staging tables should be deployed from this repo, all other DDLs should go in the domain's centralized DDL repo
+on:
+  push:
+    branches:
+      - "dev"
+      - "qa"
+      - "prod"
+    paths:
+      - 'bigquery/**/**'
+       
+    # Allows you to run this workflow manually from the Actions tab, doing so will redeploy ALL scripts in the BigQuery folder
+  workflow_dispatch:
+    
+jobs:
+  call_bigquery_workflow:
+    name: Call BigQuery DDL Reusable Workflow
+    uses: HCACloudDataEngineering/gcp-hin-workflows/.github/workflows/bigquery_workflow.yaml@main
+    with:
+      repo_type: "ETL"
+      branch: ${{ github.ref_name }}
+      event_name: ${{ github.event_name }}
+    secrets: 
+      gh_token: ${{ secrets.HIN_GH_TOKEN }}

@@ -1,0 +1,33 @@
+create table if not exists `{{ params.param_hr_core_dataset_name }}.fact_hr_metric_mv`
+(
+  employee_sid INT64 NOT NULL,
+  requisition_sid INT64 NOT NULL,
+  position_sid INT64 NOT NULL,
+  date_id DATE NOT NULL,
+  analytics_msr_sid INT64 NOT NULL,
+  dept_sid INT64,
+  job_class_sid INT64,
+  job_code_sid INT64,
+  location_code STRING,
+  coid STRING,
+  company_code STRING,
+  functional_dept_num STRING,
+  sub_functional_dept_num STRING,
+  auxiliary_status_sid INT64,
+  employee_status_sid INT64,
+  key_talent_id INT64,
+  integrated_lob_id INT64,
+  action_code STRING,
+  action_reason_text STRING,
+  lawson_company_num INT64 NOT NULL,
+  process_level_code STRING NOT NULL,
+  work_schedule_code STRING,
+  recruiter_owner_user_sid INT64,
+  requisition_approval_date DATE,
+  employee_num INT64,
+  metric_numerator_qty NUMERIC(35, 6),
+  metric_denominator_qty NUMERIC(35, 6),
+  source_system_code STRING NOT NULL,
+  dw_last_update_date_time DATETIME NOT NULL
+)
+CLUSTER BY employee_sid, requisition_sid, position_sid, date_id

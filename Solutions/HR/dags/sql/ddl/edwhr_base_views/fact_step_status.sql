@@ -1,0 +1,37 @@
+CREATE OR REPLACE VIEW
+  {{ params.param_hr_base_views_dataset_name }}.fact_step_status AS
+SELECT
+  step_status_sid,
+  step_seq_num,
+  candidate_profile_sid,
+  candidate_profile_num,
+  candidate_num,
+  submission_sid,
+  recruitment_requisition_num_text,
+  recruitment_requisition_sid,
+  lawson_requisition_sid,
+  ghr_requisition_num,
+  requisition_sid,
+  tracking_step_id,
+  creation_date,
+  creation_date_time,
+  completion_date,
+  completion_date_time,
+  step_name,
+  step_short_name,
+  submission_status_name,
+  sla_compliance_status_text,
+  sub_status_desc,
+  moved_by_text,
+  step_status_start_date_time,
+  step_status_end_date_time,
+  company_code,
+  coid,
+  dept_num,
+  duration_days_cnt,
+  step_reverted_ind,
+  non_working_day_cnt,
+  source_system_code,
+  dw_last_update_date_time
+FROM
+  {{ params.param_hr_core_dataset_name }}.fact_step_status;

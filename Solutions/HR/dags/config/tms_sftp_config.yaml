@@ -1,0 +1,6 @@
+# hrg dev variables for tms sftp connection
+v_sourcesysnm: tms_sftp
+v_host: sftp.peopleclick.com 
+v_databasetype: file
+v_user: client_hcatm
+v_pwd_secret: tms_sftp_connection/versions/latest

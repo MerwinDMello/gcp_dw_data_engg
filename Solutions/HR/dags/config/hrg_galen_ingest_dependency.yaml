@@ -1,0 +1,20 @@
+ingest:
+- source_system: galen
+  frequency: daily
+  start_date: pendulum.datetime(2022, 12, 6, tz=timezone)
+  schedule: [0 10 * * *]
+  type: files
+  dependency:
+  - source:
+      source_id: 1
+      type: file
+      name: Galen.*\.csv$
+      delimiter: ","
+      header: 1
+      encoding_scheme: utf-8
+      tolerance_percent: 0
+      skip_leading_records: 0
+    target:
+      type: table
+      name: galen_stg
+      sql: galen_stg.sql

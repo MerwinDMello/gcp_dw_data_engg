@@ -1,0 +1,36 @@
+CREATE OR REPLACE VIEW edwpsc_base_views.`openconnect_juncfirstlastkeymeasure`
+AS SELECT
+  `openconnect_juncfirstlastkeymeasure`.juncopenconnectfirstlastkeymeasurekey,
+  `openconnect_juncfirstlastkeymeasure`.openconnectmessagekey,
+  `openconnect_juncfirstlastkeymeasure`.messagecreateddate,
+  `openconnect_juncfirstlastkeymeasure`.firststatusreason,
+  `openconnect_juncfirstlastkeymeasure`.firststatusmessage,
+  `openconnect_juncfirstlastkeymeasure`.firststatusdate,
+  `openconnect_juncfirstlastkeymeasure`.firstcategory,
+  `openconnect_juncfirstlastkeymeasure`.firstcategorydate,
+  `openconnect_juncfirstlastkeymeasure`.laststatusreason,
+  `openconnect_juncfirstlastkeymeasure`.laststatusmessage,
+  `openconnect_juncfirstlastkeymeasure`.laststatusdate,
+  `openconnect_juncfirstlastkeymeasure`.lastcategory,
+  `openconnect_juncfirstlastkeymeasure`.lastcategorydate,
+  `openconnect_juncfirstlastkeymeasure`.firstiserror,
+  `openconnect_juncfirstlastkeymeasure`.firstiserrordate,
+  `openconnect_juncfirstlastkeymeasure`.firstiserrorecw,
+  `openconnect_juncfirstlastkeymeasure`.firstiserrorecwdate,
+  `openconnect_juncfirstlastkeymeasure`.firstsuppressflag,
+  `openconnect_juncfirstlastkeymeasure`.firstsuppressflagdate,
+  `openconnect_juncfirstlastkeymeasure`.firstdftdatereceived,
+  `openconnect_juncfirstlastkeymeasure`.lastdftdatereceived,
+  `openconnect_juncfirstlastkeymeasure`.firstbatchdate,
+  `openconnect_juncfirstlastkeymeasure`.sourcesystemcode,
+  `openconnect_juncfirstlastkeymeasure`.insertedby,
+  `openconnect_juncfirstlastkeymeasure`.inserteddtm,
+  `openconnect_juncfirstlastkeymeasure`.modifiedby,
+  `openconnect_juncfirstlastkeymeasure`.modifieddtm,
+  `openconnect_juncfirstlastkeymeasure`.firstpendingflag,
+  `openconnect_juncfirstlastkeymeasure`.firstecwsuppressflag,
+  `openconnect_juncfirstlastkeymeasure`.firstecwsuppressflagdate,
+  `openconnect_juncfirstlastkeymeasure`.dwlastupdatedatetime
+  FROM
+    edwpsc.`openconnect_juncfirstlastkeymeasure`
+;

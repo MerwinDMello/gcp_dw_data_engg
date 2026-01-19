@@ -1,0 +1,6 @@
+0 6 * * * /usr/bin/sh /opt/tdgcp/edwhr/scripts/tdgcp_taleo_daily_qa.sh >/opt/tdgcp/edwhr/scripts/tdgcp_taleo_daily_qa.log 2>&1
+0 6 * * 1 /usr/bin/sh /opt/tdgcp/edwhr/scripts/tdgcp_taleo_weekly_qa.sh >/opt/tdgcp/edwhr/scripts/tdgcp_taleo_weekly_qa.log 2>&1
+30 18 * * 2 /usr/bin/sh /opt/tdgcp/edwhr/scripts/kronos_copyfiletogcs.sh qa kronos weekly_2_18.30 Kronos_WeeklyFiles_YYYYMMDD.txt 20 600 >/opt/tdgcp/edwhr/scripts/tdgcp_kronos_weekly_qa.log 2>&1
+30 0 * * * /usr/bin/sh /opt/tdgcp/edwhr/scripts/kronos_copyfiletogcs.sh qa kronos daily_00.30 Kronos_DailyFiles_YYYYMMDD.txt 20 600 >/opt/tdgcp/edwhr/scripts/tdgcp_kronos_daily_qa.log 2>&1
+0 2 * * 1-5 /usr/bin/sh /opt/tdgcp/edwhr/scripts/tdgcp_enwisen_daily_2_qa.sh >/opt/tdgcp/edwhr/scripts/tdgcp_enwisen_daily_2_qa.log 2>&1
+0 6 * * * /usr/bin/sh /opt/tdgcp/edwhr/scripts/tdgcp_enwisen_daily_6_qa.sh >/opt/tdgcp/edwhr/scripts/tdgcp_enwisen_daily_6_qa.log 2>&1

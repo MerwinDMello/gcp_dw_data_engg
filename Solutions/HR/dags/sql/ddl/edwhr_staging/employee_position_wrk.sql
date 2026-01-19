@@ -1,0 +1,27 @@
+create table if not exists `{{ params.param_hr_stage_dataset_name }}.employee_position_wrk`
+(
+  employee_sid INT64 NOT NULL,
+  position_sid INT64 NOT NULL,
+  position_level_sequence_num INT64 NOT NULL,
+  eff_from_date DATE NOT NULL,
+  valid_from_date DATETIME NOT NULL,
+  valid_to_date DATETIME,
+  eff_to_date DATE NOT NULL,
+  fte_percent NUMERIC,
+  working_location_code STRING,
+  schedule_work_code STRING,
+  job_code STRING,
+  employee_num INT64,
+  delete_ind STRING NOT NULL,
+  pay_rate_amt NUMERIC,
+  last_update_date DATE,
+  dept_sid INT64,
+  account_unit_num STRING,
+  gl_company_num INT64,
+  lawson_company_num INT64 NOT NULL,
+  process_level_code STRING NOT NULL,
+  active_dw_ind STRING NOT NULL,
+  source_system_code STRING,
+  dw_last_update_date_time DATETIME NOT NULL,
+  row_id INT64
+)

@@ -1,0 +1,63 @@
+govreports:
+- start_date: pendulum.datetime(2024, 8, 25, tz=timezone)
+  schedule: None
+  frequency: monthly
+  datasourcetype: file
+  dag_name_suffix: load_discrepancies
+  trigger_dag_ids: ['dag_notification_govreports_file_monthly_load_discrepancies']
+  done_file: NONE
+  has_sensor: 'No'
+  process_groups: ['American','Atlantic','National']
+  outbound_files:
+    - file_name_mnemonic: govreports
+      output_file_layout: csv1
+      output_file_pattern: FILE_PREFIX.FILE_EXTENSION
+      file_patterns:
+      - file_prefix: Empty_Files
+        mask: 'No'
+        sql_template_file_name: select_empty_excel_files.j2
+        column_names: ['File Name', 'File Path']
+      - file_prefix: Data_Issues
+        mask: 'No'
+        sql_template_file_name: select_data_issues_excel_files.j2
+        column_names: ['File Name', 'File Path']
+      - file_prefix: Mismatched_Files
+        mask: 'No'
+        sql_template_file_name: select_data_mismatch_excel_files.j2
+        column_names: ['File Name', 'File Path']
+  convert_files:
+    - file_name_mnemonic: govreports
+      conversion_type: csv_to_excel
+      input_file_layout: csv1
+      output_file_layout: excel1
+      output_file_pattern: PROCESSING_GROUP_Load_Discrepancies.FILE_EXTENSION
+      output_worksheet_pattern: FILE_NAME_ONLY
+      file_patterns:
+      - input_file_pattern: Empty\_Files\.csv$
+        file_prefix: Empty_Files
+        mask: 'No'
+        archive_method: gzip
+      - input_file_pattern: Data\_Issues\.csv$
+        file_prefix: Data_Issues
+        mask: 'No'
+        archive_method: gzip
+      - input_file_pattern: Empty\_Files\.csv$
+        file_prefix: Mismatched_Files
+        mask: 'No'
+        archive_method: gzip
+  file_layouts:
+    - layout: excel1
+      file_extension: xlsx
+      header_record: 'Yes'
+      add_date_suffix: 'Yes'
+      original_directory_hierarchy: SRC_FOLDER|SRC_SYSTEM|PROCESSING_GROUP|FILE_TYPE|
+      archive_directory_hierarchy: SRCARCHIVE_FOLDER|SRC_SYSTEM|PROCESSING_GROUP|FILE_TYPE|
+    - layout: csv1
+      file_extension: csv
+      delimiter: ','
+      quote_char: '"'
+      encoding_scheme: utf-8
+      header_record: 'Yes'
+      add_date_suffix: 'Yes'
+      original_directory_hierarchy: SRC_FOLDER|SRC_SYSTEM|PROCESSING_GROUP|FILE_TYPE|
+      archive_directory_hierarchy: SRCARCHIVE_FOLDER|SRC_SYSTEM|PROCESSING_GROUP|FILE_TYPE|

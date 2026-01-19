@@ -1,0 +1,35 @@
+CREATE OR REPLACE VIEW edwpsc_base_views.`pk_facttransactionshistoric`
+AS SELECT
+  `pk_facttransactionshistoric`.pktransactionhistorickey,
+  `pk_facttransactionshistoric`.pkregionname,
+  `pk_facttransactionshistoric`.historicalstatus,
+  `pk_facttransactionshistoric`.saveddate,
+  `pk_facttransactionshistoric`.savedby,
+  `pk_facttransactionshistoric`.savedbyfirstname,
+  `pk_facttransactionshistoric`.savedbylastname,
+  `pk_facttransactionshistoric`.billingarea,
+  `pk_facttransactionshistoric`.billingprovider,
+  `pk_facttransactionshistoric`.billingproviderfirstname,
+  `pk_facttransactionshistoric`.billingproviderlastname,
+  `pk_facttransactionshistoric`.servicedate,
+  `pk_facttransactionshistoric`.submissiondate,
+  `pk_facttransactionshistoric`.visittype,
+  `pk_facttransactionshistoric`.department,
+  `pk_facttransactionshistoric`.patientmrn,
+  `pk_facttransactionshistoric`.roles,
+  `pk_facttransactionshistoric`.accountid,
+  `pk_facttransactionshistoric`.historicalfinancialclass,
+  `pk_facttransactionshistoric`.cptcode,
+  `pk_facttransactionshistoric`.sourceaprimarykeyvalue,
+  `pk_facttransactionshistoric`.sourcebprimarykeyvalue,
+  `pk_facttransactionshistoric`.sourcesystemcode,
+  `pk_facttransactionshistoric`.insertedby,
+  `pk_facttransactionshistoric`.inserteddtm,
+  `pk_facttransactionshistoric`.modifiedby,
+  `pk_facttransactionshistoric`.modifieddtm,
+  `pk_facttransactionshistoric`.heldforreview,
+  `pk_facttransactionshistoric`.isdeleted,
+  `pk_facttransactionshistoric`.dwlastupdatedatetime
+  FROM
+    edwpsc.`pk_facttransactionshistoric`
+;

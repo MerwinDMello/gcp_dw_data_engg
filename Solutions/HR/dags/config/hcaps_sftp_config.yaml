@@ -1,0 +1,6 @@
+# hrg dev variables for hcaps sftp connection
+v_sourcesysnm: hcap_sftp
+v_host: pgds.pressganey.com
+v_databasetype: file
+v_user: 11863_SERVICE
+v_pwd_secret: hca_hrg_hcaps_sftp_connection/versions/latest

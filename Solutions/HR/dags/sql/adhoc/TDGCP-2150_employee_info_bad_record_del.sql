@@ -1,0 +1,1 @@
+DELETE FROM hca-hin-prod-cur-hr.edwhr_staging.employee_info where employee_id = '';

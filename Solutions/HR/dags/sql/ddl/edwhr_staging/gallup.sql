@@ -1,0 +1,27 @@
+CREATE TABLE IF NOT EXISTS {{ params.param_hr_stage_dataset_name }}.gallup
+(
+  coid STRING,
+  facility_name STRING,
+  parent_coid STRING,
+  parent_facility_name STRING,
+  unitno STRING,
+  group_name STRING,
+  group_code STRING,
+  division_name STRING,
+  division_code STRING,
+  market_name STRING,
+  market_code STRING,
+  facility_code STRING,
+  lob_code STRING,
+  sub_lob_code STRING,
+  provider STRING,
+  fsed_flag STRING,
+  asd_region STRING,
+  ccn_flag STRING,
+  ccn_name STRING,
+  pg_client_id STRING,
+  location_mnemonic STRING,
+  survey_start_date DATE,
+  survey_end_date DATE,
+  dw_last_update_date_time DATETIME NOT NULL
+);

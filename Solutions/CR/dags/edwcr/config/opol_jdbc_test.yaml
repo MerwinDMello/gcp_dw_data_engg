@@ -1,0 +1,5 @@
+v_jdbc_url: jdbc:sqlserver://cannwpdbsdwh01.hca.corpad.net:1433;encrypt=false;trustServerCertificate=true
+v_server_name:  xxx
+v_db_name:  Discover
+v_test_sql: "SELECT holidaycalendarid AS holiday_calendar_id, holidaycalendardate AS holiday_calendar_date, COALESCE(holidaycalendardescr, '') AS holiday_calendar_desc, CAST(createddate AS DATETIME) AS created_date_time, COALESCE(createdby, '') AS created_by_3_4_id, CAST(updateddate AS DATETIME) AS source_last_update_date_time, COALESCE(updatedby, '') AS updated_by_3_4_id, CASE WHEN isactive =1 THEN 'Y' ELSE 'N' END AS active_ind, 'N' AS source_system_code, 'v_currtimestamp' AS dw_last_update_date_time FROM discover.dbo.holidaycalendar"
+v_tgt_bq_tbl: v_curated_project_id.edwcr.ref_holiday_calendar

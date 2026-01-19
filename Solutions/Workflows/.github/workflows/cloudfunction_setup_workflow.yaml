@@ -1,0 +1,34 @@
+on:
+  workflow_call:
+    inputs:
+      branch: 
+        description: "The branch, and thus the GCP environment, that is relevant to this workflow run"
+        required: true
+        type: string
+      cloudfunction_path:
+        description: "The path to the cloud-function folder in the repo."
+        required: true
+        type: string
+
+
+jobs:
+  # Setup job identifies which cloud-function relevant files have changed, processes the relevant config files, and create a matrix of the file paths to those configs
+  Setup:
+    name: Setup Cloudfunction Job
+    runs-on: [self-hosted, dind, enterprise]
+    environment: ${{ github.base_ref }}
+    permissions:
+      contents: "read"
+      id-token: "write"
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Setup Cloufunction Step
+        id: cloudfunction_setup
+        uses: HCACloudDataEngineering/gcp-hin-workflows/cloud-function/setup@main
+        with:
+          branch: ${{ inputs.branch }}
+          subdomain: ${{ vars.DOMAIN }}
+          cloudfunction_path: ${{ inputs.cloudfunction_path }}
+ 

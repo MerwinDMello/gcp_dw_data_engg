@@ -1,0 +1,39 @@
+CREATE OR REPLACE VIEW edwpsc_views.`ccu_rprtepiccodequality`
+AS SELECT
+  `ccu_rprtepiccodequality`.codequalitykey,
+  `ccu_rprtepiccodequality`.claimkey,
+  `ccu_rprtepiccodequality`.claimnumber,
+  `ccu_rprtepiccodequality`.regionkey,
+  `ccu_rprtepiccodequality`.coid,
+  `ccu_rprtepiccodequality`.servicedatekey,
+  `ccu_rprtepiccodequality`.svcproviderspecialty,
+  `ccu_rprtepiccodequality`.firstinsbilldatewkofmonth,
+  `ccu_rprtepiccodequality`.firstdenialcategories,
+  `ccu_rprtepiccodequality`.prebilleditcategories,
+  `ccu_rprtepiccodequality`.qualitycategory,
+  `ccu_rprtepiccodequality`.coder,
+  `ccu_rprtepiccodequality`.coder34id,
+  `ccu_rprtepiccodequality`.codertype,
+  `ccu_rprtepiccodequality`.claimcount,
+  `ccu_rprtepiccodequality`.practiceid,
+  `ccu_rprtepiccodequality`.patientmrn,
+  `ccu_rprtepiccodequality`.patientinternalid,
+  `ccu_rprtepiccodequality`.visitnumber,
+  `ccu_rprtepiccodequality`.transactionnumber_combined,
+  `ccu_rprtepiccodequality`.firstinsurancebilldate,
+  `ccu_rprtepiccodequality`.minfirstdenialeradate,
+  `ccu_rprtepiccodequality`.coderactiondate,
+  `ccu_rprtepiccodequality`.invoicenumber_combined,
+  `ccu_rprtepiccodequality`.sourcesystemcode,
+  `ccu_rprtepiccodequality`.dwlastupdatedatetime,
+  `ccu_rprtepiccodequality`.hashnomatch,
+  `ccu_rprtepiccodequality`.insertedby,
+  `ccu_rprtepiccodequality`.inserteddtm,
+  `ccu_rprtepiccodequality`.modifiedby,
+  `ccu_rprtepiccodequality`.modifieddtm
+  FROM
+    edwpsc_base_views.`ccu_rprtepiccodequality`
+  INNER JOIN edwpsc_base_views.secref_facility
+  ON LPAD(TRIM(secref_facility.co_id, ' '), 5, '0') = LPAD(TRIM(`ccu_rprtepiccodequality`.coid, ' '), 5, '0')
+  AND TRIM(secref_facility.user_id, ' ') = TRIM(session_user(), ' ')
+;

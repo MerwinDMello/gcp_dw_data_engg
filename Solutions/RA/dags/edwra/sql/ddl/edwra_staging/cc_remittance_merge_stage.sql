@@ -1,0 +1,65 @@
+-- Translation time: 2024-02-16T20:48:08.013760Z
+-- Translation job ID: 825ffe95-5d09-4d28-9bed-a2d58826a821
+-- Source: internal_metastore/db_hca-hin-dev-cur-parallon/schema_edwra_staging/cc_remittance_merge_stage.memory
+-- Translated from: Teradata
+-- Translated to: BigQuery
+
+CREATE TABLE IF NOT EXISTS {{ params.param_parallon_ra_stage_dataset_name }}.cc_remittance_merge_stage
+(
+  company_cd STRING,
+  coido STRING,
+  patient_dw_id NUMERIC(29),
+  payor_dw_id NUMERIC(29),
+  remittance_advice_num STRING,
+  ra_log_date DATE,
+  log_id STRING,
+  log_sequence_num INT64,
+  remittance_header_id BIGNUMERIC(38),
+  remittance_id BIGNUMERIC(38),
+  unit_num STRING,
+  ra_pat_acct_num STRING,
+  iplan_insurance_order_num NUMERIC(29),
+  ra_iplan_id INT64,
+  ra_ep_iplan_id STRING,
+  ar_bill_thru_date DATE,
+  ra_drg_code STRING,
+  ra_drg_weight NUMERIC(33, 4),
+  ra_hipps_code STRING,
+  ra_covered_days_num NUMERIC(31, 2),
+  ra_visit_cnt NUMERIC(31, 2),
+  ra_covered_days_visit_cnt NUMERIC(29),
+  outlier_ind STRING,
+  ra_discharge_fraction_pct NUMERIC(31, 2),
+  ra_reimbursement_rate_pct NUMERIC(31, 2),
+  ra_non_replaced_blood_unit_qty NUMERIC(31, 2),
+  ra_prescription_qty NUMERIC(31, 2),
+  ra_total_charge_amt NUMERIC(31, 2),
+  ra_non_covered_charge_amt NUMERIC(31, 2),
+  ra_net_billed_charge_amt NUMERIC(31, 2),
+  ra_deductible_amt NUMERIC(31, 2),
+  ra_coinsurance_amt NUMERIC(31, 2),
+  ra_net_benefit_amt NUMERIC(31, 2),
+  ra_insurance_payment_amt NUMERIC(31, 2),
+  ra_patient_responsible_amt NUMERIC(31, 2),
+  ra_patient_qualifier_code STRING,
+  ra_claim_status_code STRING,
+  ra_patient_status_code STRING,
+  ra_claim_filing_ind_code STRING,
+  ra_medicare_format_code STRING,
+  ra_facility_type_code STRING,
+  ra_claim_frequency_code STRING,
+  ra_payer_claim_control_num STRING,
+  ra_receive_date DATE,
+  ra_service_start_date DATE,
+  ra_service_end_date DATE,
+  ra_coverage_expiration_date DATE,
+  ra_payer_patient_id STRING,
+  ra_payer_member_id STRING,
+  ra_replaced_by_remit_id BIGNUMERIC(38),
+  ra_source_type_id NUMERIC(29),
+  active_ind STRING,
+  dw_last_update_date_time DATETIME,
+  source_system_code STRING
+)
+
+CLUSTER BY company_cd, coido, patient_dw_id, payor_dw_id;

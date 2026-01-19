@@ -1,0 +1,175 @@
+name: Cloud Function Setup Composite Action
+
+inputs:
+  branch:
+    description: 'The branch name.'
+    required: true
+  subdomain:
+    description: "The relevant subdomain"  
+  cloudfunction_path:
+    description: 'The path to the cloud function directory.'
+    default: 'cloud-function'
+
+outputs:
+  matrix:
+    description: 'The output matrix for the build job.'
+    value: ${{ steps.list_changed_files.outputs.matrix }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Extract branch name
+      id: extract_branch
+      shell: bash
+      run: echo "branch=${{ inputs.branch }}" >> $GITHUB_OUTPUT
+
+    - name: Get changed Files
+      id: changed-files
+      uses: tj-actions/changed-files@v46.0.1
+      with:
+        files: '${{inputs.cloudfunction_path}}/**'
+        #  Exclude README files
+        files_ignore: |
+          **/*.md
+
+    - name: Get path to changed files
+      id: fetch_changed_dir
+      shell: bash
+      if: steps.changed-files.outputs.all_changed_files != ''
+      env:
+        JOB_CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
+      run: |
+        declare -A processed_paths
+
+        echo "JOB_CHANGED_FILES: $JOB_CHANGED_FILES"
+
+        if [[ -n "$JOB_CHANGED_FILES" ]]; then
+          for file in $JOB_CHANGED_FILES; do
+            # Match both nested and root-level cloud-functions directories
+            if [[ "$file" =~ (^.*cloud-functions/[^/]+) ]]; then
+              path="${BASH_REMATCH[1]}"
+              # Ensure the path only includes up to the second directory after cloud-functions
+              path=$(echo "$path" | awk -F'/' '{print $1"/"$2"/"$3}')
+              processed_paths["$path"]=1
+            fi
+          done
+        fi
+
+        echo "processed_paths: ${!processed_paths[@]}"
+
+        # Create a space-separated list of paths
+        changed_paths=$(echo ${!processed_paths[@]})
+        echo "changed_paths=$changed_paths" >> $GITHUB_ENV
+
+    - name: Fetch configs of changed file
+      id: get-configs
+      shell: bash
+      run: |
+        changed_paths=($changed_paths)
+
+        echo "${{ inputs.branch }}"
+
+        if [ ! -f "env_config.yaml" ]; then
+          echo "env:" > "env_config.yaml"
+        fi
+
+        # Grab the environments config, read the section of the file that corresponds to ${{ inputs.branch }} and write it into a section titled env
+        yq eval ".${{ inputs.branch }} | {\"env\": .}" "environments/${{ inputs.subdomain }}_config.yaml" > "env_config.yaml"
+            
+        echo "------------------env configs start------------------"
+        cat env_config.yaml
+        echo "------------------env configs end------------------"
+
+        # Create an empty array to store the processed config files
+        output_array=()
+
+        # Find the config file for each job that has changed files
+        for cf_path in "${changed_paths[@]}"; do
+          echo "cf_path: $cf_path"
+          job_folder=$(basename "$cf_path")
+          config_file="${cf_path}/config/${job_folder}.yaml"
+          if [[ -f "$config_file" ]]; then
+            echo "Configuration file $config_file exists."
+            
+            if [ ! -f "${job_folder}_merged.yaml" ]; then
+              echo "env:" > "${job_folder}_merged.yaml"
+            fi
+
+            # Extract folder_path up to and including the first 'cloud-functions' occurrence
+            folder_path="${cf_path%%/cloud-functions*}/cloud-functions"
+            echo "Setting folder_path to: $folder_path"
+            # Add folder_path to env_config.yaml
+            yq eval ".env.folder_path = \"$folder_path\"" -i env_config.yaml
+
+            # Extract ${{ inputs.branch }} section from the config file
+            yq eval  ".${{ inputs.branch }} | {\"job\": .}" "$config_file" > job_env_config.yaml
+
+            # Combine env_config.yaml and job_config.yaml into the merged file
+            yq eval-all 'select(fileIndex == 0) as $env | select(fileIndex == 1) as $job | $env * $job' env_config.yaml job_env_config.yaml > "${job_folder}_merged.yaml"
+          
+          else
+            echo "::warning::Configuration file $config_file does not exist. Provide a proper config file."
+            cat "env_config.yaml" > ${job_folder}_merged.yaml
+          fi
+
+          echo "------------------job configs start------------------"
+          cat ${job_folder}_merged.yaml
+          echo "------------------job configs end------------------"
+          
+          # Save the fully processed config file to the output array
+          output_array+=(${job_folder}_merged.yaml)
+        done
+
+        echo "output_array: ${output_array[@]}"
+
+        # Create cloudfunction_artifacts directory and upload the cloud function config json files
+        mkdir cloudfunction_artifacts
+
+        # Create an empty array to store the processed config files within the cloudfunction_artifacts directory
+        configFiles=()
+        for ymlfile in ${output_array[@]}; do
+          # Define the file name for the json file
+          json_file="${ymlfile%.yaml}.json" 
+          # Convert the yaml file to json and save it to the cloudfunction_artifacts directory
+          yq eval -o=json "$ymlfile" > "cloudfunction_artifacts/${json_file}"
+          # Save the file path to the json in the configFiles array
+          configFiles+=("cloudfunction_artifacts/${json_file}")
+        done
+
+        echo "configFiles=${configFiles[@]}"
+
+        echo "list cloudfunction_artifacts start"
+        ls -l cloudfunction_artifacts
+        echo "list cloudfunction_artifacts end"
+
+        # Create a different artifact directory
+        mkdir -p matrix_artifacts
+
+        # Convert the configFiles array to a json string of file paths, save it to the matrix variable
+        jsonString=$( echo ${configFiles[@]}  | jq  -R -s -c 'sub("\n$";"") | split(" ")'  )
+        # Save the matrix json string to the matrix_artifacts directory
+        echo "JSON String: $jsonString"
+
+        # Save the matrix json string to the output variable
+        echo "matrix=$jsonString" >> $GITHUB_OUTPUT
+
+        echo "$jsonString" > matrix_artifacts/matrix.json
+
+    - name: Set output matrix
+      shell: bash
+      run: echo "matrix=${{ steps.get-configs.outputs.matrix }}"
+
+    - name: Upload Cloudfunction Configs Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: cloudfunction_artifacts
+        path: cloudfunction_artifacts
+        retention-days: 14
+
+    # Upload the matrix artifact to the GitHub workspace
+    - name: Upload Matrix Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: matrix_artifacts
+        path: matrix_artifacts/matrix.json
+        retention-days: 14    

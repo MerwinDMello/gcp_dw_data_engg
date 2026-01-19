@@ -1,0 +1,7 @@
+
+        
+TRUNCATE TABLE {{ params.param_psc_core_dataset_name }}.Artiva_StgHCDSSUBCATEGORY ;
+
+INSERT INTO {{ params.param_psc_core_dataset_name }}.Artiva_StgHCDSSUBCATEGORY (HCDSACTIONGROUP, HCDSDCID, HCDSDENIALTYP, HCDSDESC, HCDSID, PSDSFOLLOWUPSUBCAT, PSDSIET, PSDSPRIORITY, PSDSSOURCE)
+SELECT TRIM(source.HCDSACTIONGROUP), TRIM(source.HCDSDCID), TRIM(source.HCDSDENIALTYP), TRIM(source.HCDSDESC), TRIM(source.HCDSID), TRIM(source.PSDSFOLLOWUPSUBCAT), TRIM(source.PSDSIET), source.PSDSPRIORITY, TRIM(source.PSDSSOURCE)
+FROM {{ params.param_psc_stage_dataset_name }}.Artiva_StgHCDSSUBCATEGORY as source;

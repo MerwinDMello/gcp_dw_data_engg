@@ -1,0 +1,33 @@
+CREATE TABLE IF NOT EXISTS edwpsc.ecw_refcoid
+(
+  coid STRING NOT NULL,
+  coidname STRING,
+  statekey STRING,
+  coidconsolidationindicator STRING,
+  coidcompanycode STRING,
+  coidunitnumber STRING,
+  coidlob STRING,
+  coidsublob STRING,
+  marketkey INT64,
+  dwlastupdatedatetime DATETIME NOT NULL,
+  sourcesystemcode STRING,
+  insertedby STRING,
+  inserteddtm DATETIME,
+  modifiedby STRING,
+  modifieddtm DATETIME,
+  lobname STRING,
+  sublobname STRING,
+  deleteflag INT64,
+  coidstatflag INT64,
+  ppmsflag INT64,
+  centerkey INT64,
+  coidspecialty STRING,
+  coidsamestorecode STRING,
+  coidsamestoreflag BOOL,
+  pscrevcyclemgmt STRING,
+  sysstarttime DATETIME NOT NULL,
+  sysendtime DATETIME NOT NULL,
+  coidwithleadingzero STRING,
+  PRIMARY KEY (coid) NOT ENFORCED
+)
+;

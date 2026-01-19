@@ -33,29 +33,32 @@ dt1 = datetime.now()
 source_df = pd.read_csv(input_path, index_col=None)
 for index, row in source_df.iterrows():
     server = row['Server']
-    database_name = row['DatabaseName']
+    database_name = row['DatabaseName_Table']
     schema = row['Schema']
     table_name = row['TableName']
     view_name = row['View']
     merge_fields = row['Merge_Field']
-    server_num_match = re.search(pattern_fmt_code, server, re.IGNORECASE)
-    server_num = server_num_match.group().lower()
-    run_mssql_scripter_command(server, database_name, schema, table_name, server_num)
-    target_file_path = f"{output_path}\\{server_num}\\{schema}.{table_name}.Table.sql"
-    new_target_file_path = f"{output_path}\\{server_num}\\{view_name}.sql"
-    if os.path.exists(target_file_path):
-        os.rename(target_file_path, new_target_file_path)
-        # Read the file content
-        with open(new_target_file_path, 'r') as file:
-            file_content = file.read()
+    schema_base = str(row['Schema_Base']).strip().lower()
+    if schema_base == "table":
+        server_num_match = re.search(pattern_fmt_code, server, re.IGNORECASE)
+        server_num = server_num_match.group().lower()
+        run_mssql_scripter_command(server, database_name, schema, table_name, server_num)
+        target_file_path = f"{output_path}\\{server_num}\\{schema}.{table_name}.Table.sql"
+        new_target_file_path = f"{output_path}\\{server_num}\\{view_name}.sql"
+        if os.path.exists(target_file_path):
+            os.rename(target_file_path, new_target_file_path)
+            # Read the file content
+            with open(new_target_file_path, 'r') as file:
+                file_content = file.read()
 
-        # Perform the replacement
-        old_string = f"[{schema}].[{table_name}]"
-        new_string = f"[{view_name}]"
-        modified_content = file_content.replace(old_string, new_string)
+            # Perform the replacement
+            old_string = f"[{schema}].[{table_name}]"
+            search_pattern = re.compile(re.escape(old_string), re.IGNORECASE)
+            new_string = f"[{view_name}]"
+            modified_content = search_pattern.sub(new_string, file_content)
 
-        # Write the modified content back to the file
-        with open(new_target_file_path, 'w') as file:
-            file.write(modified_content)
+            # Write the modified content back to the file
+            with open(new_target_file_path, 'w') as file:
+                file.write(modified_content)
 dt2 = datetime.now()
 print(dt2-dt1)

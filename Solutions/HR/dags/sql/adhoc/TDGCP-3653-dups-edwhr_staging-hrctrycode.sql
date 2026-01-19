@@ -1,0 +1,1 @@
+delete from edwhr_staging.hrctrycode hr  where hr.hrctry_code ='JR' and hr.type='SU';

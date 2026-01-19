@@ -1,0 +1,53 @@
+CREATE OR REPLACE VIEW edwpsc_views.`epic_factencounter`
+AS SELECT
+  `epic_factencounter`.encounterkey,
+  `epic_factencounter`.regionkey,
+  `epic_factencounter`.coid,
+  `epic_factencounter`.coidconfigurationkey,
+  `epic_factencounter`.servicingproviderkey,
+  `epic_factencounter`.facilitykey,
+  `epic_factencounter`.patientkey,
+  `epic_factencounter`.visitreason,
+  `epic_factencounter`.visitdate,
+  `epic_factencounter`.visitstarttime,
+  `epic_factencounter`.visitendtime,
+  `epic_factencounter`.visittypekey,
+  `epic_factencounter`.visitcopay,
+  `epic_factencounter`.visitcopaydue,
+  `epic_factencounter`.visitstatuskey,
+  `epic_factencounter`.encountertype,
+  `epic_factencounter`.deleteflag,
+  `epic_factencounter`.encounterlock,
+  `epic_factencounter`.visitarrivedtime,
+  `epic_factencounter`.statusaftercheckin,
+  `epic_factencounter`.claimrequired,
+  `epic_factencounter`.visittypeoverriden,
+  `epic_factencounter`.visitproviderkey,
+  `epic_factencounter`.referringproviderkey,
+  `epic_factencounter`.pcpproviderkey,
+  `epic_factencounter`.facilityresourcekey,
+  `epic_factencounter`.createdbyuserkey,
+  `epic_factencounter`.timein,
+  `epic_factencounter`.timeout,
+  `epic_factencounter`.departuretime,
+  `epic_factencounter`.patenccsnid,
+  `epic_factencounter`.sourceaprimarykeyvalue,
+  `epic_factencounter`.sourcearecordlastupdated,
+  `epic_factencounter`.dwlastupdatedatetime,
+  `epic_factencounter`.sourcesystemcode,
+  `epic_factencounter`.insertedby,
+  `epic_factencounter`.inserteddtm,
+  `epic_factencounter`.modifiedby,
+  `epic_factencounter`.modifieddtm,
+  `epic_factencounter`.practicekey,
+  `epic_factencounter`.lastclaimkey,
+  `epic_factencounter`.encountertypekey,
+  `epic_factencounter`.gferequested,
+  `epic_factencounter`.gfecompleted,
+  `epic_factencounter`.gfedeclined
+  FROM
+    edwpsc_base_views.`epic_factencounter`
+  INNER JOIN edwpsc_base_views.secref_facility
+  ON LPAD(TRIM(secref_facility.co_id, ' '), 5, '0') = LPAD(TRIM(`epic_factencounter`.coid, ' '), 5, '0')
+  AND TRIM(secref_facility.user_id, ' ') = TRIM(session_user(), ' ')
+;

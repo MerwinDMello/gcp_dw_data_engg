@@ -1,0 +1,50 @@
+v_sourcesysnm: remits    
+v_databasetype: sqlserver
+v_database: AdmitToRemit
+v_port: 1433
+v_secret_name: revapp_claims_remits_sql/versions/latest
+v_jdbc_class_name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+v_jdbc_jar: mssql-jdbc-12.4.0.jre8.jar
+v_jdkfile: jre-8u351-linux-x64.tar.gz
+v_jdkversion: jre1.8.0_351
+v_jdbcbqpytemplate: Jdbc_to_BigQuery_PythonTemplate.py
+v_machine_type: n1-standard-4
+
+# Lists based on dependencies
+# tblist [srctableid~srctablename~tgttablename~tgttableloadtype~srctablequery~rowcommitsize]
+
+tblist1: [
+   "1~AdmitToRemit.dbo.LU_Remit_Payer~v_rmt_stage_dataset_name.lu_remit_payer~truncate~SELECT address_1, address_2, city, country_cd, customer_cd, payer_id_num, payer_name, remit_payer_id, state, zip, dw_last_update_date_time, source_system_code FROM admittoremit.dbo.lu_remit_payer WITH (nolock) WHERE dw_last_update_date_time>= (SELECT DATEADD(HOUR, -1, min(dw_last_update_date_time)) FROM admittoremit.dbo.fact_master_remit WITH (nolock) WHERE active=1)~100000",
+   "2~AdmitToRemit.dbo.LU_Remit_Provider~v_rmt_stage_dataset_name.lu_remit_provider~truncate~SELECT address_1, address_2, city, country_cd, customer_cd, npi, provider_name, remit_provider_id, state, tax_id, zip, dw_last_update_date_time, source_system_code FROM admittoremit.dbo.lu_remit_provider WITH (nolock) WHERE dw_last_update_date_time>= (SELECT DATEADD(HOUR, -1, min(dw_last_update_date_time)) FROM admittoremit.dbo.fact_master_remit WITH (nolock) WHERE active=1)~100000",
+   "3~AdmitToRemit.dbo.Fact_Master_Remit~v_rmt_stage_dataset_name.fact_master_remit~truncate~SELECT check_num, credit_debit_ind, customer_cd, dw_last_update_date_time, interchange_control_num, payer_identifier, payment_type_ind, pay_fmt_cd, pay_method_cd, receiver_acct_num, receiver_acct_num_qual_ind, receiver_identifier, receiver_remit_id_qual_ind, receiver_remit_num, CAST(remit_effective_dt AS DATE) AS remit_effective_dt, CAST(remit_entered_dt AS DATE) AS remit_entered_dt, remit_id, remit_total_amt, sender_acct_num, sender_acct_num_qual_ind, sender_identifier, sender_remit_id_qual_ind, sender_remit_num, source_system_code, tran_handle_cd FROM admittoremit.dbo.fact_master_remit WITH (nolock) WHERE active=1~100000",
+   "4~AdmitToRemit.dbo.Fact_Patient_Remit~v_rmt_stage_dataset_name.fact_patient_remit~truncate~SELECT fpr.claim_file_inc_cd, fpr.claim_file_name, fpr.claim_freq_type_cd, fpr.customer_cd, fpr.discharge_fraction, fpr.drg, fpr.drg_weight, fpr.facility_cd, fpr.iplan, NULL AS pas_coid, fpr.patient_acct_num, fpr.patient_remit_sid, fpr.patient_resp_amt, fpr.payer_claim_ctrll_num, CAST(fpr.remit_bill_dt AS DATE) AS remit_bill_dt, fpr.remit_claim_id, fpr.remit_claim_status_cd, fpr.remit_file_name, fpr.remit_file_path, fpr.remit_id, fpr.remit_payer_id, fpr.remit_payment_amt, fpr.remit_provider_id, fpr.tot_claim_charge_amt, fpr.unit_num, fpr.dw_last_update_date_time, fpr.source_system_code FROM admittoremit.dbo.fact_patient_remit fpr WITH (nolock) JOIN admittoremit.dbo.fact_master_remit fmr WITH (nolock) ON fpr.remit_id=fmr.remit_id WHERE fmr.active=1~100000",
+   "5~AdmitToRemit.dbo.Patient_Remit_Adj~v_rmt_stage_dataset_name.fact_patient_remit_adj~truncate~SELECT pra.adjustment_amt, pra.adjustment_quantity, pra.adj_seq_num, pra.claim_adj_group_cd, pra.claim_adj_reason_cd, pra.customer_cd, pra.patient_remit_sid, pra.dw_last_update_date_time, pra.source_system_code FROM admittoremit.dbo.patient_remit_adj pra WITH (nolock) JOIN admittoremit.dbo.fact_patient_remit fpr WITH (nolock) ON pra.patient_remit_sid=fpr.patient_remit_sid JOIN admittoremit.dbo.fact_master_remit fmr WITH (nolock) ON fpr.remit_id=fmr.remit_id WHERE fmr.active=1~100000",
+   "6~AdmitToRemit.dbo.Fact_Svc_Line~v_rmt_stage_dataset_name.fact_svc_line~truncate~SELECT fsl.customer_cd, fsl.patient_remit_sid, fsl.proc_mod_1, fsl.proc_mod_2, fsl.proc_mod_3, fsl.proc_mod_4, fsl.rev_code, CAST(fsl.service_end_dt as DATE) as service_end_dt, CAST(fsl.service_line_dt as DATE) as service_line_dt, fsl.serv_line_charge_amt, fsl.serv_line_payment_amt, fsl.submitted_service_cd, fsl.svc_line_cd, fsl.svc_line_cd_qual, fsl.svc_line_seq_num, fsl.unit_of_svc_paid_cnt, fsl.dw_last_update_date_time, fsl.source_system_code FROM admittoremit.dbo.fact_svc_line fsl WITH (nolock) JOIN admittoremit.dbo.fact_patient_remit fpr WITH (nolock) ON fsl.patient_remit_sid=fpr.patient_remit_sid JOIN admittoremit.dbo.fact_master_remit fmr WITH (nolock) ON fpr.remit_id=fmr.remit_id WHERE fmr.active=1~500000",
+   "7~AdmitToRemit.dbo.Fact_Svc_Line_Claim_Adj~v_rmt_stage_dataset_name.fact_svc_line_claim_adj~truncate~SELECT fsl.adj_amt, fsl.adj_qty_num, fsl.claim_adj_group_cd, fsl.claim_adj_reason_cd, fsl.customer_cd, fsl.line_clm_adj_seq_num, fsl.patient_remit_sid, fsl.svc_line_seq_num, fsl.dw_last_update_date_time, fsl.source_system_code FROM admittoremit.dbo.fact_svc_line_claim_adj fsl WITH (nolock) JOIN admittoremit.dbo.fact_patient_remit fpr WITH (nolock) ON fsl.patient_remit_sid=fpr.patient_remit_sid JOIN admittoremit.dbo.fact_master_remit fmr WITH (nolock) ON fpr.remit_id=fmr.remit_id WHERE fmr.active=1~500000",
+   "8~AdmitToRemit.dbo.Fact_Patient_Qual~v_rmt_stage_dataset_name.fact_patient_qual~truncate~SELECT fpq.customer_cd, fpq.patient_remit_sid, fpq.pat_qual_amt, fpq.pat_qual_cnt, fpq.pat_qual_code, fpq.pat_qual_id, fpq.pat_qual_ind, fpq.pat_qual_name, fpq.qualifier_code, fpq.qual_seq_num, fpq.svc_line_seq_num, fpq.dw_last_update_date_time, fpq.source_system_code FROM admittoremit.dbo.fact_patient_qual fpq WITH (nolock) JOIN admittoremit.dbo.fact_patient_remit fpr WITH (nolock) ON fpq.patient_remit_sid=fpr.patient_remit_sid JOIN admittoremit.dbo.fact_master_remit fmr WITH (nolock) ON fpr.remit_id=fmr.remit_id WHERE fmr.active=1~500000"
+]
+
+tblist2: [
+   "9~AdmitToRemit.dbo.Ep_Rmt_Recon~v_rmt_stage_dataset_name.ep_rmt_recon~truncate~SELECT DISTINCT CAST(claimbilldt AS DATE) AS claimbilldt, claimcontrolmsg, claimpaymentamt, coid, eppayernum, CAST(hcaremitdt AS DATE) AS hcaremitdt, iplan, overflow, patacctnum, patientname, payerbatchlabel, payericn, paymentchkamt, CAST(paymentchkdt AS DATE) AS paymentchkdt, paymentchknum, paymentplbamt, remitprovnpi, unitnum FROM admittoremit.dbo.ep_rmt_recon WITH (nolock)~100000"
+]
+
+schedule:
+  - schedule_interval: None
+    start_date: pendulum.datetime(2025, 2, 1, tz=current_timezone)
+    frequency: daily
+    dag_name_suffix: core_remits
+    done_file: Remits_YYYYMMDD.done
+    has_sensor: 'No'
+    trigger_dag_ids: ['dag_integrate_remits_sqlserver_daily_core_remits']
+    tblist: [tblist1]
+    truncatetablelist: ['v_rmt_stage_dataset_name.lu_remit_payer','v_rmt_stage_dataset_name.lu_remit_provider','v_rmt_stage_dataset_name.fact_master_remit','v_rmt_stage_dataset_name.fact_patient_remit','v_rmt_stage_dataset_name.fact_patient_remit_adj','v_rmt_stage_dataset_name.fact_svc_line','v_rmt_stage_dataset_name.fact_svc_line_claim_adj','v_rmt_stage_dataset_name.fact_patient_qual']
+
+  - schedule_interval: None
+    start_date: pendulum.datetime(2025, 2, 1, tz=current_timezone)
+    frequency: daily
+    dag_name_suffix: ep_payer_recon
+    done_file: EPPayerRecon_YYYYMMDD.done
+    has_sensor: 'No'
+    trigger_dag_ids: ['dag_integrate_remits_sqlserver_daily_ep_payer_recon']
+    tblist: [tblist2]
+    truncatetablelist: ['v_rmt_stage_dataset_name.ep_rmt_recon']

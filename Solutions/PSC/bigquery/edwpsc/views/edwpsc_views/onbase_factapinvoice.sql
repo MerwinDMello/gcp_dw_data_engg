@@ -1,0 +1,47 @@
+CREATE OR REPLACE VIEW edwpsc_views.`onbase_factapinvoice`
+AS SELECT
+  `onbase_factapinvoice`.itemnum,
+  `onbase_factapinvoice`.itemtypename,
+  `onbase_factapinvoice`.amapprovaldate,
+  `onbase_factapinvoice`.apapprovaldate,
+  `onbase_factapinvoice`.cfoapprovaldate,
+  `onbase_factapinvoice`.fdapprovaldate,
+  `onbase_factapinvoice`.gcfoapprovaldate,
+  `onbase_factapinvoice`.gpapprovaldate,
+  `onbase_factapinvoice`.hrapprovaldate,
+  `onbase_factapinvoice`.mmapprovaldate,
+  `onbase_factapinvoice`.omapprovaldate,
+  `onbase_factapinvoice`.pmapprovaldate,
+  `onbase_factapinvoice`.vpapprovaldate,
+  `onbase_factapinvoice`.invoicedate,
+  `onbase_factapinvoice`.coid,
+  `onbase_factapinvoice`.vendorname,
+  `onbase_factapinvoice`.vendornumber,
+  `onbase_factapinvoice`.amount,
+  `onbase_factapinvoice`.invoicenumber221,
+  `onbase_factapinvoice`.vouchertype,
+  `onbase_factapinvoice`.invoicetype,
+  `onbase_factapinvoice`.apusername,
+  `onbase_factapinvoice`.omusername,
+  `onbase_factapinvoice`.pmusername,
+  `onbase_factapinvoice`.mmusername,
+  `onbase_factapinvoice`.vpusername,
+  `onbase_factapinvoice`.gcfousername,
+  `onbase_factapinvoice`.gpusername,
+  `onbase_factapinvoice`.cfousername,
+  `onbase_factapinvoice`.gvpusername,
+  `onbase_factapinvoice`.hrusername,
+  `onbase_factapinvoice`.amusername,
+  `onbase_factapinvoice`.insertedby,
+  `onbase_factapinvoice`.inserteddtm,
+  `onbase_factapinvoice`.sourcesystemcode,
+  `onbase_factapinvoice`.dwlastupdatedatetime,
+  `onbase_factapinvoice`.modifiedby,
+  `onbase_factapinvoice`.modifieddtm,
+  `onbase_factapinvoice`.onbaseapinvoicekey
+  FROM
+    edwpsc_base_views.`onbase_factapinvoice`
+  INNER JOIN edwpsc_base_views.secref_facility
+  ON LPAD(TRIM(secref_facility.co_id, ' '), 5, '0') = LPAD(TRIM(`onbase_factapinvoice`.coid, ' '), 5, '0')
+  AND TRIM(secref_facility.user_id, ' ') = TRIM(session_user(), ' ')
+;

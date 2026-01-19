@@ -1,0 +1,29 @@
+CREATE OR REPLACE VIEW edwpsc_base_views.`pv_stginvoiceworklist`
+AS SELECT
+  `pv_stginvoiceworklist`.invoiceworklistid,
+  `pv_stginvoiceworklist`.practice,
+  `pv_stginvoiceworklist`.arctrlnum,
+  `pv_stginvoiceworklist`.invnum,
+  `pv_stginvoiceworklist`.clinic,
+  `pv_stginvoiceworklist`.svcdate,
+  `pv_stginvoiceworklist`.invdate,
+  `pv_stginvoiceworklist`.visittype,
+  `pv_stginvoiceworklist`.patnum,
+  `pv_stginvoiceworklist`.patname,
+  `pv_stginvoiceworklist`.payernum,
+  `pv_stginvoiceworklist`.payerclass,
+  `pv_stginvoiceworklist`.payertype,
+  `pv_stginvoiceworklist`.payername,
+  `pv_stginvoiceworklist`.crgbalance,
+  `pv_stginvoiceworklist`.actiondate,
+  `pv_stginvoiceworklist`.worklistpk,
+  `pv_stginvoiceworklist`.releaseflag,
+  `pv_stginvoiceworklist`.displayui,
+  `pv_stginvoiceworklist`.regionkey,
+  `pv_stginvoiceworklist`.inserteddtm,
+  `pv_stginvoiceworklist`.modifieddtm,
+  `pv_stginvoiceworklist`.dwlastupdatedatetime,
+  `pv_stginvoiceworklist`.sourcephysicaldeleteflag
+  FROM
+    edwpsc.`pv_stginvoiceworklist`
+;

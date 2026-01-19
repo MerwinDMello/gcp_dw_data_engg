@@ -1,0 +1,5 @@
+v_jdbc_url: jdbc:sqlserver://HC1FSDWENT.fullscalecst1.varian.ois:1433;encrypt=false;trustServerCertificate=true
+v_server_name:  xxx
+v_db_name:  VarianEDW
+v_test_sql: "SELECT COALESCE(DimSiteID, 0) AS dimsiteid, COALESCE(DimResourceID, 0) AS dimresourceid, DimLookupID_ResourceType, COALESCE(ActualResourceID, 0) AS actualresourceid, ctrResourceSer, LogID, COALESCE(RunID, 0) AS runid, ctrstkh_id, 'v_currtimestamp' AS dw_last_update_date_time FROM VarianEDW.EDW.DimResource"
+v_tgt_bq_tbl: v_curated_project_id.edwcr_staging.stg_dimresource

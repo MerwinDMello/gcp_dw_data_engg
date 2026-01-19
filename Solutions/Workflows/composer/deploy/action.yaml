@@ -1,0 +1,60 @@
+name: Composer Deploy
+
+inputs:
+  branch:
+    description: "The branch to deploy from."
+    required: true
+  bucket_name: 
+    description: "The name of the GCS bucket to sync the DAGs to."
+    required: true
+  proc_project_id:
+    description: "The project ID for the GCP setup."
+    required: true
+  workload_identity_provider:
+    description: "The workload identity provider for authentication."
+    required: true
+  service_account:
+    description: "The service account for authentication."
+    required: true
+  dags_folder_path: 
+    description: "The path to the dags folder in the repo."
+    required: true
+  dags_subdomain_folder_path:
+    description: "If only a subdomain folder is needed, enter the path to the subdomain folder(include leading /), otherwise use empty quotes."
+    required: true
+  two_way_sync:
+    description: "Enter code to allow 2-way sync, meaning deletion of files in the bucket that do not match the repo, or leave blank"
+    required: true
+    default: ""
+  exclude_path:
+    description: "Enter code to allow for exclusion of specific path(s) when running the sync"
+    required: false
+    default: ""
+  args:
+    description: "Additional arguments for the deployment."
+    default: ""
+
+
+runs:
+  using: "composite"
+  steps:
+    # Authentication against Environment
+    - name: Authenticate to Google Cloud ${{ inputs.branch }} environment
+      uses: 'google-github-actions/auth@v2'
+      with:
+        workload_identity_provider: ${{ inputs.workload_identity_provider }}
+        service_account: ${{ inputs.service_account }} 
+    # Setup GCP
+    - name: GCP setup
+      uses: 'google-github-actions/setup-gcloud@v2'
+      with:
+        project_id: ${{ inputs.proc_project_id }}
+    # Sync DAGS to GCS Bucket
+    - name: Sync repo with DAG
+      shell: bash
+      run: |
+        gcloud version
+        gcloud storage rsync -r ${{ inputs.dags_folder_path }}${{ inputs.dags_subdomain_folder_path }} gs://${{ inputs.bucket_name }}/dags${{ inputs.dags_subdomain_folder_path }} --checksums-only ${{ inputs.two_way_sync }} ${{ inputs.exclude_path }}
+        # --checksums-only flag results in checking hashes to ensure only changes are applied in the bucket rather than writing all files to the bucket every time
+        # Code to allow 2-way sync: --delete-unmatched-destination-objects
+        # For more information on gcloud storage rsync: https://cloud.google.com/sdk/gcloud/reference/storage/rsync

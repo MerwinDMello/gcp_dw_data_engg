@@ -1,0 +1,4 @@
+opol:
+- server: "cannwpdbsdwh01.hca.corpad.net"
+  schema: 
+    - name: ["1433","Discover",""]

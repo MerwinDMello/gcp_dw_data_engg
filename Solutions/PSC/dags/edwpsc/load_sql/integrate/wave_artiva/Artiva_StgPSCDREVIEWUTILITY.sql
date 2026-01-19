@@ -1,0 +1,7 @@
+
+        
+TRUNCATE TABLE {{ params.param_psc_core_dataset_name }}.Artiva_StgPSCDREVIEWUTILITY ;
+
+INSERT INTO {{ params.param_psc_core_dataset_name }}.Artiva_StgPSCDREVIEWUTILITY (PSCDCLMSEL, PSCDCOID, PSCDCRTDTE, PSCDCRTTIME, PSCDCRTUSER, PSCDDESC, PSCDKEY, PSCDPERCENT, PSCDPROVIDERID, PSCDSTATUS)
+SELECT source.PSCDCLMSEL, TRIM(source.PSCDCOID), source.PSCDCRTDTE, source.PSCDCRTTIME, TRIM(source.PSCDCRTUSER), TRIM(source.PSCDDESC), source.PSCDKEY, source.PSCDPERCENT, source.PSCDPROVIDERID, TRIM(source.PSCDSTATUS)
+FROM {{ params.param_psc_stage_dataset_name }}.Artiva_StgPSCDREVIEWUTILITY as source;

@@ -1,0 +1,26 @@
+CREATE TABLE IF NOT EXISTS {{ params.param_hr_core_dataset_name }}.recruitment_requisition
+(
+  recruitment_requisition_sid INT64 NOT NULL OPTIONS(description="A unique identifier for each requisition coming from the recruitment system.")
+, valid_from_date DATETIME NOT NULL OPTIONS(description="Date on which the record became valid. Load date typically.")
+, valid_to_date DATETIME OPTIONS(description="Date on which the record was invalidated.")
+, requisition_num INT64 OPTIONS(description="A unique number for each requisition coming from the source.")
+, lawson_requisition_sid INT64 OPTIONS(description="A unique identifier for the Lawson requisition.")
+, lawson_requisition_num INT64 OPTIONS(description="A unique identifier for the Lawson requisition from Lawson.")
+, hiring_manager_user_sid INT64 OPTIONS(description="A unique identifier for the hiring manager.")
+, recruitment_requisition_num_text STRING OPTIONS(description="A unique value coming from the source that combines the location code and lawson requisition number.")
+, process_level_code STRING NOT NULL OPTIONS(description="Unique process level code of an HR company value mainatined in this field.")
+, approved_sw INT64 OPTIONS(description="Numeric boolean to where 0 = false/no and 1 = true/yes")
+, target_start_date DATE OPTIONS(description="The start date the requisition is targeted for.")
+, required_asset_num INT64 OPTIONS(description="Identifies the number of assets or requirements needed to fill the requisition.")
+, required_asset_sw INT64 OPTIONS(description="Numeric boolean to where 0 = false/no and 1 = true/yes")
+, workflow_id INT64 OPTIONS(description="A unique identifier for the workflow of the requisition.")
+, recruitment_job_sid INT64 OPTIONS(description="A unique identifier for each job that the requisition is tied to.")
+, job_template_sid INT64 OPTIONS(description="A unique identifier for each job template generated in ETL.")
+, requisition_new_graduate_flag STRING OPTIONS(description="Indicates if the person is a new graduate. Values are: Y= Yes, N = No, and U = Unknown")
+, lawson_company_num INT64 OPTIONS(description="Unique four digit numeric value of Lawson generated HR Company maintained in this field")
+, source_system_code STRING NOT NULL OPTIONS(description="A one character code indicating the specific source system from which the data originated.")
+, dw_last_update_date_time DATETIME NOT NULL OPTIONS(description="Datetime of update or load of this record to the Enterprise Data Warehouse.")
+)
+CLUSTER BY recruitment_requisition_sid
+OPTIONS(description="Contains details around the requisition from the recruitment system.")
+;

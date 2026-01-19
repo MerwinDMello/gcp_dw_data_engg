@@ -1,0 +1,260 @@
+integrate:
+- source_system: psc
+  frequency: daily
+  dag_name_suffix: wave-hosp-data
+  start_date: pendulum.datetime(2025, 2, 1, tz=current_timezone)
+  schedule: None
+  type: sqlserver
+  done_file: None
+  server-04:
+    trigger_dag_ids: []
+    tables:
+    - table: 3M_FactDFT
+      has_sensor: 'No'
+      sql:
+      - name: 3M_FactDFT.sql
+      validation:
+      - name: NONE
+    - table: 3M_FactProFeeInventory
+      has_sensor: 'No'
+      sql:
+      - name: 3M_FactProFeeInventory.sql
+      validation:
+      - name: NONE
+    - table: 3M_FactProFeeNotBillable
+      has_sensor: 'No'
+      sql:
+      - name: 3M_FactProFeeNotBillable.sql
+      validation:
+      - name: NONE
+    - table: 3M_FactUserActivity
+      has_sensor: 'No'
+      sql:
+      - name: 3M_FactUserActivity.sql
+      validation:
+      - name: NONE
+    - table: PK_FactBalancing
+      has_sensor: 'No'
+      sql:
+      - name: PK_FactBalancing.sql
+      validation:
+      - name: NONE
+    - table: ECW_FactQGendaActualHours
+      has_sensor: 'No'
+      sql:
+      - name: ECW_FactQGendaActualHours.sql
+      validation:
+      - name: NONE
+    - table: ECW_FactQGendaProviderHours
+      has_sensor: 'No'
+      sql:
+      - name: ECW_FactQGendaProviderHours.sql
+      validation:
+      - name: NONE
+    - table: ECW_JuncClaimToPatientAccounting
+      has_sensor: 'No'
+      sql:
+      - name: ECW_JuncClaimToPatientAccounting.sql
+      validation:
+      - name: NONE
+    - table: ECW_RefDate
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RefDate.sql
+      validation:
+      - name: NONE
+    - table: ECW_RefDivision
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RefDivision.sql
+      validation:
+      - name: NONE
+    - table: ECW_RefGroup
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RefGroup.sql
+      validation:
+      - name: NONE
+    - table: ECW_RefMarket
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RefMarket.sql
+      validation:
+      - name: NONE
+  server-07:
+    trigger_dag_ids: []
+    tables:
+    - table: OpenConnect_FactEDR
+      has_sensor: 'No'
+      sql:
+      - name: OpenConnect_FactEDR.sql
+      validation:
+      - name: NONE
+    - table: OpenConnect_FactEdrPSC
+      has_sensor: 'No'
+      sql:
+      - name: OpenConnect_FactEdrPSC.sql
+      validation:
+      - name: NONE
+    - table: OpenConnect_FactMessages
+      has_sensor: 'No'
+      sql:
+      - name: OpenConnect_FactMessages.sql
+      validation:
+      - name: NONE
+    - table: OpenConnect_FactMessagesPSC
+      has_sensor: 'No'
+      sql:
+      - name: OpenConnect_FactMessagesPSC.sql
+      validation:
+      - name: NONE
+    - table: OpenConnect_FactPscMtxRecon
+      has_sensor: 'No'
+      sql:
+      - name: OpenConnect_FactPscMtxRecon.sql
+      validation:
+      - name: NONE
+    - table: OpenConnect_FactSourceCACProCharge
+      has_sensor: 'No'
+      sql:
+      - name: OpenConnect_FactSourceCACProCharge.sql
+      validation:
+      - name: NONE
+    - table: OpenConnect_FactSourceCernerMasterLog
+      has_sensor: 'No'
+      sql:
+      - name: OpenConnect_FactSourceCernerMasterLog.sql
+      validation:
+      - name: NONE
+    - table: OpenConnect_FactSuppressionDetail
+      has_sensor: 'No'
+      sql:
+      - name: OpenConnect_FactSuppressionDetail.sql
+      validation:
+      - name: NONE
+    - table: OpenConnect_FactSuppressionDetailPSC
+      has_sensor: 'No'
+      sql:
+      - name: OpenConnect_FactSuppressionDetailPSC.sql
+      validation:
+      - name: NONE   
+    - table: PK_FactDiagnosisCodes
+      has_sensor: 'No'
+      sql:
+      - name: PK_FactDiagnosisCodes.sql
+      validation:
+      - name: NONE
+    - table: PK_FactEncounter
+      has_sensor: 'No'
+      sql:
+      - name: PK_FactEncounter.sql
+      validation:
+      - name: NONE
+    - table: PK_FactEncounterProvider
+      has_sensor: 'No'
+      sql:
+      - name: PK_FactEncounterProvider.sql
+      validation:
+      - name: NONE
+    - table: PK_FactHoldingBin
+      has_sensor: 'No'
+      sql:
+      - name: PK_FactHoldingBin.sql
+      validation:
+      - name: NONE
+    - table: PK_FactHoldingBinEdits
+      has_sensor: 'No'
+      sql:
+      - name: PK_FactHoldingBinEdits.sql
+      validation:
+      - name: NONE
+    - table: PK_FactHoldingBinSummary
+      has_sensor: 'No'
+      sql:
+      - name: PK_FactHoldingBinSummary.sql
+      validation:
+      - name: NONE
+    - table: PK_FactMIPS
+      has_sensor: 'No'
+      sql:
+      - name: PK_FactMIPS.sql
+      validation:
+      - name: NONE
+    - table: PK_FactObservationNote
+      has_sensor: 'No'
+      sql:
+      - name: PK_FactObservationNote.sql
+      validation:
+      - name: NONE
+    - table: PK_FactObservationNoteHM
+      has_sensor: 'No'
+      sql:
+      - name: PK_FactObservationNoteHM.sql
+      validation:
+      - name: NONE
+    - table: PK_FactRejections
+      has_sensor: 'No'
+      sql:
+      - name: PK_FactRejections.sql
+      validation:
+      - name: NONE
+    - table: PK_FactSkilledNursingFacilityNote
+      has_sensor: 'No'
+      sql:
+      - name: PK_FactSkilledNursingFacilityNote.sql
+      validation:
+      - name: NONE
+    - table: PK_FactTransactionDetails
+      has_sensor: 'No'
+      sql:
+      - name: PK_FactTransactionDetails.sql
+      validation:
+      - name: NONE
+    - table: PK_FactTransactionsHistoric
+      has_sensor: 'No'
+      sql:
+      - name: PK_FactTransactionsHistoric.sql
+      validation:
+      - name: NONE
+    - table: OpenConnect_JuncFirstLastKeyMeasure
+      has_sensor: 'No'
+      sql:
+      - name: OpenConnect_JuncFirstLastKeyMeasure.sql
+      validation:
+      - name: NONE
+    - table: OpenConnect_JuncFirstLastKeyMeasurePSC
+      has_sensor: 'No'
+      sql:
+      - name: OpenConnect_JuncFirstLastKeyMeasurePSC.sql
+      validation:
+      - name: NONE
+    - table: OpenConnect_RefFacilityCrosswalk
+      has_sensor: 'No'
+      sql:
+      - name: OpenConnect_RefFacilityCrosswalk.sql
+      validation:
+      - name: NONE
+    - table: PK_RefProvider
+      has_sensor: 'No'
+      sql:
+      - name: PK_RefProvider.sql
+      validation:
+      - name: NONE
+    - table: PK_RefRegion
+      has_sensor: 'No'
+      sql:
+      - name: PK_RefRegion.sql
+      validation:
+      - name: NONE
+    - table: OpenConnect_RprtErrorDetail
+      has_sensor: 'No'
+      sql:
+      - name: OpenConnect_RprtErrorDetail.sql
+      validation:
+      - name: NONE
+    - table: OpenConnect_RprtErrorDetailPSC
+      has_sensor: 'No'
+      sql:
+      - name: OpenConnect_RprtErrorDetailPSC.sql
+      validation:
+      - name: NONE

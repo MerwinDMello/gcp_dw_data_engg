@@ -1,0 +1,18 @@
+# The actual contents of this file will vary based on the pipeline template you are using
+# Keep the name of this file as pipeline.yaml
+
+#BQ to BQ pipeline example
+pipeline:
+  type: chain
+  source:
+    type: ReadFromBigQuery
+    config:
+      table: {{source_table_input}}
+  transforms:
+    - type: Sql
+      config:
+        query: "select name, age, sex, month(cast(`date` as date)) as `month`, count(*) as num_visits, sum(bill_amount) as total_bill_amount from PCOLLECTION group by name, age ,sex, month(cast(`date` as date))"
+  sink:
+    type: WriteToBigQuery
+    config:
+      table: {{sink_table_input}}

@@ -1,0 +1,31 @@
+CREATE TABLE IF NOT EXISTS edwpsc_staging.epic_factclaimstatushistory
+(
+  claimstatushistorykey INT64 NOT NULL,
+  claimkey INT64,
+  claimnumber INT64,
+  visitnumber INT64,
+  regionkey INT64,
+  coid STRING,
+  invoicenumber STRING,
+  claimstatushistorymessage STRING,
+  claimstatushistoryfrom STRING,
+  claimstatushistoryto STRING,
+  claimstatushistorychangedate DATE,
+  claimstatushistorychangetime TIME,
+  claimstatustokey INT64,
+  claimstatushistorychangedbyuserkey INT64,
+  claimerrormessage STRING,
+  claimstatusnote STRING,
+  sourceaprimarykeyvalue STRING,
+  sourcearecordlastupdated DATETIME,
+  sourcebprimarykeyvalue STRING,
+  sourcebrecordlastupdated DATETIME,
+  dwlastupdatedatetime DATETIME,
+  sourcesystemcode STRING,
+  insertedby STRING,
+  inserteddtm DATETIME,
+  modifiedby STRING,
+  modifieddtm DATETIME,
+  PRIMARY KEY (claimstatushistorykey) NOT ENFORCED
+)
+;

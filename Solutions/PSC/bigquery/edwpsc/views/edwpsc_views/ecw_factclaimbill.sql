@@ -1,0 +1,32 @@
+CREATE OR REPLACE VIEW edwpsc_views.`ecw_factclaimbill`
+AS SELECT
+  `ecw_factclaimbill`.billkey,
+  `ecw_factclaimbill`.claimkey,
+  `ecw_factclaimbill`.claimnumber,
+  `ecw_factclaimbill`.regionkey,
+  `ecw_factclaimbill`.coid,
+  `ecw_factclaimbill`.coidconfigurationkey,
+  `ecw_factclaimbill`.servicingproviderkey,
+  `ecw_factclaimbill`.claimpayer1iplankey,
+  `ecw_factclaimbill`.facilitykey,
+  `ecw_factclaimbill`.billtypekey,
+  `ecw_factclaimbill`.iplankey,
+  `ecw_factclaimbill`.billmessage,
+  `ecw_factclaimbill`.batchnumber,
+  `ecw_factclaimbill`.billdatekey,
+  `ecw_factclaimbill`.billtime,
+  `ecw_factclaimbill`.sourceprimarykeyvalue,
+  `ecw_factclaimbill`.sourcerecordlastupdated,
+  `ecw_factclaimbill`.dwlastupdatedatetime,
+  `ecw_factclaimbill`.sourcesystemcode,
+  `ecw_factclaimbill`.insertedby,
+  `ecw_factclaimbill`.inserteddtm,
+  `ecw_factclaimbill`.modifiedby,
+  `ecw_factclaimbill`.modifieddtm,
+  `ecw_factclaimbill`.archivedrecord
+  FROM
+    edwpsc_base_views.`ecw_factclaimbill`
+  INNER JOIN edwpsc_base_views.secref_facility
+  ON LPAD(TRIM(secref_facility.co_id, ' '), 5, '0') = LPAD(TRIM(`ecw_factclaimbill`.coid, ' '), 5, '0')
+  AND TRIM(secref_facility.user_id, ' ') = TRIM(session_user(), ' ')
+;

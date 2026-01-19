@@ -1,0 +1,11 @@
+SELECT 
+excel_audit.file_name, 
+filenames.source_file_path
+FROM
+{{ params.param_parallon_ra_base_views_dataset_name }}.excel_audit excel_audit
+INNER JOIN
+{{ params.param_parallon_ra_base_views_dataset_name }}.source_filenames filenames
+ON excel_audit.file_name = filenames.file_name
+WHERE table_count IS NULL
+AND file_count = 0
+AND excel_audit.ssc_name = '{{ operational_group }}';

@@ -1,0 +1,6 @@
+# hrg dev variables for precheck ftp connection
+v_sourcesysnm: precheck_sftp
+v_host: ftp.precheck.com
+v_databasetype: file
+v_user: hca
+v_pwd_secret: hca_hrg_precheck_ftp_connection/versions/1

@@ -1,0 +1,50 @@
+CREATE OR REPLACE VIEW edwpsc_views.`artiva_rprtpesnapshot`
+AS SELECT
+  `artiva_rprtpesnapshot`.snapshotdate,
+  `artiva_rprtpesnapshot`.coid,
+  `artiva_rprtpesnapshot`.groupdba,
+  `artiva_rprtpesnapshot`.groupnpi,
+  `artiva_rprtpesnapshot`.groupname,
+  `artiva_rprtpesnapshot`.grouptaxid,
+  `artiva_rprtpesnapshot`.ppiassociatedlocationaddress,
+  `artiva_rprtpesnapshot`.ppicpidpayorname,
+  `artiva_rprtpesnapshot`.ppiclaimsatriskcount,
+  `artiva_rprtpesnapshot`.ppiclaimsonholdbalance,
+  `artiva_rprtpesnapshot`.ppicompletedate,
+  `artiva_rprtpesnapshot`.ppieffectivedate,
+  `artiva_rprtpesnapshot`.ppienrollmentaction,
+  `artiva_rprtpesnapshot`.ppigin,
+  `artiva_rprtpesnapshot`.ppiinitialreceivedfrompayordate,
+  `artiva_rprtpesnapshot`.ppikey,
+  `artiva_rprtpesnapshot`.ppilastnote,
+  `artiva_rprtpesnapshot`.ppilastnotedate,
+  `artiva_rprtpesnapshot`.ppileadgroupproviderstartdate,
+  `artiva_rprtpesnapshot`.ppiphase,
+  `artiva_rprtpesnapshot`.ppipin,
+  `artiva_rprtpesnapshot`.ppistatus,
+  `artiva_rprtpesnapshot`.ppistatusdate,
+  `artiva_rprtpesnapshot`.ppistatusdescription,
+  `artiva_rprtpesnapshot`.ppitype,
+  `artiva_rprtpesnapshot`.ppivoidflag,
+  `artiva_rprtpesnapshot`.payorsplitbylocationflag,
+  `artiva_rprtpesnapshot`.practicebillingaddress,
+  `artiva_rprtpesnapshot`.provideraddresstype,
+  `artiva_rprtpesnapshot`.providerfullname,
+  `artiva_rprtpesnapshot`.providerprimaryspecialty,
+  `artiva_rprtpesnapshot`.providersspactiveflag,
+  `artiva_rprtpesnapshot`.providertaxonomycode,
+  `artiva_rprtpesnapshot`.providerterminationdate,
+  `artiva_rprtpesnapshot`.providerterminationflag,
+  `artiva_rprtpesnapshot`.providernpi,
+  `artiva_rprtpesnapshot`.artivappikey,
+  `artiva_rprtpesnapshot`.insertedby,
+  `artiva_rprtpesnapshot`.inserteddtm,
+  `artiva_rprtpesnapshot`.modifiedby,
+  `artiva_rprtpesnapshot`.modifieddtm,
+  `artiva_rprtpesnapshot`.dwlastupdatedatetime
+  FROM
+    edwpsc_base_views.`artiva_rprtpesnapshot`
+  INNER JOIN edwpsc_base_views.secref_facility
+  ON LPAD(TRIM(secref_facility.co_id, ' '), 5, '0') = LPAD(TRIM(`artiva_rprtpesnapshot`.coid, ' '), 5, '0')
+  AND TRIM(secref_facility.user_id, ' ') = TRIM(session_user(), ' ')
+;

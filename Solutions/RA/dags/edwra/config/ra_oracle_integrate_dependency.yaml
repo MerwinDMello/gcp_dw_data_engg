@@ -1,0 +1,736 @@
+integrate:
+- source_system: ra
+  frequency: daily
+  start_date: pendulum.datetime(2023, 6, 9, tz=timezone)
+  schedule: 30 9 * * * # this may need to change to later in the day ref_cc_org_structure runs at 8:30 am
+  type: core_tables
+  dependency:
+  - table: ref_cc_org_structure #CTDN0501
+    has_sensor: 'Yes'
+    has_file_export: 'No'
+    sql:
+      - name: ref_cc_org_structure.sql 
+    sensor:
+      - dag_id: dag_ingest_ra_p1_oracle_daily_03.30 
+        task_id: end_dag
+        schedule: 30 3 * * *
+      - dag_id: dag_ingest_ra_p2_oracle_daily_03.30 
+        task_id: end_dag
+        schedule: 30 3 * * *
+  - table: payor_organization #CTDN0506
+    has_sensor: 'No'
+    has_file_export: 'No'
+    sql:
+      - name: clinicalacctkeys.sql
+  - table: ref_cc_account_payer_stts
+    has_sensor: 'No'
+    has_file_export: 'No'
+    sql:
+      - name: ref_cc_account_payer_stts.sql
+  - table: ref_cc_activity_type
+    has_sensor: 'No'
+    has_file_export: 'No'
+    sql:
+      - name: ref_cc_activity_type.sql
+  - table: ref_cc_appeal_code
+    has_sensor: 'No'
+    has_file_export: 'No'
+    sql:
+      - name: ref_cc_appeal_code.sql
+  - table: ref_cc_appeal_disp_code
+    has_sensor: 'No'
+    has_file_export: 'No'
+    sql:
+      - name: ref_cc_appeal_disp_code.sql
+  - table: ref_cc_appeal_var_adj
+    has_sensor: 'No'
+    has_file_export: 'No'
+    sql:
+      - name: ref_cc_appeal_var_adj.sql
+  - table: ref_cc_cost_report_period
+    has_sensor: 'No'
+    has_file_export: 'No'
+    sql:
+      - name: ref_cc_cost_report_period.sql
+  - table: ref_cc_fin_acct_period
+    has_sensor: 'No'
+    has_file_export: 'No'
+    sql:
+      - name: ref_cc_fin_acct_period.sql
+  - table: ref_cc_fin_transaction
+    has_sensor: 'No'
+    has_file_export: 'No'
+    sql:
+      - name: ref_cc_fin_transaction.sql
+  - table: ref_cc_patient_type
+    has_sensor: 'No'
+    has_file_export: 'No'
+    sql:
+      - name: ref_cc_patient_type.sql
+  - table: ref_cc_preset_value_group
+    has_sensor: 'No'
+    has_file_export: 'No'
+    sql:
+      - name: ref_cc_preset_value_group.sql
+  - table: ref_cc_ra_code_def
+    has_sensor: 'No'
+    has_file_export: 'No'
+    sql:
+      - name: ref_cc_ra_code_def.sql
+  - table: ref_cc_reason
+    has_sensor: 'No'
+    has_file_export: 'No'
+    sql:
+      - name: ref_cc_reason.sql
+  - table: ref_cc_root_cause
+    has_sensor: 'No'
+    has_file_export: 'No'
+    sql:
+      - name: ref_cc_root_cause.sql
+  - table: ref_cc_status_category
+    has_sensor: 'No'
+    has_file_export: 'No'
+    sql:
+      - name: ref_cc_status_category.sql
+  - table: ref_cc_cers_category
+    has_sensor: 'No'
+    has_file_export: 'No'
+    sql:
+      - name: ref_cc_cers_category.sql
+  - table: ref_cc_cers_wf_task
+    has_sensor: 'No'
+    has_file_export: 'No'
+    sql:
+      - name: ref_cc_cers_wf_task.sql
+  - table: ref_cc_cers_wf_task_owner
+    has_sensor: 'No'
+    has_file_export: 'No'
+    sql:
+      - name: ref_cc_cers_wf_task_owner.sql
+  - table: ref_cc_user
+    has_sensor: 'No'
+    has_file_export: 'No'
+    sql:
+      - name: ref_cc_user.sql
+  - table: ref_cc_project
+    has_sensor: 'No'
+    has_file_export: 'No'
+    sql:
+      - name: ref_cc_project.sql
+  - table: ref_cc_vendor
+    has_sensor: 'No'
+    has_file_export: 'No'
+    sql:
+      - name: ref_cc_vendor.sql
+- source_system: ra
+  frequency: daily
+  start_date: pendulum.datetime(2023, 6, 9, tz=timezone)
+  schedule: 40 9 * * * 
+  type: core_tables
+  dependency:
+  - table: cc_account_condition_code # CTDN0508
+    has_sensor: 'Yes'
+    has_file_export: 'No'
+    sql:
+      - name: cc_account_condition_code.sql
+    sensor:
+      - dag_id: dag_integrate_ra_core_tables_daily_09.30 
+        task_id: end_dag
+        schedule: 30 9 * * *
+  - table: cc_account_occur_code
+    has_sensor: 'No'
+    has_file_export: 'No'
+    sql:
+      - name: cc_account_occur_code.sql
+  - table: cc_account_occur_span_code
+    has_sensor: 'No'
+    has_file_export: 'No'
+    sql:
+      - name: cc_account_occur_span_code.sql
+  - table: cc_account_value_code
+    has_sensor: 'No'
+    has_file_export: 'No'
+    sql:
+      - name: cc_account_value_code.sql
+  - table: cc_facility_iplan
+    has_sensor: 'No'
+    has_file_export: 'No'
+    sql:
+      - name: cc_facility_iplan.sql
+  - table: cc_account_act_recipient
+    has_sensor: 'No'
+    has_file_export: 'No'
+    sql:
+      - name: cc_account_act_recipient.sql
+  - table: ref_cc_eapg_code_def
+    has_sensor: 'No'
+    has_file_export: 'No'
+    sql:
+      - name: ref_cc_eapg_code_def.sql
+  - table: ref_cc_cers_term
+    has_sensor: 'No'
+    has_file_export: 'No'
+    sql:
+      - name: ref_cc_cers_term.sql
+  - table: ref_cc_cers_profile
+    has_sensor: 'No'
+    has_file_export: 'No'
+    sql:
+      - name: ref_cc_cers_profile.sql
+  - table: ref_cc_ce_service
+    has_sensor: 'No'
+    has_file_export: 'No'
+    sql:
+      - name: ref_cc_ce_service.sql
+  - table: cc_eor_eapg_grouper
+    has_sensor: 'No'
+    has_file_export: 'No'
+    sql:
+      - name: cc_eor_eapg_grouper.sql
+  - table: cc_eor_eapg_calculation
+    has_sensor: 'No'
+    has_file_export: 'No'
+    sql:
+      - name: cc_eor_eapg_calculation.sql
+  - table: cc_facility_iplan_contract
+    has_sensor: 'No'
+    has_file_export: 'Yes'
+    sql:
+      - name: cc_facility_iplan_contract.sql
+    source_file_name: 
+      - done_file
+    destination_file_name: 
+      - EAPG_CTDN0508_Job_Complete.done
+- source_system: ra
+  frequency: daily
+  start_date: pendulum.datetime(2023, 6, 9, tz=timezone)
+  schedule: 45 9 * * * 
+  type: core_tables
+  dependency:
+  - table: cc_account_payor # CTDN0509
+    has_sensor: 'Yes'
+    has_file_export: 'No'
+    sql:
+      - name: cc_account_payor.sql
+    sensor:
+      - dag_id: dag_integrate_ra_core_tables_daily_09.30 
+        task_id: end_dag
+        schedule: 30 9 * * *
+  - table: cc_appeal
+    has_sensor: 'No'
+    has_file_export: 'No'
+    sql:
+      - name: cc_appeal.sql
+  - table: cc_appeal_dups
+    has_sensor: 'No'
+    has_file_export: 'No'
+    sql:
+      - name: appeal_dups.sql
+  - table: cc_appeal_sequence
+    has_sensor: 'No'
+    has_file_export: 'No'
+    sql:
+      - name: cc_appeal_sequence.sql 
+  - table: cc_appeal_sequence_dups
+    has_sensor: 'No'
+    has_file_export: 'No'
+    sql:
+      - name: appeal_sequence_dups.sql
+  - table: cc_financial_transaction
+    has_sensor: 'No'
+    has_file_export: 'No'
+    sql:
+      - name: cc_financial_transaction.sql
+  - table: cc_financial_transaction_dist
+    has_sensor: 'No'
+    has_file_export: 'No'
+    sql:
+      - name: cc_financial_transaction_dist.sql
+  - table: cc_remit_amt_stg
+    has_sensor: 'No'
+    has_file_export: 'No'
+    sql:
+      - name: cc_remit_amt_stg.sql
+  - table: cc_remit_reimb_amount
+    has_sensor: 'No'
+    has_file_export: 'No'
+    sql:
+      - name: cc_remit_reimb_amount.sql
+  - table: cc_reimb_lifecycle_event
+    has_sensor: 'No'
+    has_file_export: 'No'
+    sql:
+      - name: cc_reimb_lifecycle_event.sql
+- source_system: ra
+  frequency: daily
+  start_date: pendulum.datetime(2023, 6, 9, tz=timezone)
+  schedule: 15 10 * * * 
+  type: core_tables
+  dependency:
+  - table: cc_account # CTDN0510
+    has_sensor: 'Yes'
+    has_file_export: 'No'
+    sql:
+      - name: cc_account.sql
+    sensor:
+      - dag_id: dag_integrate_ra_core_tables_daily_09.40 
+        task_id: end_dag
+        schedule: 40 9 * * *
+      - dag_id: dag_integrate_ra_core_tables_daily_09.45 
+        task_id: end_dag
+        schedule: 45 9 * * *
+  - table: cc_remittance
+    has_sensor: 'No'
+    has_file_export: 'No'
+    sql:
+      - name: cc_remittance.sql
+  - table: cc_remittance_remark
+    has_sensor: 'No'
+    has_file_export: 'No'
+    sql:
+      - name: cc_remittance_remark.sql
+  - table: cc_remittance_advice
+    has_sensor: 'No'
+    has_file_export: 'No'
+    sql:
+      - name: cc_remittance_advice.sql
+  - table: cc_eor
+    has_sensor: 'No'
+    has_file_export: 'No'
+    sql:
+      - name: cc_eor.sql
+  - table: cc_eor_calculation
+    has_sensor: 'No'
+    has_file_export: 'No'
+    sql:
+      - name: cc_eor_calculation.sql
+  - table: cc_eor_calculation_service
+    has_sensor: 'No'
+    has_file_export: 'No'
+    sql:
+      - name: cc_eor_calculation_service.sql
+  - table: cc_remittance_day_cnt
+    has_sensor: 'No'
+    has_file_export: 'No'
+    sql:
+      - name: cc_remittance_day_cnt.sql
+  - table: eor_amount_stg_calc_service
+    has_sensor: 'No'
+    has_file_export: 'No'
+    sql:
+      - name: cc_eor_amount_stg_calc_service.sql
+  - table: cc_eor_amount_stg_other_service
+    has_sensor: 'No'
+    has_file_export: 'No'
+    sql:
+      - name: cc_eor_amount_stg_other_service.sql     
+  - table: cc_eor_amount_base
+    has_sensor: 'No'
+    has_file_export: 'No'
+    sql:
+      - name: cc_eor_amount_base.sql
+  - table: cc_eor_amount_mcare
+    has_sensor: 'No'
+    has_file_export: 'No'
+    sql:
+      - name: cc_eor_amount_mcare.sql
+  - table: cc_eor_amount_mcaid
+    has_sensor: 'No'
+    has_file_export: 'No'
+    sql:
+      - name: cc_eor_amount_mcaid.sql
+  - table: cc_eor_amount_mipf
+    has_sensor: 'No'
+    has_file_export: 'No'
+    sql:
+      - name: cc_eor_amount_mipf.sql
+  - table: cc_eor_amount_mips
+    has_sensor: 'No'
+    has_file_export: 'No'
+    sql:
+      - name: cc_eor_amount_mips.sql
+  - table: cc_eor_amount_mirf
+    has_sensor: 'No'
+    has_file_export: 'No'
+    sql:
+      - name: cc_eor_amount_mirf.sql
+  - table: cc_eor_amount_mops
+    has_sensor: 'No'
+    has_file_export: 'No'
+    sql:
+      - name: cc_eor_amount_mops.sql
+  - table: cc_eor_amount_partb
+    has_sensor: 'No'
+    has_file_export: 'No'
+    sql:
+      - name: cc_eor_amount_partb.sql
+  - table: cc_eor_amount_snf
+    has_sensor: 'No'
+    has_file_export: 'No'
+    sql:
+      - name: cc_eor_amount_snf.sql
+  - table: cc_eor_amount_tricip
+    has_sensor: 'No'
+    has_file_export: 'No'
+    sql:
+      - name: cc_eor_amount_tricip.sql
+  - table: cc_eor_amount_tricop
+    has_sensor: 'No'
+    has_file_export: 'No'
+    sql:
+      - name: cc_eor_amount_tricop.sql
+  - table: cc_eor_amount
+    has_sensor: 'No'
+    has_file_export: 'No'
+    sql:
+      - name: cc_eor_amount_dummy.sql
+  - table: cc_account_activity # CTDN0511
+    has_sensor: 'No'
+    has_file_export: 'No'
+    sql:
+      - name: cc_account_activity.sql
+  - table: eor_discrepancy_wrk1
+    has_sensor: 'No'
+    has_file_export: 'No'
+    sql:
+      - name: cc_eor_discrepancy_wrk1.sql
+  - table: ra_discrepancy_wrk1
+    has_sensor: 'No'
+    has_file_export: 'No'
+    sql:
+      - name: cc_ra_discrepancy_wrk1.sql
+  - table: reimbursement_discrepancy_wrk1
+    has_sensor: 'No'
+    has_file_export: 'No'
+    sql:
+      - name: cc_reimbursement_discrepancy_wrk1.sql
+  - table: cc_remittance_wrk 
+    has_sensor: 'No'
+    has_file_export: 'No'
+    sql:
+      - name: cc_reimbursement_discrepancy_wrk1_rd_parallel.sql
+  - table: reimbursement_discrepancy_wrk1_rd_parallel
+    has_sensor: 'No'
+    has_file_export: 'Yes'
+    sql:
+      - name: cc_reimbursement_discrepancy_rd_parallel.sql
+    source_file_name: 
+      - done_file
+    destination_file_name: 
+      - Reimbursement_Discrepancy_Job_Complete.done
+  - table: cc_reimbursement_discrepancy
+    has_sensor: 'No'
+    has_file_export: 'No'
+    sql:
+      - name: cc_reimbursement_discrepancy.sql
+  - table: etl_load #CTDN0600
+    has_sensor: 'No'
+    has_file_export: 'No'
+    sql:
+      - name: edw_etl_load_table_final_update.sql  
+  - table: cc_reconcile
+    has_sensor: 'No'
+    has_file_export: 'No'
+    sql:
+      - name: cc_reconcilepurge.sql  
+  - table: reimbursement_stats
+    has_sensor: 'No'
+    has_file_export: 'No'
+    sql:
+      - name: reimbursement_stats_load.sql  
+- source_system: ra
+  frequency: daily
+  start_date: pendulum.datetime(2023, 6, 9, tz=timezone)
+  schedule: 0 8 * * *  
+  type: core_tables
+  dependency:
+  - table: edw_daily_denial_inventory # 0533 
+    has_sensor: 'Yes'
+    has_file_export: 'No'
+    sql:
+      - name: legacy_to_edw_daily_denial_inventory.sql
+    sensor:
+      - dag_id: dag_ingest_ra_sqlserver_webtools_denials_daily_08.00 # MSSQL ingest, CTDN0533 
+        task_id: end_dag
+        schedule: 0 8 * * *
+  # - table: edw_daily_denial_inventory_updates 
+  #   has_sensor: 'No'
+  #   has_file_export: 'No'
+  #   sql:
+  #     - name: edw_daily_denials_schemaid_update.sql
+- source_system: ra
+  frequency: daily
+  start_date: pendulum.datetime(2023, 6, 9, tz=timezone)
+  schedule: 15 5 * * *
+  type: core_tables
+  dependency:
+  - table: cc_denial # CTDN0523
+    has_sensor: 'Yes'
+    has_file_export: 'No'
+    sql:
+      - name: cc_denial.sql
+    sensor:
+      - dag_id: dag_ingest_ra_p1_oracle_daily_04.20 # runs CTDN0540 
+        task_id: end_dag
+        schedule: 20 4 * * *
+      - dag_id: dag_ingest_ra_p2_oracle_daily_04.20 
+        task_id: end_dag
+        schedule: 20 4 * * *
+      - dag_id: dag_ingest_ra_p1_oracle_daily_04.40 # runs CTDN0521  
+        task_id: end_dag
+        schedule: 40 4 * * *
+      - dag_id: dag_ingest_ra_p2_oracle_daily_04.40  
+        task_id: end_dag
+        schedule: 40 4 * * *        
+  - table: cc_denial_cleanup
+    has_sensor: 'No'
+    has_file_export: 'No'
+    sql:
+      - name: cc_denial_cleanup.sql
+  - table: cc_discrepancy
+    has_sensor: 'No'
+    has_file_export: 'No'
+    sql:
+      - name: cc_discrepancy.sql
+  - table: cc_discrepancy_cleanup
+    has_sensor: 'No'
+    has_file_export: 'Yes'
+    sql:
+      - name: cc_discrepancy_cleanup.sql
+    source_file_name: 
+      - done_file
+    destination_file_name: 
+      - Denial_Discrepancy_RA_Load_Complete.done
+  # - table: edw_daily_discrepancy_bthr 
+  #   has_sensor: 'No'
+  #   has_file_export: 'No'
+  #   sql:
+  #     - name: edw_daily_discrepancy_bthr.sql      
+- source_system: ra
+  frequency: daily
+  start_date: pendulum.datetime(2023, 6, 9, tz=timezone)
+  schedule: 10 6 * * *
+  type: core_tables
+  dependency:
+  - table: cc_discrepancy_bthr 
+    has_sensor: 'Yes'
+    has_file_export: 'No'
+    sql:
+      - name: cc_discrepancy_bthr.sql
+    sensor:
+      - dag_id: dag_ingest_ra_p1_oracle_daily_04.42 # runs CTDN0521  
+        task_id: end_dag
+        schedule: 42 4 * * *
+      - dag_id: dag_ingest_ra_p2_oracle_daily_04.42  
+        task_id: end_dag
+        schedule: 42 4 * * *                      
+  - table: cc_discrepancy_bthr_cleanup
+    has_sensor: 'No'
+    has_file_export: 'Yes'
+    sql:
+      - name: cc_discrepancy_bthr_cleanup.sql      
+    source_file_name: 
+      - done_file
+    destination_file_name: 
+      - Denial_Discrepancy_BTHR_RA_Load_Complete.done
+- source_system: ra
+  frequency: daily
+  start_date: pendulum.datetime(2023, 6, 9, tz=timezone)
+  schedule: 35 5 * * *
+  type: core_tables
+  dependency:
+  - table: cc_patient_account_audit # CTDN0610
+    has_sensor: 'Yes'
+    has_file_export: 'No'
+    sql:
+      - name: cc_patient_account_audit.sql
+    sensor: 
+      - dag_id: dag_ingest_ra_p1_oracle_daily_05.30 # runs CTDN0610 earlier steps
+        task_id: end_dag
+        schedule: 30 5 * * *
+      - dag_id: dag_ingest_ra_p2_oracle_daily_05.30  
+        task_id: end_dag
+        schedule: 30 5 * * *
+- source_system: ra
+  frequency: daily
+  start_date: pendulum.datetime(2023, 6, 9, tz=timezone)
+  schedule: 30 5 * * *
+  type: core_tables
+  dependency:
+  - table: cc_account_payor_issue # CTDN0535
+    has_sensor: 'Yes'
+    has_file_export: 'No'
+    sql:
+      - name: acct_pyr_issue.sql
+    sensor:
+      - dag_id: dag_ingest_ra_p1_oracle_daily_04.20 # runs CTDN0540 
+        task_id: end_dag
+        schedule: 20 4 * * *
+      - dag_id: dag_ingest_ra_p2_oracle_daily_04.20 
+        task_id: end_dag
+        schedule: 20 4 * * *
+      - dag_id: dag_ingest_ra_p1_oracle_daily_04.40 # runs CTDN0521  
+        task_id: end_dag
+        schedule: 40 4 * * *
+      - dag_id: dag_ingest_ra_p2_oracle_daily_04.40  
+        task_id: end_dag
+        schedule: 40 4 * * *
+      - dag_id: dag_ingest_ra_p1_oracle_daily_04.45 # runs CTDN0535  
+        task_id: end_dag
+        schedule: 45 4 * * *
+      - dag_id: dag_ingest_ra_p2_oracle_daily_04.45  
+        task_id: end_dag
+        schedule: 45 4 * * *
+      - dag_id: dag_ingest_ra_sqlserver_path_issue_daily_05.00  
+        task_id: end_dag
+        schedule: 0 5 * * *      
+  - table: ref_path_issue
+    has_sensor: 'No'
+    has_file_export: 'No'
+    sql:
+      - name: ref_path_issue.sql
+- source_system: ra
+  frequency: daily
+  start_date: pendulum.datetime(2023, 6, 9, tz=timezone)
+  schedule: 0 13 * * *
+  type: core_tables
+  dependency:
+  - table: cc_external_data_cdc_hist # CTDN0609
+    has_sensor: 'No' # this has no dependencies
+    has_file_export: 'Yes'
+    sql:
+      - name: cc_external_data_full_load.sql
+    source_file_name: 
+      - done_file
+    destination_file_name: 
+      - EDC_Daily_Job_Complete.done
+- source_system: ra
+  frequency: weekly
+  start_date: pendulum.datetime(2023, 6, 9, tz=timezone)
+  schedule: 30 15 * * 0 # 15:30 every sunday after CTDN0506 run
+  type: core_tables
+  dependency:
+  - table: edw_remit_recon_aggregated # CTWN0003
+    has_sensor: 'Yes'
+    has_file_export: 'No'
+    sql:
+      - name: cc_edw_remit_recon_aggregated.sql
+    sensor:
+      - dag_id: dag_ingest_ra_p1_oracle_weekly_07.00
+        task_id: end_dag
+        schedule: 0 7 * * 0
+      - dag_id: dag_ingest_ra_p2_oracle_weekly_07.00
+        task_id: end_dag
+        schedule: 0 7 * * 0
+      - dag_id: dag_integrate_ra_core_tables_daily_09.30
+        task_id: end_dag
+        schedule: 30 9 * * *
+- source_system: ra
+  frequency: weekly
+  start_date: pendulum.datetime(2023, 6, 9, tz=timezone)
+  schedule: 0 21 12-31 * 0 # first and subsequent sundays after the 12th of the month at 9 pm
+  type: core_tables
+  dependency:
+  - table: denial_eow_wrk1_hist #CTWN0005
+    has_sensor: 'Yes'
+    has_file_export: 'No'
+    sql:
+      - name: cc_denial_eow_wrk1_hist.sql
+    sensor:
+      - dag_id: dag_ingest_ra_p1_oracle_weekly_21.00
+        task_id: end_dag
+        schedule: 0 21 12-31 * 0
+      - dag_id: dag_ingest_ra_p2_oracle_weekly_21.00
+        task_id: end_dag
+        schedule: 0 21 12-31 * 0
+  - table: cc_denial_eow
+    has_sensor: 'No'
+    has_file_export: 'No'
+    sql:
+      - name: cc_denial_eow_p1.sql
+      - name: cc_denial_eow_p2.sql
+- source_system: ra
+  frequency: weekly
+  start_date: pendulum.datetime(2023, 6, 9, tz=timezone)
+  schedule: 5 21 * * 6 # saturday (9 pm) - no dependencies
+  type: core_tables
+  dependency:
+  - table: cdc_ind # CTWN0950
+    has_sensor: 'No'
+    has_file_export: 'No'
+    sql:
+      - name: cdc_ind_tbl_update_to_one.sql 
+  - table: mon_account_payer_calc_service_bkp
+    has_sensor: 'No'
+    has_file_export: 'No'
+    sql: 
+      - name: cc_calc_serv_bkp.sql
+- source_system: ra
+  frequency: weekly
+  start_date: pendulum.datetime(2023, 6, 9, tz=timezone)
+  schedule: 1 21 * * 5 # friday (9 pm) - no dependencies
+  type: core_tables
+  dependency:
+  - table: cdc_ind 
+    has_sensor: 'No'
+    has_file_export: 'No'
+    sql:
+      - name: cdc_ind_tbl_update_to_zero.sql # CTDN0850
+- source_system: ra
+  frequency: monthly
+  start_date: pendulum.datetime(2023, 6, 9, tz=timezone)
+  schedule: 15 9 5 * * # runs on the 5th day of the month at 9:15 AM
+  type: core_tables
+  dependency:
+  - table: denial_eom_wrk1_hist # CTMN0516
+    has_sensor: 'Yes'
+    has_file_export: 'No'
+    sql:
+      - name: cc_denial_wrk1_hist.sql
+    sensor:
+      - dag_id: dag_ingest_ra_p1_oracle_monthly_08.15
+        task_id: end_dag
+        schedule: 15 8 5 * *
+      - dag_id: dag_ingest_ra_p2_oracle_monthly_08.15
+        task_id: end_dag
+        schedule: 15 8 5 * *
+  - table: cc_denial_eom
+    has_sensor: 'No'
+    has_file_export: 'Yes'
+    sql:
+      - name: cc_denial_eom_p1.sql
+      - name: cc_denial_eom_p2.sql
+      - name: cc_denial_eom_file_p1.sql
+      - name: cc_denial_eom_control_p1.sql
+    source_file_name: 
+      - CC_DenialEDW_Export000000000000.csv
+      - CC_DenialEDW_File_Export_Control000000000000.csv
+      - done_file
+    destination_file_name: 
+      - CC_DenialEDW_Export.txt
+      - CC_DenialEDW_Export_Control.txt
+      - Denial_EOM_Job_Complete.done
+- source_system: ra
+  frequency: monthly
+  start_date: pendulum.datetime(2023, 6, 9, tz=timezone)
+  schedule: 0 6 5 * * # runs on the 5th of the month at 6:00 AM
+  type: core_tables
+  dependency:
+  - table: cc_eom #CTMN0012
+    has_sensor: 'Yes'
+    has_file_export: 'No'
+    sql:
+      - name: cc_eom.sql
+    sensor: # This dag is dependent on EWDN0891
+      # - dag_id: dag_ingest_ra_p1_oracle_daily_03.30 
+      #   task_id: end_dag
+      #   schedule: 30 3 * * *
+      # - dag_id: dag_ingest_ra_p2_oracle_daily_03.30 
+      #   task_id: end_dag
+      #   schedule: 30 3 * * *
+      - dag_id: dag_ingest_ra_p1_oracle_monthly_04.15 
+        task_id: end_dag
+        schedule: 15 4 5 * *
+      - dag_id: dag_ingest_ra_p2_oracle_monthly_04.15 
+        task_id: end_dag
+        schedule: 15 4 5 * *

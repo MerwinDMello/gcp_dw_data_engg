@@ -1,0 +1,6 @@
+[sqlfluff]
+dialect = bigquery
+max_line_length = 100
+warnings = L020,L021,LT02
+exclude_rules = L034,L016
+

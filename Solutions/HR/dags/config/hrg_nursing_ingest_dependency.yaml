@@ -1,0 +1,23 @@
+ingest:
+- source_system: nursing
+  frequency: daily
+  start_date: pendulum.datetime(2023, 6, 30, tz=timezone)
+  schedule: [30 10 * * *]
+  type: sftp
+  sftp_files:
+    - directory: /ION_Pickup/
+      files:
+        - name: ^Daily_NCSBNID_Report_HCA_yyyymmdd.CSV$
+  file_name: Daily_NCSBNID_Report_HCA_yyyymmdd.CSV
+  dependency:
+  - source:
+      type: file
+      name: Daily_NCSBNID_Report_HCA_yyyymmdd.CSV
+      delimiter: ","
+      header: 1
+      sensor: 'No'
+    target:
+      type: table
+      name: employee_nurse_detail_stg
+      sql: employee_nurse_detail_stg_upd_time.sql
+      

@@ -1,0 +1,31 @@
+CREATE OR REPLACE VIEW edwpsc_base_views.`ecw_rprticcchargelag`
+AS SELECT
+  `ecw_rprticcchargelag`.iccchargelagkey,
+  `ecw_rprticcchargelag`.firsttransactionmonth,
+  `ecw_rprticcchargelag`.regionkey,
+  `ecw_rprticcchargelag`.groupname,
+  `ecw_rprticcchargelag`.divisionname,
+  `ecw_rprticcchargelag`.marketname,
+  `ecw_rprticcchargelag`.lobname,
+  `ecw_rprticcchargelag`.coid,
+  `ecw_rprticcchargelag`.coidname,
+  `ecw_rprticcchargelag`.servicingprovidername,
+  `ecw_rprticcchargelag`.renderingprovidername,
+  `ecw_rprticcchargelag`.claimkey,
+  `ecw_rprticcchargelag`.claimnumber,
+  `ecw_rprticcchargelag`.lastclaimnumber,
+  `ecw_rprticcchargelag`.voidflag,
+  `ecw_rprticcchargelag`.voidandrecreatedate,
+  `ecw_rprticcchargelag`.servicedatekey,
+  `ecw_rprticcchargelag`.lastvoiddatekey,
+  `ecw_rprticcchargelag`.firsttransactiondatekey,
+  `ecw_rprticcchargelag`.lag,
+  `ecw_rprticcchargelag`.insertedby,
+  `ecw_rprticcchargelag`.inserteddtm,
+  `ecw_rprticcchargelag`.modifiedby,
+  `ecw_rprticcchargelag`.modifieddtm,
+  `ecw_rprticcchargelag`.dwlastupdatedatetime,
+  `ecw_rprticcchargelag`.snapshotdate
+  FROM
+    edwpsc.`ecw_rprticcchargelag`
+;

@@ -1,0 +1,35 @@
+CREATE TABLE IF NOT EXISTS {{ params.param_hr_core_dataset_name }}.bi_psat_weekly_rank_report (
+	rank_report_sk NUMERIC(10,0) NOT NULL OPTIONS(description="Unique identifier for a record. Fields to make a unique record: Report_Type_DescFacility_IdDivisionMarket"),
+	report_type_desc STRING OPTIONS(description="Indicates the service line and level of granularity of the report."),
+	report_data_level STRING OPTIONS(description="The level of report data granularity or aggregation within a report type."),
+	group_name STRING OPTIONS(description="The name of the group the division rolls up to."),
+	division_name STRING OPTIONS(description="The name of the division the market rolls up to."),
+	market_name STRING OPTIONS(description="The name of the market the facility rolls up to."),
+	facility_name STRING OPTIONS(description="Name of the facility that appears on the survey sent to patients. This name comes from the DRM file."),
+	facility_id STRING OPTIONS(description="Identifier for a facility and is usually the the HCA COID or Medicare Provider ID."),
+	report_service_line_desc STRING OPTIONS(description="Description or name of a service line."),
+	quarter_start_date DATE OPTIONS(description="The start date of the current quarter that the report is measuring."),
+	total_completed_surveys_amt INT64 OPTIONS(description="Total number of completed surveys at the facility levelTotal Number of Completes by FacilityTotal Number of completed surveys by facility."),
+	crnt_top_box_pct_num NUMERIC(5,1) OPTIONS(description="Current quarter Top Box Score."),
+	pr_top_box_pct_num NUMERIC(5,1) OPTIONS(description="Prior quarter Top Box Score."),
+	crnt_vs_pr_top_box_chng_amt NUMERIC(5,1) OPTIONS(description="Change in Top Box Score comparing the current quarter and the prior quarter."),
+	pr_2_top_box_pct_num NUMERIC(5,1) OPTIONS(description="Top Box Score 2 quarters previous to the current quarter."),
+	pr_3_top_box_pct_num NUMERIC(5,1) OPTIONS(description="Top Box Score 3 quarters previous to the current quarter."),
+	pr_yr_top_box_pct_num NUMERIC(5,1) OPTIONS(description="Top Box Score for the same quarter of the previous year."),
+	crnt_vs_pr_yr_top_box_chng_amt NUMERIC(5,1) OPTIONS(description="Change in Top Box Score comparing the current quarter and the same quarter of the previous year."),
+	roll_top_box_pct_num NUMERIC(5,1) OPTIONS(description="Rolling Top Box Score average for the previous 4 quarters."),
+	crnt_vs_roll_top_box_chng_amt NUMERIC(5,1) OPTIONS(description="Change in Top Box Score comparing the current quarter and the rolling average of the previous 4 quarters."),
+	hca_rank_total_facility_amt INT64 OPTIONS(description="Total count of facilities in the HCA ranking for a records level of aggregation."),
+	crnt_hca_rank_num INT64 OPTIONS(description="Current ranking when compared to only HCA facilities."),
+	pr_hca_rank_num INT64 OPTIONS(description="Previous quarter ranking when compared to only HCA facilities."),
+	crnt_vs_pr_hca_rank_chng_amt INT64 OPTIONS(description="Change in HCA Rank comparing current quarter and prior quarter."),
+	pg_total_facility_amt INT64 OPTIONS(description="Total count of facilities in the Press Ganey database used for comparison."),
+	pg_rank_pct_num INT64 OPTIONS(description="Current Press Ganey Percentile Rank when compared to full database."),
+	report_date DATE OPTIONS(description="The date that the Press Ganey processed the data."),
+	benchmark_start_date DATE OPTIONS(description="The start date of the current period that Press Ganey uses to calculate their benchmarks. The period extends to 3 months."),
+	source_system_code STRING OPTIONS(description="A one character code indicating the specific source system from which the data originated."),
+	dw_last_update_date_time DATETIME NOT NULL OPTIONS(description="Timestamp of update or load of this record to the Enterprise Data Warehouse.")
+)
+CLUSTER BY Rank_Report_SK
+OPTIONS(description="Table stores the most current data for the Patient Experience Weekly Rank Report which tracks Top Box scores for a quarter. Historical data is not maintained and is loaded as is from vendor file on business request.")
+;

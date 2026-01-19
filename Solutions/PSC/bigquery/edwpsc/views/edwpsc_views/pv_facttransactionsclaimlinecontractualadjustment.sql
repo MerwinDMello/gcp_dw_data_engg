@@ -1,0 +1,38 @@
+CREATE OR REPLACE VIEW edwpsc_views.`pv_facttransactionsclaimlinecontractualadjustment`
+AS SELECT
+  `pv_facttransactionsclaimlinecontractualadjustment`.transactionsclaimlinecontractualadjustmentskey,
+  `pv_facttransactionsclaimlinecontractualadjustment`.claimkey,
+  `pv_facttransactionsclaimlinecontractualadjustment`.claimnumber,
+  `pv_facttransactionsclaimlinecontractualadjustment`.regionkey,
+  `pv_facttransactionsclaimlinecontractualadjustment`.coid,
+  `pv_facttransactionsclaimlinecontractualadjustment`.coidconfigurationkey,
+  `pv_facttransactionsclaimlinecontractualadjustment`.servicingproviderkey,
+  `pv_facttransactionsclaimlinecontractualadjustment`.claimpayer1iplankey,
+  `pv_facttransactionsclaimlinecontractualadjustment`.facilitykey,
+  `pv_facttransactionsclaimlinecontractualadjustment`.claimlinepaymentskey,
+  `pv_facttransactionsclaimlinecontractualadjustment`.transactiontype,
+  `pv_facttransactionsclaimlinecontractualadjustment`.transactionflag,
+  `pv_facttransactionsclaimlinecontractualadjustment`.transactionamt,
+  `pv_facttransactionsclaimlinecontractualadjustment`.transactiondatekey,
+  `pv_facttransactionsclaimlinecontractualadjustment`.transactiontime,
+  `pv_facttransactionsclaimlinecontractualadjustment`.transactionclosingdatekey,
+  `pv_facttransactionsclaimlinecontractualadjustment`.transactionbyuserkey,
+  `pv_facttransactionsclaimlinecontractualadjustment`.trrefid,
+  `pv_facttransactionsclaimlinecontractualadjustment`.sourceaprimarykeyvalue,
+  `pv_facttransactionsclaimlinecontractualadjustment`.sourcearecordlastupdated,
+  `pv_facttransactionsclaimlinecontractualadjustment`.dwlastupdatedatetime,
+  `pv_facttransactionsclaimlinecontractualadjustment`.practicekey,
+  `pv_facttransactionsclaimlinecontractualadjustment`.practicename,
+  `pv_facttransactionsclaimlinecontractualadjustment`.sourcesystemcode,
+  `pv_facttransactionsclaimlinecontractualadjustment`.insertedby,
+  `pv_facttransactionsclaimlinecontractualadjustment`.inserteddtm,
+  `pv_facttransactionsclaimlinecontractualadjustment`.modifiedby,
+  `pv_facttransactionsclaimlinecontractualadjustment`.modifieddtm,
+  `pv_facttransactionsclaimlinecontractualadjustment`.posteddatekey,
+  `pv_facttransactionsclaimlinecontractualadjustment`.paymentnumber
+  FROM
+    edwpsc_base_views.`pv_facttransactionsclaimlinecontractualadjustment`
+  INNER JOIN edwpsc_base_views.secref_facility
+  ON LPAD(TRIM(secref_facility.co_id, ' '), 5, '0') = LPAD(TRIM(`pv_facttransactionsclaimlinecontractualadjustment`.coid, ' '), 5, '0')
+  AND TRIM(secref_facility.user_id, ' ') = TRIM(session_user(), ' ')
+;

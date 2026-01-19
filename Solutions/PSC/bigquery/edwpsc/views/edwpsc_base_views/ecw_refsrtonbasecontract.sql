@@ -1,0 +1,30 @@
+CREATE OR REPLACE VIEW edwpsc_base_views.`ecw_refsrtonbasecontract`
+AS SELECT
+  `ecw_refsrtonbasecontract`.onbasecontractkey,
+  `ecw_refsrtonbasecontract`.onbasecontractlocation,
+  `ecw_refsrtonbasecontract`.onbasecontractsourcesystem,
+  `ecw_refsrtonbasecontract`.onbasecontractlobtype,
+  `ecw_refsrtonbasecontract`.onbasecontractqueuename,
+  `ecw_refsrtonbasecontract`.onbasecontractcontrolnum,
+  `ecw_refsrtonbasecontract`.onbasecontractexecutivename,
+  `ecw_refsrtonbasecontract`.onbasecontractdirectorname,
+  `ecw_refsrtonbasecontract`.onbasecontractmanagername,
+  `ecw_refsrtonbasecontract`.onbasecontractresponsibledepartment,
+  `ecw_refsrtonbasecontract`.onbasecontractvendorflag,
+  `ecw_refsrtonbasecontract`.onbasecontractvendorname,
+  `ecw_refsrtonbasecontract`.onbasecontractemployeetype,
+  `ecw_refsrtonbasecontract`.onbasecontractlob,
+  `ecw_refsrtonbasecontract`.onbasecontractactiveflag,
+  `ecw_refsrtonbasecontract`.onbasecontracteffectivedatekey,
+  `ecw_refsrtonbasecontract`.onbasecontracttermeddatekey,
+  `ecw_refsrtonbasecontract`.sourceaprimarykeyvalue,
+  `ecw_refsrtonbasecontract`.deleteflag,
+  `ecw_refsrtonbasecontract`.dwlastupdatedatetime,
+  `ecw_refsrtonbasecontract`.sourcesystemcode,
+  `ecw_refsrtonbasecontract`.insertedby,
+  `ecw_refsrtonbasecontract`.inserteddtm,
+  `ecw_refsrtonbasecontract`.modifiedby,
+  `ecw_refsrtonbasecontract`.modifieddtm
+  FROM
+    edwpsc.`ecw_refsrtonbasecontract`
+;

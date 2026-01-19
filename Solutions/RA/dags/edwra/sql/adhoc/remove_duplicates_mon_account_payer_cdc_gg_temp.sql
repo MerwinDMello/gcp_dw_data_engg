@@ -1,0 +1,2 @@
+delete from edwra_staging.mon_account_payer_cdc_gg_temp  a
+where exists ( select 1 from edwra_staging.mon_account_payer_cdc_gg_temp b  where b.id =a.id and a.dw_last_update_date < b.dw_last_update_date);

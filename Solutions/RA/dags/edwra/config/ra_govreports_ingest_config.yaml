@@ -1,0 +1,1293 @@
+govreports:
+- start_date: pendulum.datetime(2024, 8, 25, tz=timezone)
+  schedule: 0 8 6 * *
+  frequency: monthly
+  datasourcetype: file
+  dag_name_suffix: month_end
+  truncatetablelist: ['v_parallon_ra_stage_dataset_name.cclog24mcrip', 'v_parallon_ra_stage_dataset_name.cclog24mcripb',
+                      'v_parallon_ra_stage_dataset_name.cclog24mcripbcah', 'v_parallon_ra_stage_dataset_name.cclog24mcripcah',
+                      'v_parallon_ra_stage_dataset_name.cclog24mcripf', 'v_parallon_ra_stage_dataset_name.cclog24mcripswb',
+                      'v_parallon_ra_stage_dataset_name.cclog24mcrirf_d', 'v_parallon_ra_stage_dataset_name.cclog24mcrltch',
+                      'v_parallon_ra_stage_dataset_name.cclog24mcrop', 'v_parallon_ra_stage_dataset_name.cclog24mcropcah',
+                      'v_parallon_ra_stage_dataset_name.cclog24mcrsnf',
+                      'v_parallon_ra_stage_dataset_name.cclog65mcrip', 'v_parallon_ra_stage_dataset_name.cclog65mcripb',
+                      'v_parallon_ra_stage_dataset_name.cclog65mcripbcah', 'v_parallon_ra_stage_dataset_name.cclog65mcripcah',
+                      'v_parallon_ra_stage_dataset_name.cclog65mcripf', 'v_parallon_ra_stage_dataset_name.cclog65mcripswb',
+                      'v_parallon_ra_stage_dataset_name.cclog65mcrirf', 'v_parallon_ra_stage_dataset_name.cclog65mcrltch',
+                      'v_parallon_ra_stage_dataset_name.cclog65mcrop', 'v_parallon_ra_stage_dataset_name.cclog65mcropcah',
+                      'v_parallon_ra_stage_dataset_name.cclog65mcrsnf',
+                      'v_parallon_ra_core_dataset_name.excel_audit', 'v_parallon_ra_core_dataset_name.folder_audit',
+                      'v_parallon_ra_core_dataset_name.source_filenames', 'v_parallon_ra_core_dataset_name.target_filenames'
+                      ]
+  trigger_dag_ids: ['dag_outbound_govreports_file_monthly_load_discrepancies',
+                    'dag_integrate_govreports_core_tables_monthly']
+  done_file: NONE
+  has_sensor: 'No'
+  process_groups: ['American','Atlantic','National']
+  file_server_info:
+    - file_server: xrdcnpsvmcfs01_cfs_ag1.hca.corpad.net
+      # file_server_ip: 10.27.200.50
+      directory: CCLogReports
+      protocol_type: smb
+      share_name: CCCShare
+      user_name: parasvcgcpra
+      pwd_secret_name: RA_WIN_GCP_PWD/versions/latest
+      port_no: 445
+      # mount_drive: l
+  get_sql_list:
+    - sql_template_file_name: delete_staging.j2
+      table_name: staging
+      execute_individual_file: True
+      processing_stage: pre
+    - sql_template_file_name: delete_source_filenames.j2
+      table_name: source_filenames
+      execute_individual_file: True
+      processing_stage: pre
+    - sql_template_file_name: delete_target_filenames.j2
+      table_name: target_filenames
+      execute_individual_file: True
+      processing_stage: pre
+    - sql_template_file_name: delete_folder_audit.j2
+      table_name: folder_audit
+      execute_individual_file: True
+      processing_stage: pre
+    - sql_template_file_name: delete_excel_audit.j2
+      table_name: excel_audit
+      execute_individual_file: True
+      processing_stage: pre
+    - sql_template_file_name: insert_source_filenames.j2
+      table_name: source_filenames
+      execute_individual_file: True
+      processing_stage: post
+    - sql_template_file_name: insert_folder_audit.j2
+      table_name: folder_audit
+      execute_individual_file: False
+      processing_stage: post
+  get_files:
+    - file_name_mnemonic: CCLOG24MCRIP
+      input_file_layout: excel1
+      file_patterns:
+      - input_file_pattern: ^CCLOG24MCRIP\_(?:[a-z]+_|)D\_\d+\.xlsx$
+        terminal_file_pattern: CCLOG24MCRIP_*D*.xlsx
+        mask: 'No'
+        file_prefix: CCLOG24MCRIP
+        target_table_name: cclog24mcrip
+    - file_name_mnemonic: CCLOG24MCRIPB
+      input_file_layout: excel1
+      file_patterns:
+      - input_file_pattern: ^CCLOG24MCRIPB\_(?:[a-z]+_|)D\_\d+\.xlsx$
+        terminal_file_pattern: CCLOG24MCRIPB_*D*.xlsx
+        mask: 'No'
+        file_prefix: CCLOG24MCRIPB
+        target_table_name: cclog24mcripb
+    - file_name_mnemonic: CCLOG24MCRIPBCAH
+      input_file_layout: excel1
+      file_patterns:
+      - input_file_pattern: ^CCLOG24MCRIPBCAH\_(?:[a-z]+_|)D\_\d+\.xlsx$
+        terminal_file_pattern: CCLOG24MCRIPBCAH_*D*.xlsx
+        mask: 'No'
+        file_prefix: CCLOG24MCRIPBCAH
+        target_table_name: cclog24mcripbcah
+    - file_name_mnemonic: CCLOG24MCRIPCAH
+      input_file_layout: excel1
+      file_patterns:
+      - input_file_pattern: ^CCLOG24MCRIPCAH\_(?:[a-z]+_|)D\_\d+\.xlsx$
+        terminal_file_pattern: CCLOG24MCRIPCAH_*D*.xlsx
+        mask: 'No'
+        file_prefix: CCLOG24MCRIPCAH
+        target_table_name: cclog24mcripcah
+    - file_name_mnemonic: CCLOG24MCRIPF
+      input_file_layout: excel1
+      file_patterns:
+      - input_file_pattern: ^CCLOG24MCRIPF\_(?:[a-z]+_|)D\_\d+\.xlsx$
+        terminal_file_pattern: CCLOG24MCRIPF_*D*.xlsx
+        mask: 'No'
+        file_prefix: CCLOG24MCRIPF
+        target_table_name: cclog24mcripf
+    - file_name_mnemonic: CCLOG24MCRIPSWB
+      input_file_layout: excel1
+      file_patterns:
+      - input_file_pattern: ^CCLOG24MCRIPSWB\_(?:[a-z]+_|)D\_\d+\.xlsx$
+        terminal_file_pattern: CCLOG24MCRIPSWB_*D*.xlsx
+        mask: 'No'
+        file_prefix: CCLOG24MCRIPSWB
+        target_table_name: cclog24mcripswb
+    - file_name_mnemonic: CCLOG24MCRIRF
+      input_file_layout: excel1
+      file_patterns:
+      - input_file_pattern: ^CCLOG24MCRIRF\_(?:[a-z]+_|)D\_\d+\.xlsx$
+        terminal_file_pattern: CCLOG24MCRIRF_*D*.xlsx
+        mask: 'No'
+        file_prefix: CCLOG24MCRIRF
+        target_table_name: cclog24mcrirf_d
+    - file_name_mnemonic: CCLOG24MCRLTCH
+      input_file_layout: excel1
+      file_patterns:
+      - input_file_pattern: ^CCLOG24MCRLTCH\_(?:[a-z]+_|)D\_\d+\.xlsx$
+        terminal_file_pattern: CCLOG24MCRLTCH_*D*.xlsx
+        mask: 'No'
+        file_prefix: CCLOG24MCRLTCH
+        target_table_name: cclog24mcrltch
+    - file_name_mnemonic: CCLOG24MCROP
+      input_file_layout: excel1
+      file_patterns:
+      - input_file_pattern: ^CCLOG24MCROP\_(?:[a-z]+_|)D\_\d+\.xlsx$
+        terminal_file_pattern: CCLOG24MCROP_*D*.xlsx
+        mask: 'No'
+        file_prefix: CCLOG24MCROP
+        target_table_name: cclog24mcrop
+    - file_name_mnemonic: CCLOG24MCROPCAH
+      input_file_layout: excel1
+      file_patterns:
+      - input_file_pattern: ^CCLOG24MCROPCAH\_(?:[a-z]+_|)D\_\d+\.xlsx$
+        terminal_file_pattern: CCLOG24MCROPCAH_*D*.xlsx
+        mask: 'No'
+        file_prefix: CCLOG24MCROPCAH
+        target_table_name: cclog24mcropcah
+    - file_name_mnemonic: CCLOG24MCRSNF
+      input_file_layout: excel1
+      file_patterns:
+      - input_file_pattern: ^CCLOG24MCRSNF\_(?:[a-z]+_|)D\_\d+\.xlsx$
+        terminal_file_pattern: CCLOG24MCRSNF_*D*.xlsx
+        mask: 'No'
+        file_prefix: CCLOG24MCRSNF
+        target_table_name: cclog24mcrsnf
+    - file_name_mnemonic: CCLOG65MCRIP
+      input_file_layout: excel1
+      file_patterns:
+      - input_file_pattern: ^CCLOG65MCRIP\_(?:[a-z]+_|)\d+\.xlsx$
+        terminal_file_pattern: CCLOG65MCRIP_*.xlsx
+        mask: 'No'
+        file_prefix: CCLOG65MCRIP
+        target_table_name: cclog65mcrip
+    - file_name_mnemonic: CCLOG65MCRIPB
+      input_file_layout: excel1
+      file_patterns:
+      - input_file_pattern: ^CCLOG65MCRIPB\_(?:[a-z]+_|)\d+\.xlsx$
+        terminal_file_pattern: CCLOG65MCRIPB_*.xlsx
+        mask: 'No'
+        file_prefix: CCLOG65MCRIPB
+        target_table_name: cclog65mcripb
+    - file_name_mnemonic: CCLOG65MCRIPBCAH
+      input_file_layout: excel1
+      file_patterns:
+      - input_file_pattern: ^CCLOG65MCRIPBCAH\_(?:[a-z]+_|)\d+\.xlsx$
+        terminal_file_pattern: CCLOG65MCRIPBCAH_*.xlsx
+        mask: 'No'
+        file_prefix: CCLOG65MCRIPBCAH
+        target_table_name: cclog65mcripbcah
+    - file_name_mnemonic: CCLOG65MCRIPCAH
+      input_file_layout: excel1
+      file_patterns:
+      - input_file_pattern: ^CCLOG65MCRIPCAH\_(?:[a-z]+_|)\d+\.xlsx$
+        terminal_file_pattern: CCLOG65MCRIPCAH_*.xlsx
+        mask: 'No'
+        file_prefix: CCLOG65MCRIPCAH
+        target_table_name: cclog65mcripcah
+    - file_name_mnemonic: CCLOG65MCRIPF
+      input_file_layout: excel1
+      file_patterns:
+      - input_file_pattern: ^CCLOG65MCRIPF\_(?:[a-z]+_|)\d+\.xlsx$
+        terminal_file_pattern: CCLOG65MCRIPF_*.xlsx
+        mask: 'No'
+        file_prefix: CCLOG65MCRIPF
+        target_table_name: cclog65mcripf
+    - file_name_mnemonic: CCLOG65MCRIPSWB
+      input_file_layout: excel1
+      file_patterns:
+      - input_file_pattern: ^CCLOG65MCRIPSWB\_(?:[a-z]+_|)\d+\.xlsx$
+        terminal_file_pattern: CCLOG65MCRIPSWB_*.xlsx
+        mask: 'No'
+        file_prefix: CCLOG65MCRIPSWB
+        target_table_name: cclog65mcripswb
+    - file_name_mnemonic: CCLOG65MCRIRF
+      input_file_layout: excel1
+      file_patterns:
+      - input_file_pattern: ^CCLOG65MCRIRF\_(?:[a-z]+_|)\d+\.xlsx$
+        terminal_file_pattern: CCLOG65MCRIRF_*.xlsx
+        mask: 'No'
+        file_prefix: CCLOG65MCRIRF
+        target_table_name: cclog65mcrirf
+    - file_name_mnemonic: CCLOG65MCRLTCH
+      input_file_layout: excel1
+      file_patterns:
+      - input_file_pattern: ^CCLOG65MCRLTCH\_(?:[a-z]+_|)\d+\.xlsx$
+        terminal_file_pattern: CCLOG65MCRLTCH_*.xlsx
+        mask: 'No'
+        file_prefix: CCLOG65MCRLTCH
+        target_table_name: cclog65mcrltch
+    - file_name_mnemonic: CCLOG65MCROP
+      input_file_layout: excel1
+      file_patterns:
+      - input_file_pattern: ^CCLOG65MCROP\_(?:[a-z]+_|)\d+\.xlsx$
+        terminal_file_pattern: CCLOG65MCROP_*.xlsx
+        mask: 'No'
+        file_prefix: CCLOG65MCROP
+        target_table_name: cclog65mcrop
+    - file_name_mnemonic: CCLOG65MCROPCAH
+      input_file_layout: excel1
+      file_patterns:
+      - input_file_pattern: ^CCLOG65MCROPCAH\_(?:[a-z]+_|)\d+\.xlsx$
+        terminal_file_pattern: CCLOG65MCROPCAH_*.xlsx
+        mask: 'No'
+        file_prefix: CCLOG65MCROPCAH
+        target_table_name: cclog65mcropcah
+    - file_name_mnemonic: CCLOG65MCRSNF
+      input_file_layout: excel1
+      file_patterns:
+      - input_file_pattern: ^CCLOG65MCRSNF\_(?:[a-z]+_|)\d+\.xlsx$
+        terminal_file_pattern: CCLOG65MCRSNF_*.xlsx
+        mask: 'No'
+        file_prefix: CCLOG65MCRSNF
+        target_table_name: cclog65mcrsnf
+  convert_files:
+    - file_name_mnemonic: CCLOG24MCRIP
+      conversion_type: excel_to_csv
+      sheet_names: ['RAWDATA']
+      input_file_layout: excel1
+      output_file_layout: csv1
+      output_file_pattern: FILE_NAME.FILE_EXTENSION
+      file_patterns:
+      - input_file_pattern: CCLOG24MCRIP\_(?:[a-z]+_|)D\_\d+\.xlsx$
+        file_prefix: CCLOG24MCRIP
+        mask: 'No'
+        archive_method: gzip
+    - file_name_mnemonic: CCLOG24MCRIPB
+      conversion_type: excel_to_csv
+      sheet_names: ['RAWDATA']
+      input_file_layout: excel1
+      output_file_layout: csv1
+      output_file_pattern: FILE_NAME.FILE_EXTENSION
+      file_patterns:
+      - input_file_pattern: CCLOG24MCRIPB\_(?:[a-z]+_|)D\_\d+\.xlsx$
+        file_prefix: CCLOG24MCRIPB
+        mask: 'No'
+        archive_method: gzip
+    - file_name_mnemonic: CCLOG24MCRIPBCAH
+      conversion_type: excel_to_csv
+      sheet_names: ['RAWDATA']
+      input_file_layout: excel1
+      output_file_layout: csv1
+      output_file_pattern: FILE_NAME.FILE_EXTENSION
+      file_patterns:
+      - input_file_pattern: CCLOG24MCRIPBCAH\_(?:[a-z]+_|)D\_\d+\.xlsx$
+        file_prefix: CCLOG24MCRIPBCAH
+        mask: 'No'
+        archive_method: gzip
+    - file_name_mnemonic: CCLOG24MCRIPCAH
+      conversion_type: excel_to_csv
+      sheet_names: ['RAWDATA']
+      input_file_layout: excel1
+      output_file_layout: csv1
+      output_file_pattern: FILE_NAME.FILE_EXTENSION
+      file_patterns:
+      - input_file_pattern: CCLOG24MCRIPCAH\_(?:[a-z]+_|)D\_\d+\.xlsx$
+        file_prefix: CCLOG24MCRIPCAH
+        mask: 'No'
+        archive_method: gzip
+    - file_name_mnemonic: CCLOG24MCRIPF
+      conversion_type: excel_to_csv
+      sheet_names: ['RAWDATA']
+      input_file_layout: excel1
+      output_file_layout: csv1
+      output_file_pattern: FILE_NAME.FILE_EXTENSION
+      file_patterns:
+      - input_file_pattern: CCLOG24MCRIPF\_(?:[a-z]+_|)D\_\d+\.xlsx$
+        file_prefix: CCLOG24MCRIPF
+        mask: 'No'
+        archive_method: gzip
+    - file_name_mnemonic: CCLOG24MCRIPSWB
+      conversion_type: excel_to_csv
+      sheet_names: ['RAWDATA']
+      input_file_layout: excel1
+      output_file_layout: csv1
+      output_file_pattern: FILE_NAME.FILE_EXTENSION
+      file_patterns:
+      - input_file_pattern: CCLOG24MCRIPSWB\_(?:[a-z]+_|)D\_\d+\.xlsx$
+        file_prefix: CCLOG24MCRIPSWB
+        mask: 'No'
+        archive_method: gzip
+    - file_name_mnemonic: CCLOG24MCRIRF
+      conversion_type: excel_to_csv
+      sheet_names: ['RAWDATA']
+      input_file_layout: excel1
+      output_file_layout: csv1
+      output_file_pattern: FILE_NAME.FILE_EXTENSION
+      file_patterns:
+      - input_file_pattern: CCLOG24MCRIRF\_(?:[a-z]+_|)D\_\d+\.xlsx$
+        file_prefix: CCLOG24MCRIRF
+        mask: 'No'
+        archive_method: gzip
+    - file_name_mnemonic: CCLOG24MCRLTCH
+      conversion_type: excel_to_csv
+      sheet_names: ['RAWDATA']
+      input_file_layout: excel1
+      output_file_layout: csv1
+      output_file_pattern: FILE_NAME.FILE_EXTENSION
+      file_patterns:
+      - input_file_pattern: CCLOG24MCRLTCH\_(?:[a-z]+_|)D\_\d+\.xlsx$
+        file_prefix: CCLOG24MCRLTCH
+        mask: 'No'
+        archive_method: gzip
+    - file_name_mnemonic: CCLOG24MCROP
+      conversion_type: excel_to_csv
+      sheet_names: ['RAWDATA']
+      input_file_layout: excel1
+      output_file_layout: csv1
+      output_file_pattern: FILE_NAME.FILE_EXTENSION
+      file_patterns:
+      - input_file_pattern: CCLOG24MCROP\_(?:[a-z]+_|)D\_\d+\.xlsx$
+        file_prefix: CCLOG24MCROP
+        mask: 'No'
+        archive_method: gzip
+    - file_name_mnemonic: CCLOG24MCROPCAH
+      conversion_type: excel_to_csv
+      sheet_names: ['RAWDATA']
+      input_file_layout: excel1
+      output_file_layout: csv1
+      output_file_pattern: FILE_NAME.FILE_EXTENSION
+      file_patterns:
+      - input_file_pattern: CCLOG24MCROPCAH\_(?:[a-z]+_|)D\_\d+\.xlsx$
+        file_prefix: CCLOG24MCROPCAH
+        mask: 'No'
+        archive_method: gzip
+    - file_name_mnemonic: CCLOG24MCRSNF
+      conversion_type: excel_to_csv
+      sheet_names: ['RAWDATA']
+      input_file_layout: excel1
+      output_file_layout: csv1
+      output_file_pattern: FILE_NAME.FILE_EXTENSION
+      file_patterns:
+      - input_file_pattern: CCLOG24MCRSNF\_(?:[a-z]+_|)D\_\d+\.xlsx$
+        file_prefix: CCLOG24MCRSNF
+        mask: 'No'
+        archive_method: gzip
+    - file_name_mnemonic: CCLOG65MCRIP
+      conversion_type: excel_to_csv
+      sheet_names: ['RAWDATA']
+      input_file_layout: excel1
+      output_file_layout: csv1
+      output_file_pattern: FILE_NAME.FILE_EXTENSION
+      file_patterns:
+      - input_file_pattern: CCLOG65MCRIP\_(?:[a-z]+_|)\d+\.xlsx$
+        file_prefix: CCLOG65MCRIP
+        mask: 'No'
+        archive_method: gzip
+    - file_name_mnemonic: CCLOG65MCRIPB
+      conversion_type: excel_to_csv
+      sheet_names: ['RAWDATA']
+      input_file_layout: excel1
+      output_file_layout: csv1
+      output_file_pattern: FILE_NAME.FILE_EXTENSION
+      file_patterns:
+      - input_file_pattern: CCLOG65MCRIPB\_(?:[a-z]+_|)\d+\.xlsx$
+        file_prefix: CCLOG65MCRIPB
+        mask: 'No'
+        archive_method: gzip
+    - file_name_mnemonic: CCLOG65MCRIPBCAH
+      conversion_type: excel_to_csv
+      sheet_names: ['RAWDATA']
+      input_file_layout: excel1
+      output_file_layout: csv1
+      output_file_pattern: FILE_NAME.FILE_EXTENSION
+      file_patterns:
+      - input_file_pattern: CCLOG65MCRIPBCAH\_(?:[a-z]+_|)\d+\.xlsx$
+        file_prefix: CCLOG65MCRIPBCAH
+        mask: 'No'
+        archive_method: gzip
+    - file_name_mnemonic: CCLOG65MCRIPCAH
+      conversion_type: excel_to_csv
+      sheet_names: ['RAWDATA']
+      input_file_layout: excel1
+      output_file_layout: csv1
+      output_file_pattern: FILE_NAME.FILE_EXTENSION
+      file_patterns:
+      - input_file_pattern: CCLOG65MCRIPCAH\_(?:[a-z]+_|)\d+\.xlsx$
+        file_prefix: CCLOG65MCRIPCAH
+        mask: 'No'
+        archive_method: gzip
+    - file_name_mnemonic: CCLOG65MCRIPF
+      conversion_type: excel_to_csv
+      sheet_names: ['RAWDATA']
+      input_file_layout: excel1
+      output_file_layout: csv1
+      output_file_pattern: FILE_NAME.FILE_EXTENSION
+      file_patterns:
+      - input_file_pattern: CCLOG65MCRIPF\_(?:[a-z]+_|)\d+\.xlsx$
+        file_prefix: CCLOG65MCRIPF
+        mask: 'No'
+        archive_method: gzip
+    - file_name_mnemonic: CCLOG65MCRIPSWB
+      conversion_type: excel_to_csv
+      sheet_names: ['RAWDATA']
+      input_file_layout: excel1
+      output_file_layout: csv1
+      output_file_pattern: FILE_NAME.FILE_EXTENSION
+      file_patterns:
+      - input_file_pattern: CCLOG65MCRIPSWB\_(?:[a-z]+_|)\d+\.xlsx$
+        file_prefix: CCLOG65MCRIPSWB
+        mask: 'No'
+        archive_method: gzip
+    - file_name_mnemonic: CCLOG65MCRIRF
+      conversion_type: excel_to_csv
+      sheet_names: ['RAWDATA']
+      input_file_layout: excel1
+      output_file_layout: csv1
+      output_file_pattern: FILE_NAME.FILE_EXTENSION
+      file_patterns:
+      - input_file_pattern: CCLOG65MCRIRF\_(?:[a-z]+_|)\d+\.xlsx$
+        file_prefix: CCLOG65MCRIRF
+        mask: 'No'
+        archive_method: gzip
+    - file_name_mnemonic: CCLOG65MCRLTCH
+      conversion_type: excel_to_csv
+      sheet_names: ['RAWDATA']
+      input_file_layout: excel1
+      output_file_layout: csv1
+      output_file_pattern: FILE_NAME.FILE_EXTENSION
+      file_patterns:
+      - input_file_pattern: CCLOG65MCRLTCH\_(?:[a-z]+_|)\d+\.xlsx$
+        file_prefix: CCLOG65MCRLTCH
+        mask: 'No'
+        archive_method: gzip
+    - file_name_mnemonic: CCLOG65MCROP
+      conversion_type: excel_to_csv
+      sheet_names: ['RAWDATA']
+      input_file_layout: excel1
+      output_file_layout: csv1
+      output_file_pattern: FILE_NAME.FILE_EXTENSION
+      file_patterns:
+      - input_file_pattern: CCLOG65MCROP\_(?:[a-z]+_|)\d+\.xlsx$
+        file_prefix: CCLOG65MCROP
+        mask: 'No'
+        archive_method: gzip
+    - file_name_mnemonic: CCLOG65MCROPCAH
+      conversion_type: excel_to_csv
+      sheet_names: ['RAWDATA']
+      input_file_layout: excel1
+      output_file_layout: csv1
+      output_file_pattern: FILE_NAME.FILE_EXTENSION
+      file_patterns:
+      - input_file_pattern: CCLOG65MCROPCAH\_(?:[a-z]+_|)\d+\.xlsx$
+        file_prefix: CCLOG65MCROPCAH
+        mask: 'No'
+        archive_method: gzip
+    - file_name_mnemonic: CCLOG65MCRSNF
+      conversion_type: excel_to_csv
+      sheet_names: ['RAWDATA']
+      input_file_layout: excel1
+      output_file_layout: csv1
+      output_file_pattern: FILE_NAME.FILE_EXTENSION
+      file_patterns:
+      - input_file_pattern: CCLOG65MCRSNF\_(?:[a-z]+_|)\d+\.xlsx$
+        file_prefix: CCLOG65MCRSNF
+        mask: 'No'
+        archive_method: gzip
+  load_sql_list:
+    - sql_template_file_name: insert_audit_control.j2
+      table_name: audit_control
+      execute_individual_file: True
+      processing_stage: post
+    - sql_template_file_name: insert_excel_audit.j2
+      table_name: excel_audit
+      execute_individual_file: True
+      processing_stage: post
+    - sql_template_file_name: insert_target_filenames.j2
+      table_name: target_filenames
+      execute_individual_file: True
+      processing_stage: post
+    - sql_template_file_name: insert_gl_reconciliation_error_log.j2
+      table_name: gl_reconciliation_error_log
+      execute_individual_file: True
+      processing_stage: post
+    - sql_template_file_name: update_folder_audit.j2
+      table_name: folder_audit
+      execute_individual_file: False
+      processing_stage: post
+  load_files:
+    - file_name_mnemonic: CCLOG24MCRIP
+      id: 1
+      input_file_layout: csv1
+      preprocessing: combination_10
+      missing_fields_position_combination_list: ['1|2']
+      reformat_field_positions: 2|3|7|11|12|14|14|14|15|18|25
+      file_patterns:
+      - input_file_pattern: cclog24mcrip\_(?:[a-z]+_|)d\_\d+\.csv$
+        file_prefix: CCLOG24MCRIP
+        source_extension: xlsx
+        mask: 'No'
+        archive_method: gzip
+      output_table_name: v_parallon_ra_stage_dataset_name.cclog24mcrip
+    - file_name_mnemonic: CCLOG24MCRIPB
+      id: 2
+      input_file_layout: csv1
+      preprocessing: combination_02
+      missing_fields_position_combination_list: ['1|2']
+      reformat_field_positions: 2|3|7|11|12
+      file_patterns:
+      - input_file_pattern: cclog24mcripb\_(?:[a-z]+_|)d\_\d+\.csv$
+        file_prefix: CCLOG24MCRIPB
+        source_extension: xlsx
+        mask: 'No'
+        archive_method: gzip
+      output_table_name: v_parallon_ra_stage_dataset_name.cclog24mcripb
+    - file_name_mnemonic: CCLOG24MCRIPBCAH
+      id: 3
+      input_file_layout: csv1
+      preprocessing: combination_02
+      missing_fields_position_combination_list: ['1|2']
+      reformat_field_positions: 2|3|7|11|12
+      file_patterns:
+      - input_file_pattern: cclog24mcripbcah\_(?:[a-z]+_|)d\_\d+\.csv$
+        file_prefix: CCLOG24MCRIPBCAH
+        source_extension: xlsx
+        mask: 'No'
+        archive_method: gzip
+      output_table_name: v_parallon_ra_stage_dataset_name.cclog24mcripbcah
+    - file_name_mnemonic: CCLOG24MCRIPCAH
+      id: 4
+      input_file_layout: csv1
+      preprocessing: combination_02
+      missing_fields_position_combination_list: ['1|2']
+      reformat_field_positions: 2|3|7|11|12
+      file_patterns:
+      - input_file_pattern: cclog24mcripcah\_(?:[a-z]+_|)d\_\d+\.csv$
+        file_prefix: CCLOG24MCRIPCAH
+        source_extension: xlsx
+        mask: 'No'
+        archive_method: gzip
+      output_table_name: v_parallon_ra_stage_dataset_name.cclog24mcripcah
+    - file_name_mnemonic: CCLOG24MCRIPF
+      id: 5
+      input_file_layout: csv1
+      preprocessing: combination_03
+      missing_fields_position_combination_list: ['1|2']
+      reformat_field_positions: 2|3|7|11|12|14|14|14
+      file_patterns:
+      - input_file_pattern: cclog24mcripf\_(?:[a-z]+_|)d\_\d+\.csv$
+        file_prefix: CCLOG24MCRIPF
+        source_extension: xlsx
+        mask: 'No'
+        archive_method: gzip
+      output_table_name: v_parallon_ra_stage_dataset_name.cclog24mcripf
+    - file_name_mnemonic: CCLOG24MCRIPSWB
+      id: 6
+      input_file_layout: csv1
+      preprocessing: combination_02
+      missing_fields_position_combination_list: ['1|2']
+      reformat_field_positions: 2|3|7|11|12
+      file_patterns:
+      - input_file_pattern: cclog24mcripswb\_(?:[a-z]+_|)d\_\d+\.csv$
+        file_prefix: CCLOG24MCRIPSWB
+        source_extension: xlsx
+        mask: 'No'
+        archive_method: gzip
+      output_table_name: v_parallon_ra_stage_dataset_name.cclog24mcripswb
+    - file_name_mnemonic: CCLOG24MCRIRF
+      id: 7
+      input_file_layout: csv1
+      preprocessing: combination_02
+      missing_fields_position_combination_list: ['1|2']
+      reformat_field_positions: 2|3|7|11|12
+      file_patterns:
+      - input_file_pattern: cclog24mcrirf\_(?:[a-z]+_|)d\_\d+\.csv$
+        file_prefix: CCLOG24MCRIRF
+        source_extension: xlsx
+        mask: 'No'
+        archive_method: gzip
+      output_table_name: v_parallon_ra_stage_dataset_name.cclog24mcrirf_d
+    - file_name_mnemonic: CCLOG24MCRLTCH
+      id: 8
+      input_file_layout: csv1
+      preprocessing: combination_04
+      missing_fields_position_combination_list: ['1|2']
+      remove_field_positions: 23
+      reformat_field_positions: 2|3|7|11|12|14|14|14
+      file_patterns:
+      - input_file_pattern: cclog24mcrltch\_(?:[a-z]+_|)d\_\d+\.csv$
+        file_prefix: CCLOG24MCRLTCH
+        source_extension: xlsx
+        mask: 'No'
+        archive_method: gzip
+      output_table_name: v_parallon_ra_stage_dataset_name.cclog24mcrltch
+    - file_name_mnemonic: CCLOG24MCROP
+      id: 9
+      input_file_layout: csv1
+      preprocessing: combination_02
+      missing_fields_position_combination_list: ['1|2']
+      reformat_field_positions: 2|3|7|11|12
+      file_patterns:
+      - input_file_pattern: cclog24mcrop\_(?:[a-z]+_|)d\_\d+\.csv$
+        file_prefix: CCLOG24MCROP
+        source_extension: xlsx
+        mask: 'No'
+        archive_method: gzip
+      output_table_name: v_parallon_ra_stage_dataset_name.cclog24mcrop
+    - file_name_mnemonic: CCLOG24MCROPCAH
+      id: 10
+      input_file_layout: csv1
+      preprocessing: combination_02
+      missing_fields_position_combination_list: ['1|2']
+      reformat_field_positions: 2|3|7|11|12
+      file_patterns:
+      - input_file_pattern: cclog24mcropcah\_(?:[a-z]+_|)d\_\d+\.csv$
+        file_prefix: CCLOG24MCROPCAH
+        source_extension: xlsx
+        mask: 'No'
+        archive_method: gzip
+      output_table_name: v_parallon_ra_stage_dataset_name.cclog24mcropcah
+    - file_name_mnemonic: CCLOG24MCRSNF
+      id: 11
+      input_file_layout: csv1
+      preprocessing: combination_02
+      missing_fields_position_combination_list: ['1|2']
+      reformat_field_positions: 2|3|7|11|12
+      file_patterns:
+      - input_file_pattern: cclog24mcrsnf\_(?:[a-z]+_|)d\_\d+\.csv$
+        file_prefix: CCLOG24MCRSNF
+        source_extension: xlsx
+        mask: 'No'
+        archive_method: gzip
+      output_table_name: v_parallon_ra_stage_dataset_name.cclog24mcrsnf
+    - file_name_mnemonic: CCLOG65MCRIP
+      id: 12
+      input_file_layout: csv1
+      preprocessing: combination_09
+      missing_fields_position_combination_list: ['1|2']
+      reformat_field_positions: 2|3|7|11|12|13|14|16|16|16|16|17|17|17|18|18|37|38|39
+      file_patterns:
+      - input_file_pattern: cclog65mcrip\_(?:[a-z]+_|)\d+\.csv$
+        file_prefix: CCLOG65MCRIP
+        source_extension: xlsx
+        mask: 'No'
+        archive_method: gzip
+      output_table_name: v_parallon_ra_stage_dataset_name.cclog65mcrip
+    - file_name_mnemonic: CCLOG65MCRIPB
+      id: 13
+      input_file_layout: csv1
+      preprocessing: combination_09
+      missing_fields_position_combination_list: ['1|2']
+      reformat_field_positions: 2|3|7|11|12|13|14|16|16|16|16|17|17|17|18|18|28|29|30
+      file_patterns:
+      - input_file_pattern: cclog65mcripb\_(?:[a-z]+_|)\d+\.csv$
+        file_prefix: CCLOG65MCRIPB
+        source_extension: xlsx
+        mask: 'No'
+        archive_method: gzip
+      output_table_name: v_parallon_ra_stage_dataset_name.cclog65mcripb
+    - file_name_mnemonic: CCLOG65MCRIPBCAH
+      id: 14
+      input_file_layout: csv1
+      preprocessing: combination_05
+      missing_fields_position_combination_list: ['1|2']
+      reformat_field_positions: 2|3|7|11|12|13|14
+      file_patterns:
+      - input_file_pattern: cclog65mcripbcah\_(?:[a-z]+_|)\d+\.csv$
+        file_prefix: CCLOG65MCRIPBCAH
+        source_extension: xlsx
+        mask: 'No'
+        archive_method: gzip
+      output_table_name: v_parallon_ra_stage_dataset_name.cclog65mcripbcah
+    - file_name_mnemonic: CCLOG65MCRIPCAH
+      id: 15
+      input_file_layout: csv1
+      preprocessing: combination_06
+      missing_fields_position_combination_list: ['1|2']
+      reformat_field_positions: 2|3|7|11|12|13|14|16|16|16|17|17|17|18|18
+      file_patterns:
+      - input_file_pattern: cclog65mcripcah\_(?:[a-z]+_|)\d+\.csv$
+        file_prefix: CCLOG65MCRIPCAH
+        source_extension: xlsx
+        mask: 'No'
+        archive_method: gzip
+      output_table_name: v_parallon_ra_stage_dataset_name.cclog65mcripcah
+    - file_name_mnemonic: CCLOG65MCRIPF
+      id: 16
+      input_file_layout: csv1
+      preprocessing: combination_06
+      missing_fields_position_combination_list: ['1|2']
+      reformat_field_positions: 2|3|7|11|12|13|14|16|16|16|17|17|17|18|18
+      file_patterns:
+      - input_file_pattern: cclog65mcripf\_(?:[a-z]+_|)\d+\.csv$
+        file_prefix: CCLOG65MCRIPF
+        source_extension: xlsx
+        mask: 'No'
+        archive_method: gzip
+      output_table_name: v_parallon_ra_stage_dataset_name.cclog65mcripf
+    - file_name_mnemonic: CCLOG65MCRIPSWB
+      id: 17
+      input_file_layout: csv1
+      preprocessing: combination_06
+      missing_fields_position_combination_list: ['1|2']
+      reformat_field_positions: 2|3|7|11|12|13|14|16|16|16|17|17|17|18|18
+      file_patterns:
+      - input_file_pattern: cclog65mcripswb\_(?:[a-z]+_|)\d+\.csv$
+        file_prefix: CCLOG65MCRIPSWB
+        source_extension: xlsx
+        mask: 'No'
+        archive_method: gzip
+      output_table_name: v_parallon_ra_stage_dataset_name.cclog65mcripswb
+    - file_name_mnemonic: CCLOG65MCRIRF
+      id: 18
+      input_file_layout: csv1
+      preprocessing: combination_08
+      missing_fields_position_combination_list: ['1|2']
+      reformat_field_positions: 2|3|7|11|12|13|14|18|18|31|32|33
+      file_patterns:
+      - input_file_pattern: cclog65mcrirf\_(?:[a-z]+_|)\d+\.csv$
+        file_prefix: CCLOG65MCRIRF
+        source_extension: xlsx
+        mask: 'No'
+        archive_method: gzip
+      output_table_name: v_parallon_ra_stage_dataset_name.cclog65mcrirf
+    - file_name_mnemonic: CCLOG65MCRLTCH
+      id: 19
+      input_file_layout: csv1
+      preprocessing: combination_07
+      missing_fields_position_combination_list: ['1|2']
+      remove_field_positions: 40
+      reformat_field_positions: 2|3|7|11|12|13|14|16|16|16|17|17|17|18|18
+      file_patterns:
+      - input_file_pattern: cclog65mcrltch\_(?:[a-z]+_|)\d+\.csv$
+        file_prefix: CCLOG65MCRLTCH
+        source_extension: xlsx
+        mask: 'No'
+        archive_method: gzip
+      output_table_name: v_parallon_ra_stage_dataset_name.cclog65mcrltch
+    - file_name_mnemonic: CCLOG65MCROP
+      id: 20
+      input_file_layout: csv1
+      preprocessing: combination_11
+      missing_fields_position_combination_list: ['1|2']
+      reformat_field_positions: 2|3|7|11|12|13|14|25|26|27|28|29|30|31|32|33
+      file_patterns:
+      - input_file_pattern: cclog65mcrop\_(?:[a-z]+_|)\d+\.csv$
+        file_prefix: CCLOG65MCROP
+        source_extension: xlsx
+        mask: 'No'
+        archive_method: gzip
+      output_table_name: v_parallon_ra_stage_dataset_name.cclog65mcrop
+    - file_name_mnemonic: CCLOG65MCROPCAH
+      id: 21
+      input_file_layout: csv1
+      preprocessing: combination_01
+      missing_fields_position_combination_list: ['1|2']
+      reformat_field_positions: 2|3|7|11
+      file_patterns:
+      - input_file_pattern: cclog65mcropcah\_(?:[a-z]+_|)\d+\.csv$
+        file_prefix: CCLOG65MCROPCAH
+        source_extension: xlsx
+        mask: 'No'
+        archive_method: gzip
+      output_table_name: v_parallon_ra_stage_dataset_name.cclog65mcropcah
+    - file_name_mnemonic: CCLOG65MCRSNF
+      id: 22
+      input_file_layout: csv1
+      preprocessing: combination_05
+      missing_fields_position_combination_list: ['1|2']
+      reformat_field_positions: 2|3|7|11|12|13|14
+      file_patterns:
+      - input_file_pattern: cclog65mcrsnf\_(?:[a-z]+_|)\d+\.csv$
+        file_prefix: CCLOG65MCRSNF
+        source_extension: xlsx
+        mask: 'No'
+        archive_method: gzip
+      output_table_name: v_parallon_ra_stage_dataset_name.cclog65mcrsnf
+  data_checks_sql_list:
+    - sql_template_file_name: select_check_missing_filename.j2
+      table_name: filenames
+      processing_stage: post
+    - sql_template_file_name: select_check_folder_audit_counts.j2
+      table_name: filenames
+      processing_stage: post      
+  file_layouts:
+    - layout: excel1
+      file_extension: xlsx
+      header_record: 'Yes'
+      add_date_suffix: 'Yes'
+      original_directory_hierarchy: SRC_FOLDER|SRC_SYSTEM|PROCESSING_GROUP|FILE_TYPE|
+      archive_directory_hierarchy: SRCARCHIVE_FOLDER|SRC_SYSTEM|PROCESSING_GROUP|FILE_TYPE|
+    - layout: csv1
+      file_extension: csv
+      delimiter: ','
+      quote_char: '"'
+      encoding_scheme: utf-8
+      header_record: 'Yes'
+      add_date_suffix: 'Yes'
+      original_directory_hierarchy: SRC_FOLDER|SRC_SYSTEM|PROCESSING_GROUP|FILE_TYPE|
+      archive_directory_hierarchy: SRCARCHIVE_FOLDER|SRC_SYSTEM|PROCESSING_GROUP|FILE_TYPE|
+  preprocessing_combinations:
+  # Pad Coid & Unit_Num, add time formatting to Run Date Time
+    - combination: combination_01
+      steps:
+      - name: remove_header
+      - name: remove_records_for_missing_fields
+      - name: reformat_field_pad_chars
+        pad_direction: left
+        field_length: 5
+        fill_char: 0
+      - name: reformat_field_pad_chars
+        pad_direction: left
+        field_length: 5
+        fill_char: 0
+      - name: reformat_time_field
+        source_time_format: YYYY-MM-DD MM:HH:SS.FFF
+        target_time_format: YYYY-MM-DD MM:HH:SS
+      - name: reformat_field_replace_word
+        search_value: DOUBLE_QUOTE
+        replace_value: SPACES_2
+      - name: add_file_name_with_source_extension
+      - name: add_file_word
+        search_field: file_name_only
+        search_pattern: FILE_NAME_PREFIX(?:_[a-z]+|)(?:_d|)
+      - name: add_subdirectory
+  # Pad Coid & Unit_Num, add time formatting to Run Date Time and Discharge Date
+    - combination: combination_02
+      steps:
+      - name: remove_header
+      - name: remove_records_for_missing_fields
+      - name: reformat_field_pad_chars
+        pad_direction: left
+        field_length: 5
+        fill_char: 0
+      - name: reformat_field_pad_chars
+        pad_direction: left
+        field_length: 5
+        fill_char: 0
+      - name: reformat_time_field
+        source_time_format: YYYY-MM-DD MM:HH:SS.FFF
+        target_time_format: YYYY-MM-DD MM:HH:SS
+      - name: reformat_field_replace_word
+        search_value: DOUBLE_QUOTE
+        replace_value: SPACES_2
+      - name: reformat_time_field
+        source_time_format: YYYY-MM-DD
+        target_time_format: YYYY-MM-DD MM:HH:SS
+      - name: add_file_name_with_source_extension
+      - name: add_file_word
+        search_field: file_name_only
+        search_pattern: FILE_NAME_PREFIX(?:_[a-z]+|)(?:_d|)
+      - name: add_subdirectory
+  # Pad Coid & Unit_Num, add time formatting to Run Date Time and Discharge Date, pad the DRG field
+    - combination: combination_03
+      steps:
+      - name: remove_header
+      - name: remove_records_for_missing_fields
+      - name: reformat_field_pad_chars
+        pad_direction: left
+        field_length: 5
+        fill_char: 0
+      - name: reformat_field_pad_chars
+        pad_direction: left
+        field_length: 5
+        fill_char: 0
+      - name: reformat_time_field
+        source_time_format: YYYY-MM-DD MM:HH:SS.FFF
+        target_time_format: YYYY-MM-DD MM:HH:SS
+      - name: reformat_field_replace_word
+        search_value: DOUBLE_QUOTE
+        replace_value: SPACES_2
+      - name: reformat_time_field
+        source_time_format: YYYY-MM-DD
+        target_time_format: YYYY-MM-DD MM:HH:SS
+      - name: reformat_field_remove_decimal
+      - name: reformat_field_replace_word
+        search_value: clr
+        replace_value: NULL_VALUE
+      - name: reformat_field_pad_chars
+        pad_direction: left
+        field_length: 3
+        fill_char: 0
+      - name: add_file_name_with_source_extension
+      - name: add_file_word
+        search_field: file_name_only
+        search_pattern: FILE_NAME_PREFIX(?:_[a-z]+|)(?:_d|)
+      - name: add_subdirectory
+  # Pad Coid & Unit_Num, add time formatting to Run Date Time and Discharge Date, pad the DRG field, remove a field
+    - combination: combination_04
+      steps:
+      - name: remove_header
+      - name: remove_records_for_missing_fields
+      - name: reformat_field_pad_chars
+        pad_direction: left
+        field_length: 5
+        fill_char: 0
+      - name: reformat_field_pad_chars
+        pad_direction: left
+        field_length: 5
+        fill_char: 0
+      - name: reformat_time_field
+        source_time_format: YYYY-MM-DD MM:HH:SS.FFF
+        target_time_format: YYYY-MM-DD MM:HH:SS
+      - name: reformat_field_replace_word
+        search_value: DOUBLE_QUOTE
+        replace_value: SPACES_2
+      - name: reformat_time_field
+        source_time_format: YYYY-MM-DD
+        target_time_format: YYYY-MM-DD MM:HH:SS
+      - name: reformat_field_remove_decimal
+      - name: reformat_field_replace_word
+        search_value: clr
+        replace_value: NULL_VALUE
+      - name: reformat_field_pad_chars
+        pad_direction: left
+        field_length: 3
+        fill_char: 0
+      - name: remove_field
+      - name: add_file_name_with_source_extension
+      - name: add_file_word
+        search_field: file_name_only
+        search_pattern: FILE_NAME_PREFIX(?:_[a-z]+|)(?:_d|)
+      - name: add_subdirectory
+  # Pad Coid & Unit_Num, add time formatting to Run Date Time, Discharge Date, Payment RA Date and RA Date
+    - combination: combination_05
+      steps:
+      - name: remove_header
+      - name: remove_records_for_missing_fields
+      - name: reformat_field_pad_chars
+        pad_direction: left
+        field_length: 5
+        fill_char: 0
+      - name: reformat_field_pad_chars
+        pad_direction: left
+        field_length: 5
+        fill_char: 0
+      - name: reformat_time_field
+        source_time_format: YYYY-MM-DD MM:HH:SS.FFF
+        target_time_format: YYYY-MM-DD MM:HH:SS
+      - name: reformat_field_replace_word
+        search_value: DOUBLE_QUOTE
+        replace_value: SPACES_2
+      - name: reformat_time_field
+        source_time_format: YYYY-MM-DD
+        target_time_format: YYYY-MM-DD MM:HH:SS
+      - name: reformat_time_field
+        source_time_format: YYYY-MM-DD
+        target_time_format: YYYY-MM-DD MM:HH:SS
+      - name: reformat_time_field
+        source_time_format: YYYY-MM-DD
+        target_time_format: YYYY-MM-DD MM:HH:SS
+      - name: add_file_name_with_source_extension
+      - name: add_file_word
+        search_field: file_name_only
+        search_pattern: FILE_NAME_PREFIX(?:_[a-z]+|)(?:_d|)
+      - name: add_subdirectory
+  # Pad Coid & Unit_Num, add time formatting to Run Date Time, Discharge Date, Payment RA Date and RA Date, Pad RA & Expected DRG
+  # Remove Decimal Places from RA & Expected DRG, Format Variable DRG with replacement values
+    - combination: combination_06
+      steps:
+      - name: remove_header
+      - name: remove_records_for_missing_fields
+      - name: reformat_field_pad_chars
+        pad_direction: left
+        field_length: 5
+        fill_char: 0
+      - name: reformat_field_pad_chars
+        pad_direction: left
+        field_length: 5
+        fill_char: 0
+      - name: reformat_time_field
+        source_time_format: YYYY-MM-DD MM:HH:SS.FFF
+        target_time_format: YYYY-MM-DD MM:HH:SS
+      - name: reformat_field_replace_word
+        search_value: DOUBLE_QUOTE
+        replace_value: SPACES_2
+      - name: reformat_time_field
+        source_time_format: YYYY-MM-DD
+        target_time_format: YYYY-MM-DD MM:HH:SS
+      - name: reformat_time_field
+        source_time_format: YYYY-MM-DD
+        target_time_format: YYYY-MM-DD MM:HH:SS
+      - name: reformat_time_field
+        source_time_format: YYYY-MM-DD
+        target_time_format: YYYY-MM-DD MM:HH:SS
+      - name: reformat_field_remove_decimal
+      - name: reformat_field_replace_word
+        search_value: clr
+        replace_value: NULL_VALUE
+      - name: reformat_field_pad_chars
+        pad_direction: left
+        field_length: 3
+        fill_char: 0
+      - name: reformat_field_remove_decimal
+      - name: reformat_field_replace_word
+        search_value: clr
+        replace_value: NULL_VALUE
+      - name: reformat_field_pad_chars
+        pad_direction: left
+        field_length: 3
+        fill_char: 0
+      - name: reformat_field_replace_word
+        search_value: 0
+        replace_value: SPACES_2
+      - name: reformat_field_replace_word
+        search_value: 1
+        replace_value: VALUE_YES
+      - name: add_file_name_with_source_extension
+      - name: add_file_word
+        search_field: file_name_only
+        search_pattern: FILE_NAME_PREFIX(?:_[a-z]+|)(?:_d|)
+      - name: add_subdirectory
+  # Pad Coid & Unit_Num, add time formatting to Run Date Time, Discharge Date, Payment RA Date and RA Date, Pad RA & Expected DRG, 
+  # Remove Decimal Places from RA & Expected DRG, Format Variable DRG with replacement values and remove a field
+    - combination: combination_07
+      steps:
+      - name: remove_header
+      - name: remove_records_for_missing_fields
+      - name: reformat_field_pad_chars
+        pad_direction: left
+        field_length: 5
+        fill_char: 0
+      - name: reformat_field_pad_chars
+        pad_direction: left
+        field_length: 5
+        fill_char: 0
+      - name: reformat_time_field
+        source_time_format: YYYY-MM-DD MM:HH:SS.FFF
+        target_time_format: YYYY-MM-DD MM:HH:SS
+      - name: reformat_field_replace_word
+        search_value: DOUBLE_QUOTE
+        replace_value: SPACES_2
+      - name: reformat_time_field
+        source_time_format: YYYY-MM-DD
+        target_time_format: YYYY-MM-DD MM:HH:SS
+      - name: reformat_time_field
+        source_time_format: YYYY-MM-DD
+        target_time_format: YYYY-MM-DD MM:HH:SS
+      - name: reformat_time_field
+        source_time_format: YYYY-MM-DD
+        target_time_format: YYYY-MM-DD MM:HH:SS
+      - name: reformat_field_remove_decimal
+      - name: reformat_field_replace_word
+        search_value: clr
+        replace_value: NULL_VALUE
+      - name: reformat_field_pad_chars
+        pad_direction: left
+        field_length: 3
+        fill_char: 0
+      - name: reformat_field_remove_decimal
+      - name: reformat_field_replace_word
+        search_value: clr
+        replace_value: NULL_VALUE
+      - name: reformat_field_pad_chars
+        pad_direction: left
+        field_length: 3
+        fill_char: 0
+      - name: reformat_field_replace_word
+        search_value: 0
+        replace_value: SPACES_2
+      - name: reformat_field_replace_word
+        search_value: 1
+        replace_value: VALUE_YES
+      - name: remove_field
+      - name: add_file_name_with_source_extension
+      - name: add_file_word
+        search_field: file_name_only
+        search_pattern: FILE_NAME_PREFIX(?:_[a-z]+|)(?:_d|)
+      - name: add_subdirectory
+  # Pad Coid & Unit_Num, add time formatting to Run Date Time, Discharge Date, Payment RA Date and RA Date, 
+  # Format Variable DRG with replacement values and round off 3 Numeric fields
+    - combination: combination_08
+      steps:
+      - name: remove_header
+      - name: remove_records_for_missing_fields
+      - name: reformat_field_pad_chars
+        pad_direction: left
+        field_length: 5
+        fill_char: 0
+      - name: reformat_field_pad_chars
+        pad_direction: left
+        field_length: 5
+        fill_char: 0
+      - name: reformat_time_field
+        source_time_format: YYYY-MM-DD MM:HH:SS.FFF
+        target_time_format: YYYY-MM-DD MM:HH:SS
+      - name: reformat_field_replace_word
+        search_value: DOUBLE_QUOTE
+        replace_value: SPACES_2
+      - name: reformat_time_field
+        source_time_format: YYYY-MM-DD
+        target_time_format: YYYY-MM-DD MM:HH:SS
+      - name: reformat_time_field
+        source_time_format: YYYY-MM-DD
+        target_time_format: YYYY-MM-DD MM:HH:SS
+      - name: reformat_time_field
+        source_time_format: YYYY-MM-DD
+        target_time_format: YYYY-MM-DD MM:HH:SS
+      - name: reformat_field_replace_word
+        search_value: 0
+        replace_value: SPACES_2
+      - name: reformat_field_replace_word
+        search_value: 1
+        replace_value: VALUE_YES
+      - name: reformat_field_round_decimal_values
+        decimal_positions: 2
+      - name: reformat_field_round_decimal_values
+        decimal_positions: 2
+      - name: reformat_field_round_decimal_values
+        decimal_positions: 2
+      - name: add_file_name_with_source_extension
+      - name: add_file_word
+        search_field: file_name_only
+        search_pattern: FILE_NAME_PREFIX(?:_[a-z]+|)(?:_d|)
+      - name: add_subdirectory
+  # Pad Coid & Unit_Num, add time formatting to Run Date Time, Discharge Date, Payment RA Date and RA Date, Pad RA & Expected DRG
+  # Remove Decimal Places from RA & Expected DRG, Format Variable DRG with replacement values and round off 3 Numeric fields
+    - combination: combination_09
+      steps:
+      - name: remove_header
+      - name: remove_records_for_missing_fields
+      - name: reformat_field_pad_chars
+        pad_direction: left
+        field_length: 5
+        fill_char: 0
+      - name: reformat_field_pad_chars
+        pad_direction: left
+        field_length: 5
+        fill_char: 0
+      - name: reformat_time_field
+        source_time_format: YYYY-MM-DD MM:HH:SS.FFF
+        target_time_format: YYYY-MM-DD MM:HH:SS
+      - name: reformat_field_replace_word
+        search_value: DOUBLE_QUOTE
+        replace_value: SPACES_2
+      - name: reformat_time_field
+        source_time_format: YYYY-MM-DD
+        target_time_format: YYYY-MM-DD MM:HH:SS
+      - name: reformat_time_field
+        source_time_format: YYYY-MM-DD
+        target_time_format: YYYY-MM-DD MM:HH:SS
+      - name: reformat_time_field
+        source_time_format: YYYY-MM-DD
+        target_time_format: YYYY-MM-DD MM:HH:SS
+      - name: reformat_field_remove_decimal
+      - name: reformat_field_substring_extract
+        scan_direction: right
+        skip_characters: 0
+        substring_length: 3
+      - name: reformat_field_replace_word
+        search_value: clr
+        replace_value: NULL_VALUE
+      - name: reformat_field_pad_chars
+        pad_direction: left
+        field_length: 3
+        fill_char: 0
+      - name: reformat_field_remove_decimal
+      - name: reformat_field_replace_word
+        search_value: clr
+        replace_value: NULL_VALUE
+      - name: reformat_field_pad_chars
+        pad_direction: left
+        field_length: 3
+        fill_char: 0
+      - name: reformat_field_replace_word
+        search_value: 0
+        replace_value: SPACES_2
+      - name: reformat_field_replace_word
+        search_value: 1
+        replace_value: VALUE_YES
+      - name: reformat_field_round_decimal_values
+        decimal_positions: 2
+      - name: reformat_field_round_decimal_values
+        decimal_positions: 2
+      - name: reformat_field_round_decimal_values
+        decimal_positions: 2
+      - name: add_file_name_with_source_extension
+      - name: add_file_word
+        search_field: file_name_only
+        search_pattern: FILE_NAME_PREFIX(?:_[a-z]+|)(?:_d|)
+      - name: add_subdirectory
+  # Pad Coid & Unit_Num, add time formatting to Run Date Time, Discharge Date, Pad and Remove Decimal Places from DRG
+  # Round off 3 Numeric fields
+    - combination: combination_10
+      steps:
+      - name: remove_header
+      - name: remove_records_for_missing_fields
+      - name: reformat_field_pad_chars
+        pad_direction: left
+        field_length: 5
+        fill_char: 0
+      - name: reformat_field_pad_chars
+        pad_direction: left
+        field_length: 5
+        fill_char: 0
+      - name: reformat_time_field
+        source_time_format: YYYY-MM-DD MM:HH:SS.FFF
+        target_time_format: YYYY-MM-DD MM:HH:SS
+      - name: reformat_field_replace_word
+        search_value: DOUBLE_QUOTE
+        replace_value: SPACES_2
+      - name: reformat_time_field
+        source_time_format: YYYY-MM-DD
+        target_time_format: YYYY-MM-DD MM:HH:SS
+      - name: reformat_field_remove_decimal
+      - name: reformat_field_replace_word
+        search_value: clr
+        replace_value: NULL_VALUE
+      - name: reformat_field_pad_chars
+        pad_direction: left
+        field_length: 3
+        fill_char: 0
+      - name: reformat_field_round_decimal_values
+        decimal_positions: 2
+      - name: reformat_field_round_decimal_values
+        decimal_positions: 2
+      - name: reformat_field_round_decimal_values
+        decimal_positions: 2
+      - name: add_file_name_with_source_extension
+      - name: add_file_word
+        search_field: file_name_only
+        search_pattern: FILE_NAME_PREFIX(?:_[a-z]+|)(?:_d|)
+      - name: add_subdirectory
+  # Pad Coid & Unit_Num, add time formatting to Run Date Time, Discharge Date, Payment RA Date and RA Date
+  # Round off 9 Numeric fields
+    - combination: combination_11
+      steps:
+      - name: remove_header
+      - name: remove_records_for_missing_fields
+      - name: reformat_field_pad_chars
+        pad_direction: left
+        field_length: 5
+        fill_char: 0
+      - name: reformat_field_pad_chars
+        pad_direction: left
+        field_length: 5
+        fill_char: 0
+      - name: reformat_time_field
+        source_time_format: YYYY-MM-DD MM:HH:SS.FFF
+        target_time_format: YYYY-MM-DD MM:HH:SS
+      - name: reformat_field_replace_word
+        search_value: DOUBLE_QUOTE
+        replace_value: SPACES_2
+      - name: reformat_time_field
+        source_time_format: YYYY-MM-DD
+        target_time_format: YYYY-MM-DD MM:HH:SS
+      - name: reformat_time_field
+        source_time_format: YYYY-MM-DD
+        target_time_format: YYYY-MM-DD MM:HH:SS
+      - name: reformat_time_field
+        source_time_format: YYYY-MM-DD
+        target_time_format: YYYY-MM-DD MM:HH:SS
+      - name: reformat_field_round_decimal_values
+        decimal_positions: 2
+      - name: reformat_field_round_decimal_values
+        decimal_positions: 2
+      - name: reformat_field_round_decimal_values
+        decimal_positions: 2
+      - name: reformat_field_round_decimal_values
+        decimal_positions: 2
+      - name: reformat_field_round_decimal_values
+        decimal_positions: 2
+      - name: reformat_field_round_decimal_values
+        decimal_positions: 2
+      - name: reformat_field_round_decimal_values
+        decimal_positions: 2
+      - name: reformat_field_round_decimal_values
+        decimal_positions: 2
+      - name: reformat_field_round_decimal_values
+        decimal_positions: 2
+      - name: add_file_name_with_source_extension
+      - name: add_file_word
+        search_field: file_name_only
+        search_pattern: FILE_NAME_PREFIX(?:_[a-z]+|)(?:_d|)
+      - name: add_subdirectory

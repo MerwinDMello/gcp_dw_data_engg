@@ -1,0 +1,25 @@
+CREATE OR REPLACE VIEW {{ params.param_hr_base_views_dataset_name }}.patient_satisfaction_alt_org_hierarchy AS SELECT
+    patient_satisfaction_alt_org_hierarchy.company_code,
+    patient_satisfaction_alt_org_hierarchy.coid,
+    patient_satisfaction_alt_org_hierarchy.facility_name,
+    patient_satisfaction_alt_org_hierarchy.group_code,
+    patient_satisfaction_alt_org_hierarchy.division_code,
+    patient_satisfaction_alt_org_hierarchy.market_code,
+    patient_satisfaction_alt_org_hierarchy.parent_coid,
+    patient_satisfaction_alt_org_hierarchy.parent_coid_cons_facility_code,
+    patient_satisfaction_alt_org_hierarchy.lob_code,
+    patient_satisfaction_alt_org_hierarchy.sub_lob_code,
+    patient_satisfaction_alt_org_hierarchy.client_id,
+    patient_satisfaction_alt_org_hierarchy.facility_claim_control_num,
+    patient_satisfaction_alt_org_hierarchy.facility_claim_control_num_name,
+    patient_satisfaction_alt_org_hierarchy.facility_rollup_sw,
+    patient_satisfaction_alt_org_hierarchy.fsed_ind,
+    patient_satisfaction_alt_org_hierarchy.asd_region_name,
+    patient_satisfaction_alt_org_hierarchy.location_mnemonic_cs,
+    patient_satisfaction_alt_org_hierarchy.unit_num,
+    patient_satisfaction_alt_org_hierarchy.survey_start_date,
+    patient_satisfaction_alt_org_hierarchy.survey_end_date,
+    patient_satisfaction_alt_org_hierarchy.source_system_code,
+    patient_satisfaction_alt_org_hierarchy.dw_last_update_date_time
+  FROM
+     {{ params.param_hr_core_dataset_name }}.patient_satisfaction_alt_org_hierarchy

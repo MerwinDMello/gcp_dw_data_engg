@@ -1,0 +1,31 @@
+CREATE TABLE IF NOT EXISTS edwpsc.ecw_rprticcsubcategoryerror
+(
+  snapshotdate DATE,
+  claimkey INT64,
+  coid STRING,
+  hcpatientaccountingnumber STRING,
+  hcenid INT64,
+  pssccat STRING,
+  subcategorydescription STRING,
+  psscid INT64,
+  createdate DATE,
+  completeflag STRING,
+  closeddate DATE,
+  currentlyopen STRING,
+  createdinsnapshot STRING,
+  closedinsnapshot STRING,
+  age INT64,
+  originalroute STRING,
+  totalbalanceamt NUMERIC(33, 4),
+  servicingproviderkey INT64,
+  insertedby STRING,
+  inserteddtm DATETIME,
+  modifiedby STRING,
+  modifieddtm DATETIME,
+  psfaietreroute STRING,
+  psfaietactdte STRING,
+  psencoidgrp STRING,
+  dwlastupdatedatetime DATETIME
+)
+PARTITION BY snapshotdate
+;

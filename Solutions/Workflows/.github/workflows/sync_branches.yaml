@@ -1,0 +1,83 @@
+name: Sync Long lived branches
+
+on:
+  workflow_call:
+    inputs:
+      base_branch:
+        required: true
+        type: string
+
+    secrets:
+      GH_TOKEN:
+        description: "GitHub token"
+        required: true
+      WEBEX_WEBHOOK_URL:
+        description: "Webex webhook URL"
+        required: false
+
+jobs:
+  sync-branches:
+    runs-on: [onprem-k8s-arc, lnx-amd64, enterprise, dind, self-hosted]
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Git
+      run: |
+        git config --global user.name 'github-actions[bot]'
+        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+
+    - name: Sync dev,qa and release branches with main
+      shell: bash
+      run: |
+        # Ensures the base branch is up-to-date before creating the new branch.
+        git checkout ${{ inputs.base_branch }}
+        git pull origin ${{ inputs.base_branch }}
+        BRANCH_NAME="sync-with-${{ inputs.base_branch }}-$(date +%s)"
+        git checkout -b "$BRANCH_NAME"
+        git push origin "$BRANCH_NAME"
+
+        REPO="${{ github.repository }}"
+
+        notify_conflict() {
+          local TARGET_BRANCH=$1
+          local PR_URL=$2
+          if [ -n "${WEBEX_WEBHOOK_URL}" ] && [ "${WEBEX_WEBHOOK_URL}" != "false" ]; then
+            curl -X POST "${WEBEX_WEBHOOK_URL}" \
+              -H "Content-Type: application/json" \
+              -d "{\"text\": \"Merge conflict detected!\nRepository: ${REPO}\nTarget Branch: ${TARGET_BRANCH}\nPull Request: ${PR_URL}\nPlease resolve the conflicts manually.\"}"
+            fi
+          }
+
+        MERGE_CONFLICT=0
+
+        #dev branch
+        gh pr create --head "$BRANCH_NAME" --base dev --title "Sync dev with ${{ inputs.base_branch }}" --body "This PR syncs the dev branch with the ${{ inputs.base_branch }} branch."
+        PR_URL_DEV=$(gh pr list --head "$BRANCH_NAME" --base dev --json url --jq '.[0].url')
+        if ! gh pr merge "$BRANCH_NAME" --merge --admin; then
+          notify_conflict "dev" "$PR_URL_DEV"
+          MERGE_CONFLICT=1
+        fi
+
+        #qa branch
+        gh pr create --head "$BRANCH_NAME" --base qa --title "Sync qa with ${{ inputs.base_branch }}" --body "This PR syncs the qa branch with the ${{ inputs.base_branch }} branch."
+        PR_URL_QA=$(gh pr list --head "$BRANCH_NAME" --base qa --json url --jq '.[0].url')
+        if ! gh pr merge "$BRANCH_NAME" --merge --admin; then
+          notify_conflict "qa" "$PR_URL_QA"
+          MERGE_CONFLICT=1
+        fi
+
+        #release
+        gh pr create --head "$BRANCH_NAME" --base release --title "Sync release with ${{ inputs.base_branch }}" --body "This PR syncs the release branch with the ${{ inputs.base_branch }} branch."
+        PR_URL_RELEASE=$(gh pr list --head "$BRANCH_NAME" --base release --json url --jq '.[0].url')
+        if ! gh pr merge "$BRANCH_NAME" --merge --admin; then
+          notify_conflict "release" "$PR_URL_RELEASE"
+          MERGE_CONFLICT=1
+        fi
+
+        if [ "$MERGE_CONFLICT" -eq 0 ]; then
+          git push origin --delete "$BRANCH_NAME" || true
+        fi
+      env:
+        GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        WEBEX_WEBHOOK_URL: ${{ secrets.WEBEX_WEBHOOK_URL != '' && secrets.WEBEX_WEBHOOK_URL }}

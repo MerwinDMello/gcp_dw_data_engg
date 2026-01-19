@@ -1,0 +1,1 @@
+SELECT * FROM {{ params.param_hr_stage_dataset_name }}.survey_response_core_rej;

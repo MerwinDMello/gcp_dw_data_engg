@@ -1,0 +1,26 @@
+CREATE TABLE IF NOT EXISTS {{ params.param_hr_stage_dataset_name }}.employee_competency_detail_wrk
+(
+  employee_competency_result_sid INT64 NOT NULL,
+  employee_talent_profile_sid INT64,
+  performance_plan_id INT64,
+  employee_sid INT64,
+  employee_num INT64,
+  competency_group_id INT64,
+  competency_id INT64,
+  evaluation_workflow_status_id INT64,
+  review_period_id INT64,
+  review_year_num INT64,
+  review_period_start_date DATE,
+  review_period_end_date DATE,
+  employee_rating_num INT64,
+  employee_rating_id INT64,
+  manager_rating_num INT64,
+  manager_rating_id INT64,
+  manager_employee_rating_gap_num INT64,
+  lawson_company_num INT64,
+  process_level_code STRING,
+  valid_to_date DATETIME,
+  source_system_key STRING,
+  source_system_code STRING NOT NULL,
+  dw_last_update_date_time DATETIME NOT NULL
+);

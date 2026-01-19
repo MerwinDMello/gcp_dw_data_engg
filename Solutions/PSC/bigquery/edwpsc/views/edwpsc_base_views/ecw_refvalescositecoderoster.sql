@@ -1,0 +1,30 @@
+CREATE OR REPLACE VIEW edwpsc_base_views.`ecw_refvalescositecoderoster`
+AS SELECT
+  `ecw_refvalescositecoderoster`.sitecode,
+  `ecw_refvalescositecoderoster`.sendingapplication,
+  `ecw_refvalescositecoderoster`.cocid,
+  `ecw_refvalescositecoderoster`.speciality,
+  `ecw_refvalescositecoderoster`.pos,
+  `ecw_refvalescositecoderoster`.overrideneeded,
+  `ecw_refvalescositecoderoster`.coid_name,
+  `ecw_refvalescositecoderoster`.facilitycoid,
+  `ecw_refvalescositecoderoster`.addressline1,
+  `ecw_refvalescositecoderoster`.addressline2,
+  `ecw_refvalescositecoderoster`.city,
+  `ecw_refvalescositecoderoster`.state,
+  `ecw_refvalescositecoderoster`.zip,
+  `ecw_refvalescositecoderoster`.phone,
+  `ecw_refvalescositecoderoster`.tin,
+  `ecw_refvalescositecoderoster`.practicename,
+  `ecw_refvalescositecoderoster`.region,
+  `ecw_refvalescositecoderoster`.ecwsiteid,
+  `ecw_refvalescositecoderoster`.ecwfacilityname,
+  `ecw_refvalescositecoderoster`.division,
+  `ecw_refvalescositecoderoster`.activestatus,
+  `ecw_refvalescositecoderoster`.notes,
+  `ecw_refvalescositecoderoster`.created,
+  `ecw_refvalescositecoderoster`.modified,
+  `ecw_refvalescositecoderoster`.dwlastupdatedatetime
+  FROM
+    edwpsc.`ecw_refvalescositecoderoster`
+;

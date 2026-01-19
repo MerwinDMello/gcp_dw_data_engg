@@ -1,0 +1,34 @@
+CREATE OR REPLACE VIEW edwpsc_views.`ecw_facttransactionsclaimlinecontractualadjustment`
+AS SELECT
+  `ecw_facttransactionsclaimlinecontractualadjustment`.transactionsclaimlinecontractualadjustmentskey,
+  `ecw_facttransactionsclaimlinecontractualadjustment`.claimkey,
+  `ecw_facttransactionsclaimlinecontractualadjustment`.claimnumber,
+  `ecw_facttransactionsclaimlinecontractualadjustment`.regionkey,
+  `ecw_facttransactionsclaimlinecontractualadjustment`.coid,
+  `ecw_facttransactionsclaimlinecontractualadjustment`.coidconfigurationkey,
+  `ecw_facttransactionsclaimlinecontractualadjustment`.servicingproviderkey,
+  `ecw_facttransactionsclaimlinecontractualadjustment`.claimpayer1iplankey,
+  `ecw_facttransactionsclaimlinecontractualadjustment`.facilitykey,
+  `ecw_facttransactionsclaimlinecontractualadjustment`.claimlinepaymentskey,
+  `ecw_facttransactionsclaimlinecontractualadjustment`.transactiontype,
+  `ecw_facttransactionsclaimlinecontractualadjustment`.transactionflag,
+  `ecw_facttransactionsclaimlinecontractualadjustment`.transactionamt,
+  `ecw_facttransactionsclaimlinecontractualadjustment`.transactiondatekey,
+  `ecw_facttransactionsclaimlinecontractualadjustment`.transactiontime,
+  `ecw_facttransactionsclaimlinecontractualadjustment`.transactionbyuserkey,
+  `ecw_facttransactionsclaimlinecontractualadjustment`.sourceprimarykeyvalue,
+  `ecw_facttransactionsclaimlinecontractualadjustment`.sourcerecordlastupdated,
+  `ecw_facttransactionsclaimlinecontractualadjustment`.dwlastupdatedatetime,
+  `ecw_facttransactionsclaimlinecontractualadjustment`.sourcesystemcode,
+  `ecw_facttransactionsclaimlinecontractualadjustment`.insertedby,
+  `ecw_facttransactionsclaimlinecontractualadjustment`.inserteddtm,
+  `ecw_facttransactionsclaimlinecontractualadjustment`.modifiedby,
+  `ecw_facttransactionsclaimlinecontractualadjustment`.modifieddtm,
+  `ecw_facttransactionsclaimlinecontractualadjustment`.trrefid,
+  `ecw_facttransactionsclaimlinecontractualadjustment`.archivedrecord
+  FROM
+    edwpsc_base_views.`ecw_facttransactionsclaimlinecontractualadjustment`
+  INNER JOIN edwpsc_base_views.secref_facility
+  ON LPAD(TRIM(secref_facility.co_id, ' '), 5, '0') = LPAD(TRIM(`ecw_facttransactionsclaimlinecontractualadjustment`.coid, ' '), 5, '0')
+  AND TRIM(secref_facility.user_id, ' ') = TRIM(session_user(), ' ')
+;

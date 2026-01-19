@@ -1,0 +1,254 @@
+name: Cloud Run Deploy
+
+inputs:
+  workload_identity_provider:
+    description: "The workload identity provider for Google Cloud authentication."
+  service_account:
+    description: "The service account to use for Google Cloud authentication."
+  branch:
+    description: "The branch being deployed (e.g., dev, qa, prod)."
+  cloud_run_path:
+    description: "The path to the Cloud Run folder in the repository."
+  image_path:
+    description: "The full path to the Docker image, including the tag."
+  src:
+    description: "The source directory for the service being deployed."
+  type:
+    description: "The type of cloud run deployment (job or service) relevant to this workflow run."
+  job_name:
+    description: "The name of the Cloud Run job to create or update."
+  region:
+    description: "The GCP region where the Cloud Run job will be deployed."
+  vpc_connector:
+    description: "The VPC connector to use for the Cloud Run job."
+  memory:
+    description: "The memory limit for the Cloud Run job container."
+  cpu:
+    description: "The CPU limit for the Cloud Run job container."
+  deploy_service_account:
+    description: "The service account to use for the Cloud Run job."
+  timeout:
+    description: "The timeout for the Cloud Run job in seconds."
+  retries_number:
+    description: "The maximum number of retries for the Cloud Run job."
+  proc_project:
+    description: "The relevant proc project name"
+  ingress_type:
+    description: "The ingress type for the Cloud Run service."
+    default: "internal"
+
+
+runs:
+  using: "composite"
+  steps:
+
+    - id: 'auth'
+      name: 'Authenticate to Google Cloud'
+      uses: 'google-github-actions/auth@v2'
+      with:
+        workload_identity_provider: ${{ inputs.workload_identity_provider }}
+        service_account: ${{ inputs.service_account }}
+
+    - name: GCP setup
+      uses: 'google-github-actions/setup-gcloud@v2'
+    
+    - name: Authenticate Docker
+      shell: bash
+      run: |
+        echo "authentication start"
+        gcloud auth configure-docker us-docker.pkg.dev
+        gcloud auth configure-docker ${{ inputs.region }}-docker.pkg.dev
+
+    - name: add src config file
+      shell: bash
+      run: |
+        file="${{ inputs.cloud_run_path }}/${{ inputs.src }}/config/env_config.yaml"
+        if [ -f "$file" ]; then
+          echo "${file} exist"
+          yq eval ".${{ inputs.branch }}" "$file" > "${{ inputs.cloud_run_path }}/${{ inputs.src }}/src/config.yaml"
+          ls "${{ inputs.cloud_run_path }}/${{ inputs.src }}/src"
+          cat "${{ inputs.cloud_run_path }}/${{ inputs.src }}/src/config.yaml"
+        else
+          echo "${file} does not exist, no processing needed"
+        fi
+
+    # If this is for an external facing service, check if the service exists
+    - name: List Cloud Run services
+      id: list-services
+      if: ${{ inputs.type == 'external' }}
+      shell: bash
+      run: |
+        services=$(gcloud run services list --format="value(NAME)")
+        echo $services
+        echo "input service" ${{ inputs.job_name }}}
+        if [[ -z "$services" ]];then
+            echo "Service does not exist, handle accordingly or Create first"
+            exit 1
+        else
+            for service in $services;
+            do
+            echo $service
+            if [[ $service == ${{ inputs.job_name }} ]]; then
+              echo "Service  exist, will deploy"
+              servicecheck="pass"
+              break
+            else
+              servicecheck="fail"
+            fi
+            done
+        fi   
+        echo $servicecheck
+        if [[ $servicecheck == fail ]]; then
+              echo "Service does not exist, handle accordingly or Create first"
+              exit 1
+        fi  
+
+    # Build and push the Docker image to the container registry    - name: Build and Push Docker image
+    - name: Build and Push Docker image
+      shell: bash
+      run: |
+        # Build the Docker image
+        echo "Building Docker image: ${{ inputs.image_path }}"
+        docker build -t "${{ inputs.image_path }}" "./${{ inputs.cloud_run_path }}/${{ inputs.src }}"
+
+        # Push the Docker image to the container registry
+        echo "Pushing Docker image: ${{ inputs.image_path }}"
+        docker push "${{ inputs.image_path }}"
+    
+    # If the deployment involves an external service, deploy to Cloud Run
+    - name: Deploy to Cloud Run
+      id: deploy
+      if: ${{ inputs.type == 'external' }}
+      uses: google-github-actions/deploy-cloudrun@v2
+      with:
+        service: ${{ inputs.job_name }}
+        region: ${{ inputs.region }}
+        image: "${{ inputs.image_path }}"
+    
+    # create the yaml file for job creation 
+    - name: Create and Modify YAML File - Job
+      if: ${{ inputs.type == 'job' }}
+      shell: bash
+      run: |
+        cat <<EOF > cloud_run_job_config.yaml
+        apiVersion: run.googleapis.com/v1
+        kind: Job
+        metadata:
+          name: ${{ inputs.job_name }}
+          labels:
+            cloud.googleapis.com/location: ${{ inputs.region }}
+        spec:
+          template:
+            metadata:
+              labels:
+                app: ${{ inputs.job_name }}
+              annotations:
+                run.googleapis.com/vpc-access-connector: ${{ inputs.vpc_connector }}
+                run.googleapis.com/vpc-access-egress: all
+            spec:
+              template:
+                spec:
+                  maxRetries: "${{ inputs.retries_number }}"
+                  timeoutSeconds: "${{ inputs.timeout }}"
+                  serviceAccountName: ${{ inputs.deploy_service_account }}
+                  containers:
+                  - image: ${{ inputs.image_path }}
+                    resources:
+                      limits:
+                        cpu: "${{ inputs.cpu }}"
+                        memory: "${{ inputs.memory }}"
+        EOF
+    
+    # Create the cloud run job using yaml generated in above step
+    - name: Create Job
+      if: ${{ inputs.type == 'job' }}
+      shell: bash
+      run: |
+        # List the files in the current directory for debugging
+        ls
+
+        # Generate a timestamp
+        TIMESTAMP=$(date +%s)
+        # Add the timestamp as a label in spec.template.metadata.labels
+        sed -i "/spec:/,/containers:/s/\(labels:\)/\1\n        timestamp: \"${TIMESTAMP}\"/" cloud_run_job_config.yaml
+
+        # Display the contents of the generated YAML file
+        echo "Contents of cloud_run_job_config.yaml:"
+        cat cloud_run_job_config.yaml
+
+        # Replace the existing Cloud Run job with the new configuration
+        gcloud run jobs replace cloud_run_job_config.yaml
+
+    - name: Create and Modify YAML File - Service
+      if: ${{ inputs.type == 'service' }}
+      shell: bash
+      run: |
+        cat <<EOF > cloud_run_job_config.yaml
+        apiVersion: serving.knative.dev/v1
+        kind: Service
+        metadata:
+          name: ${{ inputs.job_name }}
+          labels:
+            cloud.googleapis.com/location: ${{ inputs.region }}
+          annotations:
+            run.googleapis.com/ingress: ${{ inputs.ingress_type }}
+            run.googleapis.com/minScale: '1'
+        spec:
+          template:
+            metadata:
+              labels:
+                app: ${{ inputs.job_name }}
+              annotations:
+                run.googleapis.com/vpc-access-connector: ${{ inputs.vpc_connector }}
+                run.googleapis.com/vpc-access-egress: all
+            spec:
+              timeoutSeconds: "${{ inputs.timeout }}"
+              serviceAccountName: ${{ inputs.deploy_service_account }}
+              containers:
+              - image: ${{ inputs.image_path }}
+                resources:
+                  limits:
+                    cpu: "${{ inputs.cpu }}"
+                    memory: "${{ inputs.memory }}"
+        EOF
+    
+    - name: Create Service
+      if: ${{ inputs.type == 'service' }}
+      shell: bash
+      run: |
+        # List the files in the current directory for debugging
+        ls
+
+        # Generate a timestamp
+        TIMESTAMP=$(date +%s)
+        # Add the timestamp as a label in spec.template.metadata.labels
+        sed -i "/spec:/,/containers:/s/\(labels:\)/\1\n        timestamp: \"${TIMESTAMP}\"/" cloud_run_job_config.yaml
+
+        # Display the contents of the generated YAML file
+        echo "Contents of cloud_run_job_config.yaml:"
+        cat cloud_run_job_config.yaml
+
+        # Check the current revision of the Cloud Run service
+        echo "Checking current revision of the Cloud Run service:"
+        current_revision=$(gcloud run services describe ${{ inputs.job_name }} \
+          --region ${{ inputs.region }} \
+          --project ${{ inputs.proc_project }} \
+          --format="value(status.latestCreatedRevisionName)" || echo "none")
+
+        if [[ "$current_revision" == "none" ]]; then
+          echo "No existing revision found. This might be the first deployment."
+        else
+          echo "Current revision: $current_revision"
+        fi
+
+        # Replace the existing Cloud Run job with the new configuration
+        gcloud run services replace cloud_run_job_config.yaml
+
+    - name: Check External and Service Deployments
+      if: ${{ inputs.type == 'service' || inputs.type == 'external' }}
+      shell: bash
+      run: |
+        gcloud run services describe ${{ inputs.job_name }}\
+          --region ${{ inputs.region }}\
+          --project ${{ inputs.proc_project }}\
+          --format yaml | grep -E 'type: Ready|revision'

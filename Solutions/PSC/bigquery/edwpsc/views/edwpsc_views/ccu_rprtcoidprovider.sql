@@ -1,0 +1,41 @@
+CREATE OR REPLACE VIEW edwpsc_views.`ccu_rprtcoidprovider`
+AS SELECT
+  `ccu_rprtcoidprovider`.ccucoidproviderhistorykey,
+  `ccu_rprtcoidprovider`.morsnapshotdatekey,
+  `ccu_rprtcoidprovider`.coid,
+  `ccu_rprtcoidprovider`.coidstartdatekey,
+  `ccu_rprtcoidprovider`.coidtermdatekey,
+  `ccu_rprtcoidprovider`.coidsystem,
+  `ccu_rprtcoidprovider`.coidconsolidationdate,
+  `ccu_rprtcoidprovider`.ccudiscontinueddate,
+  `ccu_rprtcoidprovider`.coidcentralizedstatus,
+  `ccu_rprtcoidprovider`.coidstatus,
+  `ccu_rprtcoidprovider`.coidlevelofcentralization,
+  `ccu_rprtcoidprovider`.gmecoid,
+  `ccu_rprtcoidprovider`.providernpi,
+  `ccu_rprtcoidprovider`.providername,
+  `ccu_rprtcoidprovider`.providerspecialty,
+  `ccu_rprtcoidprovider`.providerstartdatekey,
+  `ccu_rprtcoidprovider`.providertermdatekey,
+  `ccu_rprtcoidprovider`.providerstatus,
+  `ccu_rprtcoidprovider`.providercentralizedstatus,
+  `ccu_rprtcoidprovider`.providergroupassignment,
+  `ccu_rprtcoidprovider`.fte,
+  `ccu_rprtcoidprovider`.providercountactive,
+  `ccu_rprtcoidprovider`.providercounttermed,
+  `ccu_rprtcoidprovider`.providercountarchiveclosed,
+  `ccu_rprtcoidprovider`.coidcount,
+  `ccu_rprtcoidprovider`.loaddate,
+  `ccu_rprtcoidprovider`.dwlastupdatedatetime,
+  `ccu_rprtcoidprovider`.insertedby,
+  `ccu_rprtcoidprovider`.inserteddtm,
+  `ccu_rprtcoidprovider`.modifiedby,
+  `ccu_rprtcoidprovider`.modifieddtm,
+  `ccu_rprtcoidprovider`.coidexclusionflag,
+  `ccu_rprtcoidprovider`.snapshotdate
+  FROM
+    edwpsc_base_views.`ccu_rprtcoidprovider`
+  INNER JOIN edwpsc_base_views.secref_facility
+  ON LPAD(TRIM(secref_facility.co_id, ' '), 5, '0') = LPAD(TRIM(`ccu_rprtcoidprovider`.coid, ' '), 5, '0')
+  AND TRIM(secref_facility.user_id, ' ') = TRIM(session_user(), ' ')
+;

@@ -1,0 +1,33 @@
+create or replace view `{{ params.param_hr_base_views_dataset_name }}.fact_hr_metric`
+AS SELECT
+  fact_hr_metric.employee_sid,
+  fact_hr_metric.requisition_sid,
+  fact_hr_metric.position_sid,
+  fact_hr_metric.date_id,
+  fact_hr_metric.analytics_msr_sid,
+  fact_hr_metric.dept_sid,
+  fact_hr_metric.job_class_sid,
+  fact_hr_metric.job_code_sid,
+  fact_hr_metric.location_code,
+  fact_hr_metric.coid,
+  fact_hr_metric.company_code,
+  fact_hr_metric.functional_dept_num,
+  fact_hr_metric.sub_functional_dept_num,
+  fact_hr_metric.auxiliary_status_sid,
+  fact_hr_metric.employee_status_sid,
+  fact_hr_metric.key_talent_id,
+  fact_hr_metric.integrated_lob_id,
+  fact_hr_metric.action_code,
+  fact_hr_metric.action_reason_text,
+  fact_hr_metric.lawson_company_num,
+  fact_hr_metric.process_level_code,
+  fact_hr_metric.work_schedule_code,
+  fact_hr_metric.recruiter_owner_user_sid,
+  fact_hr_metric.requisition_approval_date,
+  fact_hr_metric.employee_num,
+  fact_hr_metric.metric_numerator_qty,
+  fact_hr_metric.metric_denominator_qty,
+  fact_hr_metric.source_system_code,
+  fact_hr_metric.dw_last_update_date_time
+FROM
+ {{ params.param_hr_core_dataset_name }}.fact_hr_metric;

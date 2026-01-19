@@ -1,0 +1,58 @@
+integrate:
+- source_system: claims
+  frequency: daily
+  dag_name_suffix: core_claims
+  start_date: pendulum.datetime(2025, 2, 1, tz=current_timezone)
+  schedule: None
+  type: sqlserver
+  done_file: None
+  trigger_dag_ids: ['dag_outbound_claims_sqlserver_daily_core_claims']
+  dependency:
+  - table: lu_pay_to_provider
+    has_sensor: 'No'
+    sql:
+    - name: clm_lu_pay_to_provider.sql
+    validation:
+    - name: NONE
+  - table: fact_charge
+    has_sensor: 'No'
+    sql:
+    - name: clm_fact_charge.sql
+    validation:
+    - name: NONE
+  - table: fact_claim
+    has_sensor: 'No'
+    sql:
+    - name: clm_fact_claim.sql
+    validation:
+    - name: NONE
+  - table: fact_claim_insurance
+    has_sensor: 'No'
+    sql:
+    - name: clm_fact_claim_insurance.sql
+    validation:
+    - name: NONE
+  - table: fact_claim_patient
+    has_sensor: 'No'
+    sql:
+    - name: clm_fact_claim_patient.sql
+    validation:
+    - name: NONE
+  - table: fact_claim_physician
+    has_sensor: 'No'
+    sql:
+    - name: clm_fact_claim_physician.sql
+    validation:
+    - name: NONE
+  - table: fact_code
+    has_sensor: 'No'
+    sql:
+    - name: clm_fact_code.sql
+    validation:
+    - name: NONE
+  - table: lu_billing_provider
+    has_sensor: 'No'
+    sql:
+    - name: clm_lu_billing_provider.sql
+    validation:
+    - name: NONE

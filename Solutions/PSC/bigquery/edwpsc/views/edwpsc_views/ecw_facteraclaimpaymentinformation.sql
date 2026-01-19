@@ -1,0 +1,37 @@
+CREATE OR REPLACE VIEW edwpsc_views.`ecw_facteraclaimpaymentinformation`
+AS SELECT
+  `ecw_facteraclaimpaymentinformation`.eraclaimpaymentinformationkey,
+  `ecw_facteraclaimpaymentinformation`.claimkey,
+  `ecw_facteraclaimpaymentinformation`.claimnumber,
+  `ecw_facteraclaimpaymentinformation`.clp01,
+  `ecw_facteraclaimpaymentinformation`.clp02,
+  `ecw_facteraclaimpaymentinformation`.clp03,
+  `ecw_facteraclaimpaymentinformation`.clp04,
+  `ecw_facteraclaimpaymentinformation`.clp05,
+  `ecw_facteraclaimpaymentinformation`.clp06,
+  `ecw_facteraclaimpaymentinformation`.clp07,
+  `ecw_facteraclaimpaymentinformation`.clp08,
+  `ecw_facteraclaimpaymentinformation`.clp09,
+  `ecw_facteraclaimpaymentinformation`.clp10,
+  `ecw_facteraclaimpaymentinformation`.clp11,
+  `ecw_facteraclaimpaymentinformation`.clp12,
+  `ecw_facteraclaimpaymentinformation`.clp13,
+  `ecw_facteraclaimpaymentinformation`.clp14,
+  `ecw_facteraclaimpaymentinformation`.segment,
+  `ecw_facteraclaimpaymentinformation`.sourcefilename,
+  `ecw_facteraclaimpaymentinformation`.sourcefilecreateddate,
+  `ecw_facteraclaimpaymentinformation`.seq,
+  `ecw_facteraclaimpaymentinformation`.datecreated,
+  `ecw_facteraclaimpaymentinformation`.sourceprimarykeyvalue,
+  `ecw_facteraclaimpaymentinformation`.dwlastupdatedatetime,
+  `ecw_facteraclaimpaymentinformation`.sourcesystemcode,
+  `ecw_facteraclaimpaymentinformation`.insertedby,
+  `ecw_facteraclaimpaymentinformation`.inserteddtm,
+  `ecw_facteraclaimpaymentinformation`.modifiedby,
+  `ecw_facteraclaimpaymentinformation`.modifieddtm,
+  `ecw_facteraclaimpaymentinformation`.deletedflag,
+  `ecw_facteraclaimpaymentinformation`.fullclaimnumber,
+  `ecw_facteraclaimpaymentinformation`.regionkey
+  FROM
+    edwpsc_base_views.`ecw_facteraclaimpaymentinformation`
+;

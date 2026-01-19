@@ -1,0 +1,17 @@
+# name: Auto Sync Caller Workflow
+
+# on:
+#   pull_request:
+#     types: [closed]
+#     branches:
+#       - prod
+
+# jobs:
+#   sync-branches:
+#     if: github.event.pull_request.merged == true
+#     name: Caller workflow to sync dev/qa/release branches with prod
+#     uses: HCACloudDataEngineering/gcp-hin-workflows/.github/workflows/sync_branches.yaml@main
+#     with:
+#       base_branch: prod
+#     secrets:
+#       GH_TOKEN: ${{ secrets.GH_TOKEN }}

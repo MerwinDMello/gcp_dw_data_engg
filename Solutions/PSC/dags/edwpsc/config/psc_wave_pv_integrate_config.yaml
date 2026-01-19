@@ -1,0 +1,788 @@
+integrate:
+- source_system: psc
+  frequency: daily
+  dag_name_suffix: wave-pv
+  start_date: pendulum.datetime(2025, 2, 1, tz=current_timezone)
+  schedule: None
+  type: sqlserver
+  done_file: None
+  server-04:
+    trigger_dag_ids: []
+    tables:
+    - table: PV_FactAllClaimsCube
+      has_sensor: 'No'
+      sql:
+      - name: PV_FactAllClaimsCube.sql
+      validation:
+      - name: NONE
+    - table: PV_FactARCube
+      has_sensor: 'No'
+      sql:
+      - name: PV_FactARCube.sql
+      validation:
+      - name: NONE
+    - table: CCU_FactPVCodeChange
+      has_sensor: 'No'
+      sql:
+      - name: CCU_FactPVCodeChange.sql
+      validation:
+      - name: NONE
+    - table: CCU_FactPVCodeQuality
+      has_sensor: 'No'
+      sql:
+      - name: CCU_FactPVCodeQuality.sql
+      validation:
+      - name: NONE
+    - table: CCU_FactPVInventory
+      has_sensor: 'No'
+      sql:
+      - name: CCU_FactPVInventory.sql
+      validation:
+      - name: NONE
+    - table: CCU_FactPVInventoryProductivity
+      has_sensor: 'No'
+      sql:
+      - name: CCU_FactPVInventoryProductivity.sql
+      validation:
+      - name: NONE
+    - table: PV_FactClaimsOnHold
+      has_sensor: 'No'
+      sql:
+      - name: PV_FactClaimsOnHold.sql
+      validation:
+      - name: NONE
+    - table: PV_FactClaimUnbilled
+      has_sensor: 'No'
+      sql:
+      - name: PV_FactClaimUnbilled.sql
+      validation:
+      - name: NONE
+    - table: PV_FactRH1201
+      has_sensor: 'No'
+      sql:
+      - name: PV_FactRH1201.sql
+      validation:
+      - name: NONE
+    - table: PV_FactRH1301
+      has_sensor: 'No'
+      sql:
+      - name: PV_FactRH1301.sql
+      validation:
+      - name: NONE
+    - table: PV_FactRH277Response
+      has_sensor: 'No'
+      sql:
+      - name: PV_FactRH277Response.sql
+      validation:
+      - name: NONE
+    - table: PV_FactRHClaimHistory
+      has_sensor: 'No'
+      sql:
+      - name: PV_FactRHClaimHistory.sql
+      validation:
+      - name: NONE
+    - table: PV_FactRHInventory
+      has_sensor: 'No'
+      sql:
+      - name: PV_FactRHInventory.sql
+      validation:
+      - name: NONE
+    - table: PV_FactRHSubmissionDates
+      has_sensor: 'No'
+      sql:
+      - name: PV_FactRHSubmissionDates.sql
+      validation:
+      - name: NONE
+    - table: PV_FactRiskAnalysis
+      has_sensor: 'No'
+      sql:
+      - name: PV_FactRiskAnalysis.sql
+      validation:
+      - name: NONE
+    - table: PV_RprtCCUClaimSummary
+      has_sensor: 'No'
+      sql:
+      - name: PV_RprtCCUClaimSummary.sql
+      validation:
+      - name: NONE
+    - table: PV_RprtCCUClaimSummaryDX
+      has_sensor: 'No'
+      sql:
+      - name: PV_RprtCCUClaimSummaryDX.sql
+      validation:
+      - name: NONE
+    - table: PV_RprtCCUCodeQuality
+      has_sensor: 'No'
+      sql:
+      - name: PV_RprtCCUCodeQuality.sql
+      validation:
+      - name: NONE
+    - table: PV_RprtCOVIDClaim
+      has_sensor: 'No'
+      sql:
+      - name: PV_RprtCOVIDClaim.sql
+      validation:
+      - name: NONE
+    - table: PV_RprtPVPreClaimReports
+      has_sensor: 'No'
+      sql:
+      - name: PV_RprtPVPreClaimReports.sql
+      validation:
+      - name: NONE
+  server-06:
+    trigger_dag_ids: []
+    tables:
+    - table: PV_FactClaim
+      has_sensor: 'No'
+      sql:
+      - name: PV_FactClaim.sql
+      validation:
+      - name: NONE
+    - table: PV_FactClaim_History
+      has_sensor: 'No'
+      sql:
+      - name: PV_FactClaim_History.sql
+      validation:
+      - name: NONE
+    - table: PV_FactClaimBill
+      has_sensor: 'No'
+      sql:
+      - name: PV_FactClaimBill.sql
+      validation:
+      - name: NONE
+    - table: PV_FactClaimDiagnosis
+      has_sensor: 'No'
+      sql:
+      - name: PV_FactClaimDiagnosis.sql
+      validation:
+      - name: NONE
+    - table: PV_FactClaimFinancialAdjustment
+      has_sensor: 'No'
+      sql:
+      - name: PV_FactClaimFinancialAdjustment.sql
+      validation:
+      - name: NONE
+    - table: PV_FactClaimLineCharge
+      has_sensor: 'No'
+      sql:
+      - name: PV_FactClaimLineCharge.sql
+      validation:
+      - name: NONE
+    - table: PV_FactClaimLineChargeCloseDateAR
+      has_sensor: 'No'
+      sql:
+      - name: PV_FactClaimLineChargeCloseDateAR.sql
+      validation:
+      - name: NONE
+    - table: PV_FactClaimLineChargeUserChangeDate
+      has_sensor: 'No'
+      sql:
+      - name: PV_FactClaimLineChargeUserChangeDate.sql
+      validation:
+      - name: NONE
+    - table: PV_FactClaimLineChargeValue
+      has_sensor: 'No'
+      sql:
+      - name: PV_FactClaimLineChargeValue.sql
+      validation:
+      - name: NONE
+    - table: PV_FactClaimLineChargeWorkList
+      has_sensor: 'No'
+      sql:
+      - name: PV_FactClaimLineChargeWorkList.sql
+      validation:
+      - name: NONE
+    - table: PV_FactClaimLineFinancialAdjustment
+      has_sensor: 'No'
+      sql:
+      - name: PV_FactClaimLineFinancialAdjustment.sql
+      validation:
+      - name: NONE
+    - table: PV_FactClaimLinePayment
+      has_sensor: 'No'
+      sql:
+      - name: PV_FactClaimLinePayment.sql
+      validation:
+      - name: NONE
+    - table: PV_FactClaimPayer
+      has_sensor: 'No'
+      sql:
+      - name: PV_FactClaimPayer.sql
+      validation:
+      - name: NONE
+    - table: PV_FactClaimPayment
+      has_sensor: 'No'
+      sql:
+      - name: PV_FactClaimPayment.sql
+      validation:
+      - name: NONE
+    - table: PV_FactClaimPaymentCreditCardTransaction
+      has_sensor: 'No'
+      sql:
+      - name: PV_FactClaimPaymentCreditCardTransaction.sql
+      validation:
+      - name: NONE
+    - table: PV_FactEncounter
+      has_sensor: 'No'
+      sql:
+      - name: PV_FactEncounter.sql
+      validation:
+      - name: NONE
+    - table: PV_FactEncounterCPT
+      has_sensor: 'No'
+      sql:
+      - name: PV_FactEncounterCPT.sql
+      validation:
+      - name: NONE
+    - table: PV_FactEncounterDiagnosis
+      has_sensor: 'No'
+      sql:
+      - name: PV_FactEncounterDiagnosis.sql
+      validation:
+      - name: NONE
+    - table: PV_FactEncounterPayment
+      has_sensor: 'No'
+      sql:
+      - name: PV_FactEncounterPayment.sql
+      validation:
+      - name: NONE
+    - table: PV_FactInvoice
+      has_sensor: 'No'
+      sql:
+      - name: PV_FactInvoice.sql
+      validation:
+      - name: NONE
+    - table: PV_FactInvoiceLineCharge
+      has_sensor: 'No'
+      sql:
+      - name: PV_FactInvoiceLineCharge.sql
+      validation:
+      - name: NONE
+    - table: PV_FactInvoiceLineFinancialAdjustment
+      has_sensor: 'No'
+      sql:
+      - name: PV_FactInvoiceLineFinancialAdjustment.sql
+      validation:
+      - name: NONE
+    - table: PV_FactInvoiceLinePayment
+      has_sensor: 'No'
+      sql:
+      - name: PV_FactInvoiceLinePayment.sql
+      validation:
+      - name: NONE
+    - table: PV_FactNoteHistory
+      has_sensor: 'No'
+      sql:
+      - name: PV_FactNoteHistory.sql
+      validation:
+      - name: NONE
+    - table: PV_FactTransactionsClaimContractualAdjustment
+      has_sensor: 'No'
+      sql:
+      - name: PV_FactTransactionsClaimContractualAdjustment.sql
+      validation:
+      - name: NONE
+    - table: PV_FactTransactionsClaimFinancialAdjustment
+      has_sensor: 'No'
+      sql:
+      - name: PV_FactTransactionsClaimFinancialAdjustment.sql
+      validation:
+      - name: NONE
+    - table: PV_FactTransactionsClaimLineCharge
+      has_sensor: 'No'
+      sql:
+      - name: PV_FactTransactionsClaimLineCharge.sql
+      validation:
+      - name: NONE
+    - table: PV_FactTransactionsClaimLineContractualAdjustment
+      has_sensor: 'No'
+      sql:
+      - name: PV_FactTransactionsClaimLineContractualAdjustment.sql
+      validation:
+      - name: NONE
+    - table: PV_FactTransactionsClaimLineFinancialAdjustment
+      has_sensor: 'No'
+      sql:
+      - name: PV_FactTransactionsClaimLineFinancialAdjustment.sql
+      validation:
+      - name: NONE
+    - table: PV_FactTransactionsClaimLinePayment
+      has_sensor: 'No'
+      sql:
+      - name: PV_FactTransactionsClaimLinePayment.sql
+      validation:
+      - name: NONE
+    - table: PV_FactTransactionsClaimPayment
+      has_sensor: 'No'
+      sql:
+      - name: PV_FactTransactionsClaimPayment.sql
+      validation:
+      - name: NONE
+    - table: PV_FactUacDetail
+      has_sensor: 'No'
+      sql:
+      - name: PV_FactUacDetail.sql
+      validation:
+      - name: NONE
+    - table: PV_JuncClaimFirstLastKeyMeasure
+      has_sensor: 'No'
+      sql:
+      - name: PV_JuncClaimFirstLastKeyMeasure.sql
+      validation:
+      - name: NONE
+    - table: PV_JuncClaimLineChargeFirstLastKeyMeasure
+      has_sensor: 'No'
+      sql:
+      - name: PV_JuncClaimLineChargeFirstLastKeyMeasure.sql
+      validation:
+      - name: NONE
+    - table: PV_JuncClaimPayerFirstLastKeyMeasure
+      has_sensor: 'No'
+      sql:
+      - name: PV_JuncClaimPayerFirstLastKeyMeasure.sql
+      validation:
+      - name: NONE
+    - table: PV_JuncCPTCodeCoid
+      has_sensor: 'No'
+      sql:
+      - name: PV_JuncCPTCodeCoid.sql
+      validation:
+      - name: NONE
+    - table: PV_JuncDiagnosisCodeCoid
+      has_sensor: 'No'
+      sql:
+      - name: PV_JuncDiagnosisCodeCoid.sql
+      validation:
+      - name: NONE
+    - table: PV_JuncFacilityCoid
+      has_sensor: 'No'
+      sql:
+      - name: PV_JuncFacilityCoid.sql
+      validation:
+      - name: NONE
+    - table: PV_JuncFacilityResourceCoid
+      has_sensor: 'No'
+      sql:
+      - name: PV_JuncFacilityResourceCoid.sql
+      validation:
+      - name: NONE
+    - table: PV_JuncFactClaimToPayer
+      has_sensor: 'No'
+      sql:
+      - name: PV_JuncFactClaimToPayer.sql
+      validation:
+      - name: NONE
+    - table: PV_JuncIplanCoid
+      has_sensor: 'No'
+      sql:
+      - name: PV_JuncIplanCoid.sql
+      validation:
+      - name: NONE
+    - table: PV_JuncPatientCoid
+      has_sensor: 'No'
+      sql:
+      - name: PV_JuncPatientCoid.sql
+      validation:
+      - name: NONE
+    - table: PV_JuncPracticeCoid
+      has_sensor: 'No'
+      sql:
+      - name: PV_JuncPracticeCoid.sql
+      validation:
+      - name: NONE
+    - table: PV_JuncProviderCoid
+      has_sensor: 'No'
+      sql:
+      - name: PV_JuncProviderCoid.sql
+      validation:
+      - name: NONE
+    - table: PV_JuncEraDetail
+      has_sensor: 'No'
+      sql:
+      - name: PV_JuncEraDetail.sql
+      validation:
+      - name: NONE
+    - table: PV_JuncEraHeader
+      has_sensor: 'No'
+      sql:
+      - name: PV_JuncEraHeader.sql
+      validation:
+      - name: NONE
+    - table: PV_RefAdjustmentCategory
+      has_sensor: 'No'
+      sql:
+      - name: PV_RefAdjustmentCategory.sql
+      validation:
+      - name: NONE
+    - table: PV_RefAdjustmentCode
+      has_sensor: 'No'
+      sql:
+      - name: PV_RefAdjustmentCode.sql
+      validation:
+      - name: NONE
+    - table: PV_RefChargeValue
+      has_sensor: 'No'
+      sql:
+      - name: PV_RefChargeValue.sql
+      validation:
+      - name: NONE
+    - table: PV_RefClaimStatus
+      has_sensor: 'No'
+      sql:
+      - name: PV_RefClaimStatus.sql
+      validation:
+      - name: NONE
+    - table: PV_RefCoidConfiguration
+      has_sensor: 'No'
+      sql:
+      - name: PV_RefCoidConfiguration.sql
+      validation:
+      - name: NONE
+    - table: PV_RefCoidConfiguration_History
+      has_sensor: 'No'
+      sql:
+      - name: PV_RefCoidConfiguration_History.sql
+      validation:
+      - name: NONE
+    - table: PV_RefCompany
+      has_sensor: 'No'
+      sql:
+      - name: PV_RefCompany.sql
+      validation:
+      - name: NONE
+    - table: PV_RefCPTCode
+      has_sensor: 'No'
+      sql:
+      - name: PV_RefCPTCode.sql
+      validation:
+      - name: NONE
+    - table: PV_RefCPTCodeMaster
+      has_sensor: 'No'
+      sql:
+      - name: PV_RefCPTCodeMaster.sql
+      validation:
+      - name: NONE
+    - table: PV_RefDiagnosisCode
+      has_sensor: 'No'
+      sql:
+      - name: PV_RefDiagnosisCode.sql
+      validation:
+      - name: NONE
+    - table: PV_RefFacility
+      has_sensor: 'No'
+      sql:
+      - name: PV_RefFacility.sql
+      validation:
+      - name: NONE
+    - table: PV_RefFacility_History
+      has_sensor: 'No'
+      sql:
+      - name: PV_RefFacility_History.sql
+      validation:
+      - name: NONE
+    - table: PV_RefFinancialClass
+      has_sensor: 'No'
+      sql:
+      - name: PV_RefFinancialClass.sql
+      validation:
+      - name: NONE
+    - table: PV_RefFinancialClassCrosswalk
+      has_sensor: 'No'
+      sql:
+      - name: PV_RefFinancialClassCrosswalk.sql
+      validation:
+      - name: NONE
+    - table: PV_RefGeography
+      has_sensor: 'No'
+      sql:
+      - name: PV_RefGeography.sql
+      validation:
+      - name: NONE
+    - table: PV_RefIplan
+      has_sensor: 'No'
+      sql:
+      - name: PV_RefIplan.sql
+      validation:
+      - name: NONE
+    - table: PV_RefIplanCrossWalkV2
+      has_sensor: 'No'
+      sql:
+      - name: PV_RefIplanCrossWalkV2.sql
+      validation:
+      - name: NONE
+    - table: PV_RefIplanGroupFinancial
+      has_sensor: 'No'
+      sql:
+      - name: PV_RefIplanGroupFinancial.sql
+      validation:
+      - name: NONE
+    - table: PV_RefLiabilityType
+      has_sensor: 'No'
+      sql:
+      - name: PV_RefLiabilityType.sql
+      validation:
+      - name: NONE
+    - table: PV_RefPatient
+      has_sensor: 'No'
+      sql:
+      - name: PV_RefPatient.sql
+      validation:
+      - name: NONE
+    - table: PV_RefPatient_History
+      has_sensor: 'No'
+      sql:
+      - name: PV_RefPatient_History.sql
+      validation:
+      - name: NONE
+    - table: PV_RefPatientInsurance
+      has_sensor: 'No'
+      sql:
+      - name: PV_RefPatientInsurance.sql
+      validation:
+      - name: NONE
+    - table: PV_RefPatientInsurance_History
+      has_sensor: 'No'
+      sql:
+      - name: PV_RefPatientInsurance_History.sql
+      validation:
+      - name: NONE
+    - table: PV_RefPaymentBatch
+      has_sensor: 'No'
+      sql:
+      - name: PV_RefPaymentBatch.sql
+      validation:
+      - name: NONE
+    - table: PV_RefPractice
+      has_sensor: 'No'
+      sql:
+      - name: PV_RefPractice.sql
+      validation:
+      - name: NONE
+    - table: PV_RefPractice_History
+      has_sensor: 'No'
+      sql:
+      - name: PV_RefPractice_History.sql
+      validation:
+      - name: NONE
+    - table: PV_RefProvider
+      has_sensor: 'No'
+      sql:
+      - name: PV_RefProvider.sql
+      validation:
+      - name: NONE
+    - table: PV_RefProvider_History
+      has_sensor: 'No'
+      sql:
+      - name: PV_RefProvider_History.sql
+      validation:
+      - name: NONE
+    - table: PV_RefRegion
+      has_sensor: 'No'
+      sql:
+      - name: PV_RefRegion.sql
+      validation:
+      - name: NONE
+    - table: PV_RefUnBilledStatus
+      has_sensor: 'No'
+      sql:
+      - name: PV_RefUnBilledStatus.sql
+      validation:
+      - name: NONE
+    - table: PV_RefUser
+      has_sensor: 'No'
+      sql:
+      - name: PV_RefUser.sql
+      validation:
+      - name: NONE
+    - table: PV_RefUser_History
+      has_sensor: 'No'
+      sql:
+      - name: PV_RefUser_History.sql
+      validation:
+      - name: NONE
+    - table: PV_RefVirtualVisit
+      has_sensor: 'No'
+      sql:
+      - name: PV_RefVirtualVisit.sql
+      validation:
+      - name: NONE
+    - table: PV_RefVisitStatus
+      has_sensor: 'No'
+      sql:
+      - name: PV_RefVisitStatus.sql
+      validation:
+      - name: NONE
+    - table: PV_RefVisitType
+      has_sensor: 'No'
+      sql:
+      - name: PV_RefVisitType.sql
+      validation:
+      - name: NONE
+    - table: PV_StgArDetail
+      has_sensor: 'No'
+      sql:
+      - name: PV_StgArDetail.sql
+      validation:
+      - name: NONE
+    - table: PV_StgArHeader
+      has_sensor: 'No'
+      sql:
+      - name: PV_StgArHeader.sql
+      validation:
+      - name: NONE
+    - table: PV_StgChartCodesDetail
+      has_sensor: 'No'
+      sql:
+      - name: PV_StgChartCodesDetail.sql
+      validation:
+      - name: NONE
+    - table: PV_StgChartCodesHeader
+      has_sensor: 'No'
+      sql:
+      - name: PV_StgChartCodesHeader.sql
+      validation:
+      - name: NONE
+    - table: PV_StgChart
+      has_sensor: 'No'
+      sql:
+      - name: PV_StgChart.sql
+      validation:
+      - name: NONE
+    - table: PV_StgChartXRays
+      has_sensor: 'No'
+      sql:
+      - name: PV_StgChartXRays.sql
+      validation:
+      - name: NONE
+    - table: PV_StgCrgDetailDiagnosisCodes
+      has_sensor: 'No'
+      sql:
+      - name: PV_StgCrgDetailDiagnosisCodes.sql
+      validation:
+      - name: NONE
+    - table: PV_StgCrgDetail
+      has_sensor: 'No'
+      sql:
+      - name: PV_StgCrgDetail.sql
+      validation:
+      - name: NONE
+    - table: PV_StgCrgHeaderDiagnosisCodes
+      has_sensor: 'No'
+      sql:
+      - name: PV_StgCrgHeaderDiagnosisCodes.sql
+      validation:
+      - name: NONE
+    - table: PV_StgCrgHeader
+      has_sensor: 'No'
+      sql:
+      - name: PV_StgCrgHeader.sql
+      validation:
+      - name: NONE
+    - table: PV_StgEraService
+      has_sensor: 'No'
+      sql:
+      - name: PV_StgEraService.sql
+      validation:
+      - name: NONE
+    - table: PV_StgEraTrans
+      has_sensor: 'No'
+      sql:
+      - name: PV_StgEraTrans.sql
+      validation:
+      - name: NONE
+    - table: PV_StgInsurance
+      has_sensor: 'No'
+      sql:
+      - name: PV_StgInsurance.sql
+      validation:
+      - name: NONE
+    - table: PV_StgLabCodeHeader
+      has_sensor: 'No'
+      sql:
+      - name: PV_StgLabCodeHeader.sql
+      validation:
+      - name: NONE
+    - table: PV_StgLabOrder
+      has_sensor: 'No'
+      sql:
+      - name: PV_StgLabOrder.sql
+      validation:
+      - name: NONE
+    - table: PV_StgLogBook
+      has_sensor: 'No'
+      sql:
+      - name: PV_StgLogBook.sql
+      validation:
+      - name: NONE
+    - table: PV_StgLogDetail
+      has_sensor: 'No'
+      sql:
+      - name: PV_StgLogDetail.sql
+      validation:
+      - name: NONE
+    - table: PV_StgNotes
+      has_sensor: 'No'
+      sql:
+      - name: PV_StgNotes.sql
+      validation:
+      - name: NONE
+    - table: PV_StgPatBilling
+      has_sensor: 'No'
+      sql:
+      - name: PV_StgPatBilling.sql
+      validation:
+      - name: NONE
+    - table: PV_StgPatInfo
+      has_sensor: 'No'
+      sql:
+      - name: PV_StgPatInfo.sql
+      validation:
+      - name: NONE
+    - table: PV_StgInvTrans
+      has_sensor: 'No'
+      sql:
+      - name: PV_StgInvTrans.sql
+      validation:
+      - name: NONE
+    - table: PV_StgInvoiceWorkList
+      has_sensor: 'No'
+      sql:
+      - name: PV_StgInvoiceWorkList.sql
+      validation:
+      - name: NONE
+    - table: PV_StgPaymentBatch
+      has_sensor: 'No'
+      sql:
+      - name: PV_StgPaymentBatch.sql
+      validation:
+      - name: NONE
+    - table: PV_StgPayment
+      has_sensor: 'No'
+      sql:
+      - name: PV_StgPayment.sql
+      validation:
+      - name: NONE
+    - table: PV_StgPhysician
+      has_sensor: 'No'
+      sql:
+      - name: PV_StgPhysician.sql
+      validation:
+      - name: NONE
+    - table: PV_StgUacDetail
+      has_sensor: 'No'
+      sql:
+      - name: PV_StgUacDetail.sql
+      validation:
+      - name: NONE
+    - table: PV_StgUtilGroup
+      has_sensor: 'No'
+      sql:
+      - name: PV_StgUtilGroup.sql
+      validation:
+      - name: NONE
+    - table: PV_StgWorkList
+      has_sensor: 'No'
+      sql:
+      - name: PV_StgWorkList.sql
+      validation:
+      - name: NONE

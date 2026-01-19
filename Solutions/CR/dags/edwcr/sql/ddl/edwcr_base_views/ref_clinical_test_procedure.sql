@@ -1,0 +1,31 @@
+CREATE OR REPLACE VIEW {{ params.param_cr_base_views_dataset_name }}.ref_clinical_test_procedure AS SELECT
+    ref_clinical_test_procedure.company_code,
+    ref_clinical_test_procedure.coid,
+    ref_clinical_test_procedure.clinical_proc_num,
+    ref_clinical_test_procedure.clinical_proc_mnemonic_cs,
+    ref_clinical_test_procedure.clinical_proc_mnemonic,
+    ref_clinical_test_procedure.clinical_proc_name,
+    ref_clinical_test_procedure.clinical_proc_active_ind,
+    ref_clinical_test_procedure.clinical_proc_type_code,
+    ref_clinical_test_procedure.clinical_proc_billable_ind,
+    ref_clinical_test_procedure.clinical_proc_reportable_ind,
+    ref_clinical_test_procedure.clinical_proc_orderable_ind,
+    ref_clinical_test_procedure.clinical_proc_num_result_ind,
+    ref_clinical_test_procedure.clinical_proc_multi_result_ind,
+    ref_clinical_test_procedure.clinical_proc_mis_link_code,
+    ref_clinical_test_procedure.charge_code,
+    ref_clinical_test_procedure.hcpcs_procedure_code,
+    ref_clinical_test_procedure.hcpcs_procedure_modifier_code1,
+    ref_clinical_test_procedure.hcpcs_procedure_modifier_code2,
+    ref_clinical_test_procedure.alternate_cpt_procedure_code,
+    ref_clinical_test_procedure.clinical_proc_emr_id,
+    ref_clinical_test_procedure.clinical_proc_dept_mnem_cs,
+    ref_clinical_test_procedure.clinical_proc_dept_mnem,
+    ref_clinical_test_procedure.clinical_system_module_code,
+    ref_clinical_test_procedure.network_mnemonic_cs,
+    ref_clinical_test_procedure.facility_mnemonic_cs,
+    ref_clinical_test_procedure.source_system_code,
+    ref_clinical_test_procedure.dw_last_update_date_time
+  FROM
+    {{ params.param_auth_base_views_dataset_name }}.ref_clinical_test_procedure
+;

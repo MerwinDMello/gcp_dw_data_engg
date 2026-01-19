@@ -1,0 +1,36 @@
+CREATE OR REPLACE VIEW edwpsc_base_views.`pk_factrejections`
+AS SELECT
+  `pk_factrejections`.pkrejectionskey,
+  `pk_factrejections`.pkfinancialnumber,
+  `pk_factrejections`.pkregionname,
+  `pk_factrejections`.messageid,
+  `pk_factrejections`.controlid,
+  `pk_factrejections`.sendingfacility,
+  `pk_factrejections`.sitecode,
+  `pk_factrejections`.patientnumber,
+  `pk_factrejections`.patientlastname,
+  `pk_factrejections`.patientfirstname,
+  `pk_factrejections`.errorcreatedatetime,
+  `pk_factrejections`.errortype,
+  `pk_factrejections`.error,
+  `pk_factrejections`.dft_attendingprovidernpi,
+  `pk_factrejections`.dft_attendingproviderlastname,
+  `pk_factrejections`.dft_attendingproviderfirstname,
+  `pk_factrejections`.dft_performedbyproviderlastname,
+  `pk_factrejections`.dft_performedbyproviderfirstname,
+  `pk_factrejections`.dft_admitdatetime,
+  `pk_factrejections`.dft_dischargedatetime,
+  `pk_factrejections`.dft_servicedate,
+  `pk_factrejections`.dft_patientmrn,
+  `pk_factrejections`.dft_patientdob,
+  `pk_factrejections`.dft_fullmessage,
+  `pk_factrejections`.dft_chargeid,
+  `pk_factrejections`.resolvedflag,
+  `pk_factrejections`.dwlastupdatedatetime,
+  `pk_factrejections`.insertedby,
+  `pk_factrejections`.inserteddtm,
+  `pk_factrejections`.modifiedby,
+  `pk_factrejections`.modifieddtm
+  FROM
+    edwpsc.`pk_factrejections`
+;

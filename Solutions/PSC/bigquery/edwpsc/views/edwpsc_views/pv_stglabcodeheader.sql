@@ -1,0 +1,36 @@
+CREATE OR REPLACE VIEW edwpsc_views.`pv_stglabcodeheader`
+AS SELECT
+  `pv_stglabcodeheader`.labrequestid,
+  `pv_stglabcodeheader`.defaultcodes,
+  `pv_stglabcodeheader`.questionxml,
+  `pv_stglabcodeheader`.transcriptiontext,
+  `pv_stglabcodeheader`.completedby,
+  `pv_stglabcodeheader`.completedon,
+  `pv_stglabcodeheader`.completedbyuserpk,
+  `pv_stglabcodeheader`.reviewedby,
+  `pv_stglabcodeheader`.reviewedon,
+  `pv_stglabcodeheader`.reviewedbyuserpk,
+  `pv_stglabcodeheader`.createdby,
+  `pv_stglabcodeheader`.createdon,
+  `pv_stglabcodeheader`.lastupdatedby,
+  `pv_stglabcodeheader`.lastupdatedon,
+  `pv_stglabcodeheader`.lastupdatedbyuserpk,
+  `pv_stglabcodeheader`.orderedbyphysician,
+  `pv_stglabcodeheader`.orderedbyphysicianon,
+  `pv_stglabcodeheader`.orderedbyuserpk,
+  `pv_stglabcodeheader`.suppressedby,
+  `pv_stglabcodeheader`.suppressedon,
+  `pv_stglabcodeheader`.labcodeheaderpk,
+  `pv_stglabcodeheader`.labcodeheaderpk_txt,
+  `pv_stglabcodeheader`.physicianpk,
+  `pv_stglabcodeheader`.nonproviderordered,
+  `pv_stglabcodeheader`.physiciandescription,
+  `pv_stglabcodeheader`.regionkey,
+  `pv_stglabcodeheader`.ts,
+  `pv_stglabcodeheader`.inserteddtm,
+  `pv_stglabcodeheader`.modifieddtm,
+  `pv_stglabcodeheader`.dwlastupdatedatetime,
+  `pv_stglabcodeheader`.sourcephysicaldeleteflag
+  FROM
+    edwpsc_base_views.`pv_stglabcodeheader`
+;

@@ -1,0 +1,21 @@
+ingest:
+- source_system: precheck
+  frequency: daily
+  start_date: pendulum.datetime(2022, 12, 6, tz=timezone)
+  schedule: [30 20 * * 1-5]
+  type: files
+  sftp_files:
+    - directory: /ION_Pickup/
+      files:
+        - name: ^Backg_StatusRpt_yyyymmdd_1800\.CSV$
+  dependency:
+  - source:
+      type: file
+      name: Backg_StatusRpt_yyyymmdd_1800.CSV
+      delimiter: ","
+      header: 1
+      sensor: 'No'
+    target:
+      type: table
+      name: precheck_stg
+      sql: precheck_precheck_stg.sql

@@ -1,0 +1,692 @@
+import logging
+import os
+import shutil
+import time
+import traceback
+from datetime import datetime as dt
+from datetime import timedelta
+from google.cloud import bigquery
+# from google.cloud import storage
+import apache_beam as beam
+import sys
+import pandas as pd
+import yaml
+import json
+from google.cloud import secretmanager
+import argparse
+import string
+import random
+import ast
+import re
+import numpy as np
+
+
+cwd = os.path.dirname(os.path.abspath(__file__))
+base_dir = os.path.dirname(cwd)
+sys.path.insert(0, base_dir)
+utilpath = base_dir + '/utils/'
+config_folder = base_dir + "/config/"
+#global validationsql_folder
+#validationsql_folder = base_dir + "/sql/validation_sql/"
+
+
+def call_config_yaml(filename):
+    # load input config .yaml file from config folder
+    cfgfile = open(config_folder + filename)
+    default_config = yaml.safe_load(cfgfile)
+    default_config = json.loads(json.dumps(default_config, default=str))
+    config = default_config
+    return config
+
+
+config = call_config_yaml("cr_config.yaml")
+
+
+def access_secret(secret_resourceid):
+    #logging.info("Get Secret Version {}".format(secret_resourceid))
+    client = secretmanager.SecretManagerServiceClient()
+    if beam_runner == 'DataflowRunner':
+        payload = client.access_secret_version(
+        secret_resourceid).payload.data.decode("UTF-8")
+    else:
+        payload = client.access_secret_version(
+        name=secret_resourceid).payload.data.decode("UTF-8")
+    return payload
+
+# List of datetime formats that you want to handle
+datetime_formats = [
+    "%Y-%m-%d %H:%M:%S.%f",
+    "%Y-%m-%d %H:%M:%S",
+    # Add any other datetime formats that your data might have
+]
+
+
+def to_str(x):
+    if pd.isnull(x):
+        return None
+    else:
+        return str(x)
+
+def to_int(x):
+    try:
+        return int(x)
+    except:
+        return np.nan
+
+def convert_datetime(x):
+    if pd.isnull(x):
+        return np.nan
+    
+    if x == None:
+        return np.nan
+    
+    for fmt in datetime_formats:
+        try:
+            # If the datetime string can be converted using the current format, do the conversion
+            dte = datetime.datetime.strptime(str(x), fmt)
+            # Then convert it to the desired format and return
+            return datetime.datetime(dte.year, dte.month, dte.day, dte.hour, dte.minute, dte.second)
+        except:
+            continue
+    
+    # Print an error message if none of the formats match (you could also raise an error or handle this differently depending on your needs)
+    print(f"Error: Could not convert '{x}' to datetime")
+    return np.nan
+    
+class setuprunnerenv(beam.DoFn):
+    def process(self, context):
+        jdkfile = srcsys_config['v_jdkfile']
+        gcsjarbucket = config['env']['v_dfjarbucket']
+        jdkversion = srcsys_config['v_jdkversion']
+        jdbcjar = srcsys_config['v_jdbc_jar']
+
+        # use /tmp/ on dataflow worker node for processing
+        global base_dir
+        base_dir = '/tmp/'
+        os.system('gsutil cp ' + gcsjarbucket +
+                  jdbcjar + ' ' + base_dir + ' && ls ')
+
+        # Copy required java libraries
+        os.system('gsutil cp ' + gcsjarbucket +
+                  jdkfile + ' ' + base_dir + ' && ls ')
+
+        # setup jvm path and java version
+        os.system('mkdir -p /usr/lib/jvm')
+        os.system('tar xvzf ' + base_dir + jdkfile + ' -C /usr/lib/jvm')
+        os.system(
+            'update-alternatives --install "/usr/bin/java" "java" "/usr/lib/jvm/' + jdkversion + '/bin/java" 1 ')
+        os.system('update-alternatives --config java')
+        logging.info('JDK Libraries copied to Instance..')
+
+        os.system('java -version')
+
+        return list("1")
+
+
+class jdbctobq(beam.DoFn):
+
+    def executevalidationsqls(self, bq_table):
+        bq_table = bq_table.lower()
+
+        if beam_runner == 'DataflowRunner':
+            sqlbucket = 'gs://' + \
+                config['env']['v_dag_bucket_name'] + \
+                '/dags/sql/validation_sql/'
+            os.system('gsutil cp ' + sqlbucket + '*' + bq_table +
+                      '.sql' + ' ' + base_dir + ' && ls ')
+            logging.info(
+                "===Copying Validation SQL's for table {} if any to dataflow runner===".format(bq_table))
+            os.system('gsutil cp ' + sqlbucket + '*' + bq_table +
+                      '.sql' + ' ' + base_dir + ' && ls ')
+        else:
+            logging.info(
+                "===Checking for Validation SQL's for table {} if any locally===".format(bq_table))
+
+        file_list = [a for a in os.listdir(
+            base_dir) if a.endswith(bq_table + ".sql")]
+
+        if file_list:
+            for filename in file_list:
+                bqsqlsqryfile = open(base_dir + '\\' + filename)
+                bqsqlsqry = bqsqlsqryfile.read()
+                logging.info("===Executing SQL : {}===".format(filename))
+                df = pd.read_gbq(bqsqlsqry,  project_id=bqproject_id)
+                logging.info(df)
+        else:
+            logging.info(
+                "===Did not find any Validation SQL for table - {}===".format(bq_table))
+
+    def readjdbcwritebqtable(self, tableinfo, bqproject_id):
+        import jaydebeapi
+        import pendulum
+        import pandas_gbq
+        import io
+        from jaydebeapi import _DEFAULT_CONVERTERS
+        import datetime
+        import time
+        import decimal
+        decimal_context = decimal.Context(prec=13)
+        # logging.info(base_dir)
+
+        # Override jaydebeapi package default converter to fix milliseconds processing bug
+        def _to_datetime(rs, col):
+
+            logging.info(
+                    "===Column before conversion {}===".format(str(col)))
+            java_val = rs.getTimestamp(col)
+            if not java_val:
+                return
+            d = datetime.datetime.strptime(str(java_val)[:19], "%Y-%m-%d %H:%M:%S")
+            d = d.replace(microsecond=java_val.getNanos() // 1000)
+
+            logging.info(
+                    "===Column after conversion {}===".format(str(d)))
+
+            return str(d)
+
+        _DEFAULT_CONVERTERS.update({"TIMESTAMP": _to_datetime })
+
+        try:
+
+            dt1 = dt.now()
+            timezone = pendulum.timezone("US/Central")
+            #timezone = pendulum.timezone("Asia/Calcutta")
+
+            jdbc_class_name = srcsys_config['v_jdbc_class_name']
+
+            creds = json.loads(access_secret(
+                config['env']['v_pwd_secrets_url'] + srcsys_config['v_cred_secret_name']))
+
+            username = creds["user"]
+            passwd = creds["pass"]
+
+            if src_db_type == 'sqlserver':
+                jdbc_url = f"jdbc:sqlserver://{src_server_name}:{src_db_dict[0]['name'][0]};encrypt=false;trustServerCertificate=true"
+            elif src_db_type == 'cache':
+                jdbc_url = f"jdbc:Cache://{src_server_name}:{src_db_dict[0]['name'][0]}/{src_db_dict[0]['name'][1]}"
+            elif src_db_type == 'db2':
+                jdbc_url = f"jdbc:db2://{src_server_name}:{src_db_dict[0]['name'][0]}/{src_db_dict[0]['name'][1]}"
+            elif src_db_type == 'teradata':
+                jdbc_url = f"jdbc:teradata://{src_server_name}/database={src_db_dict[0]['name'][1]},dbs_port={src_db_dict[0]['name'][0]}"
+            else:
+                jdbc_url = f"jdbc:sqlserver://{src_server_name}:{src_db_dict[0]['name'][0]};encrypt=false;trustServerCertificate=true"
+
+            jdbc_jar = srcsys_config['v_jdbc_jar']
+
+            # set jdbc lib path to /tmp/ on Dataflow runner
+            if beam_runner == 'DataflowRunner':
+                jdbc_lib_path = base_dir
+            else:
+                jdbc_lib_path = src_jdbc_lib_path
+
+            logging.info("=== JDBC Lib Path {} ===".format(str(jdbc_lib_path)))
+            logging.info("=== JDBC URL {} ===".format(str(jdbc_url)))
+
+            conn = jaydebeapi.connect(jdbc_class_name, jdbc_url, {
+                'user': username, 'password': passwd}, jdbc_lib_path + jdbc_jar, jdbc_lib_path)
+
+            # read input table info and extract table/query details
+            srctableid = tableinfo.split("~")[0]
+            srctablename = tableinfo.split("~")[1]
+            tgttablename = tableinfo.split("~")[2]
+
+            # replace schema names in bq target table list with values from env config file
+            tgttablename = tgttablename.replace(
+                'v_cr_stage_dataset_name', config['env']['v_cr_stage_dataset_name'])
+            tgttablename = tgttablename.replace(
+                'v_cr_core_dataset_name', config['env']['v_cr_core_dataset_name'])
+
+            tgttableloadtype = tableinfo.split("~")[3]
+            srctablequery = tableinfo.split("~")[4]
+
+            srctablequery = srctablequery.replace(
+                # 'v_currtimestamp', str(pendulum.now(timezone))[:23])
+                'v_currtimestamp', str(pendulum.now(timezone).strftime("%Y-%m-%d %H:%M:%S")))
+
+            if src_server_name:
+                srctablequery = srctablequery.replace('v_server_name', src_server_name)
+                srctablename = srctablename.replace('v_server_name', src_server_name)
+        
+            if src_from_date:
+                srctablequery = srctablequery.replace('v_from_date', src_from_date)
+                srctablename = srctablename.replace('v_from_date', src_from_date)
+
+
+            v_chunksize = int(tableinfo.split("~")[5])
+            
+            group_by_pattern = re.compile("group\s*by", re.IGNORECASE)
+
+            group_by_find = re.search(group_by_pattern, srctablequery)
+
+            if group_by_find is None:
+                srctablecountquerywhereclause = re.split(" from ", srctablequery, flags=re.IGNORECASE)[1]
+                srctablecountquery = "select count(1) as SRC_COUNT FROM " + srctablecountquerywhereclause
+            else:
+                srctablecountquery = "select count(1) as SRC_COUNT FROM (" + srctablequery.strip(";") + ")"
+
+            src_rec_count = pd.read_sql(srctablecountquery, conn)
+            src_rec_count = src_rec_count['SRC_COUNT'][0]
+
+            logging.info("===Starting process to  extract {} and load {} at {}===".format(
+                srctablename, tgttablename, time.strftime("%Y%m%d-%H:%M:%S")))
+            # some characters in column names need to be replaced
+            col_spl_char = ['.', '[', ']']
+
+            load_count = 0
+
+            append_replace = 'append'
+
+            # setup truncate/replace/append option
+            if tgttableloadtype == 'replace':
+                append_replace = 'replace'
+                logging.info(
+                    "===Drop and Recreate table {}===".format(tgttablename))
+
+            elif tgttableloadtype == 'append':
+                logging.info(
+                    "===Create table {} if not exists===".format(tgttablename))
+
+            elif tgttableloadtype == 'truncate':
+
+                pd.read_gbq("truncate table " + tgttablename,
+                            project_id=bqproject_id)
+                logging.info(
+                    "===Truncated table {}===".format(tgttablename))
+            
+            # Read source query using jdbc connection , rename columns if needed and write to bq table
+            tableload_start_time = str(pendulum.now(timezone))[:23]
+
+            try:
+
+                bq_dataset = tgttablename.split('.')[0]
+                tgt_bq_table = tgttablename.split('.')[1]
+                bq_project_id = config['env']['v_curated_project_id']
+                bqclient = bigquery.Client(bq_project_id)
+                dataset_ref = bqclient.dataset(bq_dataset)
+                table_ref = dataset_ref.table(tgt_bq_table)
+                table = bqclient.get_table(table_ref)
+                # logging.info(table.schema)
+                f = io.StringIO("")
+                bqclient.schema_to_json(table.schema, f)
+                tblschema = json.loads(f.getvalue())
+                logging.info(tblschema)
+
+                tgt_bq_table = bq_dataset + '.' + tgt_bq_table
+
+                job_config = bigquery.job.LoadJobConfig()
+                job_config.write_disposition = bigquery.WriteDisposition.WRITE_APPEND
+                job_config.schema = tblschema
+                job_config.source_format = bigquery.SourceFormat.CSV
+                job_config.field_delimiter = ','
+                job_config.null_marker = ''
+                job_config.allow_quoted_newlines = True
+
+                # Setting up the client to interact with the GCS Bucket
+                # client = storage.Client(config['env']['v_landing_project_id'])
+                gcs_ingest_load_bucket = config['env']['v_data_bucket_name']
+                # bucket = client.bucket(gcs_ingest_load_bucket)
+                gcs_ingest_base_dir = config['env']['v_ingestloadsubdir']
+                if beam_runner == 'DataflowRunner':
+                    logging.info("Base Directory {}".format(base_dir))
+                else:
+                    local_folder = os.path.join(base_dir, "temp")
+                    logging.info("Base Directory {}".format(local_folder))
+                
+                for db in src_db_dict:
+                    # logging.info(db)
+
+                    # Set Local OS Directory
+                    if beam_runner == 'DataflowRunner':
+                        local_ingest_dir = os.path.join(base_dir, gcs_ingest_base_dir.strip("/\\"), sourcesysnm, db['name'][1].lower(),tgt_bq_table.split('.')[1])
+                    else:
+                        local_ingest_dir = os.path.join(local_folder, gcs_ingest_base_dir.strip("/\\"), sourcesysnm, db['name'][1].lower(),tgt_bq_table.split('.')[1])
+
+                    # Recreate and Clear Local Directory
+                    logging.info("Local Directory {}".format(local_ingest_dir))
+                    if os.path.exists(local_ingest_dir):
+                        shutil.rmtree(local_ingest_dir)
+                    if not os.path.exists(local_ingest_dir):
+                        os.makedirs(local_ingest_dir)
+
+                    print("All files deleted successfully.")
+
+                    gcs_ingest_dir_path = f"gs://{gcs_ingest_load_bucket}/{gcs_ingest_base_dir}{sourcesysnm}/{db['name'][1].lower()}/{tgt_bq_table.split('.')[1]}"
+                    logging.info("GCS Ingest Load Directory {}".format(gcs_ingest_dir_path))
+                    # Make sure to clear files from GCS path 
+                    # for blob in bucket.list_blobs(prefix=gcs_ingest_dir_path):
+                        # logging.info(blob.name)
+                        # blob.delete()
+                    os.system('gsutil -m rm -r ' + gcs_ingest_dir_path + ' && ls ')
+
+                    idx = 1
+                    
+                    srctablequery_input = srctablequery.replace('v_db_name', db['name'][1])
+                    srctablequery_input = srctablequery_input.replace('v_encrypt', db['name'][2])
+
+                    # logging.info(srctablequery_input)
+                    logging.info("===Starting process to  extract {} and load {} at {}===".format(
+                    srctablequery_input, tgttablename, time.strftime("%Y%m%d-%H:%M:%S")))
+
+                    try:
+
+                        for chunk in pd.read_sql(srctablequery_input, conn, chunksize=v_chunksize):
+                            chunk.columns = map(str.lower, chunk.columns)
+                            for char in col_spl_char:
+                                chunk.columns = chunk.columns.str.replace(
+                                    char, '_', regex=False)
+
+                            # logging.info(chunk.dtypes)
+                            logging.info("dtype fixing begins")
+                            # Change column name and datatype of dataframe
+                            for i in range(0, len(tblschema)):
+                                # logging.info(tblschema[i])
+                                dtype = tblschema[i]['type'].lower()
+                                
+                                if dtype == 'time':
+                                    dtype = 'datetime64[ns]'
+                                elif dtype == 'integer':
+                                    dtype = 'Int64'
+                                elif dtype == 'numeric':
+                                    dtype = 'float64'
+                                elif dtype == 'string':
+                                    dtype = 'str'
+                                    # logging.info(chunk[tblschema[i]['name']] )
+
+                                # Converting float column to decimal to match numeric in BQ
+                                if dtype == 'float64':
+                                    chunk[tblschema[i]['name']] = chunk[tblschema[i]['name']].apply(dtype)
+                                    chunk[tblschema[i]['name']] = chunk[tblschema[i]['name']].apply(decimal_context.create_decimal_from_float)            
+                                
+                                elif dtype == 'date':
+                                    chunk[tblschema[i]['name']] = chunk[tblschema[i]['name']].apply(lambda x: datetime.datetime.strptime(x, "%Y-%m-%d") if x is not None else np.nan)
+                                
+                                elif dtype == 'datetime':                                                       
+                                    chunk[tblschema[i]['name']] = chunk[tblschema[i]['name']].apply(convert_datetime)
+                                    if chunk[tblschema[i]['name']].dtype != 'object':
+                                        chunk[tblschema[i]['name']] = pd.to_datetime(chunk[tblschema[i]['name']])
+
+                                elif dtype == 'Int64':
+                                    chunk[tblschema[i]['name']] = chunk[tblschema[i]['name']].apply(to_int)
+                                    chunk[tblschema[i]['name']] = chunk[tblschema[i]['name']].astype(dtype)
+
+                                elif dtype == 'str':
+                                    chunk[tblschema[i]['name']] = chunk[tblschema[i]['name']].apply(to_str)
+
+                                elif i < len(chunk.columns):
+                                    chunk[tblschema[i]['name']] = chunk[tblschema[i]
+                                                                        ['name']].astype(dtype)
+
+                                else:
+                                    chunk[tblschema[i]['name']] = None
+                                    chunk[tblschema[i]['name']] = chunk[tblschema[i]
+                                                                        ['name']].astype(dtype)
+                            
+                            file_name = tgt_bq_table.split('.')[1]+'_'+str(idx).zfill(6)+".csv"
+                            file_path = os.path.join(local_ingest_dir, file_name)
+                            chunk.to_csv(file_path, index=False, header=False)
+
+                            # logging.info(chunk.info())
+            #                 pandas_gbq.to_gbq(chunk, tgt_bq_table,
+            #                                 project_id=bq_project_id, if_exists='append', table_schema=tblschema)
+
+                            load_count += len(chunk.index)
+                            idx += 1
+
+                        os.system('gsutil -m cp -r ' + local_ingest_dir + " " + gcs_ingest_dir_path + ' && ls ')
+
+                        gcs_uri = f'{gcs_ingest_dir_path}/*.csv'
+
+                        # time.sleep(5)
+                        
+                        load_job = bqclient.load_table_from_uri(gcs_uri, table_ref, job_config=job_config)
+
+                        load_job.result() # waits for the load job to finish
+
+                        logging.info(f'Loaded {load_job.output_rows} rows in table {table}')
+
+                    except:
+                        logging.info("===Unable to pull from db : {} rows loaded into table {}===".format(
+                                    db['name'][1], tgttablename))
+                        logging.info(traceback.format_exc())
+                logging.info("==={} rows loaded into table {}===".format(
+                    load_count, tgttablename))
+
+            except:
+                logging.info("===Unable to pull any more rows : {} rows loaded into table {}===".format(
+                    load_count, tgttablename))
+                logging.info(traceback.format_exc())
+                if src_db_type == 'db2' : 
+                    logging.info("Not Raising System Exit to handle com.ibm.db2.jcc.am.com.ibm.db2.jcc.am.SqlException \
+                                 Invalid operation: result set  is closed. ERRORCODE=-4470, SQLSTATE=null")
+                else :
+                    raise SystemExit()
+                    
+
+            tableload_end_time = str(pendulum.now(timezone))[:23]
+            tableload_run_time = (pd.to_datetime(
+                tableload_end_time) - pd.to_datetime(tableload_start_time))
+            tgt_rec_count = load_count
+
+            if src_rec_count == tgt_rec_count:
+                audit_status = 'PASS'
+            elif tgt_rec_count > src_rec_count:
+                audit_status = 'PASS(More records in Target)'
+            else:
+                audit_status = 'FAIL'
+
+            audit_insert_stt = "insert into {} values (GENERATE_UUID() , {}, '{}', '{}', '{}', '{}',  {}, {}, '{}', '{}', '{}', '{}', '{}', '{}'  ) " .format(
+                config['env']['v_audittablename'],
+                srctableid,
+                sourcesysnm,
+                srctablename,
+                tgttablename,
+                'RECORD_COUNT',
+                src_rec_count,
+                tgt_rec_count,
+                tableload_start_time,
+                tableload_end_time,
+                tableload_run_time,
+                jobname,
+                str(pendulum.now(timezone))[:23],
+                audit_status
+
+            )
+
+            audit_entry = pd.read_gbq(
+                audit_insert_stt,  project_id=bqproject_id, max_results=0)
+            logging.info(
+                "===Audit entry added for srctableid {} - srctablename {} ===".format(srctableid, srctablename))
+
+            logging.info(
+                "===Execute Validation SQL's if any for table  {} ===".format(tgttablename))
+            bqtable = tgttablename.split(".")[1]
+            self.executevalidationsqls(bqtable)
+
+            dt2 = dt.now()
+            logging.info("Time Taken " + str(dt2-dt1))
+
+        except:
+            logging.error(traceback.format_exc())
+            logging.error("===ERROR: Failure occurred within function===")
+            raise SystemExit()
+
+    def process(self, element):
+
+        try:
+            global bqproject_id
+            bqproject_id = config['env']['v_curated_project_id']
+            tablelist = srcsys_config[src_tbl_list]
+
+            # read input table list and process each table in sequence
+
+            num_tables = len(tablelist)
+            logging.info("===Number of tables {}===".format(str(num_tables)))
+
+            for tableinfo in tablelist:
+                self.readjdbcwritebqtable(tableinfo, bqproject_id)
+
+            logging.info("===END of processing tablelist at {}".format(
+                time.strftime("%Y%m%d-%H:%M:%S")))
+
+        except:
+            logging.error(
+                "===ERROR: Failure occurred within Process function===")
+            logging.error(traceback.format_exc())
+            raise SystemExit()
+
+
+def run():
+    pipeline_args = [
+        "--project", config['env']['v_proc_project_id'],
+        "--service_account_email",  config['env']['v_serviceaccountemail'],
+        "--job_name", jobname.replace(".","-"),
+        "--runner", beam_runner,
+        "--network", config['env']["v_network"],
+        "--subnetwork", config['env']["v_subnetwork"],
+        "--staging_location", config['env']["v_dfstagebucket"],
+        "--temp_location", config['env']["v_gcs_temp_bucket"],
+        "--region", config['env']["v_region"],
+        "--save_main_session",
+        "--num_workers", str(config['env']["v_numworkers"]),
+        "--max_num_workers",   str(config['env']["v_maxworkers"]),
+        "--no_use_public_ips",
+        "--dataflow_service_options, enable_prime",
+        "--autoscaling_algorithm", "THROUGHPUT_BASED",
+        "--worker_machine_type", srcsys_config['v_machine_type'],
+        "--setup_file", '{}setup.py'.format(utilpath)
+
+    ]
+
+    try:
+        logging.info(
+            "===Apache Beam Run with pipeline options started===")
+        pcoll = beam.Pipeline(argv=pipeline_args)
+        
+        if beam_runner == 'DataflowRunner':
+            pcoll | "Initialize" >> beam.Create(["1"]) | 'Setup Dataflow Worker' >> beam.ParDo(
+                setuprunnerenv()) | "Read JDBC, Write to Google BigQuery" >> beam.ParDo(jdbctobq())
+        else:
+            pcoll | "Initialize.." >> beam.Create(
+                ["1"]) | "Read JDBC, Write to Google BigQuery" >> beam.ParDo(jdbctobq())
+
+        p = pcoll.run()
+        logging.info("===Apache Beam Run completed successfully===")
+        if beam_runner == 'DataflowRunner':
+            dataflow_job_id = p.job_id()
+            logging.info( "===Submitted Asynchronous Dataflow Job, Job id is " + dataflow_job_id + " ====")
+        else:
+            dataflow_job_id = random.randint(1000000,10000000)
+        return dataflow_job_id
+
+    except:
+        logging.exception("===ERROR: Apache Beam Run Failed===")
+        raise SystemExit()
+
+
+def main(sourcesysnm, src_tbl_list):
+
+    global jobname
+    randomstring = ''.join(random.choices(
+        string.ascii_lowercase + string.digits, k=8))
+    if src_server_name:
+        jobname = sourcesysnm[:3] + "-p-" + src_server_name.lower() + '-' + src_tbl_list + '-' + time.strftime("%Y%m%d%H%M%S") + '-' + randomstring        
+    else: 
+        jobname = sourcesysnm[:3] + "-p-" + srcsys_config_file.split("/")[1][:-12].replace(
+        '_', '-') + '-' + src_tbl_list + '-' + time.strftime("%Y%m%d%H%M%S") + '-' + randomstring
+        
+    logging.info("===Job Name is {} ===".format(jobname))
+    p1 = run()
+    dataflow_job_id = p1
+
+    logging.info("===END: Data Pipeline for src_tbl_list {}-{} at {}===".format(
+        sourcesysnm, src_tbl_list, time.strftime("%Y%m%d-%H:%M:%S")))
+    print(dataflow_job_id)
+
+    return dataflow_job_id
+    
+
+
+if __name__ == "__main__":
+    logging.getLogger().setLevel(logging.INFO)
+    parser = argparse.ArgumentParser(
+        description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
+    )
+    parser.add_argument("--src_sys_config_file", required=True,
+                        help=("Source System Based Config file name"))
+    parser.add_argument("--src_tbl_list", required=True,
+                        help=("Source Table List"))
+    parser.add_argument("--src_server_name", required=True,
+                        help=("Source Server Name"))
+    parser.add_argument("--src_from_date", required=False,
+                        help=("Source from date"))
+    parser.add_argument("--src_system", required=True,
+                        help=("Source System"))
+    parser.add_argument("--src_db_list", required=False,
+                        help=("Source Database List"))
+    parser.add_argument("--src_db_type", required=True,
+                        help=("Source Database Type"))
+    parser.add_argument("--src_jdbc_lib_path", required=False,
+                        help=("JDBC Lib Path"))
+    parser.add_argument("--beam_runner", required=True,
+                        help=("Beam Runner"))
+   
+    
+    args = parser.parse_args()
+
+    global srcsys_config_file
+    srcsys_config_file = args.src_sys_config_file
+
+    global srcsys_config
+    srcsys_config = call_config_yaml(args.src_sys_config_file)
+
+    global src_tbl_list
+    src_tbl_list = args.src_tbl_list
+
+    global src_server_name
+    src_server_name = args.src_server_name
+
+    global src_from_date
+    src_from_date = args.src_from_date
+
+    global sourcesysnm
+    sourcesysnm = args.src_system
+
+    global src_db_list
+    src_db_list = args.src_db_list
+
+    global src_db_type
+    src_db_type = args.src_db_type
+
+    global src_jdbc_lib_path
+    src_jdbc_lib_path = args.src_jdbc_lib_path
+
+    logging.info(src_jdbc_lib_path)
+
+    global beam_runner
+    beam_runner = args.beam_runner
+
+    logging.info(beam_runner)
+
+    global src_db_dict
+
+    logging.info(src_db_list)
+    src_db_list_str = src_db_list.replace("[{","[{\"")
+    src_db_list_str = src_db_list_str.replace(":","\":")
+    src_db_list_str = src_db_list_str.replace(": [",": [\"")
+    src_db_list_str = src_db_list_str.replace(", ","\", \"")
+    src_db_list_str = src_db_list_str.replace("]}","\"]}")
+    src_db_list_str = src_db_list_str.replace("\"{","{\"")
+    src_db_list_str = src_db_list_str.replace("}\",","},")
+    logging.info(src_db_list_str)
+
+    src_db_dict = json.loads(src_db_list_str)
+    logging.info(src_db_dict)
+
+    logging.info(src_db_list)
+    for db in src_db_dict:
+        logging.info(db['name'][1])
+
+    logging.info("===BEGIN: Data Pipeline for src_tbl_list {}-{} at {}===".format(
+        sourcesysnm, src_tbl_list, time.strftime("%Y%m%d-%H:%M:%S")))
+    main(sourcesysnm, src_tbl_list)
+    

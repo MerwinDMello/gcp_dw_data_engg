@@ -1,0 +1,24 @@
+create or replace view `{{ params.param_hr_base_views_dataset_name }}.employee_disciplinary_action_detail`
+AS select
+	    employee_disciplinary_action_detail.employee_sid,
+		employee_disciplinary_action_detail.disciplinary_ind,
+		employee_disciplinary_action_detail.disciplinary_action_num,
+		employee_disciplinary_action_detail.disciplinary_seq_num,
+		employee_disciplinary_action_detail.valid_from_date,
+		employee_disciplinary_action_detail.valid_to_date,
+		employee_disciplinary_action_detail.eff_from_date,
+		employee_disciplinary_action_detail.status_flag,
+		employee_disciplinary_action_detail.follow_up_category_name,
+		employee_disciplinary_action_detail.follow_up_type_name,
+		employee_disciplinary_action_detail.follow_up_outcome_desc,
+		employee_disciplinary_action_detail.follow_up_performed_by_employee_sid,
+		employee_disciplinary_action_detail.follow_up_comment_desc,
+		employee_disciplinary_action_detail.last_update_date,
+		employee_disciplinary_action_detail.last_update_user_34_login_code,
+		employee_disciplinary_action_detail.employee_num,
+		employee_disciplinary_action_detail.lawson_company_num,
+		employee_disciplinary_action_detail.process_level_code,
+		employee_disciplinary_action_detail.source_system_code,
+		employee_disciplinary_action_detail.dw_last_update_date_time
+  from
+    {{ params.param_hr_core_dataset_name }}.employee_disciplinary_action_detail;

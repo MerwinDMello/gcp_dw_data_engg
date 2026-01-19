@@ -1,0 +1,48 @@
+name: Secret Manager Build Action
+
+inputs:
+  args:
+    description: ""
+    default: ""
+  repository:
+    description: ""
+  token: 
+    description: ""
+  deploy_all:
+    description: ""
+    default: "false"
+
+
+runs:
+  using: "composite"
+  steps:    
+    - name: checkout parent
+      uses: actions/checkout@v4
+      with:
+        repository: 'HCACloudDataEngineering/gcp-hin-workflows'
+        token: ${{ inputs.token }}
+    
+    - name: ls scripts folder
+      shell: bash
+      run: |
+        ls secret-manager/scripts
+
+    - name: upload-github artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: sm_script_artifacts
+        path: secret-manager/scripts
+        retention-days: 1
+
+
+
+      
+    
+
+
+    
+
+
+
+        
+ 

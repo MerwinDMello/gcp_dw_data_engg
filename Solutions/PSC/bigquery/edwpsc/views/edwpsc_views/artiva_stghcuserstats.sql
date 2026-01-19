@@ -1,0 +1,30 @@
+CREATE OR REPLACE VIEW edwpsc_views.`artiva_stghcuserstats`
+AS SELECT
+  `artiva_stghcuserstats`.hcususerid,
+  `artiva_stghcuserstats`.hcusyear,
+  `artiva_stghcuserstats`.hcusmonth,
+  `artiva_stghcuserstats`.hcusday,
+  `artiva_stghcuserstats`.hcusdept,
+  `artiva_stghcuserstats`.hcusfacility,
+  `artiva_stghcuserstats`.hcussubunit,
+  `artiva_stghcuserstats`.hcuspayer,
+  `artiva_stghcuserstats`.hcusacctviewed,
+  `artiva_stghcuserstats`.hcusacctwrkd,
+  `artiva_stghcuserstats`.hcusbrknnum,
+  `artiva_stghcuserstats`.hcuscalls,
+  `artiva_stghcuserstats`.hcuscontacts,
+  `artiva_stghcuserstats`.hcusinsfound,
+  `artiva_stghcuserstats`.hcusinsptp,
+  `artiva_stghcuserstats`.hcusinsptpnum,
+  `artiva_stghcuserstats`.hcusltrs,
+  `artiva_stghcuserstats`.hcuspayments,
+  `artiva_stghcuserstats`.hcusplaced,
+  `artiva_stghcuserstats`.hcusptpamt,
+  `artiva_stghcuserstats`.hcusptpnum,
+  `artiva_stghcuserstats`.hcusrecall,
+  `artiva_stghcuserstats`.hcussettleamt,
+  `artiva_stghcuserstats`.hcussettlenum,
+  `artiva_stghcuserstats`.hcustime
+  FROM
+    edwpsc_base_views.`artiva_stghcuserstats`
+;

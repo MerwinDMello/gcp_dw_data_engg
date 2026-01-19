@@ -1,0 +1,28 @@
+#source system specific configuration values
+
+v_sourcesysnm: opol
+v_databasetype: sqlserver
+v_cred_secret_name: cr_sql_opol_credentials/versions/latest
+v_jdbc_class_name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+v_jdbc_jar: mssql-jdbc-12.4.0.jre8.jar
+v_jdkfile: jre-8u351-linux-x64.tar.gz
+v_jdkversion: jre1.8.0_351
+v_jdbcbqpytemplate: Jdbc_to_BigQuery_PythonTemplate.py
+v_machine_type: n1-standard-4
+
+#srctablelist srctableid~srctablename~tgttablename~tgttableloadtype~srctablequery~rowcommitsize
+
+tblist1: [
+  "1~discover.dbo.holidaycalendar~v_cr_core_dataset_name.ref_holiday_calendar~append~SELECT holidaycalendarid AS holiday_calendar_id, holidaycalendardate AS holiday_calendar_date, COALESCE(holidaycalendardescr, '') AS holiday_calendar_desc, CAST(createddate AS DATETIME) AS created_date_time, COALESCE(createdby, '') AS created_by_3_4_id, CAST(updateddate AS DATETIME) AS source_last_update_date_time, COALESCE(updatedby, '') AS updated_by_3_4_id, CASE WHEN isactive =1 THEN 'Y' ELSE 'N' END AS active_ind, 'N' AS source_system_code, 'v_currtimestamp' AS dw_last_update_date_time FROM discover.dbo.holidaycalendar~1000"
+]
+
+schedule:
+  - schedule_interval: None
+    start_date: pendulum.datetime(2023, 11, 19, tz=timezone)
+    frequency: daily
+    dag_id_suffix: 1
+    done_file: NONE
+    has_sensor: 'No'
+    trigger_dag_ids: ['dag_integrate_metriq_sqlserver_daily_02']
+    tblist: [tblist1]
+    truncatetablelist: ['v_cr_core_dataset_name.ref_holiday_calendar']

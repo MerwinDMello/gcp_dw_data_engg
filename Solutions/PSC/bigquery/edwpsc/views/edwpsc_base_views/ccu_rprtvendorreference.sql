@@ -1,0 +1,30 @@
+CREATE OR REPLACE VIEW edwpsc_base_views.`ccu_rprtvendorreference`
+AS SELECT
+  `ccu_rprtvendorreference`.ccuvendorreferencekey,
+  `ccu_rprtvendorreference`.34id,
+  `ccu_rprtvendorreference`.lastname,
+  `ccu_rprtvendorreference`.firstname,
+  `ccu_rprtvendorreference`.vendor,
+  `ccu_rprtvendorreference`.activestatus,
+  `ccu_rprtvendorreference`.dwlastupdatedatetime,
+  `ccu_rprtvendorreference`.insertedby,
+  `ccu_rprtvendorreference`.inserteddtm,
+  `ccu_rprtvendorreference`.modifiedby,
+  `ccu_rprtvendorreference`.modifieddtm,
+  `ccu_rprtvendorreference`.sharepointdatemodified,
+  `ccu_rprtvendorreference`.sharepointdatecreated,
+  `ccu_rprtvendorreference`.group,
+  `ccu_rprtvendorreference`.area,
+  `ccu_rprtvendorreference`.directors,
+  `ccu_rprtvendorreference`.manager,
+  `ccu_rprtvendorreference`.termdate,
+  `ccu_rprtvendorreference`.coderstatus,
+  `ccu_rprtvendorreference`.specialty,
+  `ccu_rprtvendorreference`.subspecialty,
+  `ccu_rprtvendorreference`.hourlybenchmark,
+  `ccu_rprtvendorreference`.comments,
+  `ccu_rprtvendorreference`.sharepointcreatedby,
+  `ccu_rprtvendorreference`.sharepointmodifiedby
+  FROM
+    edwpsc.`ccu_rprtvendorreference`
+;

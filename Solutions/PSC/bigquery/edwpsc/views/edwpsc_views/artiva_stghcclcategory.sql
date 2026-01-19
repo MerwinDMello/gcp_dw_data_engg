@@ -1,0 +1,7 @@
+CREATE OR REPLACE VIEW edwpsc_views.`artiva_stghcclcategory`
+AS SELECT
+  `artiva_stghcclcategory`.hccadesc,
+  `artiva_stghcclcategory`.hccaid
+  FROM
+    edwpsc_base_views.`artiva_stghcclcategory`
+;

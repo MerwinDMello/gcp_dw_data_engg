@@ -1,0 +1,53 @@
+name: Invoke Cloud Run
+
+on:
+  workflow_call:
+    inputs:
+      cr_region:
+        description: "Cloud Run Region"
+        required: false
+        type: string
+      cr_project_id:
+        description: "Cloud Run Project ID"
+        required: false
+        type: string
+      cr_name:
+        description: "Cloud Run Service Name"
+        required: false
+        type: string
+      cr_trigger_file_path:
+        description: "Path to Cloud Run trigger configuration files"
+        required: false
+        type: string
+      cr_api_path:
+        description: "API path to append to the Cloud Run service URL (e.g., v1/start-job)"
+        required: false
+        type: string
+
+    secrets:
+      workload_identity_provider:
+        description: "The workload identity provider for authentication."
+        required: false
+      service_account:
+        description: "The service account for authentication."
+        required: false
+
+jobs:
+  invoke-cloud-run:
+    name: Invoke Cloud Run
+    runs-on: [self-hosted, onprem-k8s-arc, dind, enterprise, lnx-amd64]
+    environment: ${{ github.ref_name }}
+    permissions:
+      contents: "read"
+      id-token: "write"
+    steps:
+      - name: Invoke Cloud Run Composite Action
+        uses: HCACloudDataEngineering/gcp-hin-workflows/cloud-run/invoker@main
+        with:
+          workload_identity_provider: ${{ vars.WORKLOAD_IDENTITY_PROVIDER != '' && vars.WORKLOAD_IDENTITY_PROVIDER || secrets.workload_identity_provider }}
+          service_account: ${{ vars.SERVICEACCOUNT_GITHUB != '' && vars.SERVICEACCOUNT_GITHUB || secrets.service_account }}
+          cr_region: ${{ inputs.cr_region }}
+          cr_project_id: ${{ inputs.cr_project_id }}
+          cr_name: ${{ inputs.cr_name }}
+          cr_api_path: ${{ inputs.cr_api_path }}
+          # cr_trigger_file_path: ${{ inputs.cr_trigger_file_path }}

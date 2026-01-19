@@ -1,0 +1,7 @@
+
+        
+TRUNCATE TABLE {{ params.param_psc_core_dataset_name }}.Artiva_StgPSPEPPILINKS ;
+
+INSERT INTO {{ params.param_psc_core_dataset_name }}.Artiva_StgPSPEPPILINKS (PSPELIAVIID, PSPELICOUNT, PSPELIDATE, PSPELIDESC, PSPELIKEY, PSPELILEADPPI, PSPELIPROD, PSPELIUSER, PSPELIUSERCHGDTE)
+SELECT source.PSPELIAVIID, TRIM(source.PSPELICOUNT), source.PSPELIDATE, TRIM(source.PSPELIDESC), source.PSPELIKEY, source.PSPELILEADPPI, TRIM(source.PSPELIPROD), TRIM(source.PSPELIUSER), source.PSPELIUSERCHGDTE
+FROM {{ params.param_psc_stage_dataset_name }}.Artiva_StgPSPEPPILINKS as source;

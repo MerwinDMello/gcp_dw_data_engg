@@ -1,0 +1,46 @@
+integrate:
+- source_system: govreports
+  frequency: monthly
+  start_date: pendulum.datetime(2024, 5, 20, tz=timezone)
+  schedule: None
+  type: core_tables
+  trigger_dag_ids: ['dag_outbound_ra_oracle_monthly_reporting']
+  dependency:
+  - table: gl_report_year #CTMN0023
+    has_sensor: 'Yes'
+    sensor:
+      - dag_id: dag_ingest_ra_p1_oracle_monthly_09.00
+        task_id: end_dag
+        schedule: 0 9 6 * *
+      - dag_id: dag_ingest_ra_p2_oracle_monthly_09.00
+        task_id: end_dag
+        schedule: 0 9 6 * *
+    has_file_export: 'No'
+    sql:
+      - name: gl_report_year.sql # CTMN0023 Step 10 & 20
+  - table: gr_gl_recn #CTMN0023
+    has_sensor: 'Yes' # Add sensors for PAGL & Report Years
+    sensor:
+      - dag_id: dag_integrate_pa_core_tables_daily_pagltxn
+        task_id: end_dag
+        schedule: None
+    has_file_export: 'No'
+    sql:
+      - name: mcrip.sql #CTMN0023 Step 30
+      - name: mcripf.sql #CTMN0023 Step 40
+      - name: mcr_irf.sql #CTMN0023 Step 50
+      - name: mcr_ipbo.sql #CTMN0023 Step 60
+      - name: mcrltch.sql #CTMN0023 Step 70
+      - name: mcrop.sql #CTMN0023 Step 80
+      - name: mcrsnf.sql #CTMN0023 Step 90
+      - name: mcripbcah.sql #CTMN0023 Step 100
+      - name: mcropcah.sql #CTMN0023 Step 110
+      - name: mcripswb.sql #CTMN0023 Step 120
+      - name: mcripcah.sql #CTMN0023 Step 130
+      - name: gr_gl_recon.sql #CTMN0023 Step 140 & 170
+  - table: cc_gr_eom #CTMN0023
+    has_sensor: 'No'
+    has_file_export: 'No'
+    sql:
+      - name: gr_eom.sql #CTMN0023 Step 150
+      - name: gl_gr_eom_toedwra.sql #CTMN0023 Step 160

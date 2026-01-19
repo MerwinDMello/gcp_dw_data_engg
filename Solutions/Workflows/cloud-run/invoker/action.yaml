@@ -1,0 +1,156 @@
+name: Cloud Run Invoker Composite Action
+description: 'A composite action to invoke cloud run services based on changed configuration files'
+
+inputs:
+  workload_identity_provider:
+    description: 'Workload Identity Provider'
+    required: true
+  service_account:
+    description: 'Service Account'
+    required: true
+  cr_region:
+    description: 'Cloud Run Region'
+    required: true
+  cr_project_id:
+    description: 'Cloud Run Project ID'
+    required: true
+  cr_name:
+    description: 'Cloud Run Service Name'
+    required: true
+  cr_trigger_file_path:
+    description: 'Path to cloud run trigger configuration files'
+    required: false
+  cr_api_path:
+    description: 'API path to append to the Cloud Run service URL (e.g., v1/start-job)'
+    required: false
+    default: ''
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Get changed files
+      id: changed-config-files
+      uses: tj-actions/changed-files@v44
+      with:
+        files_yaml: |
+          cr_config:
+            - '**/cr_trigger_configs/*.yaml'
+    
+    - name: List all changed files
+      id: json_files
+      shell: bash
+      run: |
+        configFiles=()
+        mkdir artifacts
+        for file in ${{ steps.changed-config-files.outputs.cr_config_all_changed_files }}; do
+          ymlfile=$(basename "$file")
+          json_file="${ymlfile%.yaml}.json"
+          yq eval '.${{ github.ref_name }} | tojson' "$file" > "artifacts/${json_file}"
+          configFiles+=("artifacts/${json_file}")
+        done
+
+        echo "configFiles: ${configFiles[@]}"
+        echo "configFiles: ${!configFiles[@]}"
+        
+        jsonString=$( echo ${configFiles[@]}  | jq  -R -s -c 'sub("\n$";"") | split(" ")'  )
+        echo "matrix=$jsonString"
+        echo "matrix=$jsonString" >> $GITHUB_OUTPUT
+    
+    - name: upload-github artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: cloud_run_artifacts
+        path: artifacts
+        retention-days: 1
+
+    - name: Debug artifacts directory
+      shell: bash
+      run: |
+        echo "Contents of artifacts directory:"
+        ls -l artifacts
+
+    - name: Debug matrix manifest
+      shell: bash
+      run: |
+        echo "Matrix manifest:"
+        echo "${{ steps.json_files.outputs.matrix }}"
+
+    - name: Extract filename
+      id: extract_filename
+      shell: bash
+      run: |
+        filename=$(echo '${{ steps.json_files.outputs.matrix }}' | jq -r .[0])
+        echo "filename=$filename" >> $GITHUB_ENV    
+
+    - name: JSON to variables
+      uses: rgarcia-phi/json-to-variables@v1.1.0
+      with:
+        filename: ${{ env.filename }}
+        prefix: v
+    
+    - id: auth
+      uses: google-github-actions/auth@v2
+      with:
+        workload_identity_provider: ${{ inputs.workload_identity_provider }}
+        service_account: ${{ inputs.service_account }}
+
+    - name: GCP setup
+      uses: 'google-github-actions/setup-gcloud@v2'
+
+    - name: Get Cloud Run service URL
+      id: get-service-url
+      shell: bash
+      run: |
+        # Get the Cloud Run service URL
+        SERVICE_URL=$(gcloud run services describe ${{ env.v_cr_name }} \
+          --region=${{ env.v_cr_region }} \
+          --project=${{ env.v_cr_project_id }} \
+          --format='value(status.url)')
+
+        # Determine API path: use from config file if exists, otherwise use input parameter
+        API_PATH="${{ env.v_cr_api_path }}"
+        if [ -z "$API_PATH" ]; then
+          API_PATH="${{ inputs.cr_api_path }}"
+        fi
+
+        # Append API path if provided
+        if [ -n "$API_PATH" ]; then
+          # Remove leading slash if present
+          API_PATH=$(echo "$API_PATH" | sed 's#^/##')
+          SERVICE_URL="${SERVICE_URL}/${API_PATH}"
+        fi
+
+        echo "Cloud Run Service URL: $SERVICE_URL"
+        echo "service_url=$SERVICE_URL" >> $GITHUB_OUTPUT
+
+    - id: auth-with-token
+      uses: google-github-actions/auth@v2
+      with:
+        workload_identity_provider: ${{ inputs.workload_identity_provider }}
+        service_account: ${{ inputs.service_account }}
+        id_token_audience: ${{ steps.get-service-url.outputs.service_url }}
+        token_format: 'id_token'
+
+    - name: run code
+      shell: bash
+      run: |
+        # Loop through each file in the matrix and invoke the Cloud Run service
+        for filename in $(echo '${{ steps.json_files.outputs.matrix }}' | jq -r '.[]'); do
+          # Use jq to extract the `.json_data` field from the JSON file
+          jq -r '.json_data' "$filename" > "file.json"
+
+          # Print the contents of the JSON file
+          echo "Contents of file.json:"
+          cat file.json
+
+          CMD="curl -m 180 -X POST ${{ steps.get-service-url.outputs.service_url }} \
+          -H \"Authorization: Bearer ${{ steps.auth-with-token.outputs.id_token }}\" \
+          -H \"Content-Type: application/json\" \
+          -d @file.json"
+
+          echo "CMD: $CMD"
+          eval $CMD
+        done

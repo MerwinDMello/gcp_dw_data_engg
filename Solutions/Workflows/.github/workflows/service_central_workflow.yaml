@@ -1,0 +1,56 @@
+name: ServiceCentral Change Ticket Automation
+
+on:
+  workflow_call:
+    inputs:
+      sys_id:
+        required: false
+        type: string
+        default: "271b0c2e2bf83690ef50fc814291bf47"
+      close_person:
+        required: false
+        type: string
+        default: "Joe VanHook"
+      pr_number:
+        required: false
+        type: string
+        default: ""
+      repository:
+        required: false
+        type: string
+        default: ""
+      server_url:
+        required: false
+        type: string
+        default: ""
+
+jobs:
+  open:
+    name: open
+    uses: HCACloudOps/workflow-templates/.github/workflows/ru_change_management_open_prod.yml@main
+    with:
+        sys_id: ${{ inputs.sys_id }}
+
+  Ticket:
+    name: Change Ticket Number
+    runs-on: [self-hosted, onprem-k8s-arc]
+    needs: open
+    steps:
+      - run: echo ${{ needs.open.outputs.change_ticket }}
+
+  complete:
+    name: complete
+    uses: HCACloudOps/workflow-templates/.github/workflows/ru_change_management_close_prod.yml@main
+    needs: open
+    with:
+        # Within ServiceCentral, the close note will appear on the Closure Information tab within the Change Result field
+        close_notes: "Pull Request Link ${{ inputs.server_url }}/${{ inputs.repository }}/pull/${{ inputs.pr_number }}"
+        ticket_number: ${{ needs.open.outputs.change_ticket }}
+        close_person: ${{ inputs.close_person }}
+
+  Complete-Confirmation:
+    name: Complete Confirmation
+    runs-on: [self-hosted, onprem-k8s-arc]
+    needs: complete
+    steps:
+      - run: echo ${{ needs.complete.outputs.close_msg }}

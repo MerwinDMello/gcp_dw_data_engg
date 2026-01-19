@@ -1,0 +1,84 @@
+name: BigQuery DDL Deployment Workflow 
+
+on:
+  workflow_call:
+    inputs:
+        repo_type:
+          description: "The type of repository (DDL, ETL, HIN2.0) that is relevant to this workflow run"
+          required: true
+          type: string
+        branch:
+          description: "The branch, and thus the GCP environment, that is relevant to this workflow run"
+          required: true
+          type: string
+        event_name:
+          description: "The event name that triggered the workflow (workflow dispatch or push)."
+          required: true
+          type: string
+    secrets:
+        gh_token:
+          description: "The GitHub token for authentication; needed to access deploy.py script in this repo."
+          required: true
+        workload_identity_provider:
+          description: "The workload identity provider for authentication."
+          required: false
+        service_account:
+          description: "The service account for authentication."
+          required: false
+
+jobs:
+  ddl_setup_deploy:
+    runs-on: [self-hosted, onprem-k8s-arc, std, enterprise, lnx-amd64]
+    environment: ${{ inputs.branch }}
+    name: Setup and Deploy DDLs
+    permissions:
+      contents: 'read'
+      id-token: 'write'   
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it    
+      - name: Check out repository
+        uses: actions/checkout@v4
+      
+      # Determine the repository's domain if not provided as an input, applies to older ETL repositories only
+      - name: Determine domain
+        id: determine_domain
+        shell: bash
+        if : ${{ vars.DOMAIN == '' }}
+        run: |
+          for file in ./environments/${GITHUB_REF_NAME}*.yaml; do
+              if [[ $(basename "$file") =~ _(.*)_ ]]; then
+                  echo "subdomain=${BASH_REMATCH[1]}" >> $GITHUB_OUTPUT
+                  break
+              fi
+          done 
+
+      # Set dispatch variable to true if workflow was triggered via workflow dispatch
+      - name: Determine dispatch
+        id: determine_dispatch
+        shell: bash
+        run: |
+          if [[ "${{ inputs.event_name }}" == "workflow_dispatch" ]]; then
+          echo "dispatch=true" >> $GITHUB_OUTPUT
+          else
+          echo "dispatch=false" >> $GITHUB_OUTPUT
+          fi
+      
+      # Call the BigQuery Setup Composite Action for ETL repos
+      - name: Bigquery Setup Step
+        uses: HCACloudDataEngineering/gcp-hin-workflows/bigquery/setup@main
+        with:
+          repo_type: ${{ inputs.repo_type }}
+          branch: ${{ inputs.branch }}
+          domain: ${{ vars.DOMAIN != '' && vars.DOMAIN || steps.determine_domain.outputs.subdomain }}
+          dispatch: ${{ steps.determine_dispatch.outputs.dispatch }}
+          token: ${{ secrets.gh_token }}
+      
+      # Call the BigQuery Deposit Composite Action
+      - name: Bigquery Deploy Step
+        uses: HCACloudDataEngineering/gcp-hin-workflows/bigquery/deploy@main
+        with:
+          branch: ${{ inputs.branch }}
+          domain: ${{ vars.DOMAIN != '' && vars.DOMAIN || steps.determine_domain.outputs.subdomain }}
+          workload_identity_provider: ${{ vars.WORKLOAD_IDENTITY_PROVIDER != '' && vars.WORKLOAD_IDENTITY_PROVIDER || secrets.workload_identity_provider }}
+          service_account: ${{ vars.SERVICEACCOUNT_GITHUB != '' && vars.SERVICEACCOUNT_GITHUB || secrets.service_account }}
+          default_project_id: ${{ vars.DEFAULT_DDL_PROJECT }}

@@ -1,0 +1,86 @@
+-- Translation time: 2024-02-16T20:48:08.013760Z
+-- Translation job ID: 825ffe95-5d09-4d28-9bed-a2d58826a821
+-- Source: internal_metastore/db_hca-hin-dev-cur-parallon/schema_edwra_views/cc_account.memory
+-- Translated from: Teradata
+-- Translated to: BigQuery
+
+CREATE OR REPLACE VIEW {{ params.param_parallon_ra_views_dataset_name }}.cc_account
+   OPTIONS(description='A patient visiting for healthcare services. This can be a single encounter - single claim, a multi-visit - multi claim grouping.')
+  AS SELECT
+      a.patient_dw_id,
+      a.account_id,
+      a.company_code,
+      a.coid,
+      a.unit_num,
+      a.pat_acct_num,
+      a.linked_pat_account_id,
+      a.patient_last_name,
+      a.patient_first_name,
+      a.patient_middle_name,
+      a.patient_name_suffix_text,
+      a.social_security_num,
+      a.medical_record_num,
+      a.admission_date_time,
+      a.discharge_date_time,
+      a.patient_birth_date,
+      a.patient_death_date,
+      a.patient_noa_date,
+      a.admission_source_code,
+      a.admission_type_code,
+      a.financial_class_code,
+      a.gender_code,
+      a.hipps_code,
+      a.discharge_status_code,
+      a.billing_status_code,
+      a.special_bill_ind,
+      a.diag_code_admit,
+      a.cancel_bill_ind,
+      a.ca_extract_stop_ind,
+      a.reassignable_ind,
+      a.service_code,
+      a.final_bill_date,
+      a.ar_bill_thru_date,
+      a.visit_cnt,
+      a.patient_type_code,
+      a.cc_patient_type_id,
+      a.account_status_code,
+      a.marital_status_code,
+      a.length_of_stay_days_num,
+      a.drg_code,
+      a.drg_type,
+      a.drg_version,
+      a.cc_regroup_drg_code,
+      a.cc_regroup_drg_type,
+      a.cc_regroup_drg_version,
+      a.cc_account_archive_ind,
+      a.birth_weight_amt,
+      a.pa_total_account_balance_amt,
+      a.total_charge_amt,
+      a.total_expected_reimb_amt,
+      a.total_patient_liability_amt,
+      a.total_payment_amt,
+      a.total_patient_payment_amt,
+      a.total_adjustment_amt,
+      a.total_billed_charges_amt,
+      a.financial_period_id,
+      a.ipf_interrupted_stay_day,
+      a.pa_archive_ind,
+      a.pa_purge_ind,
+      a.updated_login_userid,
+      a.last_calc_date_time,
+      a.ins_maint_date,
+      a.icd10_drg_code,
+      a.icd10_drg_version_id,
+      a.icd10_drg_severity_level_code,
+      a.pa_icd_version_desc,
+      a.create_date_time,
+      a.update_date_time,
+      a.archive_state_ind,
+      a.dw_last_update_date_time,
+      a.source_system_code
+    FROM
+      {{ params.param_parallon_ra_base_views_dataset_name }}.cc_account AS a
+      INNER JOIN {{ params.param_parallon_ra_base_views_dataset_name }}.secref_facility AS b ON rtrim(a.company_code) = rtrim(b.company_code)
+       AND rtrim(a.coid) = rtrim(b.co_id)
+       AND rtrim(b.user_id) = rtrim(session_user())
+  ;

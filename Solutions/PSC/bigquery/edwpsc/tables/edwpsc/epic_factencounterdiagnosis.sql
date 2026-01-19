@@ -1,0 +1,31 @@
+CREATE TABLE IF NOT EXISTS edwpsc.epic_factencounterdiagnosis
+(
+  encounterdiagnosiskey INT64 NOT NULL,
+  regionkey INT64,
+  encounterkey INT64,
+  encounterid INT64,
+  patientkey INT64,
+  patientid INT64,
+  diagnosiscodekey INT64,
+  diagnosiscode STRING,
+  dxid STRING,
+  primarydxflag INT64,
+  annotation STRING,
+  qualifier STRING,
+  comments STRING,
+  chronicdxflag INT64,
+  encounterdate DATETIME,
+  diagnosisupdatedate DATETIME,
+  uniquelineid INT64,
+  dxeditflag INT64,
+  linkedproblemid INT64,
+  dwlastupdatedatetime DATETIME,
+  sourceaprimarykeyvalue INT64,
+  sourcebprimarykeyvalue INT64,
+  sourcesystemcode STRING,
+  insertedby STRING,
+  inserteddtm DATETIME,
+  modifiedby STRING,
+  modifieddtm DATETIME
+)
+;

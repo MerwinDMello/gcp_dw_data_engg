@@ -1,0 +1,51 @@
+CREATE OR REPLACE VIEW edwpsc_views.`epic_facttransactionsclaimpayment`
+AS SELECT
+  `epic_facttransactionsclaimpayment`.transactionsclaimpaymentkey,
+  `epic_facttransactionsclaimpayment`.claimkey,
+  `epic_facttransactionsclaimpayment`.claimnumber,
+  `epic_facttransactionsclaimpayment`.transactionnumber,
+  `epic_facttransactionsclaimpayment`.visitnumber,
+  `epic_facttransactionsclaimpayment`.regionkey,
+  `epic_facttransactionsclaimpayment`.coid,
+  `epic_facttransactionsclaimpayment`.coidconfigurationkey,
+  `epic_facttransactionsclaimpayment`.servicingproviderkey,
+  `epic_facttransactionsclaimpayment`.claimpayer1iplankey,
+  `epic_facttransactionsclaimpayment`.claimlineliabilityiplankey,
+  `epic_facttransactionsclaimpayment`.facilitykey,
+  `epic_facttransactionsclaimpayment`.claimpaymentkey,
+  `epic_facttransactionsclaimpayment`.trrefid,
+  `epic_facttransactionsclaimpayment`.transactiontype,
+  `epic_facttransactionsclaimpayment`.transactionflag,
+  `epic_facttransactionsclaimpayment`.transactionamt,
+  `epic_facttransactionsclaimpayment`.transactiondatekey,
+  `epic_facttransactionsclaimpayment`.transactiontime,
+  `epic_facttransactionsclaimpayment`.transactionbyuserkey,
+  `epic_facttransactionsclaimpayment`.transactionperiod,
+  `epic_facttransactionsclaimpayment`.sourceaprimarykeyvalue,
+  `epic_facttransactionsclaimpayment`.sourcearecordlastupdated,
+  `epic_facttransactionsclaimpayment`.sourcebprimarykeyvalue,
+  `epic_facttransactionsclaimpayment`.sourcebrecordlastupdated,
+  `epic_facttransactionsclaimpayment`.dwlastupdatedatetime,
+  `epic_facttransactionsclaimpayment`.sourcesystemcode,
+  `epic_facttransactionsclaimpayment`.insertedby,
+  `epic_facttransactionsclaimpayment`.inserteddtm,
+  `epic_facttransactionsclaimpayment`.modifiedby,
+  `epic_facttransactionsclaimpayment`.modifieddtm,
+  `epic_facttransactionsclaimpayment`.practicekey,
+  `epic_facttransactionsclaimpayment`.matchingtransactionnumber,
+  `epic_facttransactionsclaimpayment`.paymenttypekey,
+  `epic_facttransactionsclaimpayment`.epicpaymenttypekey,
+  `epic_facttransactionsclaimpayment`.debitcreditflag,
+  `epic_facttransactionsclaimpayment`.matchingtrrefid,
+  `epic_facttransactionsclaimpayment`.accountkey,
+  `epic_facttransactionsclaimpayment`.patientkey,
+  `epic_facttransactionsclaimpayment`.distributedbyuserkey,
+  `epic_facttransactionsclaimpayment`.undistributedbyuserkey,
+  `epic_facttransactionsclaimpayment`.etrid,
+  `epic_facttransactionsclaimpayment`.matchingetrid
+  FROM
+    edwpsc_base_views.`epic_facttransactionsclaimpayment`
+  INNER JOIN edwpsc_base_views.secref_facility
+  ON LPAD(TRIM(secref_facility.co_id, ' '), 5, '0') = LPAD(TRIM(`epic_facttransactionsclaimpayment`.coid, ' '), 5, '0')
+  AND TRIM(secref_facility.user_id, ' ') = TRIM(session_user(), ' ')
+;

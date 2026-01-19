@@ -1,0 +1,33 @@
+CREATE TABLE IF NOT EXISTS edwpsc_staging.artiva_rprttieramt
+(
+  snapshotdate DATE,
+  systemname STRING NOT NULL,
+  patientaccountingnumber STRING,
+  ecwclaimkey INT64,
+  ecwclaimnumber INT64,
+  ecwregionkey INT64,
+  pvclaimkey INT64,
+  pvclaimnumber INT64,
+  pvregionkey INT64,
+  artivahcenid STRING,
+  artivabalanceamt NUMERIC(33, 4),
+  artivaprimaryfinancialclass INT64,
+  artivalastloaddate DATE,
+  artivalastworkeddate DATE,
+  artivacoid STRING,
+  artivaservicedatekey DATE,
+  artivafinalbilldatekey DATE,
+  artivaoriginalbalance NUMERIC(33, 4),
+  artivatotaladjustments NUMERIC(33, 4),
+  artivatotalpayments NUMERIC(33, 4),
+  artivatotalcharges NUMERIC(33, 4),
+  artivatieramt NUMERIC(33, 4) NOT NULL,
+  systemarclaimflag INT64,
+  systemtotalbalanceamt NUMERIC(33, 4),
+  systemvoidflag INT64,
+  systemdeleteflag INT64,
+  insertedby STRING,
+  inserteddtm DATETIME,
+  dwlastupdatedatetime DATETIME
+)
+;

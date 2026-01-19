@@ -1,0 +1,80 @@
+# hrg variables to use in DAGs
+# Note the yaml syntax, single space after colon
+env:
+ v_env_name: prod
+ v_curated_conn_id: hca-hin-prod-cur-hr
+
+#gcp projects
+ v_proc_project_id: hca-hin-prod-proc-hr
+ v_landing_project_id: hca-hin-prod-landing-hr
+ v_curated_project_id: hca-hin-prod-cur-hr
+ 
+# gcs bucket name does not start with gs://
+ v_dag_bucket_name: us-east4-composerv2-prod-97941f99-bucket
+ v_data_bucket_name: eim-cs-da-gmek-5764-prod
+ v_data_archive_bucket_name: eim-cs-da-gmek-5764-prod
+ v_galen_data_bucket_name: eim-cs-galen-1001-prod
+
+#folder structure in buckets
+ v_srcfilesdir: edwhrdata/srcfiles/
+ v_archivedir: edwhrdata/srcfilesarchive/
+ v_tgtfilesdir: edwhrdata/outboundfiles/
+ v_tmpobjdir: edwhrdata/tmp/
+ v_schemasubdir: schema/
+ 
+# big query datasets
+ v_hr_core_dataset_name: edwhr
+ v_hr_stage_dataset_name: edwhr_staging
+ v_hr_base_views_dataset_name: edwhr_base_views
+ v_hr_views_dataset_name: edwhr_views
+ v_hr_bi_views_dataset_name: edwhr_bi_views
+ v_dim_core_dataset_name: edw_dim
+ v_dim_views_dataset_name: edw_dim_views
+ v_fs_core_dataset_name: edwfs
+ v_fs_base_views_dataset_name: edwfs_base_views
+ v_pub_views_dataset_name: edw_pub_views
+ v_dim_base_views_dataset_name : edw_dim_base_views
+ v_hr_bi_views: edwhr_bi_views
+ v_hr_audit_dataset_name: edwhr_ac
+ v_hr_krs_views_dataset_name: edwhr_krs_views
+ v_hr_rstc_views_dataset_name: edwhr_rstc_views
+ v_hr_stnd_views_dataset_name: edwhr_stnd_views
+ v_sec_base_views_dataset_name: edw_sec_base_views
+ v_pf_base_views_dataset_name: edwpf_base_views
+ v_pf_core_dataset_name: edwpf
+ v_ga_base_views_dataset_name: edwga_base_views
+ v_ga_core_dataset_name: edwga
+ 
+# need to test this email list
+ v_success_email_list: 
+ v_failure_email_list: 
+ 
+#secrets
+ v_pwd_secrets_url: projects/8757577841/secrets/
+
+#dataflow buckets  
+ v_gcs_temp_bucket: gs://eim-cs-da-gmek-5764-prod/temp
+ v_dfstagebucket: gs://eim-cs-da-gmek-5764-prod/dfstage
+ v_dfjarbucket: gs://eim-cs-da-gmek-1001-jar-prod/jdbcjars/
+
+#dataflow environment values
+ v_region: us-east4
+ v_zone: us-east4-a
+ v_network: hca-hin-networks-shared-vpc
+ v_subnetwork: https://www.googleapis.com/compute/v1/projects/hca-hin-networks/regions/us-east4/subnetworks/hin-prod-proc-hr-dataflow-us-east4
+ v_serviceaccountemail: df-atos@hca-hin-prod-proc-hr.iam.gserviceaccount.com
+ v_kmskeyname: projects/hca-hin-prod-proc-hr/locations/us-east4/keyRings/hin-keyring-6571d5/cryptoKeys/hin-key-6571d5
+ v_maxworkers: 2
+ v_numworkers: 1
+ v_machinetype: n1-standard-4
+ v_runner: DataflowRunner
+ v_gcpconnid: 3_hca-hin-prod-proc-hr
+ v_bqconnid: 2_hca-hin-prod-cur-hr
+ v_sdkimage: us-docker.pkg.dev/hca-hin-prod-proc-hr/atos-docker-artifact-repo-prod-386a3a
+ v_audittablename: edwhr_ac.audit_control
+
+low_env:
+ v_env_name: qa
+
+ v_landing_project_id : hca-hin-qa-landing-hr
+ v_data_bucket_name: eim-cs-da-gmek-5764-qa

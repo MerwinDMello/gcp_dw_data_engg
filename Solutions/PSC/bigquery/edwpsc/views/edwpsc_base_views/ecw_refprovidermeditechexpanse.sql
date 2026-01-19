@@ -1,0 +1,30 @@
+CREATE OR REPLACE VIEW edwpsc_base_views.`ecw_refprovidermeditechexpanse`
+AS SELECT
+  `ecw_refprovidermeditechexpanse`.providerkey,
+  `ecw_refprovidermeditechexpanse`.regionkey,
+  `ecw_refprovidermeditechexpanse`.providerfirstname,
+  `ecw_refprovidermeditechexpanse`.providerlastname,
+  `ecw_refprovidermeditechexpanse`.providermiddlename,
+  `ecw_refprovidermeditechexpanse`.providerusername,
+  `ecw_refprovidermeditechexpanse`.providername,
+  `ecw_refprovidermeditechexpanse`.provideraddressline1,
+  `ecw_refprovidermeditechexpanse`.provideraddressline2,
+  `ecw_refprovidermeditechexpanse`.providergeographykey,
+  `ecw_refprovidermeditechexpanse`.providerspeciality,
+  `ecw_refprovidermeditechexpanse`.providerlicense,
+  `ecw_refprovidermeditechexpanse`.providergroupid,
+  `ecw_refprovidermeditechexpanse`.providernpi,
+  `ecw_refprovidermeditechexpanse`.providerserviceid,
+  `ecw_refprovidermeditechexpanse`.providertype,
+  `ecw_refprovidermeditechexpanse`.deleteflag,
+  `ecw_refprovidermeditechexpanse`.sourceaprimarykeyvalue,
+  `ecw_refprovidermeditechexpanse`.sourcearecordlastupdated,
+  `ecw_refprovidermeditechexpanse`.dwlastupdatedatetime,
+  `ecw_refprovidermeditechexpanse`.sourcesystemcode,
+  `ecw_refprovidermeditechexpanse`.insertedby,
+  `ecw_refprovidermeditechexpanse`.inserteddtm,
+  `ecw_refprovidermeditechexpanse`.modifiedby,
+  `ecw_refprovidermeditechexpanse`.modifieddtm
+  FROM
+    edwpsc.`ecw_refprovidermeditechexpanse`
+;

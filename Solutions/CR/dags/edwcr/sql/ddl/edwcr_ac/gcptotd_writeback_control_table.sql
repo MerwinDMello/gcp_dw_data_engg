@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS {{ params.param_cr_audit_dataset_name }}.gcptotd_writeback_control_table (
+srctableid INT64,
+bqtable STRING,
+bqdataset STRING,
+bucket_name STRING,
+folder_path STRING,
+filename STRING,
+wildacard STRING,
+extension STRING,
+file_format STRING,
+compression STRING,
+tptscript STRING,
+tptvarscript STRING,
+td_tptloadtable STRING,
+td_targettable STRING,
+loadtype string,
+bq_delta_clause STRING,
+td_delete_clause STRING,
+target_size INT64,
+max_files INT64
+) ;

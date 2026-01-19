@@ -1,0 +1,29 @@
+CREATE OR REPLACE VIEW edwpsc_views.`ecw_facttelstrat`
+AS SELECT
+  `ecw_facttelstrat`.telstratkey,
+  `ecw_facttelstrat`.time,
+  `ecw_facttelstrat`.endtime,
+  `ecw_facttelstrat`.useragent,
+  `ecw_facttelstrat`.ani,
+  `ecw_facttelstrat`.dnis,
+  `ecw_facttelstrat`.port,
+  `ecw_facttelstrat`.portfirstname,
+  `ecw_facttelstrat`.portlastname,
+  `ecw_facttelstrat`.direction,
+  `ecw_facttelstrat`.totalholdtime,
+  `ecw_facttelstrat`.callduration,
+  `ecw_facttelstrat`.patientfirstname,
+  `ecw_facttelstrat`.patientlastname,
+  `ecw_facttelstrat`.patientid,
+  `ecw_facttelstrat`.patientkey,
+  `ecw_facttelstrat`.patientdob,
+  `ecw_facttelstrat`.customerservicerepid,
+  `ecw_facttelstrat`.sourcesystemcode,
+  `ecw_facttelstrat`.dwlastupdatedatetime,
+  `ecw_facttelstrat`.insertedby,
+  `ecw_facttelstrat`.inserteddtm,
+  `ecw_facttelstrat`.modifiedby,
+  `ecw_facttelstrat`.modifieddtm
+  FROM
+    edwpsc_base_views.`ecw_facttelstrat`
+;

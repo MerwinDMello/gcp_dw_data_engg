@@ -1,0 +1,81 @@
+# This is a basic workflow to help you get started with Actions
+
+name: SECRET MANAGER
+on:
+  push:
+    branches:
+      - "qa"
+      - "prd"
+       
+    # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+    
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+#  # This workflow contains a single job called "build"
+  build:
+   # The type of runner that the job will run on
+   runs-on: [ self-hosted, linux, X64, enterprise, onprem ]
+   steps:
+    # Setup Environment files and importing variables
+     - uses: actions/checkout@v3
+     - name: setup uat
+       if: ${{ github.ref == 'refs/heads/qa' }}
+       run: |
+         echo "FILENAME=qa_hrg_config" >> $GITHUB_ENV
+     - name: setup prd
+       if: ${{ github.ref == 'refs/heads/prd' }}
+       run: |
+         echo "FILENAME=prd_hrg_config" >> $GITHUB_ENV
+     - name: Bash commands to convert YAML to JSON
+       run: |
+         yq -r -j environments/${{ env.FILENAME }}.yaml | tee ${{ env.FILENAME }}.json
+         cp environments/${{ env.FILENAME }}.yaml ./dags/config/hrg_config.yaml
+     - name: JSON to variables
+       uses: rgarcia-phi/json-to-variables@v1.1.0
+       with:
+         filename: ${{ env.FILENAME}}.json
+         prefix: infra
+         masked: true
+    # Authentication againt Environment
+     - id: 'authenticate_qa'
+       name: Authenticate to Google Cloud QA environment
+       if: ${{ github.ref == 'refs/heads/qa' }}
+       uses: 'google-github-actions/auth@v0'
+       with:
+         credentials_json: '${{ secrets.GCPSERVICEACCOUNTSECRETUAT }}'
+     - id: 'authenticate_prd'
+       name: Authenticate to Google Cloud PRD environment
+       if: ${{ github.ref == 'refs/heads/prd' }}
+       uses: 'google-github-actions/auth@v0'
+       with:
+         credentials_json: '${{ secrets.GCPSERVICEACCOUNTSECRETPRD }}'
+    # Terraform
+     - name: Terraform Setup
+       uses: hashicorp/setup-terraform@v2
+       with:
+         terraform_version: 1.1.7
+       
+     - name: terraform plan and apply
+       working-directory: ${{ github.event.inputs.resource }}
+       run: |
+         cd terraform
+         terraform init \
+           -backend-config="bucket=${{ env.infra_env_v_dag_bucket_name }}"
+         terraform plan
+         terraform apply --auto-approve
+         
+       env: 
+         TF_VAR_project_id: ${{ env.infra_env_v_proc_project_id}}
+         TF_VAR_ats_infor_credentials: ${{ secrets.ATS_INFOR_CREDENTIALS }}
+         TF_VAR_hca_hrg_hcaps_sftp_connection: ${{ secrets.HCA_HRG_HCAPS_SFTP_CONNECTION }}
+         TF_VAR_landmark_db2_jdbc_pwd: ${{ secrets.LANDMARK_JDBC_PWD }}
+         TF_VAR_lawson_jdbc_pwd: ${{ secrets.LAWSON_JDBC_PWD }}
+         TF_VAR_rdm_jdbc_pwd: ${{ secrets.RDM_JDBC_PWD }}
+         TF_VAR_synapse_jdbc_pwd: ${{ secrets.SYNAPSE_JDBC_PWD }}
+         TF_VAR_tms_sftp_connection: ${{ secrets.TMS_SFTP_CONNECTION }}
+         TF_VAR_enwisen_sftp_connection: ${{ secrets.ENWISEN_SFTP_CONNECTION }}
+         TF_VAR_hca_hrg_precheck_ftp_connection: ${{ secrets.HCA_HRG_PRECHECK_FTP_CONNECTION }}
+         TF_VAR_infor_sftp_passwd: ${{ secrets.INFOR_SFTP_PASSWD }}
+         TF_VAR_enwisen_pgp_public_key: ${{ secrets.ENWISEN_PGP_PUBLIC_KEY }}
+         TF_VAR_enwisen_pgp_private_key: ${{ secrets.ENWISEN_PGP_PRIVATE_KEY }}

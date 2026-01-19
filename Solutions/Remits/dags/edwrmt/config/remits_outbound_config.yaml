@@ -1,0 +1,120 @@
+v_sourcesysnm: remits
+v_databasetype: sqlserver
+v_database: AdmitToRemit
+v_port: 1433
+v_secret_name: revapp_claims_remits_sql/versions/latest
+v_jdbc_class_name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+v_jdbc_jar: mssql-jdbc-12.4.0.jre8.jar
+v_jdkfile: jre-8u351-linux-x64.tar.gz
+v_jdkversion: jre1.8.0_351
+v_jdbcbqpytemplate: BigQuery_to_Remits_PythonTemplate.py
+v_jdbcbqpytruncatetemplate: Truncate_Sql_Tables.py
+
+v_machine_type: n1-standard-4
+
+ecash_sql: "SELECT '00000' AS pas_coid,
+       r.patient_remit_sid,
+       r.unit_num,
+       r.patient_acct_num,
+       r.remit_payment_amt,
+       r.iplan,
+       f.iplan_id_ins2 AS iplan2,
+       r.remit_claim_status_cd as  claim_status_code,
+       r.payer_claim_ctrll_num,
+       r.tot_claim_charge_amt,
+       f.financial_class_code,
+       cast(m.remit_entered_dt as string) remit_entered_date,
+       cast(m.remit_effective_dt as string) remit_effective_date,
+       substr('', 1, 5) AS eppayernum,
+       substr('', 1, 2) AS payerbatchlabel,
+       concat(r.remit_file_path, '\\\\', r.remit_file_name) AS full_file_path,
+    r.customer_cd,
+    'v_currtimestamp' as CreatedDateTime
+  FROM
+    (
+      SELECT
+          fact_patient_remit.*
+        FROM
+          {{ params.param_rmt_core_dataset_name }}.fact_patient_remit
+        WHERE fact_patient_remit.patient_acct_num IS NOT NULL
+         AND {{ params.param_bqutil_fns_dataset_name }}.isnumeric(fact_patient_remit.patient_acct_num) = 0
+         AND length(trim(fact_patient_remit.patient_acct_num, ' ')) <= 12
+         AND rtrim(upper(to_hex(CAST(upper(fact_patient_remit.patient_acct_num) as BYTES))), ' ') = rtrim(upper(to_hex(CAST(lower(fact_patient_remit.patient_acct_num) as BYTES))), ' ')
+         AND fact_patient_remit.patient_acct_num NOT LIKE '%-%'
+         AND rtrim(fact_patient_remit.patient_acct_num, ' ') <> '999'
+         AND DATE(fact_patient_remit.dw_last_update_date_time) > DATE '2017-06-21'
+    ) AS r
+    INNER JOIN {{ params.param_rmt_core_dataset_name }}.fact_master_remit AS m ON upper(rtrim(m.remit_id, ' ')) = upper(rtrim(r.remit_id, ' '))
+    INNER JOIN edwpbs.fact_patient_crnt AS f ON upper(rtrim(f.unit_num, ' ')) = upper(rtrim(r.unit_num, ' '))
+     AND f.pat_acct_num = ROUND(CAST({{ params.param_bqutil_fns_dataset_name }}.cw_td_normalize_number(r.patient_acct_num) as NUMERIC), 0, 'ROUND_HALF_EVEN')
+     AND UPPER(RTRIM(LPAD(CAST(F.IPlan_ID_Ins1 AS STRING), 5, '0'))) = UPPER(RTRIM(CAST(R.IPLAN AS STRING)))
+     AND iplan_id_ins2 > 0
+  WHERE( 
+       (m.remit_effective_dt = date_sub(current_date('US/Central'), interval 1 DAY)) 
+        OR 
+        (m.remit_effective_dt < date_sub(current_date('US/Central'), interval 1 DAY) 
+         AND DATE(r.dw_last_update_date_time) = date_sub(current_date('US/Central'), interval 1 DAY)) 
+          )
+   AND upper(rtrim(r.customer_cd, ' ')) IN(
+    'ECASH')~insert~10000"
+
+nonmedicare_sql: "SELECT max('00000') AS pas_coid,
+       max(r.patient_remit_sid) AS patient_remit_sid,
+       max(r.unit_num) AS unit_num,
+       max(r.patient_acct_num) AS patient_acct_num,
+       r.remit_payment_amt,
+       max(r.iplan) AS iplan,
+       f.iplan_id_ins2 AS iplan2,
+       max(r.remit_claim_status_cd) AS claim_status_code,
+       max(r.payer_claim_ctrll_num) AS payer_claim_ctrll_num,
+       r.tot_claim_charge_amt,
+       f.financial_class_code,
+       cast(m.remit_entered_dt as string) remit_entered_date,
+       cast(m.remit_effective_dt as string) remit_effective_date,
+       max(p.eppayernum) AS eppayernum,
+       max(p.payerbatchlabel) AS payerbatchlabel,
+       max(concat(r.remit_file_path, '\\\\', r.remit_file_name)) AS full_file_path,
+    max(r.customer_cd) AS customer_cd,
+    'v_currtimestamp' as CreatedDateTime
+  FROM
+    (
+      SELECT
+          fact_patient_remit.*
+        FROM
+          {{ params.param_rmt_core_dataset_name }}.fact_patient_remit
+        WHERE fact_patient_remit.patient_acct_num IS NOT NULL
+         AND {{ params.param_bqutil_fns_dataset_name }}.isnumeric(fact_patient_remit.patient_acct_num) = 0
+         AND length(trim(fact_patient_remit.patient_acct_num, ' ')) <= 12
+         AND rtrim(upper(to_hex(CAST(upper(fact_patient_remit.patient_acct_num) as BYTES))), ' ') = rtrim(upper(to_hex(CAST(lower(fact_patient_remit.patient_acct_num) as BYTES))), ' ')
+         AND fact_patient_remit.patient_acct_num NOT LIKE '%-%'
+         AND rtrim(fact_patient_remit.patient_acct_num, ' ') <> '999'
+         AND DATE(fact_patient_remit.dw_last_update_date_time) > DATE '2017-06-21'
+    ) AS r
+    INNER JOIN {{ params.param_rmt_core_dataset_name }}.fact_master_remit AS m ON upper(rtrim(m.remit_id, ' ')) = upper(rtrim(r.remit_id, ' '))
+    INNER JOIN {{ params.param_rmt_core_dataset_name }}.ep_rmt_recon AS p ON upper(rtrim(p.unitnum, ' ')) = upper(rtrim(r.unit_num, ' '))
+     AND ROUND(CAST({{ params.param_bqutil_fns_dataset_name }}.cw_td_normalize_number(p.patacctnum) as NUMERIC), 0, 'ROUND_HALF_EVEN') = ROUND(CAST({{ params.param_bqutil_fns_dataset_name }}.cw_td_normalize_number(r.patient_acct_num) as NUMERIC), 0, 'ROUND_HALF_EVEN')
+     AND upper(rtrim(m.check_num, ' ')) = upper(rtrim(p.paymentchknum, ' '))
+     AND upper(rtrim(p.iplan, ' ')) = upper(rtrim(r.iplan, ' '))
+    INNER JOIN edwpbs.fact_patient_crnt AS f ON upper(rtrim(f.unit_num, ' ')) = upper(rtrim(r.unit_num, ' '))
+     AND f.pat_acct_num = ROUND(CAST({{ params.param_bqutil_fns_dataset_name }}.cw_td_normalize_number(r.patient_acct_num) as NUMERIC), 0, 'ROUND_HALF_EVEN')
+     AND  UPPER(RTRIM(LPAD(CAST(F.IPlan_ID_Ins1 AS STRING), 5, '0'))) =  UPPER(RTRIM(CAST(R.IPLAN AS STRING)))
+     AND iplan_id_ins2 > 0
+     WHERE ((m.remit_effective_dt = date_sub(current_date('US/Central'), interval 1 DAY))
+      OR (m.remit_effective_dt < date_sub(current_date('US/Central'), interval 1 DAY)
+      AND DATE(r.dw_last_update_date_time) = date_sub(current_date('US/Central'), interval 1 DAY))
+      ) 
+      AND upper(rtrim(r.customer_cd, ' ')) IN('HCA', 'HCAD' )
+      GROUP BY upper(r.patient_remit_sid), upper(r.unit_num), upper(r.patient_acct_num), 5, upper(r.iplan), 7, upper(r.remit_claim_status_cd), upper(r.payer_claim_ctrll_num), 10, 11, 12, 13, upper(p.eppayernum), upper(p.payerbatchlabel), upper(concat(r.remit_file_path, '\\\\', r.remit_file_name)),
+      upper(r.customer_cd)~insert~10000"
+
+remits:
+  - schedule_interval: None
+    start_date: pendulum.datetime(2024, 9, 1, tz=timezone)
+    frequency: daily
+    dag_name_suffix: secondary_bill
+    done_file: NONE
+    has_sensor: 'No'
+    sql: [ecash_sql,nonmedicare_sql]
+    tgttablename: [SecondaryBillingStg,SecondaryBillingStg]
+    truncatetablelist: [SecondaryBillingStg]
+    trigger_dag_ids: ['dag_postprocesspolling_remits_sqlserver_daily_secondary_bill']

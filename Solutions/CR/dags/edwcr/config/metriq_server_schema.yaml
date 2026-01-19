@@ -1,0 +1,4 @@
+metriq:
+- server: "cannwqdbsmeq01.hcaqa.corpadqa.net"
+  schema: 
+    - name: ["1433","CANNSVCCDMETL",""]

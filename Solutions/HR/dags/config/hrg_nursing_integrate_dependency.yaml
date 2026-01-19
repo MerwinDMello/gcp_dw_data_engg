@@ -1,0 +1,15 @@
+integrate:
+- source_system: nursing
+  frequency: daily
+  start_date: pendulum.datetime(2023, 6, 30, tz=timezone)
+  schedule: ["30 10 * * * "]
+  type: core_tables
+  dependency:
+  - table: employee_nurse_detail
+    has_sensor: 'Yes'
+    sql:
+    - name: hdw_employee_nurse_detail_core.sql
+    sensor:
+    - dag_id: dag_ingest_nursing_sftp_daily_10.30
+      task_id:  TG-table-employee_nurse_detail_stg.archive_srcfile_employee_nurse_detail_stg
+      schedule: [30 10 * * *]

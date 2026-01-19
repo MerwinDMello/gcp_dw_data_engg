@@ -1,0 +1,36 @@
+CREATE OR REPLACE VIEW edwpsc_base_views.`onbase_factremoteprintrequest`
+AS SELECT
+  `onbase_factremoteprintrequest`.documenthandle,
+  `onbase_factremoteprintrequest`.queuename,
+  `onbase_factremoteprintrequest`.itemname,
+  `onbase_factremoteprintrequest`.lifecyclename,
+  `onbase_factremoteprintrequest`.documenttype,
+  `onbase_factremoteprintrequest`.entrydate,
+  `onbase_factremoteprintrequest`.exitdate,
+  `onbase_factremoteprintrequest`.username,
+  `onbase_factremoteprintrequest`.userid,
+  `onbase_factremoteprintrequest`.status,
+  `onbase_factremoteprintrequest`.datestored,
+  `onbase_factremoteprintrequest`.itemstatus,
+  `onbase_factremoteprintrequest`.patientname,
+  `onbase_factremoteprintrequest`.dwlastupdatedatetime,
+  `onbase_factremoteprintrequest`.sourcesystemcode,
+  `onbase_factremoteprintrequest`.insertedby,
+  `onbase_factremoteprintrequest`.inserteddtm,
+  `onbase_factremoteprintrequest`.modifiedby,
+  `onbase_factremoteprintrequest`.modifieddtm,
+  `onbase_factremoteprintrequest`.servername,
+  `onbase_factremoteprintrequest`.region,
+  `onbase_factremoteprintrequest`.cliniccode,
+  `onbase_factremoteprintrequest`.patientaccountnumber,
+  `onbase_factremoteprintrequest`.workflowtransactionnumber,
+  `onbase_factremoteprintrequest`.workflowtransactionentrydate,
+  `onbase_factremoteprintrequest`.workflowtransactionexitdate,
+  `onbase_factremoteprintrequest`.workflowtransactiontype,
+  `onbase_factremoteprintrequest`.workflowtransactionname,
+  `onbase_factremoteprintrequest`.workflowtransactionusername,
+  `onbase_factremoteprintrequest`.workflowtransactionuserid,
+  `onbase_factremoteprintrequest`.onbaseremoteprintrequestkey
+  FROM
+    edwpsc.`onbase_factremoteprintrequest`
+;

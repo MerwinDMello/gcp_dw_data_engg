@@ -1,0 +1,37 @@
+CREATE TABLE IF NOT EXISTS edwpsc.ecw_rprticcclaimtimeline
+(
+  snapshotdate DATE,
+  claimkey INT64,
+  coid STRING,
+  servicingprovidername STRING,
+  iplan1iplankey INT64,
+  primaryiplanname STRING,
+  primaryinsfinancialclass STRING,
+  servicedatekey DATE,
+  claimdatekey DATE,
+  firstpatientstatementbilldatekey DATE,
+  firstpatientclaimpaymentdatekey DATE,
+  daysfromservicetoclaimkeydate INT64,
+  rhprimaryminsubmissiondatekey DATE,
+  daysfromclaimkeytosubmitdate INT64,
+  rhprimaryminreleasedatekey DATE,
+  rhprimaryreleasecount INT64,
+  daysfromsubmittoreleasedate INT64,
+  relayreleasestatus STRING,
+  payerfirstclaimpaymentdatekey DATE,
+  daysfromreleasetofirstpaymentdate INT64,
+  payerlastclaimpaymentdatekey DATE,
+  daysfromreleasetolastpaymentdate INT64,
+  daysfromfirsttolastpaymentdate INT64,
+  totalchargesamt NUMERIC(33, 4),
+  totalprimaryinsurancepayments NUMERIC(33, 4),
+  firstprimaryinsurancepayment NUMERIC(33, 4),
+  lastminusfirstpayment NUMERIC(33, 4),
+  insertedby STRING,
+  inserteddtm DATETIME,
+  modifiedby STRING,
+  modifieddtm DATETIME,
+  dwlastupdatedatetime DATETIME
+)
+PARTITION BY snapshotdate
+;

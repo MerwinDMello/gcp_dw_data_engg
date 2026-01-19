@@ -1,0 +1,26 @@
+create table if not exists `{{ params.param_hr_stage_dataset_name }}.employee_performance_review_wrk`
+(
+  employee_sid INT64 NOT NULL,
+  review_sequence_num INT64 NOT NULL,
+  valid_from_date DATETIME NOT NULL,
+  valid_to_date DATETIME,
+  reviewer_employee_sid INT64,
+  scheduled_review_date DATE,
+  review_type_code STRING,
+  actual_review_date DATE,
+  performance_rating_code STRING,
+  last_update_date DATE,
+  last_update_time TIME,
+  last_updated_3_4_login_code STRING,
+  total_score_num NUMERIC,
+  review_desc STRING,
+  review_schedule_type_code STRING,
+  next_review_date DATE,
+  next_review_code STRING,
+  last_review_date DATE,
+  employee_num INT64 NOT NULL,
+  lawson_company_num INT64 NOT NULL,
+  process_level_code STRING,
+  source_system_code STRING NOT NULL,
+  dw_last_update_date_time DATETIME NOT NULL
+)

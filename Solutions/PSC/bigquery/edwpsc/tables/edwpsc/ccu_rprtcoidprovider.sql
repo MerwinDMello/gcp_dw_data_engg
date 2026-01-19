@@ -1,0 +1,38 @@
+CREATE TABLE IF NOT EXISTS edwpsc.ccu_rprtcoidprovider
+(
+  ccucoidproviderhistorykey INT64 NOT NULL,
+  morsnapshotdatekey DATE,
+  coid STRING,
+  coidstartdatekey DATE,
+  coidtermdatekey DATE,
+  coidsystem STRING,
+  coidconsolidationdate STRING,
+  ccudiscontinueddate STRING,
+  coidcentralizedstatus STRING,
+  coidstatus STRING,
+  coidlevelofcentralization STRING,
+  gmecoid STRING,
+  providernpi STRING,
+  providername STRING,
+  providerspecialty STRING,
+  providerstartdatekey DATE,
+  providertermdatekey DATE,
+  providerstatus STRING,
+  providercentralizedstatus STRING,
+  providergroupassignment STRING,
+  fte NUMERIC(32, 3),
+  providercountactive NUMERIC(35, 6),
+  providercounttermed INT64,
+  providercountarchiveclosed INT64,
+  coidcount INT64,
+  loaddate DATE,
+  dwlastupdatedatetime DATETIME,
+  insertedby STRING,
+  inserteddtm DATETIME,
+  modifiedby STRING,
+  modifieddtm DATETIME,
+  coidexclusionflag STRING,
+  snapshotdate DATE
+)
+PARTITION BY snapshotdate
+;

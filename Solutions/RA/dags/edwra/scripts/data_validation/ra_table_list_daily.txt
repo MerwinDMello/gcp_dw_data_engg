@@ -1,0 +1,61 @@
+#src~teradata_schema~teradata_table~td_where_clause~bigquery_dataset~bigquery_table~bq_where_clause~ignore_cols~mir_where_clause~comments
+teradata~edwra~ref_cc_patient_type~~edwra~~~'dw_last_update_time'~~
+teradata~edwra~cc_financial_transaction_dist~~edwra~~where 1=1 and trim(coid) in ('30928', '30923', '27300','36957','26110','34224', '27165', '34335', '34415', '26985')~~~
+teradata~edwra~ref_cc_cers_term~~edwra~~~~~
+teradata~edwra~cc_eor_calculation~~edwra~~where 1=1 and trim(coid) in ('30928', '30923', '27300','36957','26110','34224', '27165', '34335', '34415', '26985')~~~
+teradata~edwra~ref_path_issue~~edwra~~~~~
+teradata~edwra~cc_account_act_recipient~~edwra~~~~~
+teradata~edwra~cc_account_condition_code~~edwra~~~~~
+teradata~edwra~cc_account_occur_span_code~~edwra~~~~~
+teradata~edwra~cc_appeal~~edwra~~~~~
+teradata~edwra~cc_appeal_sequence~~edwra~~~~~
+teradata~edwra~cc_denial~~edwra~~~~~
+teradata~edwra~cc_facility_iplan~~edwra~~~~~
+teradata~edwra~cc_facility_iplan_contract~~edwra~~~~~
+teradata~edwra~cc_patient_account_audit~~edwra~~~~~
+teradata~edwra~cc_reimbursement_discrepancy~~edwra~~~~~
+teradata~edwra~cc_remittance_day_cnt~~edwra~~~~~
+teradata~edwra~cc_remittance_remark~~edwra~~~~~
+teradata~edwra~ref_cc_account_payer_stts~~edwra~~~~~
+teradata~edwra~ref_cc_activity_type~~edwra~~~~~
+teradata~edwra~ref_cc_appeal_code~~edwra~~~~~
+teradata~edwra~ref_cc_appeal_disp_code~~edwra~~~~~
+teradata~edwra~ref_cc_appeal_var_adj~~edwra~~~~~
+teradata~edwra~ref_cc_ce_service~~edwra~~~~~
+teradata~edwra~ref_cc_cers_profile~~edwra~~~~~
+teradata~edwra~ref_cc_cost_report_period~~edwra~~~~~
+teradata~edwra~ref_cc_preset_value_group~~edwra~~~~~
+teradata~edwra~ref_cc_project~~edwra~~~~~
+teradata~edwra~ref_cc_reason~~edwra~~~~~
+teradata~edwra~ref_cc_root_cause~~edwra~~~~~
+teradata~edwra~ref_cc_user~~edwra~~~~~
+teradata~edwra~ref_cc_cers_category~~edwra~~~~~
+teradata~edwra~ref_cc_eapg_code_def~~edwra~~~~~
+teradata~edwra~ref_cc_fin_acct_period~~edwra~~~~~
+teradata~edwra~ref_cc_fin_transaction~~edwra~~~~~
+teradata~edwra~ref_cc_org_structure~~edwra~~~~~
+teradata~edwra~ref_cc_ra_code_def~~edwra~~~~~
+teradata~edwra~ref_cc_status_category~~edwra~~~~~
+teradata~edwra~ref_cc_vendor~~edwra~~~~~
+teradata~edwra~cc_financial_transaction~~edwra~~where 1=1 and cast(dw_last_update_date_time as date) > '2020-12-31'~~~
+teradata~edwra~cc_remittance~~edwra~~where 1=1 and trim(coid) in ('30928', '30923', '27300','36957','26110','34224', '27165', '34335', '34415', '26985')~~~
+teradata~edwra~cc_account_occur_code~~edwra~~where 1=1 and trim(coid) in ('30928', '30923', '27300','36957','26110','34224', '27165', '34335', '34415', '26985')~~~
+teradata~edwra~cc_account_payor~~edwra~~where 1=1 and cast(dw_last_update_date_time as date) > '2020-12-31'~~~
+teradata~edwra~cc_account_activity~~edwra~~where 1=1 and trim(coid) in ('30928', '30923', '27300','36957','26110','34224', '27165', '34335', '34415', '26985')~~~
+teradata~edwra~cc_eor_eapg_grouper~~edwra~~where 1=1 and trim(coid) in ('30928', '30923', '27300','36957','26110','34224', '27165', '34335', '34415', '26985')~~~
+teradata~edwra~cc_remittance_advice~~edwra~~where 1=1 and trim(coid) in ('30928', '30923', '27300','36957','26110','34224', '27165', '34335', '34415', '26985')~~~
+teradata~edwra~cc_account~~edwra~~where 1=1 and cast(dw_last_update_date_time as date) > '2020-12-31'~~~
+teradata~edwra~cc_eor_calculation_service~~edwra~~where 1=1 and trim(coid) in ('30928', '30923', '27300','36957','26110','34224', '27165', '34335', '34415', '26985')~~~
+teradata~edwra~cc_discrepancy~~edwra~~where 1=1 and trim(coid) in ('30928', '30923', '27300','36957','26110','34224', '27165', '34335', '34415', '26985')~~~
+teradata~edwra~cc_eom~~edwra~~where 1=1 and trim(coid) in ('30928', '30923', '27300','36957','26110','34224', '27165', '34335', '34415', '26985')~~~
+teradata~edwra~cc_reimb_lifecycle_event~~edwra~~where 1=1 and trim(coid) in ('30928', '30923', '27300','36957','26110','34224', '27165', '34335', '34415', '26985')~~~
+teradata~edwra~cc_eor~~edwra~~where 1=1 and trim(coid) in ('30928', '30923', '27300','36957','26110','34224', '27165', '34335', '34415', '26985')~~~
+teradata~edwra~cc_account_value_code~~edwra~~where 1=1 and trim(coid) in ('30928', '30923', '27300','36957','26110','34224', '27165', '34335', '34415', '26985')~~~
+teradata~edwra~ref_cc_cers_wf_task_owner~~edwra~~where 1=1 and trim(coid) in ('30928', '30923', '27300','36957','26110','34224', '27165', '34335', '34415', '26985')~~~
+teradata~edwra~ref_cc_cers_wf_task~~edwra~~where 1=1 and trim(coid) in ('30928', '30923', '27300','36957','26110','34224', '27165', '34335', '34415', '26985')~~~
+teradata~edwra~cc_eor_amount~~edwra~~where 1=1 and trim(coid) in ('30928', '30923', '27300','36957','26110','34224', '27165', '34335', '34415', '26985')~~~
+teradata~edwra~cc_remit_reimb_amount~~edwra~~where 1=1 and trim(coid) in ('30928', '30923', '27300','36957','26110','34224', '27165', '34335', '34415', '26985')~~~
+teradata~edwra~cc_account_payor_issue~~edwra~~~~~
+teradata~edwra~cc_eor_eapg_calculation~~edwra~~~~~
+teradata~edwra_staging~cc_denial_eow~~~~~~~
+teradata~edwra~cc_denial_eom~~~~~~~

@@ -1,0 +1,35 @@
+CREATE TABLE IF NOT EXISTS edwpsc.ecw_factsnapshotclaimsonhold
+(
+  monthid INT64,
+  snapshotdate DATE,
+  loaddatekey DATE,
+  claimkey INT64,
+  claimnumber INT64,
+  claimbalance NUMERIC(33, 4),
+  regionkey INT64,
+  artivaruleid NUMERIC(29),
+  artivaruledesc STRING,
+  artivaruleowner STRING,
+  artivarulecategoryid NUMERIC(29),
+  artivaholdcodeid STRING,
+  artivaholdcodedescription STRING,
+  artivaholdcodetype STRING,
+  artivappiidpe NUMERIC(29),
+  artivappitypepe STRING,
+  artivappiidedi NUMERIC(29),
+  artivappitypeedi STRING,
+  artivappiphase STRING,
+  artivarulecreatedate DATE,
+  artivaruleactiveflag INT64,
+  artivaruleglobalflag INT64,
+  artivarulesource STRING,
+  artivarulelastupdatedate DATE,
+  artivarulelastupdatenote STRING,
+  artivarulelastupdateby STRING,
+  artivaholdcoderiskreportflag STRING,
+  sourcesystemcode STRING,
+  insertedby STRING,
+  inserteddtm DATETIME
+)
+PARTITION BY snapshotdate
+;

@@ -1,0 +1,71 @@
+# edwclm variables to use in DAGs for the dev environment
+# note the yaml syntax, single space after colon
+env:
+ v_env_name: qa
+ v_curated_conn_id: hca-hin-qa-cur-parallon
+ v_lob: edwclm
+
+# gcp projects
+ v_proc_project_id: hca-hin-qa-proc-parallon
+ v_landing_project_id: hca-hin-qa-landing-parallon
+ v_curated_project_id: hca-hin-qa-cur-parallon
+ v_pub_project_id: hca-hin-qa-cur-pub
+ v_mirroring_project_id: hca-hin-curated-mirroring-td
+ v_monitoring_project_id: hca-hin-monitoring-parallon
+ 
+# gcs bucket names, note this does not start with gs://
+ v_dag_bucket_name: us-east4-composerv2-9-6-qa-2b896e8f-bucket
+ v_data_bucket_name: parallon-clm-data-qa
+ v_data_archive_bucket_name: parallon-clm-data-qa
+
+# folder structure in buckets 
+ v_srcfilesdir: edwclmdata/srcfiles/
+ v_archivedir: edwclmdata/srcfilesarchive/
+ v_tgtfilesdir: edwclmdata/outboundfiles/
+ v_tmpobjdir: edwclmdata/tmp/
+ v_schemasubdir: schema/edwclm/
+
+# big query datasets
+ v_clm_core_dataset_name: edwclm
+ v_clm_stage_dataset_name: edwclm_staging
+ v_clm_base_views_dataset_name: edwclm_base_views
+ v_clm_views_dataset_name: edwclm_views
+ v_clm_audit_dataset_name: edwclm_ac
+ v_pub_views_dataset_name: edw_pub_views
+ v_sec_core_dataset_name: edw_sec
+ v_sec_base_views_dataset_name: edw_sec_base_views
+ v_auth_base_views_dataset_name: auth_base_views
+ v_bqutil_fns_dataset_name: bqutil_fns
+ v_monitoring_views_dataset_name: edwpara_ac
+ v_monitoring_sink_dataset_name: bq_sink_c12b63_log
+ v_clm_mirrored_core_dataset_name: edwclm
+ v_clm_mirrored_base_views_dataset_name: edwclm_base_views_copy
+ v_rmt_rpt_views_dataset_name: edwrmt_rpt_views
+
+# secrets
+# The number in the url is the GCP project number, distinct for each envt
+ v_secrets_url: projects/330922197763/secrets/
+ v_kmskeyname: projects/hca-hin-qa-proc-parallon/locations/us/keyRings/hin-keyring-4b71aa/cryptoKeys/hin-key-4b71aa 
+
+# dataflow buckets  (if applicable)
+ v_gcs_temp_bucket: gs://parallon-clm-config-qa/temp
+ v_dfstagebucket: gs://parallon-clm-config-qa/dfstage
+ v_dfjarbucket: gs://parallon-clm-config-qa/jdbcjars/
+
+# dataflow environment values
+ v_region: us-east4 # Confirm this is correct, adjust if not, then delete this instruction
+ v_zone: us-east4-a # Confirm this is correct, adjust if not, then delete this instruction
+ v_network: hca-hin-networks-shared-vpc # Confirm this is correct, adjust if not, then delete this instruction
+ v_subnetwork: https://www.googleapis.com/compute/v1/projects/hca-hin-networks/regions/us-east4/subnetworks/hin-qa-proc-parallon-dataflow-us-east4 # Confirm this is correct, adjust if not, then delete this instruction
+ v_serviceaccountemail: df-atos@hca-hin-qa-proc-parallon.iam.gserviceaccount.com
+ v_maxworkers: 2 # Confirm this is correct, adjust if not, then delete this instruction
+ v_numworkers: 1 # Confirm this is correct, adjust if not, then delete this instruction
+ v_machinetype: n1-standard-4 # Confirm this is correct, adjust if not, then delete this instruction
+ v_runner: DataflowRunner
+ v_gcpconnid: 3_hca-hin-qa-proc-parallon # Confirm this is correct, adjust if not, then delete this instruction
+ v_bqconnid: 2_hca-hin-qa-cur-parallon # Confirm this is correct, adjust if not, then delete this instruction
+ v_bqpytemplate: FileServer_to_BigQuery_PythonTemplate.py
+
+#docker image and audit table name
+#  v_sdkimage: 
+ v_audittablename: edwclm_ac.audit_control # Confirm this is correct, adjust if not, then delete this instruction

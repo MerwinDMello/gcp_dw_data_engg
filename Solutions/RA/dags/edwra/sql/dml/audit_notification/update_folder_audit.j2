@@ -1,0 +1,6 @@
+UPDATE {{ params.param_parallon_ra_core_dataset_name }}.folder_audit
+SET target_folder_path = '{{ target_folder_path }}',
+	table_file_count = {{ table_file_count }},
+	load_date_time = datetime_trunc(current_datetime('US/Central'), SECOND)
+WHERE file_type = '{{ file_name_mnemonic }}'
+AND ssc_name = '{{ operational_group }}';

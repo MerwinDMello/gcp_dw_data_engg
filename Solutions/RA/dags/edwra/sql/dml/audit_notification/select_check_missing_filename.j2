@@ -1,0 +1,9 @@
+SELECT COUNT(*) > 0
+FROM
+{{ params.param_parallon_ra_base_views_dataset_name }}.source_filenames src_fl
+FULL OUTER JOIN
+{{ params.param_parallon_ra_base_views_dataset_name }}.target_filenames tgt_fl
+ON src_fl.file_name = tgt_fl.file_name
+WHERE 
+(src_fl.file_name IS NULL OR tgt_fl.file_name IS NULL)
+AND (src_fl.ssc_name = '{{ operational_group }}' OR tgt_fl.ssc_name = '{{ operational_group }}')

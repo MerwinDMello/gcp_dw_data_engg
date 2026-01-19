@@ -1,0 +1,37 @@
+CREATE OR REPLACE VIEW edwpsc_views.`artiva_stgpsprovider`
+AS SELECT
+  `artiva_stgpsprovider`.pspraddr,
+  `artiva_stgpsprovider`.psprbillfac,
+  `artiva_stgpsprovider`.psprcity,
+  `artiva_stgpsprovider`.psprclaimprefix,
+  `artiva_stgpsprovider`.psprcredentials,
+  `artiva_stgpsprovider`.psprdeano,
+  `artiva_stgpsprovider`.psprdob,
+  `artiva_stgpsprovider`.psprdoctortype,
+  `artiva_stgpsprovider`.psprfirstname,
+  `artiva_stgpsprovider`.psprfullname,
+  `artiva_stgpsprovider`.psprgrpnpi,
+  `artiva_stgpsprovider`.psprid,
+  `artiva_stgpsprovider`.psprinactive,
+  `artiva_stgpsprovider`.psprlastname,
+  `artiva_stgpsprovider`.psprmi,
+  `artiva_stgpsprovider`.psprnotificationnote,
+  `artiva_stgpsprovider`.psprnpi,
+  `artiva_stgpsprovider`.psprorgtype,
+  `artiva_stgpsprovider`.psprprimsvcloc,
+  `artiva_stgpsprovider`.psprprimsvclocadr,
+  `artiva_stgpsprovider`.psprprimsvcloccty,
+  `artiva_stgpsprovider`.psprprimsvclocst,
+  `artiva_stgpsprovider`.psprprimsvcloczip,
+  `artiva_stgpsprovider`.psprspecgrp,
+  `artiva_stgpsprovider`.psprspecialty,
+  `artiva_stgpsprovider`.psprspecialtycode,
+  `artiva_stgpsprovider`.psprst,
+  `artiva_stgpsprovider`.psprtaxid,
+  `artiva_stgpsprovider`.psprtaxonomycd,
+  `artiva_stgpsprovider`.psprupin,
+  `artiva_stgpsprovider`.psprzip,
+  `artiva_stgpsprovider`.psprreferphy
+  FROM
+    edwpsc_base_views.`artiva_stgpsprovider`
+;

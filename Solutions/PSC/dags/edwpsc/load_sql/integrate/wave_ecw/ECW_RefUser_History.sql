@@ -1,0 +1,49 @@
+
+DECLARE DUP_COUNT INT64;
+
+BEGIN TRANSACTION;
+
+MERGE INTO {{ params.param_psc_core_dataset_name }}.ECW_RefUser_History AS target
+USING {{ params.param_psc_stage_dataset_name }}.ECW_RefUser_History AS source
+ON target.UserKey = source.UserKey AND target.SysStartTime = source.SysStartTime AND target.SysEndTime = source.SysEndTime
+WHEN MATCHED THEN
+  UPDATE SET
+  target.UserKey = source.UserKey,
+ target.UserFirstName = TRIM(source.UserFirstName),
+ target.UserLastName = TRIM(source.UserLastName),
+ target.UserMiddleName = TRIM(source.UserMiddleName),
+ target.UserName = TRIM(source.UserName),
+ target.UserPrimaryServiceLocation = source.UserPrimaryServiceLocation,
+ target.UserType = source.UserType,
+ target.SourcePrimaryKeyValue = source.SourcePrimaryKeyValue,
+ target.SourceRecordLastUpdated = source.SourceRecordLastUpdated,
+ target.DWLastUpdateDateTime = source.DWLastUpdateDateTime,
+ target.SourceSystemCode = TRIM(source.SourceSystemCode),
+ target.InsertedBy = TRIM(source.InsertedBy),
+ target.InsertedDTM = source.InsertedDTM,
+ target.ModifiedBy = TRIM(source.ModifiedBy),
+ target.ModifiedDTM = source.ModifiedDTM,
+ target.DeleteFlag = source.DeleteFlag,
+ target.RegionKey = source.RegionKey,
+ target.SysStartTime = source.SysStartTime,
+ target.SysEndTime = source.SysEndTime
+WHEN NOT MATCHED THEN
+  INSERT (UserKey, UserFirstName, UserLastName, UserMiddleName, UserName, UserPrimaryServiceLocation, UserType, SourcePrimaryKeyValue, SourceRecordLastUpdated, DWLastUpdateDateTime, SourceSystemCode, InsertedBy, InsertedDTM, ModifiedBy, ModifiedDTM, DeleteFlag, RegionKey, SysStartTime, SysEndTime)
+  VALUES (source.UserKey, TRIM(source.UserFirstName), TRIM(source.UserLastName), TRIM(source.UserMiddleName), TRIM(source.UserName), source.UserPrimaryServiceLocation, source.UserType, source.SourcePrimaryKeyValue, source.SourceRecordLastUpdated, source.DWLastUpdateDateTime, TRIM(source.SourceSystemCode), TRIM(source.InsertedBy), source.InsertedDTM, TRIM(source.ModifiedBy), source.ModifiedDTM, source.DeleteFlag, source.RegionKey, source.SysStartTime, source.SysEndTime);
+
+SET DUP_COUNT = (
+  SELECT COUNT(*)
+  FROM (
+      SELECT UserKey, SysStartTime, SysEndTime
+      FROM {{ params.param_psc_core_dataset_name }}.ECW_RefUser_History
+      GROUP BY UserKey, SysStartTime, SysEndTime
+      HAVING COUNT(*) > 1
+  )
+);
+
+IF DUP_COUNT <> 0 THEN
+  ROLLBACK TRANSACTION;
+  RAISE USING MESSAGE = CONCAT('Duplicates are not allowed in the table {{ params.param_psc_core_dataset_name }}.ECW_RefUser_History');
+ELSE
+  COMMIT TRANSACTION;
+END IF;

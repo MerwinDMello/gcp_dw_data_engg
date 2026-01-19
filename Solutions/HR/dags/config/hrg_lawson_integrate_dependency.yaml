@@ -1,0 +1,233 @@
+integrate:
+- source_system: lawson
+  frequency: daily
+  start_date: pendulum.datetime(2022, 12, 6, tz=timezone)
+  schedule: ["0 4 * * *"]
+  type: core_tables
+  dependency:
+  - table: t01_address
+    has_sensor: 'Yes'
+    sql:
+    - name: hdw_address_load.sql
+    sensor:
+    - dag_id: dag_integrate_lawson_ref_core_tables_daily_04.00
+      task_id: end_job
+      schedule: ["0 4 * * *"]
+  - table: t02_hr_company
+    has_sensor: 'No'
+    sql:
+    - name: hdw_hr_company_load.sql
+  - table: t03_company_pay_schedule
+    has_sensor: 'No'
+    sql:
+    - name: hdw_company_pay_schedule_load.sql
+  - table: t04_job_class
+    has_sensor: 'No'
+    sql:
+    - name: hdw_job_class_load.sql
+  - table: t05_process_level
+    has_sensor: 'No'
+    sql:
+    - name: hdw_process_level_load.sql
+  - table: t06_requisition
+    has_sensor: 'No'
+    sql:
+    - name: hdw_requisition_load.sql
+  - table: t07_status
+    has_sensor: 'No'
+    sql:
+    - name: hdw_status_load.sql
+  - table: t08_supervisor
+    has_sensor: 'No'
+    sql:
+    - name: hdw_supervisor_load.sql
+  - table: t09_job_code
+    has_sensor: 'No'
+    sql:
+    - name: hdw_job_code_load.sql
+  - table: t11_company_pay_grade_schedule
+    has_sensor: 'No'
+    sql:
+    - name: hdw_company_pay_grade_schedule_load.sql
+  - table: t12_department
+    has_sensor: 'No'
+    sql:
+    - name: hdw_department_load.sql
+  - table: t13_process_level_address
+    has_sensor: 'No'
+    sql:
+    - name: hdw_process_level_address_load.sql
+  - table: t14_requisition_address
+    has_sensor: 'No'
+    sql:
+    - name: hdw_requisition_address_load.sql
+  - table: t15_requisition_process_level
+    has_sensor: 'No'
+    sql:
+    - name: hdw_requisition_process_level_load.sql
+  - table: t16_requisition_status
+    has_sensor: 'No'
+    sql:
+    - name: hdw_requisition_status.sql
+  - table: t17_job_position
+    has_sensor: 'No'
+    sql:
+    - name: hdw_position_load.sql
+  - table: t18_employee_position_security_role
+    has_sensor: 'No'
+    sql:
+    - name: hdw_employee_position_security_role.sql
+  - table: t19_employee_security_role
+    has_sensor: 'No'
+    sql:
+    - name: hdw_employee_security_role.sql
+  - table: t20_security_role_detail
+    has_sensor: 'No'
+    sql:
+    - name: hdw_security_role_detail.sql
+  - table: t21_span_code_detail
+    has_sensor: 'No'
+    sql:
+    - name: hdw_span_code_detail.sql
+  - table: t22_job_position_detail
+    has_sensor: 'No'
+    sql:
+    - name: hdw_job_position_detail_load.sql
+  - table: t23_employee
+    has_sensor: 'No'
+    sql:
+    - name: hdw_employee_load.sql
+  - table: t24_employee_position_security_role
+    has_sensor: 'No'
+    sql:
+    - name: hdw_employee_position_security_role.sql
+  - table: t25_employee_security_role
+    has_sensor: 'No'
+    sql:
+    - name: hdw_employee_security_role.sql
+  - table: t26_security_role_detail
+    has_sensor: 'No'
+    sql:
+    - name: hdw_security_role_detail.sql
+  - table: t27_span_code_detail
+    has_sensor: 'No'
+    sql:
+    - name: hdw_span_code_detail.sql
+  - table: t28_employee_performance_review
+    has_sensor: 'No'
+    sql:
+    - name: hdw_lawson_employee_performance_review.sql
+  - table: t29_requisition_department
+    has_sensor: 'No'
+    sql:
+    - name: hdw_requisition_department.sql
+  - table: t30_requisition_position
+    has_sensor: 'No'
+    sql:
+    - name: hdw_requisition_position.sql
+  - table: t31_applicant
+    has_sensor: 'No'
+    sql:
+    - name: hdw_applicant.sql
+  - table: t32_person_action
+    has_sensor: 'No'
+    sql:
+    - name: hdw_person_action.sql
+  - table: t33_employee_detail_load
+    has_sensor: 'No'
+    sql:
+    - name: hdw_employee_detail_load.sql
+  - table: t34_hr_employee_history
+    has_sensor: 'No'
+    sql:
+    - name: hdw_hr_employee_history_load.sql
+  - table: t35_junc_employee_address
+    has_sensor: 'No'
+    sql:
+    - name: hdw_junc_employee_address_load.sql
+  - table: t36_junc_employee_status
+    has_sensor: 'No'
+    sql:
+    - name: hdw_junc_employee_status_load.sql
+  - table: t37_employee_supervisor
+    has_sensor: 'No'
+    sql:
+    - name: hdw_employee_supervisor_load.sql
+  - table: t38_employee_position
+    has_sensor: 'No'
+    sql:
+    - name: hdw_employee_position_load.sql
+  - table: t39_requisition_appr_stg
+    has_sensor: 'No'
+    sql:
+    - name: hdw_requisition_appr_stg_load.sql
+  - table: t40_employee_action_detail
+    has_sensor: 'No'
+    sql:
+    - name: hdw_employee_action_detail_incremental.sql
+  - table: t41_ref_hr_sk_xwlk
+    has_sensor: 'No'
+    sql:
+    - name: hdw_ref_hr_sk_xwlk.sql
+  - table: t42_ref_hr_demographic
+    has_sensor: 'No'
+    sql:
+    - name: hdw_ref_hr_demographic.sql
+  - table: t43_ref_pay_summary_group
+    has_sensor: 'No'
+    sql:
+    - name: hdw_ref_pay_summary_group.sql
+  - table: t44_employee_pay_hour_history
+    has_sensor: 'No'
+    sql:
+    - name: hdw_employee_pay_hour_history_wrk.sql
+    - name: hdw_employee_pay_hour_history.sql
+  - table: t45_ref_hr_code
+    has_sensor: 'No'
+    sql:
+    - name: hdw_ref_hr_code.sql
+  - table: t46_employee_code_detail
+    has_sensor: 'No'
+    sql:
+    - name: hdw_employee_code_detail_wrk.sql
+    - name: hdw_employee_code_detail.sql
+  - table: t47_employee_requisition_comment
+    has_sensor: 'No'
+    sql:
+    - name: hdw_employee_requisition_comment_wrk.sql
+    - name: hdw_employee_requisition_comment_core.sql
+  - table: t48_requisition_workflow
+    has_sensor: 'No'
+    sql:
+    - name: hdw_requisition_workflow_wrk.sql
+    - name: hdw_requisition_workflow_core.sql
+  - table: t49_employee_requisition
+    has_sensor: 'No'
+    sql:
+    - name: hdw_employee_requisition_wrk.sql
+    - name: hdw_employee_requisition_core.sql
+  - table: t50_job_personnel_code
+    has_sensor: 'No'
+    sql:
+    - name: hdw_job_personnel_code_wrk.sql
+    - name: hdw_job_personnel_code_core.sql
+  - table: t51_ref_lawson_parameter
+    has_sensor: 'No'
+    sql:
+    - name: hdw_ref_lawson_parameter.sql
+  - table: t52_employee_disciplinary_action
+    has_sensor: 'No'
+    sql:
+    - name: hdw_employee_disciplinary_action.sql
+  - table: t53_ref_disciplinary_indicator
+    has_sensor: 'No'
+    sql:
+    - name: hdw_ref_disciplinary_indicator.sql
+  - table: t54_employee_disciplinary_action_detail
+    has_sensor: 'No'
+    sql:
+    - name: hdw_employee_disciplinary_action_detail.sql
+  - table: t55_employee_person
+    has_sensor: 'No'
+    sql:
+    - name: hdw_employee_person_load.sql

@@ -1,0 +1,31 @@
+CREATE TABLE IF NOT EXISTS edwpsc.ecw_factrhinitialerror
+(
+  rhinitialerrorkey INT64 NOT NULL,
+  claimkey INT64,
+  claimnumber INT64 NOT NULL,
+  coid STRING,
+  importdatekey DATE,
+  rhinitialerrorclientid STRING,
+  rhinitialerrorsubmissiondatekey DATE,
+  rhinitialerrorbridgefilenumber STRING,
+  rhinitialerrorclaimid STRING,
+  rhinitialerrorpatientcontrolnbr STRING,
+  rhinitialerrorreleaseddatekey STRING,
+  rhinitialerrorcategoryid STRING,
+  rhinitialerrorcategoryname STRING,
+  rhinitialerrorfielddescription STRING,
+  rhinitialerrorindex STRING,
+  rhinitialerrordata STRING,
+  rhinitialerrorcode STRING,
+  rhinitialerrororiginalerrorinx STRING,
+  sourceprimarykeyvalue INT64 NOT NULL,
+  dwlastupdatedatetime DATETIME NOT NULL,
+  sourcesystemcode STRING,
+  insertedby STRING,
+  inserteddtm DATETIME,
+  modifiedby STRING,
+  modifieddtm DATETIME,
+  fullclaimnumber STRING,
+  regionkey INT64
+)
+;

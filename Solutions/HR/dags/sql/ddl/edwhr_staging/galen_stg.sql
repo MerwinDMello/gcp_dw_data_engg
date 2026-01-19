@@ -1,0 +1,31 @@
+CREATE TABLE IF NOT EXISTS {{ params.param_hr_stage_dataset_name }}.galen_stg
+(
+  campus_desc STRING,
+  campus_code BIGNUMERIC,
+  campus_city STRING,
+  campus_state STRING,
+  campus_zip STRING,
+  grad_date DATE,
+  program_ver_desc STRING,
+  program_degree STRING,
+  cumulative_gpa STRING,
+  student_id STRING,
+  ssn STRING,
+  last_name STRING,
+  first_name STRING,
+  middle_initial STRING,
+  gender STRING,
+  hisp_latin_ethnicity_ind STRING,
+  ethnicity_5_options STRING,
+  birthdate DATE,
+  home_address_street STRING,
+  home_address_city STRING,
+  home_address_state STRING,
+  home_address_zip STRING,
+  rn_exam_date DATE,
+  pn_vn_exam_date DATE,
+  pell_grant_eligibility STRING,
+  first_generation_college_grad STRING,
+  dw_last_update_date_time DATETIME
+
+);

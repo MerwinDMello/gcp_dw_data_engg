@@ -1,0 +1,69 @@
+name: BigQuery Deploy Action
+description: "A composite action to deploy BigQuery DDLs to the specified environment"
+
+inputs:
+  branch:
+    description: "The relevant branch name"
+    required: true
+  domain:
+    description: "The relevant domain"
+    required: true
+  default_project_id:
+    description: "The default project ID for the deployment of DDLs"
+    required: true
+  workload_identity_provider:
+    description: "The workload identity provider for authentication"
+    required: true
+  service_account:
+    description: "The service account for authentication."
+    required: true
+
+
+runs:
+  using: "composite"
+  steps:
+    # Authenticate to GCP using GitHub SA and Workload Identity Federation
+    - name: Authenticate to Google Cloud
+      id: "auth"
+      uses: 'google-github-actions/auth@v1.1.1'
+      with:
+        workload_identity_provider: ${{ inputs.workload_identity_provider }}
+        service_account: ${{ inputs.service_account }}
+    
+    # Download SQL file artifacts from setup action
+    - name: Download Artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: bigquery_artifacts
+        path: artifacts
+
+    # Download the deploy.py script artifact from setup action
+    - name: Download Script Artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: script_artifacts
+        path: artifacts
+
+    # Debugging step to list all files in artifacts directory
+    - name: Artifacts List
+      shell: bash
+      run: |
+        echo "Listing all files in artifacts:"
+        ls -alhR artifacts
+    
+    # Install Python and dependencies
+    - name: Python Setup
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'  
+    
+    # Trigger the deploy.py script to deploy DDLs to BigQuery
+    - name: Deploy BQ Table
+      shell: bash
+      run: |
+        pwd
+        ls
+        pip install google-cloud-bigquery==3.19.0
+        python3 ./artifacts/deploy.py --path artifacts --env ${{ inputs.branch }} --domain ${{ inputs.domain }}
+      env:
+        project_id: ${{ inputs.default_project_id }}

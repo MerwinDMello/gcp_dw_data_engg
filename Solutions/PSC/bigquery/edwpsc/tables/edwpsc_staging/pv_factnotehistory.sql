@@ -1,0 +1,32 @@
+CREATE TABLE IF NOT EXISTS edwpsc_staging.pv_factnotehistory
+(
+  notehistorykey INT64 NOT NULL,
+  regionkey INT64,
+  practicekey INT64,
+  coid STRING,
+  patientkey INT64,
+  note STRING,
+  notetype STRING,
+  notecreateddate DATE,
+  notecreatedtime TIME,
+  notecreatedbyuserkey INT64,
+  notecreatedbyuserid STRING,
+  notelastupdatedbyuserkey INT64,
+  notelastupdatedbyuserid STRING,
+  sourceprimarykeyvalue INT64,
+  notespk STRING NOT NULL,
+  patientsourceguid STRING,
+  activeflag INT64,
+  sourcerecordlastupdated DATETIME,
+  dwlastupdatedatetime DATETIME,
+  sourcesystemcode STRING,
+  insertedby STRING,
+  inserteddtm DATETIME,
+  modifiedby STRING,
+  modifieddtm DATETIME,
+  claimkey INT64,
+  claimnumber INT64,
+  codernoteflag BOOL,
+  PRIMARY KEY (notehistorykey) NOT ENFORCED
+)
+;

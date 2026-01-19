@@ -1,0 +1,30 @@
+CREATE TABLE IF NOT EXISTS edwpsc.pk_factholdingbinsummary
+(
+  holdingbinsummarykey INT64 NOT NULL,
+  pkregionname STRING,
+  coid STRING,
+  billingareaname STRING,
+  billingproviderfirstname STRING,
+  billingproviderlastname STRING,
+  billingproviderusername STRING,
+  patientmrn STRING,
+  patientfirstname STRING,
+  patientlastname STRING,
+  pkfinancialclass STRING,
+  servicedate DATE,
+  submissiondate DATE,
+  lastrevieweddate DATE,
+  lastsaveddate DATE,
+  visittype STRING,
+  chargervu STRING,
+  responsibleparty STRING,
+  holdingbincategory STRING,
+  holdingbinsubcategory STRING,
+  cptcount INT64,
+  sourceaprimarykeyvalue STRING,
+  insertedby STRING,
+  inserteddtm DATETIME,
+  practiceid STRING,
+  PRIMARY KEY (holdingbinsummarykey) NOT ENFORCED
+)
+;

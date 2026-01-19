@@ -1,0 +1,1 @@
+delete from edwhr_staging.submission_tracking_wrk where Submission_Tracking_SID=134100872 and moved_by_text='0'

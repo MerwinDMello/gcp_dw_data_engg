@@ -1,0 +1,29 @@
+CREATE OR REPLACE VIEW edwpsc_views.`ecw_facterapayeridentification`
+AS SELECT
+  `ecw_facterapayeridentification`.erapayeridentificationkey,
+  `ecw_facterapayeridentification`.claimkey,
+  `ecw_facterapayeridentification`.claimnumber,
+  `ecw_facterapayeridentification`.n101,
+  `ecw_facterapayeridentification`.n102,
+  `ecw_facterapayeridentification`.n103,
+  `ecw_facterapayeridentification`.n104,
+  `ecw_facterapayeridentification`.n105,
+  `ecw_facterapayeridentification`.n106,
+  `ecw_facterapayeridentification`.segment,
+  `ecw_facterapayeridentification`.sourcefilename,
+  `ecw_facterapayeridentification`.sourcefilecreateddate,
+  `ecw_facterapayeridentification`.seq,
+  `ecw_facterapayeridentification`.datecreated,
+  `ecw_facterapayeridentification`.sourceprimarykeyvalue,
+  `ecw_facterapayeridentification`.dwlastupdatedatetime,
+  `ecw_facterapayeridentification`.sourcesystemcode,
+  `ecw_facterapayeridentification`.insertedby,
+  `ecw_facterapayeridentification`.inserteddtm,
+  `ecw_facterapayeridentification`.modifiedby,
+  `ecw_facterapayeridentification`.modifieddtm,
+  `ecw_facterapayeridentification`.deletedflag,
+  `ecw_facterapayeridentification`.fullclaimnumber,
+  `ecw_facterapayeridentification`.regionkey
+  FROM
+    edwpsc_base_views.`ecw_facterapayeridentification`
+;

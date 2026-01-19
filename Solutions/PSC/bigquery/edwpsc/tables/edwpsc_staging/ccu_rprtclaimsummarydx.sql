@@ -1,0 +1,30 @@
+CREATE TABLE IF NOT EXISTS edwpsc_staging.ccu_rprtclaimsummarydx
+(
+  systemname STRING,
+  dosprovidername STRING,
+  claimnumber INT64,
+  encounterid INT64,
+  encountercount INT64 NOT NULL,
+  billingarea STRING,
+  coidspecialty STRING,
+  coid STRING NOT NULL,
+  claimcoid STRING,
+  regionkey INT64,
+  encounterdate DATE,
+  emrdxsvsclaimdxs STRING,
+  dxcodechange STRING NOT NULL,
+  encounterdxcode STRING,
+  claimdxcode STRING,
+  lastchangedby34dept STRING,
+  billingnotes STRING,
+  patientaccountnumber STRING,
+  financialnumber STRING,
+  patientname STRING,
+  encounterdateyyyymm STRING,
+  lasttoucheddate_yyyymm STRING,
+  encountercoidlob STRING,
+  encountercoidsublob STRING,
+  dwlastupdatedatetime DATE NOT NULL,
+  lasttoucheddate DATE
+)
+;

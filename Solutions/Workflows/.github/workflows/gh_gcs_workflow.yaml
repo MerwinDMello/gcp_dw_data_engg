@@ -1,0 +1,85 @@
+name: Github to GCS Workflow
+# This workflow handles copying files from a Github directory to a GCS bucket.
+
+on:
+  workflow_call:
+    inputs:
+      source_path:
+        description: 'Local path of the file(s) or folder'
+        required: true
+        type: string
+      destination_path:
+        description: 'Destination path of the file(s) or folder in GCS'
+        required: true
+        type: string
+      ticket_number:
+        description: 'Ticket number associated with the action'
+        required: true
+        type: string
+      gcp_env:
+        description: 'The GCP environment to authenticate to'
+        required: true
+        type: string
+      binding_domain:
+        description: 'The domain for the GCP environment for repos with multiple bindings'
+        required: false
+        type: string
+jobs:
+  github_to_gcs_workflow:
+    runs-on: [self-hosted, X64, enterprise, Linux, onprem-k8s-arc, lnx-amd64, std]
+    environment: ${{ inputs.gcp_env }}
+    env:
+      SOURCE_PATH: ${{ inputs.source_path }}
+      DESTINATION_PATH: ${{ inputs.destination_path }}
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+   # For caller repos with multiple bindings, need to dynamically set which SA variable to use
+    - name: Set DOMAIN_SERVICE_ACCOUNT output
+      id: set-sa
+      if: ${{ inputs.binding_domain != '' }}
+      run: |
+        echo "DOMAIN_SA=${BINDING_DOMAIN^^}_SERVICEACCOUNT_GITHUB" >> $GITHUB_OUTPUT
+      env:
+        BINDING_DOMAIN: ${{ inputs.binding_domain }}
+    
+    - name: Get actual service account value
+      id: get-sa-value
+      if: ${{ inputs.binding_domain != '' }}
+      run: |
+        VAR_NAME="${{ steps.set-sa.outputs.DOMAIN_SA }}"
+        # Get the value from environment
+        ACTUAL_VALUE="${!VAR_NAME}"
+        echo "DOMAIN_SERVICE_ACCOUNT=$ACTUAL_VALUE" >> $GITHUB_OUTPUT
+      env:
+        CLINICAL_SERVICEACCOUNT_GITHUB: ${{ vars.CLINICAL_SERVICEACCOUNT_GITHUB }}
+        FINANCIAL_SERVICEACCOUNT_GITHUB: ${{ vars.FINANCIAL_SERVICEACCOUNT_GITHUB }}
+        HR_SERVICEACCOUNT_GITHUB: ${{ vars.HR_SERVICEACCOUNT_GITHUB }}
+        ITG_SERVICEACCOUNT_GITHUB: ${{ vars.ITG_SERVICEACCOUNT_GITHUB }}
+        OPS_SERVICEACCOUNT_GITHUB: ${{ vars.OPS_SERVICEACCOUNT_GITHUB }}
+        PARALLON_SERVICEACCOUNT_GITHUB: ${{ vars.PARALLON_SERVICEACCOUNT_GITHUB }}
+        PUB_SERVICEACCOUNT_GITHUB: ${{ vars.PUB_SERVICEACCOUNT_GITHUB }}
+        SC_SERVICEACCOUNT_GITHUB: ${{ vars.SC_SERVICEACCOUNT_GITHUB }}
+
+    - name: Authenticate to Google Cloud
+      uses: google-github-actions/auth@v2
+      with:
+        workload_identity_provider:  ${{ vars.WORKLOAD_IDENTITY_PROVIDER }}
+        service_account: ${{ vars.SERVICEACCOUNT_GITHUB != '' && vars.SERVICEACCOUNT_GITHUB || vars.SERVICE_ACCOUNT != '' && vars.SERVICE_ACCOUNT || steps.get-sa-value.outputs.DOMAIN_SERVICE_ACCOUNT}}
+   
+    - name: Ticket number
+      run: "echo 'Ticket number: ${{ github.event.inputs.ticket_number }}'"
+
+    - name: Copy files to GCS
+      run: |
+        gcloud storage cp -r "${{ env.SOURCE_PATH }}" "${{ env.DESTINATION_PATH }}"
+
+    - name: Output summary
+      run: |
+        echo "### Github to GCS Action Summary" >> $GITHUB_STEP_SUMMARY
+        echo "**Source Path:** ${{ env.SOURCE_PATH }}" >> $GITHUB_STEP_SUMMARY
+        echo "**Destination Path:** ${{ env.DESTINATION_PATH }}" >> $GITHUB_STEP_SUMMARY
+        echo "**GCP Environment:** ${{ inputs.gcp_env }}" >> $GITHUB_STEP_SUMMARY
+        echo "**Ticket Number:** ${{ github.event.inputs.ticket_number }}" >> $GITHUB_STEP_SUMMARY

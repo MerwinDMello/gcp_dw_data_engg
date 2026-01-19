@@ -1,0 +1,107 @@
+integrate:
+- source_system: psc
+  frequency: daily
+  dag_name_suffix: wave-other3
+  start_date: pendulum.datetime(2025, 2, 1, tz=current_timezone)
+  schedule: None
+  type: sqlserver
+  done_file: None
+  server-04:
+    trigger_dag_ids: []
+    tables:
+    - table: ECW_FactIETV2Detail
+      has_sensor: 'No'
+      sql:
+      - name: ECW_FactIETV2Detail.sql
+      validation:
+      - name: NONE
+    - table: ECW_FactIETV2MasterFile
+      has_sensor: 'No'
+      sql:
+      - name: ECW_FactIETV2MasterFile.sql
+      validation:
+      - name: NONE
+    - table: ECW_FactIETV2QR
+      has_sensor: 'No'
+      sql:
+      - name: ECW_FactIETV2QR.sql
+      validation:
+      - name: NONE
+    - table: ECW_FactIETV2QuestionsResponses
+      has_sensor: 'No'
+      sql:
+      - name: ECW_FactIETV2QuestionsResponses.sql
+      validation:
+      - name: NONE
+    - table: ECW_FactTelStrat
+      has_sensor: 'No'
+      sql:
+      - name: ECW_FactTelStrat.sql
+      validation:
+      - name: NONE
+    - table: ECW_FactTeradataHPSTransactions
+      has_sensor: 'No'
+      sql:
+      - name: ECW_FactTeradataHPSTransactions.sql
+      validation:
+      - name: NONE
+    - table: ECW_RefCPTAnesthesiaCMSOverride
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RefCPTAnesthesiaCMSOverride.sql
+      validation:
+      - name: NONE
+    - table: ECW_RefCPTWorkRVU
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RefCPTWorkRVU.sql
+      validation:
+      - name: NONE
+    - table: ECW_RefGeographyMeditechExpanse
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RefGeographyMeditechExpanse.sql
+      validation:
+      - name: NONE
+    - table: ECW_RefMedicareLocality
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RefMedicareLocality.sql
+      validation:
+      - name: NONE
+    - table: ECW_RefIplanMeditechPACrosswalk
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RefIplanMeditechPACrosswalk.sql
+      validation:
+      - name: NONE
+    - table: ECW_RefLiabilityType
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RefLiabilityType.sql
+      validation:
+      - name: NONE
+    - table: ECW_RefModifierDetails
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RefModifierDetails.sql
+      validation:
+      - name: NONE
+    - table: ECW_FactEncounterMedaxionBillingAudit
+      has_sensor: 'No'
+      sql:
+      - name: ECW_FactEncounterMedaxionBillingAudit.sql
+      validation:
+      - name: NONE
+    - table: ECW_FactEncounterMedaxionCodingCptCodes
+      has_sensor: 'No'
+      sql:
+      - name: ECW_FactEncounterMedaxionCodingCptCodes.sql
+      validation:
+      - name: NONE
+    - table: ECW_FactEncounterMedaxionCodingStatus
+      has_sensor: 'No'
+      sql:
+      - name: ECW_FactEncounterMedaxionCodingStatus.sql
+      validation:
+      - name: NONE

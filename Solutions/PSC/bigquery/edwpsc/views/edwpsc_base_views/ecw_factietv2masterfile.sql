@@ -1,0 +1,35 @@
+CREATE OR REPLACE VIEW edwpsc_base_views.`ecw_factietv2masterfile`
+AS SELECT
+  `ecw_factietv2masterfile`.fieldmessage,
+  `ecw_factietv2masterfile`.category,
+  `ecw_factietv2masterfile`.subcategoryid,
+  `ecw_factietv2masterfile`.reporttype,
+  `ecw_factietv2masterfile`.isactive,
+  `ecw_factietv2masterfile`.notesfieldname,
+  `ecw_factietv2masterfile`.isnotesactive,
+  `ecw_factietv2masterfile`.userfriendlymessage,
+  `ecw_factietv2masterfile`.isuserfriendlymessageactive,
+  `ecw_factietv2masterfile`.notes,
+  `ecw_factietv2masterfile`.subcategoryoriginid,
+  `ecw_factietv2masterfile`.subcategorydescription,
+  `ecw_factietv2masterfile`.subcategoryactive,
+  `ecw_factietv2masterfile`.department,
+  `ecw_factietv2masterfile`.iscreateclaimquery,
+  `ecw_factietv2masterfile`.subcategorytype,
+  `ecw_factietv2masterfile`.claimerrortypename,
+  `ecw_factietv2masterfile`.claimerrortypedescription,
+  `ecw_factietv2masterfile`.categoryname,
+  `ecw_factietv2masterfile`.sourceprimarykeyvalue,
+  `ecw_factietv2masterfile`.sourcerecordlastupdated,
+  `ecw_factietv2masterfile`.dwlastupdatedatetime,
+  `ecw_factietv2masterfile`.sourcesystemcode,
+  `ecw_factietv2masterfile`.insertedby,
+  `ecw_factietv2masterfile`.inserteddtm,
+  `ecw_factietv2masterfile`.modifiedby,
+  `ecw_factietv2masterfile`.modifieddtm,
+  `ecw_factietv2masterfile`.lastmodifiedactiveflagtoyes,
+  `ecw_factietv2masterfile`.fieldname,
+  `ecw_factietv2masterfile`.ietv2masterfilekey
+  FROM
+    edwpsc.`ecw_factietv2masterfile`
+;

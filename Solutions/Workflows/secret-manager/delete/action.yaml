@@ -1,0 +1,64 @@
+name: Secret Manger Delete Action
+
+inputs:
+  workload_identity_provider:
+    description: ""
+  service_account:
+    description: "GitHub SA to authenticate to Google Cloud"
+  project_id: 
+    description: "The name of the project from which the secret will be deleted"
+  secret_id:
+    description: "The name of the secret to be deleted from Secret Manager"
+  version_id:
+    description: "The version of the secret to be deleted from Secret Manager"
+  token: 
+    description: "GitHub token to allow access to script in parent repo"
+
+runs:
+  using: "composite"
+  steps:
+
+    - name: "Authenticate to Google Cloud"
+      id: "auth"
+      uses: "google-github-actions/auth@v2"
+      with:
+        workload_identity_provider: ${{ inputs.workload_identity_provider }}
+        service_account: ${{ inputs.service_account }}
+
+    - name: Checkout delete script
+      uses: actions/checkout@v4
+      with:
+        repository: HCACloudDataEngineering/gcp-hin-workflows
+        token: ${{ inputs.token }}
+        path: artifacts
+        sparse-checkout: |
+          secret-manager/scripts/delete.py
+
+    - name: Artifacts List
+      shell: bash
+      run: |
+        ls -alh artifacts/secret-manager
+    
+    - name: Python Setup
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+           
+    - name: Delete Secrets
+      shell: sh
+      run: |
+        pwd
+        pip install google-cloud-secret-manager
+
+        # Build command with conditional version_id argument
+        CMD="python3 artifacts/secret-manager/scripts/delete.py --secret_id ${{ inputs.secret_id }} --project_id ${{ inputs.project_id }}"
+
+        if [ -n "${{ inputs.version_id }}" ]; then
+          CMD="$CMD --version_id ${{ inputs.version_id }}"
+          echo "Deleting specific version: ${{ inputs.version_id }}"
+        else
+          echo "Deleting entire secret (no version specified)"
+        fi
+
+        echo "Executing: $CMD"
+        eval $CMD

@@ -1,0 +1,29 @@
+CREATE OR REPLACE VIEW edwpsc_views.`epic_refiplan`
+AS SELECT
+  `epic_refiplan`.iplankey,
+  `epic_refiplan`.iplanname,
+  `epic_refiplan`.iplanshortname,
+  `epic_refiplan`.iplanaddress1,
+  `epic_refiplan`.iplanaddress2,
+  `epic_refiplan`.iplancity,
+  `epic_refiplan`.iplanstate,
+  `epic_refiplan`.iplanzip,
+  `epic_refiplan`.iplanphone,
+  `epic_refiplan`.payorid,
+  `epic_refiplan`.regionkey,
+  `epic_refiplan`.sourceaprimarykey,
+  `epic_refiplan`.dwlastupdatedatetime,
+  `epic_refiplan`.sourcesystemcode,
+  `epic_refiplan`.insertedby,
+  `epic_refiplan`.inserteddtm,
+  `epic_refiplan`.modifiedby,
+  `epic_refiplan`.modifieddtm,
+  `epic_refiplan`.iplanprimarygeographykey,
+  `epic_refiplan`.iplangroupfinancialkey,
+  `epic_refiplan`.financialclasskey,
+  `epic_refiplan`.epicfinancialclass,
+  `epic_refiplan`.epicfinancialclassdesc,
+  `epic_refiplan`.epicfinancialclassgrouped
+  FROM
+    edwpsc_base_views.`epic_refiplan`
+;

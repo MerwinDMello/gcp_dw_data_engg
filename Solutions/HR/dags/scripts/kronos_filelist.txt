@@ -1,0 +1,9 @@
+#frequency|FileName
+daily_00.30|Current_Combined_EDW_PunchDetail.txt
+daily_00.30|Current_Combined_EDW_PayDetail.txt
+weekly_2_18.30|Combined_EDW_Clocks.txt
+weekly_2_18.30|Combined_EDW_Employee.txt
+weekly_2_18.30|Combined_EDW_PunchDetail.txt
+weekly_2_18.30|Combined_EDW_PayDetail.txt
+weekly_2_18.30|Combined_EDW_PayCds.txt
+

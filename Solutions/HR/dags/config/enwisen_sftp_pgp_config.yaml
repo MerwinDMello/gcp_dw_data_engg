@@ -1,0 +1,9 @@
+# hrg variables for enwisen sftp and pgp
+sftp_pgp_settings:
+ v_sourcesysnm: enwisen
+ v_private_key: enwisen_pgp_private_key/versions/1
+ v_sftp_del_file_schedule: 0 10 * * *
+ v_host: FTSHRSD.inforcloudsuite.com
+ v_user: HCA_GCP_Prod
+ v_pwd_secret: infor_sftp_passwd/versions/latest
+ v_directory: //Outbound/

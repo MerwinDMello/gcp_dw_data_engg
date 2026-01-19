@@ -1,0 +1,49 @@
+ingest:
+- source_system: enwisen
+  frequency: daily
+  schedule: 30 7 * * *
+  type: files
+  custom_tags: "onboarding_audit,candidate_onboarding,cm5tickets,candidate_onboarding_event"
+  dependency:
+  - source:
+      remove_date_marker: 'No'
+      source_id: 2
+      is_prefixed_file_name: 'Yes'
+      source_file_name_prefix: HCA_CM5Tickets
+      source_file_extension: txt.pgp
+      skip_leading_records: 1
+      delimiter: "|"
+      quote_char: '"'
+      encoding_scheme: utf-8
+      preprocessing_steps: "decrypt_file,fix_nonescaped_characters,renaming"
+      sensor: 'No'
+      tolerance_percent: 0
+      patterns:
+      - pattern: ^HCA_CM5Tickets_.*\.txt\.pgp$
+    target:
+      name: enwisen_cm5tickets_stg
+      sql: enwisen_cm5tickets_stg.sql
+  - source:
+      remove_date_marker: 'Yes'
+      source_file_name_prefix: HCA_CM5Demographics
+      source_file_extension: txt.pgp
+      patterns:
+      - pattern: ^HCA_CM5Demographics_.*\.txt\.pgp$
+  - source:
+      remove_date_marker: 'Yes'
+      source_file_name_prefix: HCA_CM5Events
+      source_file_extension: txt.pgp
+      patterns:
+      - pattern: ^HCA_CM5Events_.*\.txt\.pgp$
+  - source:
+      remove_date_marker: 'Yes'
+      source_file_name_prefix: HCA_CM5Notes
+      source_file_extension: txt.pgp
+      patterns:
+      - pattern: ^HCA_CM5Notes_.*\.txt\.pgp$
+  - source:
+      remove_date_marker: 'Yes'
+      source_file_name_prefix: HCA_CM5SurveyDefinition
+      source_file_extension: txt.pgp
+      patterns:
+      - pattern: ^HCA_CM5SurveyDefinition_.*\.txt\.pgp$

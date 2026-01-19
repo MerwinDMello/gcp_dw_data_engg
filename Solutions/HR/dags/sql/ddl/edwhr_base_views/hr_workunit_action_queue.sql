@@ -1,0 +1,29 @@
+/***************************************************************************************
+   B A S E   V I E W
+****************************************************************************************/
+CREATE OR REPLACE VIEW {{params.param_hr_base_views_dataset_name}}.hr_workunit_action_queue AS SELECT
+    hr_workunit_action_queue.workunit_sid,
+    hr_workunit_action_queue.activity_seq_num,
+    hr_workunit_action_queue.valid_from_date,
+    hr_workunit_action_queue.valid_to_date,
+    hr_workunit_action_queue.workunit_num,
+    hr_workunit_action_queue.work_desc,
+    hr_workunit_action_queue.action_taken_text,
+    hr_workunit_action_queue.display_type_num,
+    hr_workunit_action_queue.display_name,
+    hr_workunit_action_queue.filter_key_text,
+    hr_workunit_action_queue.filter_value_num_text,
+    hr_workunit_action_queue.time_out_type_num,
+    hr_workunit_action_queue.time_out_hour_num,
+    hr_workunit_action_queue.time_out_action_text,
+    hr_workunit_action_queue.timed_out_sw,
+    hr_workunit_action_queue.last_queue_action_num,
+    hr_workunit_action_queue.configurator_name,
+    hr_workunit_action_queue.lawson_company_num,
+    hr_workunit_action_queue.process_level_code,
+    hr_workunit_action_queue.active_dw_ind,
+    hr_workunit_action_queue.source_system_code,
+    hr_workunit_action_queue.dw_last_update_date_time
+  FROM
+    {{params.param_hr_core_dataset_name}}.hr_workunit_action_queue
+;

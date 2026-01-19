@@ -1,0 +1,36 @@
+CREATE TABLE IF NOT EXISTS edwpsc.pv_factsnapshotfinancialadjustmentclaim
+(
+  adjustmentclaimkey INT64 NOT NULL,
+  monthid INT64,
+  snapshotdate DATE,
+  coid STRING,
+  regionkey INT64,
+  claimkey INT64,
+  claimnumber INT64,
+  gldepartment STRING,
+  patientid INT64,
+  servicingproviderkey INT64,
+  servicingproviderid INT64,
+  renderingproviderkey INT64,
+  renderingproviderid INT64,
+  facilitykey INT64,
+  facilityid INT64,
+  claimdatekey DATE,
+  servicedatekey DATE,
+  iplan1iplankey INT64,
+  iplan1id STRING,
+  financialclasskey INT64,
+  adjustmentid STRING,
+  adjustmentcode STRING,
+  adjustmentcodekey INT64,
+  adjustmentamt NUMERIC(33, 4),
+  unpostedcptamt NUMERIC(33, 4),
+  unpostedclaimamt NUMERIC(33, 4),
+  adjustmentcreatedatekey DATE,
+  adjustmentmodifieddatekey DATE,
+  practicekey INT64,
+  practiceid STRING,
+  dwlastupdatedatetime DATETIME
+)
+PARTITION BY snapshotdate
+;

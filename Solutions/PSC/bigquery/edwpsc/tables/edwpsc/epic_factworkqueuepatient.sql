@@ -1,0 +1,30 @@
+CREATE TABLE IF NOT EXISTS edwpsc.epic_factworkqueuepatient
+(
+  regionkey INT64,
+  regionname STRING,
+  coid STRING,
+  workqueuename STRING,
+  encounterkey INT64,
+  visitdate DATE,
+  visitcopaydue NUMERIC(31, 2),
+  servicingproviderkey INT64,
+  servicingprovidername STRING,
+  patientkey INT64,
+  patientmrn STRING,
+  patientname STRING,
+  holdcodekey INT64,
+  holdcode INT64,
+  holdcodename STRING,
+  holdcodedescription STRING,
+  totalworkqueuecount INT64,
+  deferredstatus STRING,
+  activeworkqueueflag STRING,
+  typeofworkqueue STRING,
+  adminworkqueueflag STRING,
+  sourcesystemcode STRING,
+  sourceaprimarykeyvalue STRING,
+  insertedby STRING,
+  inserteddtm DATETIME,
+  dwlastupdatedatetime DATETIME
+)
+;

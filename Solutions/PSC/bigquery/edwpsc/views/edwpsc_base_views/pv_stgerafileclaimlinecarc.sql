@@ -1,0 +1,35 @@
+CREATE OR REPLACE VIEW edwpsc_base_views.`pv_stgerafileclaimlinecarc`
+AS SELECT
+  `pv_stgerafileclaimlinecarc`.carc_id,
+  `pv_stgerafileclaimlinecarc`.claimline_id,
+  `pv_stgerafileclaimlinecarc`.claim_id,
+  `pv_stgerafileclaimlinecarc`.payer_id,
+  `pv_stgerafileclaimlinecarc`.fileid,
+  `pv_stgerafileclaimlinecarc`.bpr_id,
+  `pv_stgerafileclaimlinecarc`.trn_id,
+  `pv_stgerafileclaimlinecarc`.carc01_category,
+  `pv_stgerafileclaimlinecarc`.carc02_code,
+  `pv_stgerafileclaimlinecarc`.carc03_amount,
+  `pv_stgerafileclaimlinecarc`.carc04,
+  `pv_stgerafileclaimlinecarc`.carc05,
+  `pv_stgerafileclaimlinecarc`.carc06,
+  `pv_stgerafileclaimlinecarc`.carc07,
+  `pv_stgerafileclaimlinecarc`.carc08,
+  `pv_stgerafileclaimlinecarc`.carc09,
+  `pv_stgerafileclaimlinecarc`.carc10,
+  `pv_stgerafileclaimlinecarc`.carc11,
+  `pv_stgerafileclaimlinecarc`.carc12,
+  `pv_stgerafileclaimlinecarc`.carc13,
+  `pv_stgerafileclaimlinecarc`.carc14,
+  `pv_stgerafileclaimlinecarc`.carc15,
+  `pv_stgerafileclaimlinecarc`.carc16,
+  `pv_stgerafileclaimlinecarc`.carc17,
+  `pv_stgerafileclaimlinecarc`.carc18,
+  `pv_stgerafileclaimlinecarc`.carc19,
+  `pv_stgerafileclaimlinecarc`.carcsegment,
+  `pv_stgerafileclaimlinecarc`.inserteddtm,
+  `pv_stgerafileclaimlinecarc`.gs_id,
+  `pv_stgerafileclaimlinecarc`.dwlastupdatedatetime
+  FROM
+    edwpsc.`pv_stgerafileclaimlinecarc`
+;

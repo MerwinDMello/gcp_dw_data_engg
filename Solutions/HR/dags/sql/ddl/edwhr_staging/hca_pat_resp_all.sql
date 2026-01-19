@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS {{ params.param_hr_stage_dataset_name }}.hca_pat_resp_all (
+hca_unique STRING
+, surv_id NUMERIC(18,0)
+, adj_samp STRING
+, survey_type STRING
+, pg_unit STRING
+, disdate DATE
+, recdate DATE
+, mde STRING
+, question_id STRING
+, coid STRING
+, response STRING
+, ptype STRING
+, qtype STRING
+, category STRING
+, cms_rpt STRING
+, dw_last_update_date_time DATETIME
+)
+  ;
+

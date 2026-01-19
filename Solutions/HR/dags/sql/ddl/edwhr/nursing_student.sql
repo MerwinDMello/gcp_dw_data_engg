@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS {{ params.param_hr_core_dataset_name }}.nursing_student (
+student_sid INT64 NOT NULL OPTIONS(description="Unique system generated identifier  for student")
+, valid_from_date DATETIME NOT NULL OPTIONS(description="Date the record is valid from based on when it was loaded.")
+, valid_to_date DATETIME OPTIONS(description="Date the record is valid to based on when it was loaded.")
+, student_num INT64 NOT NULL OPTIONS(description="It defines unique student number.")
+, student_ssn STRING OPTIONS(description="Domain to mask the Social Security Number during the Security View generation.")
+, student_first_name STRING OPTIONS(description="It defines student first name")
+, student_last_name STRING OPTIONS(description="It captures student last name")
+, student_middle_name STRING OPTIONS(description="It defines middle name of the student")
+, birth_date DATE OPTIONS(description="It defines student day, month and year on which he/she is born.")
+, gender_code STRING OPTIONS(description="Unique Gender code of an employee maintains in this field. F = Female M = Male U = Not Specified or Unknown ")
+, ethnic_origin_desc STRING OPTIONS(description="It contains student ethnic origin description")
+, addr_sid INT64 OPTIONS(description="This field is ETL generated unique sequence number for each business or Individual address.")
+, pell_grant_eligibility_ind STRING OPTIONS(description="Indicator to check the student eligibility for federal pell financial grant")
+, first_gen_college_grad_ind STRING OPTIONS(description="Indicator to identify first generation college graduate in the family")
+, employee_num INT64 OPTIONS(description="It defines employee number")
+, source_system_code STRING NOT NULL OPTIONS(description="A one character code indicating the specific source system from which the data originated.")
+, dw_last_update_date_time DATETIME NOT NULL OPTIONS(description="Timestamp of update or load of this record to the Enterprise Data Warehouse.")
+)
+CLUSTER BY Student_SID
+OPTIONS(description="Contains all student information from nursing school.");

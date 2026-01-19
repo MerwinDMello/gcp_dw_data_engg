@@ -1,0 +1,1 @@
+delete from hca-hin-prod-cur-hr.edwhr.phone_country where cast(dw_last_update_date_time as date)='2023-05-04';

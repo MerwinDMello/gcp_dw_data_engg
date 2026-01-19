@@ -1,0 +1,34 @@
+CREATE OR REPLACE VIEW edwpsc_views.`ccu_rprtclaimsummarydx`
+AS SELECT
+  `ccu_rprtclaimsummarydx`.systemname,
+  `ccu_rprtclaimsummarydx`.dosprovidername,
+  `ccu_rprtclaimsummarydx`.claimnumber,
+  `ccu_rprtclaimsummarydx`.encounterid,
+  `ccu_rprtclaimsummarydx`.encountercount,
+  `ccu_rprtclaimsummarydx`.billingarea,
+  `ccu_rprtclaimsummarydx`.coidspecialty,
+  `ccu_rprtclaimsummarydx`.coid,
+  `ccu_rprtclaimsummarydx`.claimcoid,
+  `ccu_rprtclaimsummarydx`.regionkey,
+  `ccu_rprtclaimsummarydx`.encounterdate,
+  `ccu_rprtclaimsummarydx`.emrdxsvsclaimdxs,
+  `ccu_rprtclaimsummarydx`.dxcodechange,
+  `ccu_rprtclaimsummarydx`.encounterdxcode,
+  `ccu_rprtclaimsummarydx`.claimdxcode,
+  `ccu_rprtclaimsummarydx`.lastchangedby34dept,
+  `ccu_rprtclaimsummarydx`.billingnotes,
+  `ccu_rprtclaimsummarydx`.patientaccountnumber,
+  `ccu_rprtclaimsummarydx`.financialnumber,
+  `ccu_rprtclaimsummarydx`.patientname,
+  `ccu_rprtclaimsummarydx`.encounterdateyyyymm,
+  `ccu_rprtclaimsummarydx`.lasttoucheddate_yyyymm,
+  `ccu_rprtclaimsummarydx`.encountercoidlob,
+  `ccu_rprtclaimsummarydx`.encountercoidsublob,
+  `ccu_rprtclaimsummarydx`.dwlastupdatedatetime,
+  `ccu_rprtclaimsummarydx`.lasttoucheddate
+  FROM
+    edwpsc_base_views.`ccu_rprtclaimsummarydx`
+  INNER JOIN edwpsc_base_views.secref_facility
+  ON LPAD(TRIM(secref_facility.co_id, ' '), 5, '0') = LPAD(TRIM(`ccu_rprtclaimsummarydx`.coid, ' '), 5, '0')
+  AND TRIM(secref_facility.user_id, ' ') = TRIM(session_user(), ' ')
+;

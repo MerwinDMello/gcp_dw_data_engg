@@ -1,0 +1,33 @@
+source_system: ra
+v_databasetype: oracle
+v_database: hca_reporting
+v_user: RPT_EXTRACT
+v_port: 1551
+# v_server_name: fwps3-scan1.unix.medcity.net
+# servicename_d5: ccmnasd5_etl
+# v_pwd_secret_name_p1: oracle_concuity_pwd/versions/latest
+v_server_name: xrps5-scan1.unix.medcity.net # Prod
+servicename_p1: ccmnasp1_gcp # Prod
+v_pwd_secret_name_p1: oracle_concuity_ha_pwd_p1/versions/latest # Prod
+v_jdbc_class_name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+v_jdbc_jar: mssql-jdbc-12.4.0.jre8.jar
+v_jdkfile: jre-8u351-linux-x64.tar.gz
+v_jdkversion: jre1.8.0_351
+v_jdbcbqpytemplate: BQ_to_Oracle_Reporting_PythonTemplate.py
+v_machine_type: n1-standard-4
+
+SSC_CMOD_CTL_STG_sql: select distinct rcos.ssc_name as rpt_chunk,grgl.coid as co_id,'GRGLRECON' as rpt_name,'v_currtimestamp' as creation_dt from edwra.gr_gl_recn grgl inner join edwra_base_views.ref_cc_org_structure rcos on grgl.coid=rcos.coid and rcos.org_status='active'~truncate~p1~100000
+
+ra:
+  - schedule_interval: None
+    start_date: pendulum.datetime(2024, 9, 1, tz=timezone)
+    frequency: monthly
+    dag_id_suffix: reporting
+    done_file: NONE
+    has_sensor: 'No'
+    sql: [SSC_CMOD_CTL_STG_sql]
+    tgttablename: [SSC_CMOD_CTL_STG]
+    trigger_dag_ids: [ ]
+    has_file_extract: True
+    source_file_name: done_file
+    destination_file_name: GR_GL_Recn_Monthly.done

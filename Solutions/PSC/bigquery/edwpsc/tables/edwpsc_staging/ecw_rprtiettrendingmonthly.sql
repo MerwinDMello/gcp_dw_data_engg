@@ -1,0 +1,32 @@
+CREATE TABLE IF NOT EXISTS edwpsc_staging.ecw_rprtiettrendingmonthly
+(
+  snapshotdate DATE,
+  `group` STRING,
+  division STRING,
+  market STRING,
+  coid STRING,
+  coidname STRING,
+  practiceiets INT64,
+  openpracticeiets INT64,
+  opendaysofpracticeiets INT64,
+  closedpracticeiets INT64,
+  totalpracticeietsdaystoresolution INT64,
+  practiceietsopen30plusdays INT64,
+  newpracticeiets INT64,
+  newopenpracticeiets INT64,
+  newopendaysofpracticeiets INT64,
+  newclosedpracticeiets INT64,
+  newcloseddaystoresolution INT64,
+  openpracticeietslastmonth INT64,
+  openpracticeietslastmonthclosed30days INT64,
+  practiceietsclosedmonth INT64,
+  practiceietsclosedmonthdaystoresolution INT64,
+  newclaims INT64,
+  numberofweekdays INT64,
+  renderingproviderspeciality STRING,
+  insertedby STRING,
+  inserteddtm DATETIME,
+  lob STRING,
+  dwlastupdatedatetime DATETIME
+)
+;

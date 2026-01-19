@@ -1,0 +1,4 @@
+paraedw:
+- server: "paraedwprod.dw.medcity.net"
+  schema: 
+    - name: ["1025","edwra_base_views",""]

@@ -1,0 +1,4 @@
+navadhoc:
+- server: "cannwpdbsrpt01.hca.corpad.net"
+  schema: 
+    - name: ["1433","navadhoc",""]

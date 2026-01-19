@@ -1,0 +1,857 @@
+integrate:
+- source_system: psc
+  frequency: daily
+  dag_name_suffix: wave-artiva
+  start_date: pendulum.datetime(2025, 2, 1, tz=current_timezone)
+  schedule: None
+  type: sqlserver
+  done_file: None
+  server-04:
+    trigger_dag_ids: []
+    tables:
+    - table: Artiva_FactAddress
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_FactAddress.sql
+      validation:
+      - name: NONE
+    - table: Artiva_FactAffiliations
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_FactAffiliations.sql
+      validation:
+      - name: NONE
+    - table: Artiva_FactCPIDPayorMaster
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_FactCPIDPayorMaster.sql
+      validation:
+      - name: NONE
+    - table: Artiva_FactECT
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_FactECT.sql
+      validation:
+      - name: NONE
+    - table: Artiva_FactGroup
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_FactGroup.sql
+      validation:
+      - name: NONE
+    - table: Artiva_FactHoldRules
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_FactHoldRules.sql
+      validation:
+      - name: NONE
+    - table: Artiva_FactPPI
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_FactPPI.sql
+      validation:
+      - name: NONE
+    - table: Artiva_FactProviderDemographics
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_FactProviderDemographics.sql
+      validation:
+      - name: NONE
+    - table: ECW_FactRiskAnalysis
+      has_sensor: 'No'
+      sql:
+      - name: ECW_FactRiskAnalysis.sql
+      validation:
+      - name: NONE
+    - table: ECW_JuncArtivaPPItoClaim
+      has_sensor: 'No'
+      sql:
+      - name: ECW_JuncArtivaPPItoClaim.sql
+      validation:
+      - name: NONE
+    - table: Artiva_RprtDC
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_RprtDC.sql
+      validation:
+      - name: NONE
+    - table: Artiva_RprtEDI
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_RprtEDI.sql
+      validation:
+      - name: NONE
+    - table: Artiva_RprtPE
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_RprtPE.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgGCPOOL
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgGCPOOL.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgGCPOOLGENINFO
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgGCPOOLGENINFO.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgGCPOOLGENINFO_HISTORY
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgGCPOOLGENINFO_HISTORY.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgHCACCOUNT
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgHCACCOUNT.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgHCACCOUNT_HCACNOTES
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgHCACCOUNT_HCACNOTES.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgHCACTIONCODE
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgHCACTIONCODE.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgHCACTIONCODE_HCACTNOTES
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgHCACTIONCODE_HCACTNOTES.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgHCACTIONHIST
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgHCACTIONHIST.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgHCCDDETAILLOG
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgHCCDDETAILLOG.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgHCCLAIMCODES
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgHCCLAIMCODES.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgHCCLCATEGORY
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgHCCLCATEGORY.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgHCCLSUBCATEGORY
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgHCCLSUBCATEGORY.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgHCDCCATEGORY
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgHCDCCATEGORY.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgHCDSSUBCATEGORY
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgHCDSSUBCATEGORY.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgHCDTTYPES
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgHCDTTYPES.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgHCENCOUNTER
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgHCENCOUNTER.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgHCFACILITY
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgHCFACILITY.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgHCPAYER
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgHCPAYER.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgHCPERSON_BadAddress
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgHCPERSON_BadAddress.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgHCRESULTCODE
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgHCRESULTCODE.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgHCSTATUS
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgHCSTATUS.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgHCSUBUNIT
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgHCSUBUNIT.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgHCTIMEACCT
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgHCTIMEACCT.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgHCUSERSTATS
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgHCUSERSTATS.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPENotesHistory
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPENotesHistory.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSADJCODES
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSADJCODES.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSADJUSTREQ
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSADJUSTREQ.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSAPPRVLTABLES
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSAPPRVLTABLES.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSAPPRVLTIERS
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSAPPRVLTIERS.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSCCUCOIDMASTER
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSCCUCOIDMASTER.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSCCUCOIDRULES
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSCCUCOIDRULES.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSCCUPICKLISTMAINT
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSCCUPICKLISTMAINT.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSCCUPROVIDERRULES
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSCCUPROVIDERRULES.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSCCUPROVMASTER
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSCCUPROVMASTER.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSCDREVIEWUTILITY
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSCDREVIEWUTILITY.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSCDREVREQUESTS
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSCDREVREQUESTS.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSCDSCORESHEETS
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSCDSCORESHEETS.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSCOID
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSCOID.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSENHOLDRULEHIST
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSENHOLDRULEHIST.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSFINCLASSCROSS
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSFINCLASSCROSS.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSHOLDCODES
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSHOLDCODES.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSHOLDRULESUTILITY
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSHOLDRULESUTILITY.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSHOLDRULESUTILITY_PSHRUNOTES
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSHOLDRULESUTILITY_PSHRUNOTES.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSIETHIST
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSIETHIST.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSOCACTIONHIST
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSOCACTIONHIST.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSOCACTIONS
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSOCACTIONS.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSOCERRORS
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSOCERRORS.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSOCLINKHIST
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSOCLINKHIST.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSOCLINKS
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSOCLINKS.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSOCMESSAGES
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSOCMESSAGES.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSOCROUTESTEPS
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSOCROUTESTEPS.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSOCRTESTEPSTREAS
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSOCRTESTEPSTREAS.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSOCTIMEOC
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSOCTIMEOC.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSOCTRANSACTIONS
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSOCTRANSACTIONS.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSOCUPLTRANS
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSOCUPLTRANS.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSPEACTIONHIST
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSPEACTIONHIST.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSPEAPPHIST
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSPEAPPHIST.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSPEAPPLICATIONS
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSPEAPPLICATIONS.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSPEAVI
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSPEAVI.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSPEAVICHKLIST
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSPEAVICHKLIST.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSPECPIDPAY
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSPECPIDPAY.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSPECPIDS
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSPECPIDS.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSPECPIDS_PSPECPIDNOTES
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSPECPIDS_PSPECPIDNOTES.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSPEECMSGS
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSPEECMSGS.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSPEECONBASE
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSPEECONBASE.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSPEECQUESRESP
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSPEECQUESRESP.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSPEECREQCHKLST
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSPEECREQCHKLST.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSPEECREQTYPE
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSPEECREQTYPE.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSPEECREQTYPE_PSPEECREQTYPNOTE
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSPEECREQTYPE_PSPEECREQTYPNOTE.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSPEGAF
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSPEGAF.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSPEGRPLOCATION
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSPEGRPLOCATION.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSPEGRPLOCECWFAC
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSPEGRPLOCECWFAC.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSPEGRPLOCSPEC
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSPEGRPLOCSPEC.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSPEINSTITUTION
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSPEINSTITUTION.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSPELOCATION
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSPELOCATION.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSPEPAYCPID
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSPEPAYCPID.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSPEPAYER
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSPEPAYER.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSPEPAYER_PSPEPAYNOTES
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSPEPAYER_PSPEPAYNOTES.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSPEPAYLEGACY
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSPEPAYLEGACY.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSPEPAYLINKGROUPS
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSPEPAYLINKGROUPS.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSPEPAYPENDS
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSPEPAYPENDS.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSPEPAYPROD
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSPEPAYPROD.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSPEPAYTAXEX
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSPEPAYTAXEX.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSPEPERF
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSPEPERF.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSPEPERFRELGRP
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSPEPERFRELGRP.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSPEPPI
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSPEPPI.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSPEPPI_PSPEPPINOTES
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSPEPPI_PSPEPPINOTES.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSPEPPIACTIONPLAN
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSPEPPIACTIONPLAN.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSPEPPIASSIGNMENTS
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSPEPPIASSIGNMENTS.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSPEPPIEFFDATES
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSPEPPIEFFDATES.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSPEPPIHIST
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSPEPPIHIST.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSPEPPIHOLDRULES
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSPEPPIHOLDRULES.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSPEPPILINKS
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSPEPPILINKS.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSPEPPIPINGIN
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSPEPPIPINGIN.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSPEPRAFFILIATION
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSPEPRAFFILIATION.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSPEPRALTPROVIDERS
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSPEPRALTPROVIDERS.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSPEPRBOARD
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSPEPRBOARD.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSPEPREDUCATION
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSPEPREDUCATION.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSPEPRINSURANCE
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSPEPRINSURANCE.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSPEPRLICENSE
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSPEPRLICENSE.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSPEPRLOCATION
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSPEPRLOCATION.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSPEPRNPDB
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSPEPRNPDB.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSPEPRSPECIALTY
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSPEPRSPECIALTY.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSPEPRVERIFICATION
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSPEPRVERIFICATION.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSPESPATAXONPIOVR
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSPESPATAXONPIOVR.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSPESPATMPPAYOVR
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSPESPATMPPAYOVR.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSPESPAUSERS
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSPESPAUSERS.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSPESPAUTGRPPAYOVR
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSPESPAUTGRPPAYOVR.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSPESPAUTILCSO
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSPESPAUTILCSO.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSPESPAUTILITY
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSPESPAUTILITY.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSPESPAUTILITY_PSPESPANOTES
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSPESPAUTILITY_PSPESPANOTES.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSPESPAUTILPAYORS
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSPESPAUTILPAYORS.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSPESYSALERTS
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSPESYSALERTS.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSPESYSALERTS_PSPESYSALRNOTES
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSPESYSALERTS_PSPESYSALRNOTES.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSPETAXONOMYCODES
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSPETAXONOMYCODES.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSPETIMEPPI
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSPETIMEPPI.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSPOOLADDINFO
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSPOOLADDINFO.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSPROVIDER
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSPROVIDER.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSRATEREFERENCE
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSRATEREFERENCE.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgPSSUBCATCHKLST
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgPSSUBCATCHKLST.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgSTACTIONGRP
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgSTACTIONGRP.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgSTDEPT
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgSTDEPT.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgSTPHASE
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgSTPHASE.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgSTUSER
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgSTUSER.sql
+      validation:
+      - name: NONE
+    - table: Artiva_StgSTWORKFLOW
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_StgSTWORKFLOW.sql
+      validation:
+      - name: NONE
+    - table: Artiva_IntraDayData
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_IntraDayData.sql
+      validation:
+      - name: NONE
+    - table: Artiva_InventorySnapShotDaily
+      has_sensor: 'No'
+      sql:
+      - name: Artiva_InventorySnapShotDaily.sql
+      validation:
+      - name: NONE
+    - table: PV_JuncArtivaPPItoClaim
+      has_sensor: 'No'
+      sql:
+      - name: PV_JuncArtivaPPItoClaim.sql
+      validation:
+      - name: NONE

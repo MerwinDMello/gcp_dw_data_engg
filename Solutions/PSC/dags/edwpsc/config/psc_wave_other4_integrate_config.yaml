@@ -1,0 +1,608 @@
+integrate:
+- source_system: psc
+  frequency: daily
+  dag_name_suffix: wave-other4
+  start_date: pendulum.datetime(2025, 2, 1, tz=current_timezone)
+  schedule: None
+  type: sqlserver
+  done_file: None
+  
+  server-04:
+    trigger_dag_ids: []
+    tables:
+    - table: ECW_FactSRTDiscountTracker
+      has_sensor: 'No'
+      sql:
+      - name: ECW_FactSRTDiscountTracker.sql
+      validation:
+      - name: NONE
+    - table: ECW_FactUserProductivity
+      has_sensor: 'No'
+      sql:
+      - name: ECW_FactUserProductivity.sql
+      validation:
+      - name: NONE
+    - table: ECW_RefChargeValue
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RefChargeValue.sql
+      validation:
+      - name: NONE
+    - table: ECW_RefChargeValue_History
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RefChargeValue_History.sql
+      validation:
+      - name: NONE
+    - table: ECW_RefFacilityMeditechExpanse
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RefFacilityMeditechExpanse.sql
+      validation:
+      - name: NONE
+    - table: ECW_RefFinancialPayorGroupSize
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RefFinancialPayorGroupSize.sql
+      validation:
+      - name: NONE
+    - table: ECW_RefGLStatCode
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RefGLStatCode.sql
+      validation:
+      - name: NONE
+    - table: ECW_RefIETV2SubcategoryRank
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RefIETV2SubcategoryRank.sql
+      validation:
+      - name: NONE
+    - table: ECW_RefIplanMeditechECWCrosswalk
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RefIplanMeditechECWCrosswalk.sql
+      validation:
+      - name: NONE
+    - table: ECW_RefIplanMeditechExpanse
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RefIplanMeditechExpanse.sql
+      validation:
+      - name: NONE
+    - table: ECW_RefJobDeptCode
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RefJobDeptCode.sql
+      validation:
+      - name: NONE
+    - table: ECW_RefJobHR
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RefJobHR.sql
+      validation:
+      - name: NONE
+    - table: ECW_RefLocationMeditechExpanse
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RefLocationMeditechExpanse.sql
+      validation:
+      - name: NONE
+    - table: ECW_RefNBTAllocatedPhysicianStatus
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RefNBTAllocatedPhysicianStatus.sql
+      validation:
+      - name: NONE
+    - table: ECW_RefNBTAllocGLPhysicianCurrEDW
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RefNBTAllocGLPhysicianCurrEDW.sql
+      validation:
+      - name: NONE
+    - table: ECW_RefNBTAppSpecialtyCategory
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RefNBTAppSpecialtyCategory.sql
+      validation:
+      - name: NONE
+    - table: ECW_RefNBTCoidProgramType
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RefNBTCoidProgramType.sql
+      validation:
+      - name: NONE
+    - table: ECW_RefNBTLargePractice
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RefNBTLargePractice.sql
+      validation:
+      - name: NONE
+    - table: ECW_RefNBTPhysicianStatusList
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RefNBTPhysicianStatusList.sql
+      validation:
+      - name: NONE
+    - table: ECW_RefNBTSpecialty
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RefNBTSpecialty.sql
+      validation:
+      - name: NONE
+    - table: ECW_RefNBTSpecialtyCategory
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RefNBTSpecialtyCategory.sql
+      validation:
+      - name: NONE
+    - table: ECW_RefPatientGuarantorMeditechExpanse
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RefPatientGuarantorMeditechExpanse.sql
+      validation:
+      - name: NONE
+    - table: ECW_RefProviderLawson
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RefProviderLawson.sql
+      validation:
+      - name: NONE
+    - table: ECW_RefProviderMasterListMedicaid
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RefProviderMasterListMedicaid.sql
+      validation:
+      - name: NONE
+    - table: ECW_RefProviderMeditechExpanse
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RefProviderMeditechExpanse.sql
+      validation:
+      - name: NONE
+    - table: ECW_RefRegionMeditechExpanse
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RefRegionMeditechExpanse.sql
+      validation:
+      - name: NONE
+    - table: ECW_RefRH1201BillClaimStatus
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RefRH1201BillClaimStatus.sql
+      validation:
+      - name: NONE
+    - table: ECW_RefRH1201HoldCodePrefix
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RefRH1201HoldCodePrefix.sql
+      validation:
+      - name: NONE
+    - table: ECW_RefRH1201ReleaseStatus
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RefRH1201ReleaseStatus.sql
+      validation:
+      - name: NONE
+    - table: ECW_RefRHStatusCtgy
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RefRHStatusCtgy.sql
+      validation:
+      - name: NONE
+    - table: ECW_RefSourceSystem
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RefSourceSystem.sql
+      validation:
+      - name: NONE
+    - table: ECW_RefSRTContractMasterFile
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RefSRTContractMasterFile.sql
+      validation:
+      - name: NONE
+    - table: ECW_RefSRTForecastEstimate
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RefSRTForecastEstimate.sql
+      validation:
+      - name: NONE
+    - table: ECW_RefSRTGeBBSExistingCoder
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RefSRTGeBBSExistingCoder.sql
+      validation:
+      - name: NONE
+    - table: ECW_RefSRTGroupValueControlNumber
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RefSRTGroupValueControlNumber.sql
+      validation:
+      - name: NONE
+    - table: ECW_RefSRTGroupValueDepartment
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RefSRTGroupValueDepartment.sql
+      validation:
+      - name: NONE
+    - table: ECW_RefSRTICCAppFacilityList
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RefSRTICCAppFacilityList.sql
+      validation:
+      - name: NONE
+    - table: ECW_RefSRTOnbaseContract
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RefSRTOnbaseContract.sql
+      validation:
+      - name: NONE
+    - table: ECW_RefSRTProductivityResultCode
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RefSRTProductivityResultCode.sql
+      validation:
+      - name: NONE
+    - table: ECW_RefSRTReportingDefinitionsAndSource
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RefSRTReportingDefinitionsAndSource.sql
+      validation:
+      - name: NONE
+    - table: ECW_RefSRTUCCFastMedIndicator
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RefSRTUCCFastMedIndicator.sql
+      validation:
+      - name: NONE
+    - table: ECW_RefTeradataProcedureCodes
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RefTeradataProcedureCodes.sql
+      validation:
+      - name: NONE
+    - table: ECW_RefUserProductivity
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RefUserProductivity.sql
+      validation:
+      - name: NONE
+    - table: ECW_RefUserProductivity_History
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RefUserProductivity_History.sql
+      validation:
+      - name: NONE
+    - table: ECW_RefUsersMeditechExpanse
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RefUsersMeditechExpanse.sql
+      validation:
+      - name: NONE
+    - table: ECW_RefUTFDays
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RefUTFDays.sql
+      validation:
+      - name: NONE
+    - table: ECW_RefValescoSiteCodeRoster
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RefValescoSiteCodeRoster.sql
+      validation:
+      - name: NONE
+    - table: ECW_RefVendorMmgt
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RefVendorMmgt.sql
+      validation:
+      - name: NONE
+    - table: ECW_RefVendorMmgt_History
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RefVendorMmgt_History.sql
+      validation:
+      - name: NONE
+    - table: ECW_RprtBillingCoodinatorProductivity
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RprtBillingCoodinatorProductivity.sql
+      validation:
+      - name: NONE
+    - table: ECW_RprtCashMgmtArUnBalanced
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RprtCashMgmtArUnBalanced.sql
+      validation:
+      - name: NONE
+    - table: ECW_RprtCashMgmtLegalEntityCoid
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RprtCashMgmtLegalEntityCoid.sql
+      validation:
+      - name: NONE
+    - table: ECW_RprtCashMgmtLocationBasedCoidLegalEntity
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RprtCashMgmtLocationBasedCoidLegalEntity.sql
+      validation:
+      - name: NONE
+    - table: ECW_RprtCashMgmtPvBalancingReport
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RprtCashMgmtPvBalancingReport.sql
+      validation:
+      - name: NONE
+    - table: ECW_RprtCOVIDClaim
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RprtCOVIDClaim.sql
+      validation:
+      - name: NONE
+    - table: ECW_RprtDenialsTrending
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RprtDenialsTrending.sql
+      validation:
+      - name: NONE
+    - table: ECW_RprtGovernedDenialsTrending
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RprtGovernedDenialsTrending.sql
+      validation:
+      - name: NONE
+    - table: ECW_RprtInterfaceMessagesPK
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RprtInterfaceMessagesPK.sql
+      validation:
+      - name: NONE
+    - table: ECW_RprtInterfaceMessagesPSCOC
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RprtInterfaceMessagesPSCOC.sql
+      validation:
+      - name: NONE
+    - table: ECW_RprtInterfaceMessagesPSGOC
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RprtInterfaceMessagesPSGOC.sql
+      validation:
+      - name: NONE
+    - table: ECW_RprtIPlanAccuracyTrending
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RprtIPlanAccuracyTrending.sql
+      validation:
+      - name: NONE
+    - table: ECW_RprtOpenIetSummaryByCOID
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RprtOpenIetSummaryByCOID.sql
+      validation:
+      - name: NONE
+    - table: ECW_RprtOSC
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RprtOSC.sql
+      validation:
+      - name: NONE
+    - table: ECW_RprtPayerResponseTrending
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RprtPayerResponseTrending.sql
+      validation:
+      - name: NONE
+    - table: ECW_RprtTeradataComastNBTSupplement
+      has_sensor: 'No'
+      sql:
+      - name: ECW_RprtTeradataComastNBTSupplement.sql
+      validation:
+      - name: NONE
+    - table: ECW_CashValueCurrentClaim
+      has_sensor: 'No'
+      sql:
+      - name: ECW_CashValueCurrentClaim.sql
+      validation:
+      - name: NONE
+    - table: ECW_CashValueCurrentClaimLineCharge
+      has_sensor: 'No'
+      sql:
+      - name: ECW_CashValueCurrentClaimLineCharge.sql
+      validation:
+      - name: NONE
+    - table: ECW_CashValueLinePaymentSample
+      has_sensor: 'No'
+      sql:
+      - name: ECW_CashValueLinePaymentSample.sql
+      validation:
+      - name: NONE
+    - table: ECW_CashValuePatientPaymentHistory
+      has_sensor: 'No'
+      sql:
+      - name: ECW_CashValuePatientPaymentHistory.sql
+      validation:
+      - name: NONE
+    - table: ECW_ExperityClaimData
+      has_sensor: 'No'
+      sql:
+      - name: ECW_ExperityClaimData.sql
+      validation:
+      - name: NONE
+    - table: ECW_ReportSecurity
+      has_sensor: 'No'
+      sql:
+      - name: ECW_ReportSecurity.sql
+      validation:
+      - name: NONE
+    - table: ECW_ReportSecurityMasterData
+      has_sensor: 'No'
+      sql:
+      - name: ECW_ReportSecurityMasterData.sql
+      validation:
+      - name: NONE
+    - table: ECW_ReportSecurityPBIUser
+      has_sensor: 'No'
+      sql:
+      - name: ECW_ReportSecurityPBIUser.sql
+      validation:
+      - name: NONE
+    - table: ECW_ReportSecurityPBIUserCOID
+      has_sensor: 'No'
+      sql:
+      - name: ECW_ReportSecurityPBIUserCOID.sql
+      validation:
+      - name: NONE
+    - table: ECW_ReportSecurityPBIUserCOIDEmployeeType
+      has_sensor: 'No'
+      sql:
+      - name: ECW_ReportSecurityPBIUserCOIDEmployeeType.sql
+      validation:
+      - name: NONE
+    - table: ECW_ReportSecurityPBIUserEmployeeType
+      has_sensor: 'No'
+      sql:
+      - name: ECW_ReportSecurityPBIUserEmployeeType.sql
+      validation:
+      - name: NONE
+    - table: ECW_ReportSecurityReport
+      has_sensor: 'No'
+      sql:
+      - name: ECW_ReportSecurityReport.sql
+      validation:
+      - name: NONE
+    - table: ECW_ReportSecurityReportToRole
+      has_sensor: 'No'
+      sql:
+      - name: ECW_ReportSecurityReportToRole.sql
+      validation:
+      - name: NONE
+    - table: ECW_ReportSecurityRole
+      has_sensor: 'No'
+      sql:
+      - name: ECW_ReportSecurityRole.sql
+      validation:
+      - name: NONE
+    - table: ECW_ReportSecurityUserCOID
+      has_sensor: 'No'
+      sql:
+      - name: ECW_ReportSecurityUserCOID.sql
+      validation:
+      - name: NONE
+    - table: ECW_ReportSecurityValescoUserID
+      has_sensor: 'No'
+      sql:
+      - name: ECW_ReportSecurityValescoUserID.sql
+      validation:
+      - name: NONE
+    - table: ECW_FactEncounterActionChangeHistory
+      has_sensor: 'No'
+      sql:
+      - name: ECW_FactEncounterActionChangeHistory.sql
+      validation:
+      - name: NONE
+
+  server-06:
+    trigger_dag_ids: []
+    tables:
+    - table: CCU_RefEPICWorkQueues
+      has_sensor: 'No'
+      sql:
+      - name: CCU_RefEPICWorkQueues.sql
+      validation:
+      - name: NONE
+    - table: CCU_RprtEPICClaimSummary
+      has_sensor: 'No'
+      sql:
+      - name: CCU_RprtEPICClaimSummary.sql
+      validation:
+      - name: NONE
+    - table: CCU_RprtEPICClaimSummaryDX
+      has_sensor: 'No'
+      sql:
+      - name: CCU_RprtEPICClaimSummaryDX.sql
+      validation:
+      - name: NONE
+    - table: CCU_RprtEPICCodeQuality
+      has_sensor: 'No'
+      sql:
+      - name: CCU_RprtEPICCodeQuality.sql
+      validation:
+      - name: NONE
+    - table: PV_StgERAFileCheckTypeBPR
+      has_sensor: 'No'
+      sql:
+      - name: PV_StgERAFileCheckTypeBPR.sql
+      validation:
+      - name: NONE
+    - table: PV_StgERAFileClaim
+      has_sensor: 'No'
+      sql:
+      - name: PV_StgERAFileClaim.sql
+      validation:
+      - name: NONE
+    - table: PV_StgERAFileClaimLine
+      has_sensor: 'No'
+      sql:
+      - name: PV_StgERAFileClaimLine.sql
+      validation:
+      - name: NONE
+    - table: PV_StgERAFileClaimlineAllowed
+      has_sensor: 'No'
+      sql:
+      - name: PV_StgERAFileClaimlineAllowed.sql
+      validation:
+      - name: NONE
+    - table: PV_StgERAFileClaimlineCARC
+      has_sensor: 'No'
+      sql:
+      - name: PV_StgERAFileClaimlineCARC.sql
+      validation:
+      - name: NONE
+    - table: PV_StgERAFileClaimlineRARC
+      has_sensor: 'No'
+      sql:
+      - name: PV_StgERAFileClaimlineRARC.sql
+      validation:
+      - name: NONE
+    - table: PV_StgERAFileClaimPatient
+      has_sensor: 'No'
+      sql:
+      - name: PV_StgERAFileClaimPatient.sql
+      validation:
+      - name: NONE
+    - table: PV_StgERAFileName
+      has_sensor: 'No'
+      sql:
+      - name: PV_StgERAFileName.sql
+      validation:
+      - name: NONE
+    - table: PV_StgERAFileGS
+      has_sensor: 'No'
+      sql:
+      - name: PV_StgERAFileGS.sql
+      validation:
+      - name: NONE
+    - table: PV_StgERAFilePayer
+      has_sensor: 'No'
+      sql:
+      - name: PV_StgERAFilePayer.sql
+      validation:
+      - name: NONE
+    - table: PV_StgERAFileTransactionNumber
+      has_sensor: 'No'
+      sql:
+      - name: PV_StgERAFileTransactionNumber.sql
+      validation:
+      - name: NONE
+
+  server-07:
+    trigger_dag_ids: []
+    tables:
+    - table: ECW_FactConcuityCalcDetail
+      has_sensor: 'No'
+      sql:
+      - name: ECW_FactConcuityCalcDetail.sql
+      validation:
+      - name: NONE

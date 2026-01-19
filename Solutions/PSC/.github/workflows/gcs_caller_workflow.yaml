@@ -1,0 +1,64 @@
+# Usage:
+# - To copy files or directories while preserving the directory structure:
+#   gcloud storage cp -r gs://bucket1/foo gs://bucket2/
+#   This will copy the entire 'foo' directory from 'bucket1' to 'bucket2'.
+#
+# - To move files or directories while preserving the directory structure:
+#   gcloud storage mv -r gs://bucket1/foo gs://bucket2/
+#   This will move the entire 'foo' directory from 'bucket1' to 'bucket2'.
+#
+# - To copy the contents of a directory without copying the directory itself:
+#   gcloud storage cp -r gs://bucket1/foo/* gs://bucket2/foo/
+#   This will copy all contents of 'foo' to 'bucket2/foo', preserving the directory structure within 'foo'.
+#
+# - To move the contents of a directory without moving the directory itself:
+#   gcloud storage mv -r gs://bucket1/foo/* gs://bucket2/foo/
+#   This will move all contents of 'foo' to 'bucket2/foo', preserving the directory structure within 'foo'.
+
+name: GCS Caller Workflow
+on:
+  workflow_dispatch:
+    inputs:
+      source_path:
+        description: 'Source path of the file(s) or folder in the source bucket'
+        required: true
+        default: ''
+      destination_path:
+        description: 'Destination path of the file(s) or folder in the destination bucket'
+        required: true
+        default: ''
+      action:
+        description: 'Action to perform: copy, move, or delete'
+        required: true
+        default: 'copy'
+        type: choice
+        options:
+          - copy
+          - move
+          - delete
+      ticket_number:
+        description: 'Ticket number associated with the action'
+        required: true
+      gcp_env:
+        description: 'The GCP environment to authenticate to'
+        required: true
+        type: choice
+        options:
+          - dev
+          - qa
+          - prod
+
+jobs:
+  call_gcs_workflow:
+    name: Call reusable workflow
+    # environment: ${{ inputs.gcp_env }}
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+    uses: HCACloudDataEngineering/gcp-hin-workflows/.github/workflows/gcs_reusable_workflow.yaml@main
+    with:
+      source_path: ${{ github.event.inputs.source_path }}
+      destination_path: ${{ github.event.inputs.destination_path }}
+      action: ${{ github.event.inputs.action }}
+      ticket_number: ${{ github.event.inputs.ticket_number }}
+      gcp_env: ${{ github.event.inputs.gcp_env }}

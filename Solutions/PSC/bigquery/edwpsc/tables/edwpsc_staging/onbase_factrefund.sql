@@ -1,0 +1,31 @@
+CREATE TABLE IF NOT EXISTS edwpsc_staging.onbase_factrefund
+(
+  documenthandle INT64,
+  totalrefundamount STRING,
+  coid STRING,
+  claimnumber STRING,
+  refundamount STRING,
+  refundtype STRING,
+  refundsource STRING,
+  reasonforrefund STRING,
+  payableto STRING,
+  teamleadapproval STRING,
+  mgrapprovalusername STRING,
+  directorapprovalusername STRING,
+  requestedbydate STRING,
+  adjustmentcode STRING,
+  otherapprovalusername STRING,
+  requestedby STRING,
+  dateoffinalapproval STRING,
+  numberofclaims STRING,
+  status STRING,
+  insertedby STRING,
+  inserteddtm DATETIME,
+  modifiedby STRING,
+  modifieddtm DATETIME,
+  requestedbythreefour STRING,
+  dwlastupdatedatetime DATETIME,
+  region INT64,
+  onbaserefunddatakey INT64 NOT NULL
+)
+;

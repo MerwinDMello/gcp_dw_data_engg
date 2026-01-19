@@ -1,0 +1,323 @@
+integrate:
+- source_system: psc
+  frequency: daily
+  dag_name_suffix: wave-other1
+  start_date: pendulum.datetime(2025, 2, 1, tz=current_timezone)
+  schedule: None
+  type: sqlserver
+  done_file: None
+  server-04:
+    trigger_dag_ids: []
+    tables:
+    - table: ECW_FactBillVendorInventory
+      has_sensor: 'No'
+      sql:
+      - name: ECW_FactBillVendorInventory.sql
+      validation:
+      - name: NONE
+    - table: ECW_FactBillVendorClaimStatusHistory
+      has_sensor: 'No'
+      sql:
+      - name: ECW_FactBillVendorClaimStatusHistory.sql
+      validation:
+      - name: NONE
+    - table: CMT_FactBankFile
+      has_sensor: 'No'
+      sql:
+      - name: CMT_FactBankFile.sql
+      validation:
+      - name: NONE
+    - table: CMT_FactBatchData
+      has_sensor: 'No'
+      sql:
+      - name: CMT_FactBatchData.sql
+      validation:
+      - name: NONE
+    - table: CMT_FactBatchExceptionsDetail
+      has_sensor: 'No'
+      sql:
+      - name: CMT_FactBatchExceptionsDetail.sql
+      validation:
+      - name: NONE
+    - table: CMT_FactBatchProductivity
+      has_sensor: 'No'
+      sql:
+      - name: CMT_FactBatchProductivity.sql
+      validation:
+      - name: NONE
+    - table: CMT_FactEDPR
+      has_sensor: 'No'
+      sql:
+      - name: CMT_FactEDPR.sql
+      validation:
+      - name: NONE
+    - table: CMT_FactLockBox
+      has_sensor: 'No'
+      sql:
+      - name: CMT_FactLockBox.sql
+      validation:
+      - name: NONE
+    - table: CMT_FactMonthlyTransactions
+      has_sensor: 'No'
+      sql:
+      - name: CMT_FactMonthlyTransactions.sql
+      validation:
+      - name: NONE
+    - table: CMT_FactPplBalancing
+      has_sensor: 'No'
+      sql:
+      - name: CMT_FactPplBalancing.sql
+      validation:
+      - name: NONE
+    - table: CMT_FactTreasuryBatch
+      has_sensor: 'No'
+      sql:
+      - name: CMT_FactTreasuryBatch.sql
+      validation:
+      - name: NONE
+    - table: CMT_FactTreasuryBatchDetail
+      has_sensor: 'No'
+      sql:
+      - name: CMT_FactTreasuryBatchDetail.sql
+      validation:
+      - name: NONE
+    - table: CCU_Fact3MInventory
+      has_sensor: 'No'
+      sql:
+      - name: CCU_Fact3MInventory.sql
+      validation:
+      - name: NONE
+    - table: CCU_FactCodeChange
+      has_sensor: 'No'
+      sql:
+      - name: CCU_FactCodeChange.sql
+      validation:
+      - name: NONE
+    - table: CCU_FactCodeQuality
+      has_sensor: 'No'
+      sql:
+      - name: CCU_FactCodeQuality.sql
+      validation:
+      - name: NONE
+    - table: CCU_FactCodingStatusMeditechExpanse
+      has_sensor: 'No'
+      sql:
+      - name: CCU_FactCodingStatusMeditechExpanse.sql
+      validation:
+      - name: NONE
+    - table: CCU_FactCoidProvider
+      has_sensor: 'No'
+      sql:
+      - name: CCU_FactCoidProvider.sql
+      validation:
+      - name: NONE
+    - table: CCU_FactECWInventory
+      has_sensor: 'No'
+      sql:
+      - name: CCU_FactECWInventory.sql
+      validation:
+      - name: NONE
+    - table: CCU_FactEncounterModifier
+      has_sensor: 'No'
+      sql:
+      - name: CCU_FactEncounterModifier.sql
+      validation:
+      - name: NONE
+    - table: CCU_FactMedaxionInventory
+      has_sensor: 'No'
+      sql:
+      - name: CCU_FactMedaxionInventory.sql
+      validation:
+      - name: NONE
+    - table: CCU_FactMTXInventory
+      has_sensor: 'No'
+      sql:
+      - name: CCU_FactMTXInventory.sql
+      validation:
+      - name: NONE
+    - table: CCU_FactNonProductivty
+      has_sensor: 'No'
+      sql:
+      - name: CCU_FactNonProductivty.sql
+      validation:
+      - name: NONE
+    - table: CCU_FactPKInventory
+      has_sensor: 'No'
+      sql:
+      - name: CCU_FactPKInventory.sql
+      validation:
+      - name: NONE
+    - table: Onbase_FactApInvoice
+      has_sensor: 'No'
+      sql:
+      - name: Onbase_FactApInvoice.sql
+      validation:
+      - name: NONE
+    - table: Onbase_FactRefund
+      has_sensor: 'No'
+      sql:
+      - name: Onbase_FactRefund.sql
+      validation:
+      - name: NONE
+    - table: Onbase_FactRemotePrintRequest
+      has_sensor: 'No'
+      sql:
+      - name: Onbase_FactRemotePrintRequest.sql
+      validation:
+      - name: NONE
+    - table: Onbase_FactUserAction
+      has_sensor: 'No'
+      sql:
+      - name: Onbase_FactUserAction.sql
+      validation:
+      - name: NONE
+    - table: Onbase_FactWorkflowDetail
+      has_sensor: 'No'
+      sql:
+      - name: Onbase_FactWorkflowDetail.sql
+      validation:
+      - name: NONE
+    - table: Onbase_FactWorkQueue
+      has_sensor: 'No'
+      sql:
+      - name: Onbase_FactWorkQueue.sql
+      validation:
+      - name: NONE
+    - table: ECW_FactRH1201
+      has_sensor: 'No'
+      sql:
+      - name: ECW_FactRH1201.sql
+      validation:
+      - name: NONE
+    - table: ECW_FactRH1301
+      has_sensor: 'No'
+      sql:
+      - name: ECW_FactRH1301.sql
+      validation:
+      - name: NONE
+    - table: ECW_FactRH277Response
+      has_sensor: 'No'
+      sql:
+      - name: ECW_FactRH277Response.sql
+      validation:
+      - name: NONE
+    - table: ECW_FactRHClaimHistory
+      has_sensor: 'No'
+      sql:
+      - name: ECW_FactRHClaimHistory.sql
+      validation:
+      - name: NONE
+    - table: ECW_FactRHException
+      has_sensor: 'No'
+      sql:
+      - name: ECW_FactRHException.sql
+      validation:
+      - name: NONE
+    - table: ECW_FactRHInitialError
+      has_sensor: 'No'
+      sql:
+      - name: ECW_FactRHInitialError.sql
+      validation:
+      - name: NONE
+    - table: ECW_FactRHInventory
+      has_sensor: 'No'
+      sql:
+      - name: ECW_FactRHInventory.sql
+      validation:
+      - name: NONE
+    - table: CCU_RefMatchType
+      has_sensor: 'No'
+      sql:
+      - name: CCU_RefMatchType.sql
+      validation:
+      - name: NONE
+    - table: CCU_RefNonCustomerConfig
+      has_sensor: 'No'
+      sql:
+      - name: CCU_RefNonCustomerConfig.sql
+      validation:
+      - name: NONE
+    - table: CCU_RefNonCustomerNPIConfig
+      has_sensor: 'No'
+      sql:
+      - name: CCU_RefNonCustomerNPIConfig.sql
+      validation:
+      - name: NONE
+    - table: CCU_RefNonCustomerNPIConfig_History
+      has_sensor: 'No'
+      sql:
+      - name: CCU_RefNonCustomerNPIConfig_History.sql
+      validation:
+      - name: NONE
+    - table: CCU_RprtClaimSummary
+      has_sensor: 'No'
+      sql:
+      - name: CCU_RprtClaimSummary.sql
+      validation:
+      - name: NONE
+    - table: CCU_RprtClaimSummaryDX
+      has_sensor: 'No'
+      sql:
+      - name: CCU_RprtClaimSummaryDX.sql
+      validation:
+      - name: NONE
+    - table: CCU_RprtClaimSummaryMeditech
+      has_sensor: 'No'
+      sql:
+      - name: CCU_RprtClaimSummaryMeditech.sql
+      validation:
+      - name: NONE
+    - table: CCU_RprtClaimSummaryModifierECW
+      has_sensor: 'No'
+      sql:
+      - name: CCU_RprtClaimSummaryModifierECW.sql
+      validation:
+      - name: NONE
+    - table: CCU_RprtClaimSummaryModifierPK
+      has_sensor: 'No'
+      sql:
+      - name: CCU_RprtClaimSummaryModifierPK.sql
+      validation:
+      - name: NONE
+    - table: CCU_RprtCodeQuality
+      has_sensor: 'No'
+      sql:
+      - name: CCU_RprtCodeQuality.sql
+      validation:
+      - name: NONE
+    - table: CCU_RprtCoidGroupAssignment
+      has_sensor: 'No'
+      sql:
+      - name: CCU_RprtCoidGroupAssignment.sql
+      validation:
+      - name: NONE
+    - table: CCU_RprtDashboard
+      has_sensor: 'No'
+      sql:
+      - name: CCU_RprtDashboard.sql
+      validation:
+      - name: NONE    
+    - table: CCU_RprtVendorCoidMatrix
+      has_sensor: 'No'
+      sql:
+      - name: CCU_RprtVendorCoidMatrix.sql
+      validation:
+      - name: NONE
+    - table: EBOC_FactTransactions
+      has_sensor: 'No'
+      sql:
+        - name: EBOC_FactTransactions.sql
+      validation:
+        - name: NONE
+    - table: PV_FactBillVendorClaimStatusHistory
+      has_sensor: 'No'
+      sql:
+      - name: PV_FactBillVendorClaimStatusHistory.sql
+      validation:
+      - name: NONE
+    - table: PV_FactBillVendorInventory
+      has_sensor: 'No'
+      sql:
+      - name: PV_FactBillVendorInventory.sql
+      validation:
+      - name: NONE

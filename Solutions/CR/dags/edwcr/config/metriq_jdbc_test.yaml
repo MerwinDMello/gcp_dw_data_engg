@@ -1,0 +1,5 @@
+v_jdbc_url: jdbc:sqlserver://cannwqdbsmeq01.hcaqa.corpadqa.net:1433;encrypt=false;trustServerCertificate=true
+v_server_name:  xxx
+v_db_name:  MDictionary
+v_test_sql: "SELECT securityid, userid, firstname, lastname, 'M' AS source_system_code, 'v_currtimestamp' AS dw_last_update_date_time FROM mdictionary.dbo.security"
+v_tgt_bq_tbl: v_curated_project_id.edwcr_staging.cr_system_user_stg

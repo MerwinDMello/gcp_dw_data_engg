@@ -1,0 +1,62 @@
+name: Monitoring CI
+
+inputs:
+  branch:
+    description: ""
+  args:
+    description: ""
+    default: ""
+  repository:
+    description: ""
+  token: 
+    description: ""
+
+
+runs:
+  using: "composite"
+  steps:
+    - name: Get ALL Files
+      id: all_files
+      shell: bash
+      run: |
+        #create artifacts directory
+        mkdir artifacts
+        cp -r monitoring artifacts/monitoring
+    
+    - name: upload-github artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: monitoring_artifacts
+        path: artifacts
+        retention-days: 1
+    
+    - name: checkout parent
+      uses: actions/checkout@v2
+      with:
+        repository: 'HCACloudDataEngineering/gcp-hin-clinical-composite-parent'
+        token: ${{ inputs.token }}
+    
+    - name: ls scripts folder
+      shell: bash
+      run: |
+        ls monitoring/scripts
+
+    - name: upload-github artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: script_artifacts
+        path: monitoring/scripts
+        retention-days: 1
+
+
+
+      
+    
+
+
+    
+
+
+
+        
+ 

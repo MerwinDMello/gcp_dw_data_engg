@@ -1,0 +1,62 @@
+-- Translation time: 2024-02-16T20:48:08.013760Z
+-- Translation job ID: 825ffe95-5d09-4d28-9bed-a2d58826a821
+-- Source: internal_metastore/db_hca-hin-dev-cur-parallon/schema_edwra_staging/denial_eow_wrk1.memory
+-- Translated from: Teradata
+-- Translated to: BigQuery
+
+CREATE TABLE IF NOT EXISTS {{ params.param_parallon_ra_stage_dataset_name }}.denial_eow_wrk1
+(
+  schema_id INT64 NOT NULL,
+  rpt_run_date DATE NOT NULL,
+  rpt_start_date DATE NOT NULL,
+  rpt_end_date DATE NOT NULL,
+  external_code STRING,
+  unit_num STRING NOT NULL,
+  pat_acct_num NUMERIC(29) NOT NULL,
+  iplan_id INT64 NOT NULL,
+  iplan_insurance_order_num INT64 NOT NULL,
+  deadline_date DATE,
+  max_seq_create_date DATE,
+  patient_code STRING,
+  financial_class STRING,
+  payer_finclass_code STRING,
+  disposition_code STRING,
+  web_denial_disp_code INT64,
+  appeal_no NUMERIC(29),
+  total_charges NUMERIC(31, 2),
+  attending_phys_name STRING,
+  attending_phys_id STRING,
+  discharge_date DATE,
+  service_code STRING,
+  medical_rec_num STRING,
+  login_id STRING,
+  appeal_date_modified DATE,
+  root_cause_code STRING,
+  root_cause_description STRING,
+  denial_code_category STRING,
+  sequence_no NUMERIC(29),
+  appeal_code STRING,
+  appeal_description STRING,
+  min_denial_date DATE,
+  mon_account_id NUMERIC(29),
+  mon_payer_id NUMERIC(29),
+  min_appeal_bal_amt_beg NUMERIC(31, 2),
+  max_appeal_date_closed DATE,
+  account_balance NUMERIC(31, 2),
+  max_appeal_bal_amt NUMERIC(31, 2),
+  new_account INT64,
+  new_amt NUMERIC(31, 2),
+  existing_account INT64,
+  resolved_account INT64,
+  not_true_denial_amt NUMERIC(31, 2),
+  writeoff_amt NUMERIC(31, 2),
+  overturned_amt NUMERIC(31, 2),
+  corrections_amt NUMERIC(31, 2),
+  xfer_next_party_amt NUMERIC(31, 2),
+  cash_adj_amt NUMERIC(31, 2),
+  contractual_allowance_amt NUMERIC(31, 2),
+  appeal_cnt INT64,
+  last_update_date_time DATETIME,
+  vendor_cd STRING
+)
+CLUSTER BY schema_id, unit_num, pat_acct_num;

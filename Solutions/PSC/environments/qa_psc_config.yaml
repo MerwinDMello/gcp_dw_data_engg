@@ -1,0 +1,86 @@
+# psc variables to use in DAGs
+# note the yaml syntax, single space after colon
+env:
+ v_env_name: qa
+ v_curated_conn_id: hca-hin-qa-cur-parallon
+ v_lob: edwpsc
+
+# gcp projects
+ v_proc_project_id: hca-hin-qa-proc-parallon
+ v_landing_project_id: hca-hin-qa-landing-parallon
+ v_curated_project_id: hca-hin-qa-cur-parallon
+ v_pub_project_id: hca-hin-qa-cur-pub
+ v_mirroring_project_id: hca-hin-curated-mirroring-td
+ v_monitoring_project_id: hca-hin-monitoring-parallon
+ 
+# gcs bucket names, note this does not start with gs://
+ v_dag_bucket_name: us-east4-composerv2-9-6-qa-2b896e8f-bucket
+ v_data_bucket_name: parallon-psc-bronze-data-qa
+ v_data_archive_bucket_name: parallon-psc-bronze-data-qa
+
+# folder structure in buckets 
+ v_srcfilesdir: edwpscdata/srcfiles/
+ v_archivedir: edwpscdata/srcfilesarchive/
+ v_tgtfilesdir: edwpscdata/outboundfiles/
+ v_tmpobjdir: edwpscdata/tmp/
+ v_schemasubdir: schema/psc/ 
+
+# big query datasets
+ v_psc_core_dataset_name: edwpsc
+ v_psc_stage_dataset_name: edwpsc_staging
+ v_psc_base_views_dataset_name: edwpsc_base_views
+ v_psc_views_dataset_name: edwpsc_views
+ v_psc_audit_dataset_name: edwpsc_ac
+ v_pub_views_dataset_name: edw_pub_views
+ v_sec_core_dataset_name: edw_sec
+ v_sec_base_views_dataset_name: edw_sec_base_views
+ v_auth_base_views_dataset_name: auth_base_views
+ v_bqutil_fns_dataset_name: bqutil_fns
+ v_psc_mirrored_core_dataset_name: edwpsc
+ v_psc_mirrored_base_views_dataset_name: edwpsc_base_views_copy
+
+# secrets
+# The number in the url is the GCP project number, distinct for each envt
+ v_pwd_secrets_url: projects/330922197763/secrets/
+ v_kmskeyname: projects/hca-hin-qa-proc-parallon/locations/us/keyRings/hin-keyring-4b71aa/cryptoKeys/hin-key-4b71aa
+
+# dataflow buckets  (if applicable)
+ v_gcs_temp_bucket: gs://parallon-psc-bronze-config-qa/temp
+ v_dfstagebucket: gs://parallon-psc-bronze-config-qa/dfstage
+ v_dfjarbucket: gs://parallon-psc-bronze-config-qa/jdbcjars/
+
+# dataflow environment values
+ v_region: us-east4 # Confirm this is correct, adjust if not, then delete this instruction
+ v_zone: us-east4-a # Confirm this is correct, adjust if not, then delete this instruction
+ v_network: hca-hin-networks-shared-vpc # Confirm this is correct, adjust if not, then delete this instruction
+ v_subnetwork: https://www.googleapis.com/compute/v1/projects/hca-hin-networks/regions/us-east4/subnetworks/hin-qa-proc-parallon-dataflow-us-east4 # Confirm this is correct, adjust if not, then delete this instruction
+ v_serviceaccountemail: df-hin-eim-psc@hca-hin-qa-proc-parallon.iam.gserviceaccount.com
+ v_maxworkers: 2 # Confirm this is correct, adjust if not, then delete this instruction
+ v_numworkers: 1 # Confirm this is correct, adjust if not, then delete this instruction
+ v_machinetype: n1-standard-4 # Confirm this is correct, adjust if not, then delete this instruction
+ v_runner: DataflowRunner
+ v_gcpconnid: 3_hca-hin-dev-proc-parallon # Confirm this is correct, adjust if not, then delete this instruction
+ v_bqconnid: 2_hca-hin-dev-cur-parallon # Confirm this is correct, adjust if not, then delete this instruction
+
+#docker image and audit table name
+#  v_sdkimage: 
+ v_audittablename: audit_control
+ v_controltablename: load_ctrl_timestamp
+
+# Polling Variables
+ v_polling_template: Jdbc_Polling_PythonTemplate.py
+ v_polling_database: SSP_Claim_DW
+ v_polling:
+  - polling_type: preprocess
+    process_expected_status: Complete
+    done_file: WAVE_GROUP_SERVER_NO_YYYYMMDD.done
+    mask_type: current_date
+    mask_code: YYYYMMDD
+    attempts: 25
+    sleep_time_mins: 15
+    poll_select_sql: SELECT status FROM [v_db_name].[GCP].[ContentManager] WHERE Lower(GroupName) = Lower('v_wave_group') AND DATEDIFF(day, 'v_curr_date', LastProcessedDate) = 0
+
+#SQL servername
+ v_server01: xrpswpdbspgu04.hca.corpad.net
+ v_server02: xrpswpdbspgu06.hca.corpad.net
+ v_server03: xrpswpdbspgu07.hca.corpad.net

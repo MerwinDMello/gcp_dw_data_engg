@@ -1,0 +1,40 @@
+CREATE TABLE IF NOT EXISTS {{ params.param_hr_stage_dataset_name }}.ats_cust_candidatecredential_stg
+(
+  _action STRING,
+  _asoftimestamp STRING,
+  attachment_mimetype STRING,
+  attachment_title STRING,
+  candidate INT64,
+  candidatecredential INT64,
+  comments STRING,
+  cost FLOAT64,
+  create_stamp_actor STRING,
+  create_stamp_timestamp STRING,
+  credential STRING,
+  credentialnumber STRING,
+  currency STRING,
+  daterange_begin STRING,
+  daterange_end STRING,
+  expirationnotice STRING,
+  hcacandidatecredentialmultistatelic INT64,
+  hcacandidatecredentialnewsource STRING,
+  hrorganization STRING,
+  organizationsponsored INT64,
+  originalcredentialdate STRING,
+  other STRING,
+  othersource STRING,
+  qualificationsource STRING,
+  repset_variation_id INT64,
+  uniqueid STRING,
+  update_stamp_actor STRING,
+  update_stamp_timestamp STRING,
+  usedbyatransaction INT64,
+  verificationinfo_validationmethod STRING,
+  verificationinfo_verificationdate STRING,
+  verificationinfo_verified INT64,
+  infor_lastmodified STRING,
+  dw_last_update_date_time DATETIME
+)
+OPTIONS(
+  
+);

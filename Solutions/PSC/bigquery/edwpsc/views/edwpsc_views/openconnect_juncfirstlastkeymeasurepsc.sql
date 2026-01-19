@@ -1,0 +1,36 @@
+CREATE OR REPLACE VIEW edwpsc_views.`openconnect_juncfirstlastkeymeasurepsc`
+AS SELECT
+  `openconnect_juncfirstlastkeymeasurepsc`.juncopenconnectfirstlastkeymeasurekey,
+  `openconnect_juncfirstlastkeymeasurepsc`.openconnectmessagekey,
+  `openconnect_juncfirstlastkeymeasurepsc`.messagecreateddate,
+  `openconnect_juncfirstlastkeymeasurepsc`.firststatusreason,
+  `openconnect_juncfirstlastkeymeasurepsc`.firststatusmessage,
+  `openconnect_juncfirstlastkeymeasurepsc`.firststatusdate,
+  `openconnect_juncfirstlastkeymeasurepsc`.firstcategory,
+  `openconnect_juncfirstlastkeymeasurepsc`.firstcategorydate,
+  `openconnect_juncfirstlastkeymeasurepsc`.laststatusreason,
+  `openconnect_juncfirstlastkeymeasurepsc`.laststatusmessage,
+  `openconnect_juncfirstlastkeymeasurepsc`.laststatusdate,
+  `openconnect_juncfirstlastkeymeasurepsc`.lastcategory,
+  `openconnect_juncfirstlastkeymeasurepsc`.lastcategorydate,
+  `openconnect_juncfirstlastkeymeasurepsc`.firstiserror,
+  `openconnect_juncfirstlastkeymeasurepsc`.firstiserrordate,
+  `openconnect_juncfirstlastkeymeasurepsc`.firstiserrorecw,
+  `openconnect_juncfirstlastkeymeasurepsc`.firstiserrorecwdate,
+  `openconnect_juncfirstlastkeymeasurepsc`.firstsuppressflag,
+  `openconnect_juncfirstlastkeymeasurepsc`.firstsuppressflagdate,
+  `openconnect_juncfirstlastkeymeasurepsc`.firstdftdatereceived,
+  `openconnect_juncfirstlastkeymeasurepsc`.lastdftdatereceived,
+  `openconnect_juncfirstlastkeymeasurepsc`.firstbatchdate,
+  `openconnect_juncfirstlastkeymeasurepsc`.sourcesystemcode,
+  `openconnect_juncfirstlastkeymeasurepsc`.insertedby,
+  `openconnect_juncfirstlastkeymeasurepsc`.inserteddtm,
+  `openconnect_juncfirstlastkeymeasurepsc`.modifiedby,
+  `openconnect_juncfirstlastkeymeasurepsc`.modifieddtm,
+  `openconnect_juncfirstlastkeymeasurepsc`.firstpendingflag,
+  `openconnect_juncfirstlastkeymeasurepsc`.firstecwsuppressflag,
+  `openconnect_juncfirstlastkeymeasurepsc`.firstecwsuppressflagdate,
+  `openconnect_juncfirstlastkeymeasurepsc`.dwlastupdatedatetime
+  FROM
+    edwpsc_base_views.`openconnect_juncfirstlastkeymeasurepsc`
+;

@@ -1,0 +1,69 @@
+#THIS WORKFLOW SHOULD ONLY BE TRIGGERED FOR THIS REPO AFTER CONFIRMING IT IS APPROPRIATE TO DO SO WITH ADMIN OF HCA-PDM/gcp-hin-parallon repo
+
+#This is a basic workflow to help you get started with Actions
+name: SECRET MANAGER
+on:
+ workflow_dispatch:
+ 
+#A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  build:
+    # The type of runner that the job will run on
+    runs-on: [ self-hosted, linux, X64, enterprise, onprem ]
+    environment: ${{ github.ref_name }}
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+    steps:
+     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+      # Select relevant environment file(s) and save LoB as a variable
+      - name: setup ${{ github.ref_name }}
+        id: setup_envt
+        shell: pwsh
+        run: |
+          Get-ChildItem ".\environments" -Filter ${{ github.ref_name }}*.yaml | 
+          ForEach-Object {
+            $_.BaseName -match "_(?<lob>.*)_" > $null
+            Write-Output "lob=$($matches['lob'])" >> $Env:GITHUB_OUTPUT
+            } 
+      # Select any one of the config files to convert to json, doesn't matter which as only common variables will be used
+      - name: Bash commands to convert YAML to JSON
+        run: |
+          yq -r -j environments/${{ github.ref_name }}_${{ steps.setup_envt.outputs.lob }}_config.yaml | tee ${{ github.ref_name }}_${{ steps.setup_envt.outputs.lob }}_config.json
+      # Convert JSON to variables
+      - name: JSON to variables
+        uses: rgarcia-phi/json-to-variables@v1.1.0
+        with:
+          filename: ${{ github.ref_name }}_${{ steps.setup_envt.outputs.lob }}_config.json
+          prefix: infra
+          masked: false
+
+    # Authentication against Environment
+      - name: Authenticate to Google Cloud ${{ github.ref_name }} environment
+        id: 'authenticate_envt'
+        uses: 'google-github-actions/auth@v1.1.1'
+        with:
+          workload_identity_provider: ${{ secrets[format('WORKLOAD_IDENTITY_PROVIDER_{0}', github.ref_name)] }}
+          service_account: ${{ secrets[format('SERVICEACCOUNT_GITHUB_{0}', github.ref_name)] }} 
+
+    # Terraform
+      - name: Terraform Setup
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.1.7
+       
+      - name: terraform plan and apply
+        working-directory: ${{ github.event.inputs.resource }}
+        run: |
+          cd terraform
+          terraform init \
+            -backend-config="bucket=${{ env.infra_env_v_dag_bucket_name }}"
+          terraform plan
+          terraform apply --auto-approve
+         
+        env: 
+          TF_VAR_project_id: ${{ env.infra_env_v_proc_project_id }}
+          # Additional variables added here, begin all with TF_VAR_ and keep the rest of the name the same as used in the main.tf and variables.tf script
+          # An example is included here for reference
+          # TF_VAR_facsched_sql_jdbc_pwd : ${{ secrets.FACSCHED_SQL_JDBC_PWD }}

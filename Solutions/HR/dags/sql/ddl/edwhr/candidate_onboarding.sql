@@ -1,0 +1,26 @@
+CREATE TABLE IF NOT EXISTS {{ params.param_hr_core_dataset_name }}.candidate_onboarding
+(
+candidate_onboarding_sid INT64 NOT NULL OPTIONS(description="This is the unique system generated identifier for each onboarding candidate. Its a combination of Employee Number, Lawson Company Number and Recruitment Requisition Number Text")
+, valid_from_date DATETIME NOT NULL OPTIONS(description="Date on which the record became valid. Load date typically.")
+, valid_to_date DATETIME OPTIONS(description="Date on which the record was invalidated.")
+, requisition_sid INT64 OPTIONS(description="Unique identifier of an lawson generated requisition.")
+, employee_sid INT64 OPTIONS(description="System generated identifier for each unique Employee_Num and Lawson_Company_Num combination")
+, candidate_sid INT64 OPTIONS(description="Unique system generated identifier for each candidate.")
+, candidate_first_name STRING OPTIONS(description="First name of the candidate")
+, candidate_last_name STRING OPTIONS(description="Last name of the candidate")
+, tour_start_date DATE OPTIONS(description="Candidate tour start date or tour email sent date")
+, tour_id INT64 OPTIONS(description="Its a unique tour identifier that corresponds to candidates onboarding tour")
+, tour_status_id INT64 OPTIONS(description="Its a unique tour status identifier that corresponds to candidates current tour status")
+, tour_completion_pct NUMERIC OPTIONS(description="Indicates the percentage of candidate tour completion")
+, workflow_id INT64 OPTIONS(description="This identifier relates to workflow name, which occurs after everything has been done for Verification and Onboarding processes")
+, workflow_status_id INT64 OPTIONS(description="This identifier relates to the status of workflow name")
+, email_sent_status_id INT64 OPTIONS(description="Unique identifier for the status of record when a Candidate record is sent to Lawson,GHR.")
+, onboarding_confirmation_date DATE OPTIONS(description="It contains candidate onboarding confirmation date")
+, recruitment_requisition_num_text STRING OPTIONS(description="A unique value coming from the source that combines the location code and lawson requisition number.")
+, process_level_code STRING OPTIONS(description="Unique process level code of an HR company value maintained in this field.")
+, applicant_num INT64 OPTIONS(description="Unique applicant number generated in job portal for application submitted")
+, source_system_code STRING NOT NULL OPTIONS(description="A one character code indicating the specific source system from which the data originated.")
+, dw_last_update_date_time DATETIME NOT NULL OPTIONS(description="Datetime of update or load of this record to the Enterprise Data Warehouse.")
+)
+CLUSTER BY candidate_onboarding_sid
+OPTIONS(description="This table stores information about candidates onboarding like tour completion and drug screening from Enwisen and ATS .");

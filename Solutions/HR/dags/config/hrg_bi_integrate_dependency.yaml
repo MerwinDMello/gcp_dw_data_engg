@@ -1,0 +1,132 @@
+integrate:
+- source_system: bi
+  frequency: daily
+  schedule: 0 8 * * *
+  type: core_tables
+  dependency:
+  - table: bi_employee_detail
+    has_sensor: 'Yes'
+    sql:
+    - name: hdm_sp_hr_lawson_bi_employee_detail.sql
+    sensor:
+    - dag_id: dag_integrate_lawson_core_tables_daily_04.00
+      task_id: end_job
+      schedule:  0 4 * * *
+    - dag_id: dag_integrate_taleo_core_tables_daily_06.00
+      task_id: end_job
+      schedule: 0 6 * * *
+  - table: fact_hr_metric
+    has_sensor: 'No'
+    sql:
+    - name: hdm_sp_hr_lawson_emp_aux_status.sql
+    - name: hdm_sp_hr_lawson_headcount_metric.sql
+    - name: hdm_sp_hr_lawson_termn_metric.sql
+    - name: hdm_sp_hr_lawson_vacancy_metric.sql
+    - name: hdm_sp_hr_lawson_hires_metric.sql
+    - name: hdm_sp_hr_lawson_openings_metric.sql
+    - name: hdm_sp_hr_lawson_fills_metric.sql
+    - name: hdm_sp_hr_lawson_transfers_metric.sql
+    - name: hdw_sp_hr_fact_table_rename.sql
+  - table: fact_step_status
+    has_sensor: 'No'
+    sql:
+    - name: hdw_sp_hr_fact_step_status.sql
+  - table: fact_opening_daily
+    has_sensor: 'No'
+    sql:
+    - name: hdw_sp_hr_fact_opening_daily.sql
+  - table: fact_submission
+    has_sensor: 'No'
+    sql:
+    - name: hdw_sp_hr_fact_submission.sql
+  - table: fact_vacancy_daily
+    has_sensor: 'No'
+    sql:
+    - name: hdw_sp_hr_fact_vacancy_daily.sql
+
+- source_system: bi
+  frequency: daily
+  schedule: 0 18 * * *
+  type: core_tables
+  dependency:
+  - table: employee_roster
+    has_sensor: 'Yes'
+    sql:
+    - name: hdw_sp_hr_employee_roster.sql
+    sensor:
+    - dag_id: dag_integrate_bi_core_tables_daily_08.00
+      task_id: end_job
+      schedule:  0 8 * * *
+
+  - table: candidate_pathway_microstep
+    has_sensor: 'No'
+    sql:
+    - name: hdw_sp_hr_candidate_pathway_microstep.sql
+  - table: fact_total_movement   
+    has_sensor: 'No'
+    sql: 
+    - name: hdw_sp_hr_transfers_movement.sql
+    - name: hdw_sp_hr_hires_movement.sql
+    - name: hdw_sp_hr_termination_movement.sql
+
+- source_system: bi
+  frequency: monthly
+  schedule: 30 09 15 * *
+  type: core_tables
+  dependency:
+  - table: bi_executive_vacancy
+    has_sensor: 'Yes'
+    sql:
+    - name: hdw_bi_executive_vacancy.sql
+    sensor:
+    - dag_id: dag_integrate_lawson_core_tables_daily_04.00
+      task_id: end_job
+      schedule:  0 4 15 * *
+  - table: bi_executive_termination
+    has_sensor: 'No'
+    sql:
+    - name: hdw_bi_executive_termination.sql
+  - table: bi_executive_current
+    has_sensor: 'No'
+    sql:
+    - name: hdw_bi_executive_current.sql
+
+- source_system: bi
+  frequency: monthly
+  schedule: 30 11 1,9 * *
+  type: core_tables
+  dependency:
+  - table: bi_employee_detail_snapshot
+    has_sensor: 'Yes'
+    sql:
+    - name: hdw_sp_hr_lawson_employee_snapshot.sql
+    sensor:
+    - dag_id: dag_integrate_bi_core_tables_daily_08.00
+      task_id: end_job
+      schedule:  0 8 1,9 * *
+  - table: fact_hr_metric_snapshot
+    has_sensor: 'No'
+    sql:
+    - name: hdw_sp_hr_lawson_snapshot_metric.sql
+  - table: fact_opening_snapshot
+    has_sensor: 'No'
+    sql:
+    - name: hdm_sp_hr_fact_opening_snapshot.sql
+  - table: fact_vacancy_snapshot
+    has_sensor: 'No'
+    sql:
+    - name: hdw_sp_hr_fact_vacancy_snapshot.sql
+  
+- source_system: bi
+  frequency: monthly
+  schedule: 30 17 1,9 * *
+  type: core_tables
+  dependency:
+  - table: candidate_pathway_microstep_snapshot
+    has_sensor: 'Yes'
+    sql:
+    - name: hdw_sp_hr_candidate_pathway_microstep_snapshot.sql
+    sensor:
+    - dag_id: dag_integrate_bi_core_tables_daily_08.00
+      task_id: end_job
+      schedule: 0 8 1,9 * *

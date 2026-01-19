@@ -1,0 +1,7 @@
+
+        
+TRUNCATE TABLE {{ params.param_psc_core_dataset_name }}.Artiva_StgPSPEPPIEFFDATES ;
+
+INSERT INTO {{ params.param_psc_core_dataset_name }}.Artiva_StgPSPEPPIEFFDATES (PSPEPPIEFFDTE, PSPEPPIEFFKEY, PSPEPPIEFFPPIID, PSPEPPIEFFPRODID, PSPEPPIEFFPROVLOCID)
+SELECT source.PSPEPPIEFFDTE, source.PSPEPPIEFFKEY, source.PSPEPPIEFFPPIID, source.PSPEPPIEFFPRODID, TRIM(source.PSPEPPIEFFPROVLOCID)
+FROM {{ params.param_psc_stage_dataset_name }}.Artiva_StgPSPEPPIEFFDATES as source;

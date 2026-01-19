@@ -1,0 +1,85 @@
+name: Composer Build
+
+inputs:
+  branch:
+    description: "The branch, and thus the GCP environment, that is relevant to this workflow run"
+    required: true
+  subdomain:
+    description: "The relevant line of business/subdomain this code applies to"
+    required: true
+  env_folder:
+    description: "The name of the folder containing environment yamls in the repo"
+    required: false
+  config_filepath:
+    description: "filepath to save the config file to; will  always include 'dags' in the path; leave off final '/' as that is already hard coded "
+    required: true
+  proc_project_id:
+    description: "The relevant processing project for the domain/environment"
+    required: false
+    type: string
+    default: ''
+  dag_bucket:
+    description: "The relevant DAG bucket for the domain/environment"
+    required: false
+    type: string
+    default: ''
+  repo_type:
+    description: "The type of repository that is relevant to this workflow run"
+    required: false
+    type: string
+  args:
+      description: ""
+      default: ""
+
+outputs:
+  v_proc_project_id:
+    description: "Proc Project ID"
+    value: ${{ steps.save_project.outputs.v_proc_project_id }}
+  v_dag_bucket_name:
+    description: "DAG Bucket Name"
+    value: ${{ steps.save_bucket.outputs.v_dag_bucket_name }}
+
+runs:
+  using: "composite"
+  steps:
+    # Copy relevant config file based on environment to the config subfolder within the dags folder (ETL repo structure)
+    - name: setup ${{ inputs.branch }} config file
+      if: ${{ inputs.repo_type != 'HIN2.0' }}
+      id: setup_environment_etl
+      shell: bash
+      run: |
+        cp -f '${{ inputs.env_folder }}/${{ inputs.branch }}_${{ inputs.subdomain }}_config.yaml' './${{ inputs.config_filepath }}/${{ inputs.subdomain }}_config.yaml'
+    # Copy relevant section of single config file based on environment to the config subfolder within the dags folder (HIN2.0 repo structure)
+    - name: setup ${{ inputs.branch }} config file
+      if: ${{ inputs.repo_type == 'HIN2.0' }}
+      id: setup_environment_hin2
+      shell: bash
+      run: |    
+        yq eval ".${{ inputs.branch }} | {\"env\": .}" "${{ inputs.env_folder }}/${{ inputs.subdomain }}_config.yaml" > "./${{ inputs.config_filepath }}/${{ inputs.subdomain }}_config.yaml"
+    # Convert the environment config file to json
+    - name: Bash commands to convert YAML to JSON
+      if: ${{ inputs.proc_project_id == '' || inputs.dag_bucket == '' }}
+      shell: bash
+      run: |
+        yq eval -o=json "./${{ inputs.config_filepath }}/${{ inputs.subdomain }}_config.yaml" > "${{ inputs.env_folder }}/${{ inputs.subdomain }}_config.json"
+    # Convert JSON to variables
+    - name: JSON to variables
+      if: ${{ inputs.proc_project_id == '' || inputs.dag_bucket == '' }}
+      uses: rgarcia-phi/json-to-variables@v1.1.0
+      with:
+        filename: "${{ inputs.env_folder }}/${{ inputs.subdomain }}_config.json"
+        prefix: infra
+        masked: false
+    # Save variable values needed for Deploy step
+    - name: Save Proc Project
+      if: ${{ inputs.proc_project_id == '' }}
+      id: save_project
+      shell: bash
+      run:
+        echo "v_proc_project_id=${{ env.infra_env_v_proc_project_id }}" >> $GITHUB_OUTPUT
+    - name: Save Bucket
+      if: ${{ inputs.dag_bucket == '' }}
+      id: save_bucket
+      shell: bash
+      run:      
+        echo "v_dag_bucket_name=${{ env.infra_env_v_dag_bucket_name }}" >> $GITHUB_OUTPUT

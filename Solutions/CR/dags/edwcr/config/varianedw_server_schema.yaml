@@ -1,0 +1,4 @@
+varianedw:
+- server: "HC1FSDWENT.fullscalecst1.varian.ois"
+  schema: 
+    - name: ["1433","varianedw",""]

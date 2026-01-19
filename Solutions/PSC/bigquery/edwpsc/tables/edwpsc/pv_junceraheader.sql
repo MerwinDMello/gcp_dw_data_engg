@@ -1,0 +1,32 @@
+CREATE TABLE IF NOT EXISTS edwpsc.pv_junceraheader
+(
+  pveraheaderkey INT64 NOT NULL,
+  regionkey INT64,
+  importedby STRING,
+  importedbyuserkey INT64,
+  importeddate DATETIME,
+  rawfilename STRING,
+  xml STRING,
+  isa13 STRING,
+  isa06 STRING,
+  deletedby STRING,
+  deletedbyuserkey INT64,
+  deleteddate DATETIME,
+  deletedreason STRING,
+  trn02 STRING,
+  trn03 STRING,
+  ansi5010 INT64,
+  deleteflag INT64,
+  sourceaprimarykeyvalue INT64,
+  sourcearecordlastupdated DATETIME,
+  sourcebprimarykeyvalue INT64,
+  sourcebrecordlastupdated DATETIME,
+  dwlastupdatedatetime DATETIME NOT NULL,
+  sourcesystemcode STRING,
+  insertedby STRING,
+  inserteddtm DATETIME,
+  modifiedby STRING,
+  modifieddtm DATETIME,
+  PRIMARY KEY (pveraheaderkey) NOT ENFORCED
+)
+;

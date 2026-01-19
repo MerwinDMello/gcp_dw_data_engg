@@ -1,0 +1,97 @@
+v_sourcesysnm: ra
+v_databasetype: oracle
+v_user: RPT_EXTRACT
+#hostname: fwps3-scan1.unix.medcity.net:1551
+hostname: "xrps5-scan1.unix.medcity.net:1551"
+servicename_p1: "ccmnasp1_gcp"
+servicename_p2: "ccmnasp2_gcp"
+v_pwd_secret_name_p1: oracle_concuity_ha_pwd_p1/versions/latest
+v_pwd_secret_name_p2: oracle_concuity_ha_pwd_p2/versions/latest
+v_jdbc_class_name: oracle.jdbc.driver.OracleDriver
+v_jdbc_jar: ojdbc8.jar
+v_jdkfile: jre-8u351-linux-x64.tar.gz
+v_jdkversion: jre1.8.0_351
+v_jdbcbqpytemplate_gcs: Adhoc_Oracle_to_GCS_PythonTemplate.py
+v_machine_type: n1-highmem-4 
+v_audittablename: audit_control
+
+mon_account_calc_detail_adhoc:
+  max_workers: 16
+  table_info:
+  - table_id: "mon_account_calc_detail"
+    table_id_no_cdc: "mon_account_calc_detail"
+    has_preprocess_truncate: True
+    num_partitions: 400
+    partition_column: "ID"
+    chunksize: 10000
+    dataset_id: "edwra_staging"
+    query: "select id,$SchemaID as Schema_ID,mon_account_payer_id,display_sequence,amount,mon_payer_id,rate,service_description,service_type,units,date_created,date_updated,misc_char01,misc_char02,misc_char03,misc_char04,misc_char05,misc_char06,misc_char07,misc_char08,misc_char09,misc_char10,misc_date01,misc_date02,misc_date03,misc_date04,misc_date05,misc_amt01,misc_amt02,misc_amt03,misc_amt04,misc_amt05,misc_yn01,misc_yn02,misc_yn03,misc_yn04,misc_yn05,mon_acct_payer_calc_summary_id,'v_curr_timestamp' AS DW_Last_Update_Date from CONCUITY.Mon_Account_calc_detail where date_created <= TO_DATE('v_curr_timestamp', 'YYYY-MM-DD HH24:MI:SS')"
+    source_schema: ['id','schema_id','mon_account_payer_id','display_sequence','amount','mon_payer_id','rate','service_description','service_type','units','date_created','date_updated','misc_char01','misc_char02','misc_char03','misc_char04','misc_char05','misc_char06','misc_char07','misc_char08','misc_char09','misc_char10','misc_date01','misc_date02','misc_date03','misc_date04','misc_date05','misc_amt01','misc_amt02','misc_amt03','misc_amt04','misc_amt05','misc_yn01','misc_yn02','misc_yn03','misc_yn04','misc_yn05','mon_acct_payer_calc_summary_id','dw_last_update_date']
+    primary_keys: ['id', 'schema_id']
+
+ra_claim_category_adhoc:
+  max_workers: 8
+  table_info:
+  - table_id: "ra_claim_category"
+    table_id_no_cdc: "ra_claim_category"
+    has_preprocess_truncate: True
+    num_partitions: 100
+    partition_column: "ID"
+    chunksize: 100000
+    dataset_id: "edwra_staging"
+    query: "select id,$SchemaID as Schema_ID,ra_claim_payment_id,ra_category_id,amount,'v_curr_timestamp' AS DW_Last_Update_Date from CONCUITY.ra_claim_category where 1=1"
+    source_schema: ['id','schema_id','ra_claim_payment_id','ra_category_id','amount','dw_last_update_date']
+    primary_keys: ['id', 'schema_id']
+
+ra_service_category_adhoc:
+  max_workers: 16
+  table_info:
+  - table_id: "ra_service_category"
+    table_id_no_cdc: "ra_service_category"
+    has_preprocess_truncate: True
+    num_partitions: 200
+    partition_column: "ID"
+    chunksize: 100000
+    dataset_id: "edwra_staging"
+    query: "select id,$SchemaID as Schema_ID,ra_service_id,ra_category_id,amount,ra_claim_payment_id,'v_curr_timestamp' AS DW_Last_Update_Date from CONCUITY.ra_service_category where 1=1"
+    source_schema: ['id','schema_id','ra_service_id','ra_category_id','amount','ra_claim_payment_id','dw_last_update_date']
+    primary_keys: ['id', 'schema_id']
+
+mon_account_comment_adhoc:
+  max_workers: 16
+  table_info:
+  - table_id: "mon_account_comment"
+    table_id_no_cdc: "mon_account_comment"
+    has_preprocess_truncate: True
+    num_partitions: 300
+    partition_column: "ID"
+    chunksize: 100000
+    dataset_id: "edwra_staging"
+    query: "select id,$SchemaID as Schema_ID,mon_account_id,user_general_comment,user_clinical_comment,mon_account_activity_id,mon_account_collection_id,date_created,user_id_created_by,date_exported,'v_curr_timestamp' AS dw_last_update_date from concuity.mon_account_comment where 1=1"
+    source_schema: ['id','schema_id','mon_account_id','user_general_comment','user_clinical_comment','mon_account_activity_id','mon_account_collection_id','date_created','user_id_created_by','date_exported','dw_last_update_date']
+    primary_keys: ['id', 'schema_id']
+
+cers_rate_adhoc:
+  max_workers: 8
+  table_info:
+  - table_id: "cers_rate"
+    table_id_no_cdc: "cers_rate"
+    has_preprocess_truncate: True
+    num_partitions: 100
+    partition_column: "ID"
+    chunksize: 100000
+    dataset_id: "edwra_staging"
+    query: "select id,$SchemaID as Schema_ID,cers_term_id,ce_service_id,from_day,to_day,calculation_method_id ,amount,cers_stoploss_group_id,calculation_detail_display,date_created,date_updated,updated_by,user_id_updater,cers_parent_rate_id,comparison_calc_method_id,comparison_calc_modifier,copay_method_id,valuation_method_id,exclude_account_from_stoploss,per_diem_method_id,secn_pyr_cob_calc_ind,'v_curr_timestamp' AS DW_Last_Update_Date from CONCUITY.cers_rate where 1=1"
+    source_schema: ['id','schema_id','cers_term_id','ce_service_id','from_day','to_day','calculation_method_id','amount','cers_stoploss_group_id','calculation_detail_display','date_created','date_updated','updated_by','user_id_updater','cers_parent_rate_id','comparison_calc_method_id','comparison_calc_modifier','copay_method_id','valuation_method_id','exclude_account_from_stoploss','per_diem_method_id','secn_pyr_cob_calc_ind','dw_last_update_date']
+    primary_keys: ['id', 'schema_id']
+
+schedule:
+  - v_schedule_interval: full_load
+    start_date: pendulum.datetime(2022, 12, 20, tz=timezone)
+    frequency: adhoc
+    done_files: []
+    has_sensor: False
+    tblist: ["mon_account_calc_detail_adhoc","ra_claim_category_adhoc","ra_service_category_adhoc","mon_account_comment_adhoc","cers_rate_adhoc"]
+    has_adhoc_pull: True
+    has_file_extract: False
+    schema_list: [p1,p2]

@@ -1,0 +1,385 @@
+---
+integrate:
+- source_system: taleo
+  frequency: daily
+  schedule: 0 6 * * 0,2,3,4,5,6
+  type: core_ref_tables
+  custom_tags: integrate,ref_tables
+  dependency:
+  - table: ref_job_schedule
+    has_sensor: 'No'
+    sql:
+    - name: hdw_taleo_ref_job_schedule.sql
+  - table: ref_job_template_status
+    has_sensor: 'No'
+    sql:
+    - name: hdw_taleo_ref_job_template_status.sql
+  - table: ref_motive
+    has_sensor: 'No'
+    sql:
+    - name: hdw_taleo_ref_motive.sql
+  - table: ref_offer_status
+    has_sensor: 'No'
+    sql:
+    - name: hdw_taleo_ref_offer_status.sql
+  - table: ref_overtime_status
+    has_sensor: 'No'
+    sql:
+    - name: hdw_taleo_ref_overtime_status.sql
+  - table: ref_profile_medium
+    has_sensor: 'No'
+    sql:
+    - name: hdw_taleo_ref_profile_medium.sql
+  - table: ref_recruitment_location
+    has_sensor: 'No'
+    sql:
+    - name: hdw_taleo_ref_recruitment_location_wrk.sql
+    - name: hdw_taleo_ref_recruitment_location_core.sql
+  - table: ref_recruitment_source
+    has_sensor: 'No'
+    sql:
+    - name: hdw_taleo_ref_recruitment_source.sql
+  - table: ref_recruitment_source_type
+    has_sensor: 'No'
+    sql:
+    - name: hdw_taleo_ref_recruitment_source_type.sql
+  - table: ref_requisition_status
+    has_sensor: 'No'
+    sql:
+    - name: hdw_taleo_ref_requisition_status.sql
+  - table: ref_submission_event_category
+    has_sensor: 'No'
+    sql:
+    - name: hdw_taleo_ref_submission_event_category.sql
+  - table: ref_submission_event
+    has_sensor: 'No'
+    sql:
+    - name: hdw_taleo_ref_submission_event.sql
+  - table: ref_submission_state
+    has_sensor: 'No'
+    sql:
+    - name: hdw_taleo_ref_submission_state.sql
+  - table: ref_submission_status
+    has_sensor: 'No'
+    sql:
+    - name: hdw_taleo_ref_submission_status.sql
+  - table: ref_submission_step
+    has_sensor: 'No'
+    sql:
+    - name: hdw_taleo_ref_submission_step.sql
+  - table: ref_workflow
+    has_sensor: 'No'
+    sql:
+    - name: hdw_taleo_ref_workflow.sql
+ 
+- source_system: taleo
+  frequency: daily
+  schedule: 0 6 * * *
+  type: core_tables
+  custom_tags: integrate,daily
+  dependency:
+  - table: recruitment_user
+    has_sensor: 'Yes'
+    sql:
+    - name: hdw_taleo_recruitment_user_wrk.sql
+    - name: hdw_taleo_recruitment_user.sql
+    sensor:
+    - dag_id: dag_integrate_lawson_core_tables_daily_04.00
+      task_id: end_job
+      schedule:  0 4 * * *
+  - table: candidate
+    has_sensor: 'No'
+    sql:
+    - name: hdw_taleo_candidate_wrk.sql
+    - name: hdw_taleo_candidate.sql
+  - table: recruitment_job_parameter_detail
+    has_sensor: 'No'
+    sql:
+    - name: hdw_taleo_recruitment_job_parameter_detail_wrk.sql
+    - name: hdw_taleo_recruitment_job_parameter_detail_core.sql
+  - table: recruitment_job
+    has_sensor: 'No'
+    sql:
+    - name: hdw_taleo_recruitment_job_wrk.sql
+    - name: hdw_taleo_recruitment_job_core.sql
+  - table: job_template
+    has_sensor: 'No'
+    sql:
+    - name: hdw_taleo_job_template_wrk.sql
+    - name: hdw_taleo_job_template.sql
+  - table: recruitment_requisition
+    has_sensor: 'No'
+    sql:
+    - name: hdw_taleo_recruitment_requisition_wrk.sql
+    - name: hdw_taleo_recruitment_requisition.sql
+  - table: candidate_profile
+    has_sensor: 'No'
+    sql:
+    - name: hdw_taleo_candidate_profile_wrk.sql
+    - name: hdw_taleo_candidate_profile.sql
+  - table: ref_submission_source
+    has_sensor: 'No'
+    sql:
+    - name: hdw_taleo_ref_submission_source.sql
+  - table: submission_state
+    has_sensor: 'No'
+    sql:
+    - name: hdw_taleo_submission_state_wrk.sql
+    - name: hdw_taleo_submission_state_core.sql
+  - table: submission
+    has_sensor: 'No'
+    sql:
+    - name: hdw_taleo_submission_wrk.sql
+    - name: hdw_taleo_submission_core.sql
+  - table: offer
+    has_sensor: 'No'
+    sql:
+    - name: hdw_taleo_offer_wrk.sql
+    - name: hdw_taleo_offer_core.sql
+  - table: submission_tracking
+    has_sensor: 'No'
+    sql:
+    - name: hdw_taleo_submission_tracking_wrk.sql
+    - name: hdw_taleo_submission_tracking_core.sql
+  - table: candidate_detail
+    has_sensor: 'No'
+    sql:
+    - name: hdw_taleo_candidate_detail_wrk.sql
+    - name: hdw_taleo_candidate_detail.sql
+  - table: candidate_work_history
+    has_sensor: 'No'
+    sql:
+    - name: hdw_taleo_candidate_work_history_wrk.sql
+    - name: hdw_taleo_candidate_work_history_core.sql
+  - table: candidate_work_history_detail
+    has_sensor: 'No'
+    sql:
+    - name: hdw_taleo_candidate_work_history_detail_wrk.sql
+    - name: hdw_taleo_candidate_work_history_detail_core.sql
+  - table: submission_tracking_motive
+    has_sensor: 'No'
+    sql:
+    - name: hdw_taleo_submission_tracking_motive_wrk.sql
+    - name: hdw_taleo_submission_tracking_motive_core.sql
+  - table: offer_detail
+    has_sensor: 'No'
+    sql:
+    - name: hdw_taleo_offer_detail_wrk.sql
+    - name: hdw_taleo_offer_detail_core.sql
+  - table: recruitment_requisition_status
+    has_sensor: 'No'
+    sql:
+    - name: hdw_taleo_recruitment_requisition_status_wrk.sql
+    - name: hdw_taleo_recruitment_requisition_status.sql
+  - table: offer_status
+    has_sensor: 'No'
+    sql:
+    - name: hdw_taleo_offer_status_wrk.sql
+    - name: hdw_taleo_offer_status.sql
+  - table: _recruitment_job_detail
+    has_sensor: 'No'
+    sql:
+    - name: hdw_taleo_recruitment_job_detail_wrk.sql
+    - name: hdw_taleo_recruitment_job_detail_core.sql
+  - table: address
+    has_sensor: 'No'
+    sql:
+    - name: hdw_taleo_address_wrk.sql
+    - name: hdw_taleo_address.sql
+  - table: junc_employee_recruitment_user
+    has_sensor: 'No'
+    sql:
+    - name: hdw_taleo_junc_employee_recruitment_user_wrk.sql
+    - name: hdw_taleo_junc_employee_recruitment_user_core.sql
+  - table: submission_tracking_status
+    has_sensor: 'No'
+    sql:
+    - name: hdw_taleo_submission_tracking_status_wrk.sql
+    - name: hdw_taleo_submission_tracking_status_core.sql
+  - table: requisitionhistory
+    has_sensor: 'No'
+    sql:
+    - name: hdw_taleo_requisitionhistory_wrk.sql
+    - name: hdw_taleo_requisitionhistory.sql
+  - table: communication_device
+    has_sensor: 'No'
+    sql:
+    - name: hdw_taleo_communication_device.sql
+  - table: junc_candidate_communication_device
+    has_sensor: 'No'
+    sql:
+    - name: hdw_taleo_junc_candidate_communication_device_wrk.sql
+    - name: hdw_taleo_junc_candidate_communication_device.sql
+  - table: junc_candidate_address
+    has_sensor: 'No'
+    sql:
+    - name: hdw_taleo_junc_candidate_address_wrk.sql
+    - name: hdw_taleo_junc_candidate_address.sql
+  - table: candidate_person
+    has_sensor: 'No'
+    sql:
+    - name: hdw_taleo_candidate_person_wrk.sql
+    - name: hdw_taleo_candidate_person.sql
+  - table: ref_element_detail
+    has_sensor: 'No'
+    sql:
+    - name: hdw_taleo_ref_element_detail.sql
+  - table: ref_job_board
+    has_sensor: 'No'
+    sql:
+    - name: hdw_taleo_ref_job_board.sql
+  - table: ref_posting_status
+    has_sensor: 'No'
+    sql:
+    - name: hdw_taleo_ref_posting_status.sql
+  - table: ref_posting_board_type
+    has_sensor: 'No'
+    sql:
+    - name: hdw_taleo_ref_posting_board_type.sql
+  - table: recruitment_position
+    has_sensor: 'No'
+    sql:
+    - name: hdw_taleo_recruitment_position_wrk.sql
+    - name: hdw_taleo_recruitment_position_core.sql
+  - table: candidate_question_answer
+    has_sensor: 'No'
+    sql:
+    - name: hdw_taleo_candidate_question_answer_wrk.sql
+    - name: hdw_taleo_candidate_question_answer.sql
+
+- source_system: taleo
+  frequency: daily
+  schedule: 0 6 * * *
+  type: core_sourcing_request_tables
+  custom_tags: integrate,daily
+  dependency:
+  - table: ref_job_board_type
+    has_sensor: 'No'
+    sql:
+    - name: hdw_taleo_ref_job_board_type.sql
+  - table: ref_source_request_status
+    has_sensor: 'No'
+    sql:
+    - name: hdw_taleo_ref_source_request_status.sql
+  - table: sourcing_request
+    has_sensor: 'No'
+    sql:
+    - name: hdw_taleo_sourcing_request_wrk.sql
+    - name: hdw_taleo_sourcing_request.sql
+
+- source_system: taleo
+  frequency: weekly
+  schedule: 0 6 * * 1
+  type: core_ref_tables
+  custom_tags: integrate,ref_tables
+  dependency:
+  - table: ref_recruitment_source_type
+    has_sensor: 'Yes'
+    sql:
+    - name: hdw_taleo_ref_recruitment_source_type.sql
+    sensor:
+    - dag_id: dag_integrate_lawson_core_tables_daily_04.00
+      task_id: end_job
+      schedule:  0 4 * * 1
+  - table: ref_requisition_status
+    has_sensor: 'No'
+    sql:
+    - name: hdw_taleo_ref_requisition_status.sql
+  - table: ref_submission_event_category
+    has_sensor: 'No'
+    sql:
+    - name: hdw_taleo_ref_submission_event_category.sql
+  - table: ref_submission_event
+    has_sensor: 'No'
+    sql:
+    - name: hdw_taleo_ref_submission_event.sql
+  - table: ref_submission_state
+    has_sensor: 'No'
+    sql:
+    - name: hdw_taleo_ref_submission_state.sql
+  - table: ref_submission_status
+    has_sensor: 'No'
+    sql:
+    - name: hdw_taleo_ref_submission_status.sql
+  - table: ref_submission_step
+    has_sensor: 'No'
+    sql:
+    - name: hdw_taleo_ref_submission_step.sql
+  - table: ref_workflow
+    has_sensor: 'No'
+    sql:
+    - name: hdw_taleo_ref_workflow.sql
+  - table: ref_job_schedule
+    has_sensor: 'No'
+    sql:
+    - name: hdw_taleo_ref_job_schedule.sql
+  - table: ref_job_template_status
+    has_sensor: 'No'
+    sql:
+    - name: hdw_taleo_ref_job_template_status.sql
+  - table: ref_motive
+    has_sensor: 'No'
+    sql:
+    - name: hdw_taleo_ref_motive.sql
+  - table: ref_offer_status
+    has_sensor: 'No'
+    sql:
+    - name: hdw_taleo_ref_offer_status.sql
+  - table: ref_element_definition
+    has_sensor: 'No'
+    sql:
+    - name: hdw_taleo_ref_element_definition.sql
+  - table: ref_element_definition_selection
+    has_sensor: 'No'
+    sql:
+    - name: hdw_taleo_ref_element_definition_selection.sql
+  - table: ref_element_definition_type
+    has_sensor: 'No'
+    sql:
+    - name: hdw_taleo_ref_element_definition_type.sql
+  - table: ref_overtime_status
+    has_sensor: 'No'
+    sql:
+    - name: hdw_taleo_ref_overtime_status.sql
+  - table: ref_profile_medium
+    has_sensor: 'No'
+    sql:
+    - name: hdw_taleo_ref_profile_medium.sql
+  - table: ref_recruitment_location
+    has_sensor: 'No'
+    sql:
+    - name: hdw_taleo_ref_recruitment_location_wrk.sql
+    - name: hdw_taleo_ref_recruitment_location_core.sql
+  - table: ref_recruitment_source
+    has_sensor: 'No'
+    sql:
+    - name: hdw_taleo_ref_recruitment_source.sql
+    
+- source_system: taleo
+  frequency: weekly
+  schedule: 0 6 * * 1
+  type: core_tables
+  custom_tags: integrate,question_type
+  dependency:
+  - table: question_type
+    has_sensor: 'No'
+    sql:
+    - name: hdw_taleo_question_type.sql
+
+- source_system: taleo
+  frequency: daily
+  schedule: 0 6 * * *
+  type: core_candidate_tables
+  custom_tags: integrate,candidate
+  dependency:
+  - table: candidate_question
+    has_sensor: 'No'
+    sql:
+    - name: hdw_taleo_candidate_question_wrk.sql
+    - name: hdw_taleo_candidate_question.sql
+  - table: candidate_answer
+    has_sensor: 'No'
+    sql:
+    - name: hdw_taleo_candidate_answer_wrk.sql
+    - name: hdw_taleo_candidate_answer.sql
+    

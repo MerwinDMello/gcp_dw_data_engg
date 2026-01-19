@@ -1,0 +1,51 @@
+CREATE OR REPLACE TABLE {{ params.param_cr_stage_dataset_name }}.stg_dimfield (
+dimsiteid INT64
+, dimfieldid INT64
+, dimplanid INT64
+, dimcourseid INT64
+, radiationid STRING
+, radiationname STRING
+, collimatorx1 STRING
+, collimatorx2 STRING
+, collimatory1 STRING
+, collimatory2 STRING
+, couchlat STRING
+, couchlng STRING
+, couchvrt STRING
+, gantryrtndirection STRING
+, gantryrtnext STRING
+, gantryrotation STRING
+, isocenterpositionx STRING
+, isocenterpositiony STRING
+, isocenterpositionz STRING
+, stopangle STRING
+, fixlightazimuthangle STRING
+, patientsupportangle STRING
+, gatingflag INT64
+, setupfieldflag INT64
+, lasttreatmentdate STRING
+, primarydosimeterunit STRING
+, setupnote STRING
+, ssd STRING
+, murounded STRING
+, toleranceid STRING
+, tolerancetable STRING
+, fixlightpolarpos STRING
+, wedgedose STRING
+, refdose STRING
+, hstryusername STRING
+, hstrydatetime STRING
+, collmode STRING
+, collrtn STRING
+, plannedtreatmenttime STRING
+, mlcplantype STRING
+, indexparametertype STRING
+, imrtorrapidarc STRING
+, ctrradiationser INT64
+, ctrtoleranceser INT64
+, ctrrefimageser INT64
+, logid INT64
+, runid INT64
+, dw_last_update_date_time DATETIME
+)
+  ;

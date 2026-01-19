@@ -1,0 +1,40 @@
+
+DECLARE DUP_COUNT INT64;
+
+BEGIN TRANSACTION;
+
+MERGE INTO {{ params.param_psc_core_dataset_name }}.Artiva_StgPSOCTIMEOC AS target
+USING {{ params.param_psc_stage_dataset_name }}.Artiva_StgPSOCTIMEOC AS source
+ON target.PSOCTIMEKEY = source.PSOCTIMEKEY
+WHEN MATCHED THEN
+  UPDATE SET
+  target.PSOCTIMEDATE = source.PSOCTIMEDATE,
+ target.PSOCTIMEETIME = source.PSOCTIMEETIME,
+ target.PSOCTIMEOCID = source.PSOCTIMEOCID,
+ target.PSOCTIMESTIME = source.PSOCTIMESTIME,
+ target.PSOCTIMETIME = source.PSOCTIMETIME,
+ target.PSOCTIMETTIME = source.PSOCTIMETTIME,
+ target.PSOCTIMEUSER = TRIM(source.PSOCTIMEUSER),
+ target.PSOCTIMEWORKED = TRIM(source.PSOCTIMEWORKED),
+ target.PSOCTIMEKEY = source.PSOCTIMEKEY,
+ target.DWLastUpdateDateTime = source.DWLastUpdateDateTime
+WHEN NOT MATCHED THEN
+  INSERT (PSOCTIMEDATE, PSOCTIMEETIME, PSOCTIMEOCID, PSOCTIMESTIME, PSOCTIMETIME, PSOCTIMETTIME, PSOCTIMEUSER, PSOCTIMEWORKED, PSOCTIMEKEY, DWLastUpdateDateTime)
+  VALUES (source.PSOCTIMEDATE, source.PSOCTIMEETIME, source.PSOCTIMEOCID, source.PSOCTIMESTIME, source.PSOCTIMETIME, source.PSOCTIMETTIME, TRIM(source.PSOCTIMEUSER), TRIM(source.PSOCTIMEWORKED), source.PSOCTIMEKEY, source.DWLastUpdateDateTime);
+
+SET DUP_COUNT = (
+  SELECT COUNT(*)
+  FROM (
+      SELECT PSOCTIMEKEY
+      FROM {{ params.param_psc_core_dataset_name }}.Artiva_StgPSOCTIMEOC
+      GROUP BY PSOCTIMEKEY
+      HAVING COUNT(*) > 1
+  )
+);
+
+IF DUP_COUNT <> 0 THEN
+  ROLLBACK TRANSACTION;
+  RAISE USING MESSAGE = CONCAT('Duplicates are not allowed in the table {{ params.param_psc_core_dataset_name }}.Artiva_StgPSOCTIMEOC');
+ELSE
+  COMMIT TRANSACTION;
+END IF;

@@ -1,0 +1,32 @@
+CREATE TABLE IF NOT EXISTS edwpsc.epic_refuser
+(
+  userkey INT64 NOT NULL,
+  username STRING,
+  userfirstname STRING,
+  usermiddlename STRING,
+  userlastname STRING,
+  user34 STRING,
+  activeflag INT64,
+  deleteflag INT64,
+  useraddress STRING,
+  usercity STRING,
+  userstate STRING,
+  userzip STRING,
+  userphone STRING,
+  useralias STRING,
+  epicempid STRING,
+  userid STRING,
+  regionkey INT64,
+  sourceaprimarykey STRING,
+  dwlastupdatedatetime DATETIME,
+  sourcesystemcode STRING,
+  insertedby STRING,
+  inserteddtm DATETIME,
+  modifiedby STRING,
+  modifieddtm DATETIME,
+  epicusername STRING,
+  userprimaryservicelocation INT64,
+  usertype INT64,
+  PRIMARY KEY (userkey) NOT ENFORCED
+)
+;

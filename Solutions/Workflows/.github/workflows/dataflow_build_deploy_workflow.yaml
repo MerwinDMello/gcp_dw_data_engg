@@ -1,0 +1,296 @@
+on:
+  workflow_call:
+    inputs:
+      branch: 
+        description: "The base branch, and thus the GCP environment, that is relevant to this workflow run"
+        required: true
+        type: string
+      dataflow_path:
+        description: "The path to the dataflow folder in the repo."
+        required: false
+        type: string
+    secrets:
+      gh_token:
+         description: "The GitHub token for authentication."
+         required: true
+
+jobs:
+  # The first job of the workflow finds the most recent run of the Setup Workflow associated with the PR
+  CheckAndDownloadArtifacts:
+    name: Check Setup Workflow and Download Artifacts
+    if: ${{ github.event.pull_request.merged == true }}
+    runs-on: [self-hosted, onprem-k8s-arc, dind, enterprise, lnx-amd64, xrdc]
+    environment: ${{ github.base_ref }}
+    permissions:
+      actions: read
+      contents: read
+      id-token: write
+    outputs:
+      setup_run_conclusion: ${{ steps.get-setup-workflow.outputs.setup_run_conclusion }}
+      dataflow_matrix: ${{ steps.fetch-and-download-artifacts.outputs.dataflow_matrix }}
+    steps:
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+  
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+      
+      - name: Save Environment Variables for Script
+        run: |
+          echo "HEAD_SHA=${{ github.event.pull_request.head.sha }}" >> $GITHUB_ENV
+          echo "GH_TOKEN=${{ secrets.gh_token }}" >> $GITHUB_ENV
+
+      - name: Get Relevant Setup Workflow Run
+        id: get-setup-workflow
+        run: |
+          python <<EOF
+          import os
+          import time
+          import requests
+  
+          MAX_RETRIES = 16  # 8 minutes (16 retries * 30 seconds)
+          RETRY_DELAY = 30  # seconds
+  
+          # Inputs
+          head_sha = os.getenv("HEAD_SHA")
+          repo_owner = os.getenv("GITHUB_REPOSITORY_OWNER")
+          repo_name = os.getenv("GITHUB_REPOSITORY").split("/")[-1]
+          token = os.getenv("GH_TOKEN")
+
+          # Confirm proper inputs are available
+          print(f" inputs: {head_sha}, {repo_owner}, {repo_name}, {token}")
+  
+          headers = {
+              "Authorization": f"Bearer {token}",
+              "Accept": "application/vnd.github.v3+json",
+          }
+  
+          url = f"https://api.github.com/repos/{repo_owner}/{repo_name}/actions/workflows/dataflow_setup_caller.yaml/runs"
+  
+          def get_relevant_setup_run():
+            for attempt in range(1, MAX_RETRIES + 1):
+                response = requests.get(url, headers=headers, params={"event": "pull_request", "per_page": 100})
+                # Provide error message if request is unsuccessful
+                if response.status_code != 200:
+                    raise Exception(f"Failed to fetch workflow runs: {response.status_code} {response.text}")
+
+                # Collect API responses into workflow_runs variable
+                workflow_runs = response.json().get("workflow_runs", [])
+
+                # Check if the most recent run is still in progress
+                most_recent_run = sorted(workflow_runs, key=lambda x: x["created_at"], reverse=True)[0]
+                print(f"Most Recent Workflow Run ID: {most_recent_run['id']}, Status: {most_recent_run['status']}")
+
+                # If run is still in progress, wait up to 8 minutes (16 attempts of 30 seconds each) for it to complete
+                if most_recent_run["status"] in ["in_progress", "queued"]:
+                    print(f"Most recent run is still in progress. Attempt {attempt} of {MAX_RETRIES}. Retrying in {RETRY_DELAY} seconds...")
+                    if attempt < MAX_RETRIES:
+                        time.sleep(RETRY_DELAY)
+                        continue
+                    else:
+                        raise Exception("Most recent Setup Workflow run is still in progress after maximum retries.")
+
+                # Filter runs by head SHA and status
+                matching_runs = [
+                    run for run in workflow_runs
+                    if run["head_sha"] == head_sha and run["status"] == "completed"
+                ]
+
+                if not matching_runs:
+                    raise Exception(f"No Setup Workflow runs found for SHA '{head_sha}'.")
+
+                # Return the most recent matching run
+                print("Found a successful Setup Workflow run.")
+                return matching_runs[0]
+
+            raise Exception("Failed to retrieve a completed Setup Workflow run.")
+
+          most_recent_run = get_relevant_setup_run()
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as file:
+            file.write(f"setup_run_id={most_recent_run['id']}\n")
+            file.write(f"setup_run_conclusion={most_recent_run['conclusion']}\n")
+          EOF
+
+      - name: Fetch and Download All Artifacts
+        id: fetch-and-download-artifacts
+        run: |
+          setup_run_id=${{ steps.get-setup-workflow.outputs.setup_run_id }}
+          artifacts_url="https://api.github.com/repos/${{ github.repository }}/actions/runs/$setup_run_id/artifacts"
+          echo "Fetching artifacts from: $artifacts_url"
+
+          # Fetch the list of artifacts
+          response=$(curl -s -H "Authorization: Bearer ${{ secrets.gh_token }}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            $artifacts_url)
+
+          # Parse the artifact names and download URLs
+          artifact_names=("matrix_artifacts" "dataflow_artifacts")
+          for artifact_name in "${artifact_names[@]}"; do
+            artifact_url=$(echo "$response" | jq -r --arg name "$artifact_name" '.artifacts[] | select(.name==$name) | .archive_download_url')
+
+            if [ -z "$artifact_url" ]; then
+              echo "::error::Artifact '$artifact_name' not found in setup workflow run."
+              exit 1
+            fi
+
+            echo "Downloading artifact: $artifact_name from $artifact_url"
+
+            # Download the artifact
+            curl -L -H "Authorization: Bearer ${{ secrets.gh_token }}" \
+              -o "$artifact_name.zip" \
+              "$artifact_url"
+
+            # Extract the artifact
+            mkdir -p "$artifact_name"
+            unzip -o "$artifact_name.zip" -d "$artifact_name"
+          done
+
+          # Save matrix.json as an output
+          if [ -f ./matrix_artifacts/matrix.json ]; then
+            echo "Contents of matrix.json:"
+            cat ./matrix_artifacts/matrix.json
+            
+            # Read the raw JSON string from matrix.json
+            dataflow_matrix=$(cat ./matrix_artifacts/matrix.json)
+            
+            # Write the JSON string directly to $GITHUB_OUTPUT
+            echo "dataflow_matrix=$dataflow_matrix" >> $GITHUB_OUTPUT
+            
+          else
+            echo "::error:: matrix_artifacts not found or matrix.json is missing."
+            exit 1
+          fi
+      
+      # Upload the dataflow_artifacts to the github workspace
+      - name: upload-github artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dataflow_artifacts
+          path: dataflow_artifacts
+          retention-days: 7
+          
+  # The second job of the workflow builds the dataflow flex template
+  Build:
+    if: ${{ needs.CheckAndDownloadArtifacts.outputs.setup_run_conclusion == 'success' && needs.CheckAndDownloadArtifacts.outputs.dataflow_matrix != '[]' }}
+    
+    name: Dataflow Build Template Job
+    runs-on: [self-hosted, onprem-k8s-arc, dind, enterprise, lnx-amd64, xrdc]
+    needs: CheckAndDownloadArtifacts
+    environment: ${{ github.base_ref }}
+    strategy:
+      fail-fast: false
+      matrix:
+        manifest: ${{ fromJson(needs.CheckAndDownloadArtifacts.outputs.dataflow_matrix) }}
+    permissions:
+      contents: "read"
+      id-token: "write"
+    steps:
+
+      - name: Check out repository
+        uses: actions/checkout@v4
+          
+      - name: Download Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: dataflow_artifacts
+          path: dataflow_artifacts
+      
+      - name: JSON to variables
+        uses: rgarcia-phi/json-to-variables@v1.1.0
+        with:
+          filename: '${{ matrix.manifest }}'
+          prefix: infra
+
+      - name: Build Dataflow Template Step
+        if: ${{ env.infra_job_sdk_language == 'python' || env.infra_job_sdk_language == 'JAVA' }}
+        uses: HCACloudDataEngineering/gcp-hin-workflows/dataflow/build@main
+        with:
+          repository: ${{ github.repository }}
+          # Repo environment variables
+          workload_identity_provider: ${{ vars.WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ vars.SERVICEACCOUNT_GITHUB }} 
+          # Config variables
+          sdk_language: ${{ env.infra_job_sdk_language }}
+          dataflow_path: ${{ inputs.dataflow_path != '' && inputs.dataflow_path || env.infra_env_folder_path }}
+          target_gcr_image: ${{ env.infra_job_target_gcr_image }}
+          template_spec_gcspath: ${{ env.infra_job_template_spec_gcspath }}
+          job_folder: ${{ env.infra_job_job_folder }}
+          metadata_filepath: ${{ env.infra_job_metadata_filepath }}
+          # Variable below is specific to Python dataflow jobs
+          region: ${{ env.infra_job_df_region }}
+          # Variables below are specific to Java dataflow jobs
+          proc_project_name: ${{ env.infra_env_v_proc_project_id }}
+          command_spec: ${{ env.infra_job_command_spec }}
+          app_root: ${{ env.infra_job_app_root }}
+          base_container_image: ${{ env.infra_job_base_container_image }}
+          base_container_image_version: ${{ env.infra_job_base_container_image_version }}
+          module_name: ${{ env.infra_job_module_name }}  
+  
+  # The third job of the workflow deploys streaming dataflow job
+  Deploy:
+    if: ${{ needs.Build.result == 'success' && needs.CheckAndDownloadArtifacts.outputs.dataflow_matrix != '[]' }}
+    runs-on: [self-hosted, onprem-k8s-arc, dind, enterprise, lnx-amd64, xrdc]
+    needs: [CheckAndDownloadArtifacts, Build]
+    environment: ${{ github.base_ref }}
+    strategy:
+      fail-fast: false
+      matrix:
+        manifest: ${{ fromJson(needs.CheckAndDownloadArtifacts.outputs.dataflow_matrix) }}
+    permissions:
+      contents: "read"
+      id-token: "write"
+    steps:
+
+      - name: Check out repository
+        uses: actions/checkout@v4
+          
+      - name: Download Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: dataflow_artifacts
+          path: dataflow_artifacts
+      
+      - name: JSON to variables
+        uses: rgarcia-phi/json-to-variables@v1.1.0
+        with:
+          filename: '${{ matrix.manifest }}'
+          prefix: infra
+
+      - name: Save Keys and Values Inline to Environment Variable
+        if: ${{ env.infra_job_sdk_language == 'yaml'}}
+        shell: bash
+        run: |
+          # Extract and format Jinja parameters as keys and values as a single line
+          jinja_keys_values=$(jq -c '.job.jinja_inputs' "${{ matrix.manifest }}")
+          echo "JINJA_KEYS_VALUES=$jinja_keys_values" >> $GITHUB_ENV
+
+      - name: Deploy Dataflow Step
+        if: ${{ contains(needs.Build.result, 'success') && contains(env.infra_job_type, 'streaming') }}
+        uses: HCACloudDataEngineering/gcp-hin-workflows/dataflow/deploy@main
+        with:
+          # Repo environment variables
+          workload_identity_provider: ${{ vars.WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ vars.SERVICEACCOUNT_GITHUB }}
+          # Config variables
+          proc_project_name: ${{ env.infra_env_v_proc_project_id }}
+          df_service_account: ${{ env.infra_env_v_serviceaccountemail }}
+          region: ${{ env.infra_job_df_region }}
+          subnetwork: ${{ env.infra_job_subnetwork }}
+          max_workers: ${{ env.infra_job_max_workers }}
+          num_workers: ${{ env.infra_job_num_workers }}
+          sdk_language: ${{ env.infra_job_sdk_language }}
+          job_name: ${{ env.infra_job_job_name }}
+          template_spec_gcspath: ${{ env.infra_job_template_spec_gcspath }}
+          temp_location: ${{ env.infra_job_temp_location }}
+          staging_location: ${{ env.infra_job_staging_location }}
+          parameters: ${{ env.infra_job_parameters }}
+          args: ${{ env.infra_job_args }}
+          dataflow_path: ${{  inputs.dataflow_path != '' && inputs.dataflow_path || env.infra_env_folder_path  }}
+          job_folder: ${{ env.infra_job_job_folder }}
+          no_use_public_ips: ${{ env.infra_job_no_use_public_ips }}
+          jinja_inputs: ${{ env.JINJA_KEYS_VALUES }}

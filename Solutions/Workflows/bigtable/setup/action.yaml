@@ -1,0 +1,214 @@
+Name: Bigtable Setup Action
+
+inputs:
+  branch:
+    description: "The relevant branch name"
+    required: true
+  domain:
+    description: "The relevant domain"
+    required: true
+  env_folder:
+    description: "The name of the folder containing environment yamls"
+    required: false    
+  repo_type:
+    description: "The caller repository type, either DDL, ETL, or HIN2.0"
+    required: true
+    type: string  
+  token: 
+    description: "The access token"
+    required: true
+  dispatch:
+    description: "This is set to true when the workflow is triggered via workflow dispatch and causes all scripts to be re-deployed"
+    default: "false"
+
+runs:
+  using: "composite"
+  steps:
+    # Get all the tables files in the bigtable folder if dispatch variable is set to true (workflow manually triggered)
+    # This will cause all resources to be deployed again in the service
+    - name: Get ALL Files
+      if: ${{ inputs.dispatch == 'true' }}
+      id: all_files
+      shell: bash
+      run: |
+        echo "workflow dispatch triggered ${{ inputs.dispatch }}"
+        shopt -s globstar
+        mkdir -p artifacts
+        for file in **/bigtable/*/tables/*; do
+          # Exclude markdown files
+          if [[ "$file" == *.md ]]; then
+            continue
+          fi
+          echo "Copying $file"
+          mkdir -p artifacts/$(dirname "$file")
+          cp "$file" artifacts/"$file"
+        done
+
+    # If the workflow was automatically triggered, get only changed files relevant to the branch/environment from the bigtable folder   
+    - name: Create Artifacts Directory
+      if: ${{ inputs.dispatch != 'true' }}
+      shell: bash
+      run: |
+        mkdir  artifacts    
+    
+    - name: Find Changed Table Files
+      if: ${{ inputs.dispatch != 'true' }}
+      id: changed-table-files
+      uses: tj-actions/changed-files@v46.0.1
+      with:
+        files: '**/bigtable/*/tables/**'
+        #  Exclude README files
+        files_ignore: |
+          **/*.md
+    
+    - name: Get Changed Table Files
+      if: ${{ inputs.dispatch != 'true' }}
+      id: changed_table_file_list
+      shell: bash
+      run: |  
+        for file in ${{ steps.changed-table-files.outputs.all_changed_files }}; do
+          echo $file
+          mkdir -p $(dirname artifacts/$file)
+          cp $file artifacts/$file
+        done
+
+    - name: Find Changed Config Files
+      if: ${{ inputs.dispatch != 'true' }}
+      id: changed-config-files
+      uses: tj-actions/changed-files@v46.0.1
+      with:
+        files: '**/bigtable/*/config/**'
+        #  Exclude README files
+        files_ignore: |
+          **/*.md    
+    
+    - name: Add Table Files for Changed Configs
+      if: ${{ inputs.dispatch != 'true' }}
+      shell: bash
+      run: |
+        for config_file in ${{ steps.changed-config-files.outputs.all_changed_files }}; do
+          # Get the parent directory up to 'bigtable/example1'
+          parent_dir=$(dirname "$(dirname "$config_file")")
+          tables_dir="$parent_dir/tables"
+          if [ -d "$tables_dir" ]; then
+            for table_file in "$tables_dir"/*; do
+              [ -e "$table_file" ] || continue  # skip if no files
+              # Exclude markdown files
+              if [[ "$table_file" == *.md ]]; then
+                continue
+              fi
+              echo "Copying $table_file to artifacts/$table_file"
+              mkdir -p "artifacts/$(dirname "$table_file")"
+              cp "$table_file" "artifacts/$table_file"
+            done
+          fi
+        done
+
+    - name: Extract branch section from YAML configs
+      shell: bash
+      run: |
+        for file in $(find artifacts -type f \( -name '*.yaml' -o -name '*.yml' \)); do
+          echo "Processing $file"
+          # Extract the section for the branch and overwrite the file
+          yq eval ".\"${{ inputs.branch }}\"" "$file" > tmp.yaml && mv tmp.yaml "$file"
+        done
+
+    - name: Prepare env_config.yaml
+      id: prepare-env-config-etl
+      shell: bash
+      if: ${{ inputs.repo_type == 'ETL' }}
+      run: |
+        if [ ! -f "env_config.yaml" ]; then
+          echo "env:" > "env_config.yaml" 
+        fi
+
+        # Grab the environments config that corresponds to ${{ inputs.branch }}, read the relevant components and write to env_config.yaml
+        yq eval '{"v_curated_project_id": .env.v_curated_project_id}' "${{ inputs.env_folder }}/${{ inputs.branch }}_${{ inputs.domain }}_config.yaml" > "env_config.yaml"        
+        echo "------------------env configs start------------------"
+        cat env_config.yaml
+        echo "------------------env configs end------------------"
+
+    - name: Prepare env_config.yaml
+      id: prepare-env-config-hin2
+      shell: bash
+      if: ${{ inputs.repo_type == 'HIN2.0' || inputs.repo_type == 'DDL' }}
+      run: |
+       if [ ! -f "env_config.yaml" ]; then
+          echo "env:" > "env_config.yaml" 
+        fi
+
+        # Grab the environments config, read the section of the file that corresponds to ${{ inputs.branch }} and write it into a section titled env
+        yq eval '{"v_curated_project_id": .${{ inputs.branch }}.v_curated_project_id}' "environments/${{ inputs.domain }}_config.yaml" > "env_config.yaml"
+        echo "------------------env configs start------------------"
+        cat env_config.yaml
+        echo "------------------env configs end------------------"    
+    
+    
+    - name: Add environment_details to YAML configs
+      shell: bash
+      run: |
+        # Get project_id from env_config.yaml
+        project_id=$(yq eval '.v_curated_project_id' env_config.yaml)
+        
+        branch="${{ inputs.branch }}"
+
+        for file in $(find artifacts -type f \( -name '*.yaml' -o -name '*.yml' \)); do
+          echo "Processing $file"
+
+          # Find the associated instance_config.yaml
+          table_dir=$(dirname "$file")
+          repo_table_dir="${table_dir#artifacts/}"
+          config_dir="$(dirname "$repo_table_dir")/config"
+          instance_config="$config_dir/instance_config.yaml"
+
+          if [ ! -f "$instance_config" ]; then
+            echo "ERROR: $instance_config not found for $file"
+            exit 1
+          fi
+
+          instance_id=$(yq eval ".${branch}.instance_id" "$instance_config")
+
+          # Add environment_details under client_payload
+          yq eval "
+            .client_payload.environment_details.project_id = \"$project_id\" |
+            .client_payload.environment_details.instance_id = \"$instance_id\"
+          " -i "$file"
+        done
+
+    - name: Convert YAML to JSON and remove YAML files
+      shell: bash
+      run: |
+        for file in $(find artifacts -type f \( -name '*.yaml' -o -name '*.yml' \)); do
+          json_file="${file%.*}.json"
+          echo "Converting $file to $json_file"
+          yq eval -o=json "$file" > "$json_file"
+          rm "$file"
+        done
+
+    # Upload artifacts from the bigtable folder
+    - name: Upload Bigtable Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: bigtable_artifacts
+        path: artifacts
+        retention-days: 1
+
+    # Checkout the parent repository to provide access to the deployment script
+    - name: Checkout Parent Repo
+      uses: actions/checkout@v4
+      with:
+        repository: 'HCACloudDataEngineering/gcp-hin-workflows'
+        token: ${{ inputs.token }}
+    
+    - name: ls Scripts Folder
+      shell: bash
+      run: |
+        ls bigtable/scripts
+    
+    # Upload the deployment script
+    - name: Upload GitHub Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: script_artifacts
+        path: bigtable/scripts
+        retention-days: 1

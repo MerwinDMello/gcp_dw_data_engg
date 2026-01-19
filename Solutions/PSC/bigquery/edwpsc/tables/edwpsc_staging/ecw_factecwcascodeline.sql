@@ -1,0 +1,30 @@
+CREATE TABLE IF NOT EXISTS edwpsc_staging.ecw_factecwcascodeline
+(
+  ecwcascodelinekey INT64 NOT NULL,
+  claimkey INT64,
+  claimnumber INT64,
+  claimlinechargeskey INT64,
+  coid STRING,
+  coidconfigurationkey INT64,
+  servicingproviderkey INT64,
+  claimpayer1iplankey INT64,
+  claimlinepaymentskey INT64,
+  cascodekey INT64,
+  regionkey INT64,
+  casdetailid INT64,
+  casgroupcode STRING,
+  cascode STRING,
+  casamount NUMERIC(31, 2),
+  casdeleteflag INT64,
+  caspostedas INT64,
+  sourceaprimarykey INT64,
+  dwlastupdatedatetime DATETIME,
+  sourcesystemcode STRING,
+  insertedby STRING,
+  inserteddtm DATETIME,
+  modifiedby STRING,
+  modifieddtm DATETIME,
+  archivedrecord STRING NOT NULL,
+  PRIMARY KEY (ecwcascodelinekey) NOT ENFORCED
+)
+;

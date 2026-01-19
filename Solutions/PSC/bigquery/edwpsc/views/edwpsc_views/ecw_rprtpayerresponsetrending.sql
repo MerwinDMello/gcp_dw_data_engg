@@ -1,0 +1,51 @@
+CREATE OR REPLACE VIEW edwpsc_views.`ecw_rprtpayerresponsetrending`
+AS SELECT
+  `ecw_rprtpayerresponsetrending`.payerresponsetrendingkey,
+  `ecw_rprtpayerresponsetrending`.snapshotquarter,
+  `ecw_rprtpayerresponsetrending`.snapshotdate,
+  `ecw_rprtpayerresponsetrending`.snapshotyear,
+  `ecw_rprtpayerresponsetrending`.dosquarter,
+  `ecw_rprtpayerresponsetrending`.dosmonth,
+  `ecw_rprtpayerresponsetrending`.dosyear,
+  `ecw_rprtpayerresponsetrending`.coid,
+  `ecw_rprtpayerresponsetrending`.poskey,
+  `ecw_rprtpayerresponsetrending`.servicingproviderlastname,
+  `ecw_rprtpayerresponsetrending`.servicingproviderfirstname,
+  `ecw_rprtpayerresponsetrending`.servicingprovidernpi,
+  `ecw_rprtpayerresponsetrending`.gldepartment,
+  `ecw_rprtpayerresponsetrending`.specialtycategory,
+  `ecw_rprtpayerresponsetrending`.specialtyname,
+  `ecw_rprtpayerresponsetrending`.specialtytype,
+  `ecw_rprtpayerresponsetrending`.iplan,
+  `ecw_rprtpayerresponsetrending`.majorpayor,
+  `ecw_rprtpayerresponsetrending`.financialclassname,
+  `ecw_rprtpayerresponsetrending`.financialclassnumber,
+  `ecw_rprtpayerresponsetrending`.cptcode,
+  `ecw_rprtpayerresponsetrending`.cptname,
+  `ecw_rprtpayerresponsetrending`.firstdenialcategory,
+  `ecw_rprtpayerresponsetrending`.initialpayerresponsecategory,
+  `ecw_rprtpayerresponsetrending`.adjcode,
+  `ecw_rprtpayerresponsetrending`.adjname,
+  `ecw_rprtpayerresponsetrending`.sourcesystem,
+  `ecw_rprtpayerresponsetrending`.charges,
+  `ecw_rprtpayerresponsetrending`.newdenialsamt,
+  `ecw_rprtpayerresponsetrending`.newpaymentvariancesamt,
+  `ecw_rprtpayerresponsetrending`.newclaimrejectionsamt,
+  `ecw_rprtpayerresponsetrending`.newpayerreponseamt,
+  `ecw_rprtpayerresponsetrending`.finaldenialsamt,
+  `ecw_rprtpayerresponsetrending`.finalpaymentvariancesamt,
+  `ecw_rprtpayerresponsetrending`.finalclaimrejectionsamt,
+  `ecw_rprtpayerresponsetrending`.providerenrollmentamt,
+  `ecw_rprtpayerresponsetrending`.finalpayerresponseamt,
+  `ecw_rprtpayerresponsetrending`.dwlastupdateddate,
+  `ecw_rprtpayerresponsetrending`.insertedby,
+  `ecw_rprtpayerresponsetrending`.inserteddtm,
+  `ecw_rprtpayerresponsetrending`.modifiedby,
+  `ecw_rprtpayerresponsetrending`.modifieddtm,
+  `ecw_rprtpayerresponsetrending`.dwlastupdatedatetime
+  FROM
+    edwpsc_base_views.`ecw_rprtpayerresponsetrending`
+  INNER JOIN edwpsc_base_views.secref_facility
+  ON LPAD(TRIM(secref_facility.co_id, ' '), 5, '0') = LPAD(TRIM(`ecw_rprtpayerresponsetrending`.coid, ' '), 5, '0')
+  AND TRIM(secref_facility.user_id, ' ') = TRIM(session_user(), ' ')
+;

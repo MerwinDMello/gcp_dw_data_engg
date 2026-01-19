@@ -1,0 +1,76 @@
+# A reusable workflow to deploy to Bigtable
+on:
+  workflow_call:
+    inputs:
+      branch: 
+        description: "The branch, and thus the GCP environment, that is relevant to this workflow run"
+        required: true
+        type: string
+      event_name:  
+        type: string
+        description: "The event name that triggered the workflow"
+        required: true
+      env_folder:
+        description: "The name of the folder containing environment yamls"
+        required: false
+        type: string
+        default: "environments"
+      repo_type:
+        description: "The type of repository that is relevant to this workflow run"
+        required: true
+        type: string
+    secrets:
+        gh_token:
+          description: "The GitHub token for authentication."
+          required: true
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  Setup:
+    runs-on: [self-hosted, onprem-k8s-arc, dind, enterprise, lnx-amd64]
+    environment: ${{ inputs.branch }}
+    name: Bigtable Setup
+    permissions:
+      contents: "read"
+      id-token: "write"
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Determine dispatch
+        id: determine_dispatch
+        shell: bash
+        run: |
+          if [[ "${{ inputs.event_name }}" == "workflow_dispatch" ]]; then
+          echo "dispatch=true" >> $GITHUB_OUTPUT
+          else
+          echo "dispatch=false" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Bigtable Setup Step
+        uses: HCACloudDataEngineering/gcp-hin-workflows/bigtable/setup@main
+        with:
+          branch: ${{ inputs.branch }}
+          dispatch: ${{ steps.determine_dispatch.outputs.dispatch }}
+          domain: ${{ vars.DOMAIN }}
+          env_folder: ${{ inputs.env_folder }}
+          repo_type: ${{ inputs.repo_type }}
+          token: ${{ secrets.gh_token }}
+  
+  Deploy:
+    runs-on:  [self-hosted, onprem-k8s-arc, dind, enterprise, lnx-amd64]
+    name: Bigtable Deploy Job
+    needs: Setup
+    environment: ${{ inputs.branch }}
+    permissions:
+      contents: "read"
+      id-token: "write"
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4 
+
+      - name: Bigtable Deploy Step
+        uses: HCACloudDataEngineering/gcp-hin-workflows/bigtable/deploy@main
+        with:
+          workload_identity_provider: ${{ vars.WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ vars.SERVICEACCOUNT_GITHUB }}

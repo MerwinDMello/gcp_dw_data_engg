@@ -1,0 +1,28 @@
+create table if not exists `{{ params.param_hr_stage_dataset_name }}.znsecurity`
+(
+  company INT64,
+  process_level STRING,
+  hca_accessrole STRING,
+  hca_secclass STRING,
+  sec_lvl INT64,
+  hca_user_group STRING,
+  hca_prt_grp STRING,
+  hca_dist_grp1 STRING,
+  hca_dist_grp2 STRING,
+  hca_dist_grp3 STRING,
+  hca_dist_grp4 STRING,
+  hca_dist_grp5 STRING,
+  hca_non_std STRING,
+  obj_id NUMERIC,
+  hca_update_act STRING,
+  hca_span_code STRING,
+  hca_uid_id STRING,
+  date_stamp DATE,
+  time_stamp TIME,
+  hca_setup_flag STRING,
+  hca_inq_spancd STRING,
+  hca_dept INT64,
+  allow_addin STRING,
+  check_location STRING,
+  dw_last_update_date_time DATETIME NOT NULL
+)

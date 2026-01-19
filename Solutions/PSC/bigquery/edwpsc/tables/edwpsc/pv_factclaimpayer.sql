@@ -1,0 +1,31 @@
+CREATE TABLE IF NOT EXISTS edwpsc.pv_factclaimpayer
+(
+  claimpayerkey INT64 NOT NULL,
+  claimkey INT64,
+  claimnumber INT64,
+  coid STRING,
+  seqnumber INT64,
+  payeriplankey INT64,
+  payergroupnumber STRING,
+  payergroupname STRING,
+  payersubscribernumber STRING,
+  payerclaimindicator STRING,
+  payerliabilityowner STRING,
+  payersourcechangedflag INT64,
+  payersourceaprimarykeyvalue STRING,
+  payersourcetablelastupdated DATETIME,
+  payersourcebprimarykeyvalue STRING,
+  deleteflag INT64,
+  priorauthno STRING,
+  regionkey INT64,
+  practicekey INT64,
+  practicename STRING,
+  dwlastupdatedatetime DATETIME NOT NULL,
+  sourcesystemcode STRING,
+  insertedby STRING,
+  inserteddtm DATETIME,
+  modifiedby STRING,
+  modifieddtm DATETIME,
+  PRIMARY KEY (claimpayerkey) NOT ENFORCED
+)
+;

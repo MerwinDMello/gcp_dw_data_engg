@@ -1,0 +1,36 @@
+name: Copy from Github to GCS Caller Workflow
+
+on:
+  workflow_dispatch:
+    inputs:
+      source_path:
+        description: 'Local path of the file(s) or folder'
+        required: true
+      destination_path:
+        description: 'Destination path of the file(s) or folder in GCS'
+        required: true
+      ticket_number:
+        description: 'Ticket number associated with the action'
+        required: true
+      gcp_env:
+        description: 'The GCP environment to authenticate to'
+        required: true
+        type: choice
+        options:
+          - dev
+          - qa
+          - prod
+
+
+jobs:
+  call_github_to_gcs_workflow:
+    name: Copy from Github to GCS
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+    uses: HCACloudDataEngineering/gcp-hin-workflows/.github/workflows/gh_gcs_workflow.yaml@main
+    with:
+      source_path: ${{ github.event.inputs.source_path }}
+      destination_path: ${{ github.event.inputs.destination_path }}
+      ticket_number: ${{ github.event.inputs.ticket_number }}
+      gcp_env: ${{ github.event.inputs.gcp_env }}

@@ -1,0 +1,45 @@
+CREATE OR REPLACE TABLE {{ params.param_cr_core_dataset_name }}.fact_rad_onc_activity_billing
+(
+  fact_activity_billing_sk INT64 NOT NULL OPTIONS(description='Unique surrogate key generated for fact data for activity billing in EDW'),
+  physician_sk INT64 OPTIONS(description='Unique surrogate key generated for each physician in EDW'),
+  attending_oncologist_id INT64 OPTIONS(description='Identifier for each attending oncologist linked to patient  in EDW'),
+  patient_course_sk INT64 OPTIONS(description='Unique surrogate key generated for each patient course in EDW'),
+  hospital_sk INT64 OPTIONS(description='Unique surrogate key generated for a radiation oncology hospital data in EDW'),
+  activity_sk INT64 OPTIONS(description='Unique surrogate key generated for an activity in EDW'),
+  activity_transaction_sk INT64 OPTIONS(description='Unique surrogate key generated for an activity transaction in EDW'),
+  procedure_code_sk INT64 OPTIONS(description='Unique surrogate key generated for a procedure code in EDW'),
+  patient_sk INT64 OPTIONS(description='Unique surrogate key generated for each patient in EDW'),
+  activity_category_id INT64 OPTIONS(description='Identifier for activity category'),
+  site_sk INT64 NOT NULL OPTIONS(description='Unique surrogate key generated for a site in EDW'),
+  source_fact_activity_billing_id INT64 NOT NULL OPTIONS(description='Unique identifier for activity billing fact data in Radiation Oncology in source'),
+  primary_global_charge_amt NUMERIC(35, 6) OPTIONS(description='Amount for primary global charge'),
+  primary_technical_charge_amt NUMERIC(35, 6) OPTIONS(description='Amount for primary technical charge'),
+  primary_professional_charge_amt NUMERIC(35, 6) OPTIONS(description='Amount for primary professional charge'),
+  other_professional_charge_amt NUMERIC(35, 6) OPTIONS(description='Amount for other professional charge'),
+  other_technical_charge_amt NUMERIC(35, 6) OPTIONS(description='Amount for other technical charge'),
+  other_global_charge_amt NUMERIC(35, 6) OPTIONS(description='Amount for otehr global charges'),
+  forecast_charge_amt NUMERIC(35, 6) OPTIONS(description='Amount for forecast charges'),
+  actual_charge_amt NUMERIC(35, 6) OPTIONS(description='Amount for the actual charge'),
+  activity_cost_amt NUMERIC(35, 6) OPTIONS(description='Amount of activity cost'),
+  activity_billing_code_text STRING OPTIONS(description='Text for activity billing code'),
+  service_start_date_time DATETIME OPTIONS(description='Date time for service start'),
+  service_end_date_time DATETIME OPTIONS(description='Date time for service end'),
+  complete_date_time DATETIME OPTIONS(description='Date time for activity completion'),
+  export_date_time DATETIME OPTIONS(description='Date time for export'),
+  mark_complete_date_time DATETIME OPTIONS(description='Date time when activity was mark completed'),
+  credit_export_date_time DATETIME OPTIONS(description='Date time for credit export'),
+  credit_date_time DATETIME OPTIONS(description='Date time for credit'),
+  credit_note_text STRING OPTIONS(description='Text for credit note'),
+  modifier_code_text STRING OPTIONS(description='Text for modifier code'),
+  credit_amt NUMERIC(35, 6) OPTIONS(description='Amount credited for activity'),
+  scheduled_ind STRING OPTIONS(description='Indicates if activity is scheduled'),
+  object_status_ind STRING OPTIONS(description='Indicates the object status'),
+  log_id INT64 OPTIONS(description='Unique identifier for the log'),
+  run_id INT64 OPTIONS(description='Identifier for last run'),
+  source_system_code STRING NOT NULL OPTIONS(description='A one character code indicating the specific source system from which the data originated.'),
+  dw_last_update_date_time DATETIME NOT NULL OPTIONS(description='Timestamp of update or load of this record to the Enterprise Data Warehouse.')
+)
+CLUSTER BY site_sk, source_fact_activity_billing_id
+OPTIONS(
+  description='Contains fact information of Radiation Oncology for activity billing'
+);

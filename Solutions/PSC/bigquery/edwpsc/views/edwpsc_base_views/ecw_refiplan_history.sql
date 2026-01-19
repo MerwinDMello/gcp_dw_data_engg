@@ -1,0 +1,35 @@
+CREATE OR REPLACE VIEW edwpsc_base_views.`ecw_refiplan_history`
+AS SELECT
+  `ecw_refiplan_history`.iplankey,
+  `ecw_refiplan_history`.financialclasskey,
+  `ecw_refiplan_history`.iplangroupcactuskey,
+  `ecw_refiplan_history`.iplangroupfinancialkey,
+  `ecw_refiplan_history`.iplanname,
+  `ecw_refiplan_history`.iplanphone,
+  `ecw_refiplan_history`.iplanphone2,
+  `ecw_refiplan_history`.iplanfax,
+  `ecw_refiplan_history`.iplanemail,
+  `ecw_refiplan_history`.iplanprimaryaddressline1,
+  `ecw_refiplan_history`.iplanprimaryaddressline2,
+  `ecw_refiplan_history`.iplanprimarygeographykey,
+  `ecw_refiplan_history`.iplanpayorid,
+  `ecw_refiplan_history`.iplanerapayorid,
+  `ecw_refiplan_history`.iplanfeeschedid,
+  `ecw_refiplan_history`.sourceprimarykeyvalue,
+  `ecw_refiplan_history`.sourcearecordlastupdated,
+  `ecw_refiplan_history`.sourcebrecordlastupdated,
+  `ecw_refiplan_history`.dwlastupdatedatetime,
+  `ecw_refiplan_history`.sourcesystemcode,
+  `ecw_refiplan_history`.insertedby,
+  `ecw_refiplan_history`.inserteddtm,
+  `ecw_refiplan_history`.modifiedby,
+  `ecw_refiplan_history`.modifieddtm,
+  `ecw_refiplan_history`.deleteflag,
+  `ecw_refiplan_history`.inactive,
+  `ecw_refiplan_history`.notes,
+  `ecw_refiplan_history`.emcpayerid,
+  `ecw_refiplan_history`.sysstarttime,
+  `ecw_refiplan_history`.sysendtime
+  FROM
+    edwpsc.`ecw_refiplan_history`
+;

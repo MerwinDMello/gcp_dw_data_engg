@@ -1,0 +1,29 @@
+CREATE OR REPLACE VIEW edwpsc_views.`pv_factclaimlinechargeuserchangedate`
+AS SELECT
+  `pv_factclaimlinechargeuserchangedate`.claimlinechargeuserchangedatekey,
+  `pv_factclaimlinechargeuserchangedate`.claimlinechargekey,
+  `pv_factclaimlinechargeuserchangedate`.sourcesystemtype,
+  `pv_factclaimlinechargeuserchangedate`.crt_userid,
+  `pv_factclaimlinechargeuserchangedate`.crt_datetime,
+  `pv_factclaimlinechargeuserchangedate`.last_upd_userid,
+  `pv_factclaimlinechargeuserchangedate`.last_upd_datetime,
+  `pv_factclaimlinechargeuserchangedate`.payer_num,
+  `pv_factclaimlinechargeuserchangedate`.crg_balance,
+  `pv_factclaimlinechargeuserchangedate`.crg_amt,
+  `pv_factclaimlinechargeuserchangedate`.proc_code,
+  `pv_factclaimlinechargeuserchangedate`.modifier,
+  `pv_factclaimlinechargeuserchangedate`.quantity,
+  `pv_factclaimlinechargeuserchangedate`.cptdeleted,
+  `pv_factclaimlinechargeuserchangedate`.regionkey,
+  `pv_factclaimlinechargeuserchangedate`.sysstarttime,
+  `pv_factclaimlinechargeuserchangedate`.sysendtime,
+  `pv_factclaimlinechargeuserchangedate`.sourceaprimarykeyvalue,
+  `pv_factclaimlinechargeuserchangedate`.sourcebprimarykeyvalue,
+  `pv_factclaimlinechargeuserchangedate`.dwlastupdatedatetime,
+  `pv_factclaimlinechargeuserchangedate`.insertedby,
+  `pv_factclaimlinechargeuserchangedate`.inserteddtm,
+  `pv_factclaimlinechargeuserchangedate`.modifiedby,
+  `pv_factclaimlinechargeuserchangedate`.modifieddtm
+  FROM
+    edwpsc_base_views.`pv_factclaimlinechargeuserchangedate`
+;

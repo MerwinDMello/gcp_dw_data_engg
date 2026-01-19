@@ -1,0 +1,84 @@
+# <subdomain> variables to use in DAGs
+# note the yaml syntax, single space after colon
+env:
+ v_env_name: dev
+ v_curated_conn_id: hca-hin-dev-cur-ops
+ v_lob: edwcr
+
+# gcp projects
+ v_proc_project_id: hca-hin-dev-proc-ops
+ v_landing_project_id: hca-hin-dev-landing-ops
+ v_curated_project_id: hca-hin-dev-cur-ops
+ v_gcpconnid: hca-hin-dev-proc-ops
+ v_bqconnid: hca-hin-dev-cur-ops
+ v_mirroring_project_id: hca-hin-curated-mirroring-td
+ v_psg_project_id: hca-hin-dev-cur-psg
+ v_financial_project_id: hca-hin-dev-cur-financial
+ v_clinical_project_id:  hca-hin-dev-cur-clinical
+ v_ingestloadsubdir: CR
+ 
+# gcs bucket names, note this does not start with gs://
+ v_dag_bucket_name: us-east4-composerv2-snapsho-14b9254c-bucket
+ v_data_bucket_name: eim-ops-cs-datamig-dev-0002
+ v_data_archive_bucket_name: eim-ops-cs-datamig-dev-0002
+ v_source_file_bucket : hin-ops-eim-cs-cr-dev-f00680
+
+# folder structure in buckets 
+ v_srcfilesdir: edwcrdata/srcfiles/
+ v_archivedir: edwcrdata/srcfilesarchive/
+ v_tgtfilesdir: edwcrdata/outboundfiles/
+ v_tmpobjdir: edwcrdata/tmp/
+ v_schemasubdir: schema/cr/ # remove <subdomain>/ for repos supporting domains that do not have subdomains
+ 
+# bigquery datasets (add these in as relevant to this HIN project, begin all variable names with v_, those listed below are provided as examples)
+ v_cr_core_dataset_name: edwcr
+ v_cr_stage_dataset_name: edwcr_staging
+ v_cr_views_dataset_name: edwcr_views
+ v_cr_procs_dataset_name: edwcr_procs
+ v_pub_views_dataset_name: edw_pub_views
+ v_dim_base_views_dataset_name: edw_dim_base_views
+ v_dim_core_dataset_name: edw_dim
+ v_cr_audit_dataset_name: edwcr_ac
+ v_sec_base_views_dataset_name: edw_sec_base_views
+ v_sec_core_dataset_name: edw_sec
+ v_cr_bi_views_dataset_name: edwcr_bi_views
+ v_cr_base_views_dataset_name: edwcr_base_views_copy
+ v_auth_base_views_dataset_name: auth_base_views
+ v_bqutil_fns_dataset_name: bqutil_fns
+ v_pf_staging_dataset_name: edwpf_staging
+ v_pf_base_views_dataset_name: edwpf_base_views
+ v_cp_base_views_dataset_name: edwcp_base_views
+ v_cr_mirrored_core_dataset_name: edwcr
+ v_cr_mirrored_base_views_dataset_name: edwcr_base_views
+ v_monitoring_views_dataset_name: edwops_ac
+
+# need to test this email list
+ v_success_email_list: 
+ v_failure_email_list: 
+ 
+# secrets
+# The number in the url is the GCP project number, distinct for each envt
+ v_pwd_secrets_url: projects/932219546846/secrets/
+ v_kmskeyname: projects/hca-hin-dev-proc-ops/locations/us-east4/keyRings/hin-keyring-a99f41/cryptoKeys/hin-key-a99f41
+
+# dataflow buckets  (if applicable)
+ v_gcs_temp_bucket: gs://eim-ops-cs-datamig-dev-0002/temp
+ v_dfstagebucket: gs://eim-ops-cs-datamig-dev-0002/dfstage
+ v_dfjarbucket: gs://eim-ops-cs-jar-dev-0003/jdbcjars/
+
+# dataflow environment values
+ v_region: us-east4 # Confirm this is correct, adjust if not, then delete this instruction
+ v_zone: us-east4-a # Confirm this is correct, adjust if not, then delete this instruction
+ v_network: hca-hin-networks-shared-vpc # Confirm this is correct, adjust if not, then delete this instruction
+ v_subnetwork: https://www.googleapis.com/compute/v1/projects/hca-hin-networks/regions/us-east4/subnetworks/hin-dev-proc-ops-dataflow-us-east4 # Confirm this is correct, adjust if not, then delete this instruction
+ v_serviceaccountemail: df-atos@hca-hin-dev-proc-ops.iam.gserviceaccount.com
+ v_maxworkers: 2 # Confirm this is correct, adjust if not, then delete this instruction
+ v_numworkers: 1 # Confirm this is correct, adjust if not, then delete this instruction
+ v_machinetype: n1-standard-4 # Confirm this is correct, adjust if not, then delete this instruction
+ v_runner: DataflowRunner
+ v_gcpconnid: 3_hca-hin-dev-proc-ops # Confirm this is correct, adjust if not, then delete this instruction
+ v_bqconnid: 2_hca-hin-dev-cur-ops # Confirm this is correct, adjust if not, then delete this instruction
+
+#docker image and audit table name
+ v_sdkimage: 
+ v_audittablename: edwcr_ac.audit_control # Confirm this is correct, adjust if not, then delete this instruction

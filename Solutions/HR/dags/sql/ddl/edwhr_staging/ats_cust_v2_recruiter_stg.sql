@@ -1,0 +1,40 @@
+CREATE TABLE IF NOT EXISTS {{ params.param_hr_stage_dataset_name }}.ats_cust_v2_recruiter_stg
+(
+  _action STRING,
+  _asoftimestamp STRING,
+  accepted INT64,
+  accepteddaysalert INT64,
+  active INT64,
+  approved INT64,
+  approveddaysalert INT64,
+  create_stamp_actor STRING,
+  create_stamp_timestamp STRING,
+  created INT64,
+  createddaysalert INT64,
+  createstamp STRING,
+  declined INT64,
+  declineddaysalert INT64,
+  defined INT64,
+  defineddaysalert INT64,
+  extended INT64,
+  extendeddaysalert INT64,
+  hrorganization STRING,
+  hrorganization_cube_dimension_value STRING,
+  pending INT64,
+  pendingdaysalert INT64,
+  recruiter INT64,
+  recruiterkey STRING,
+  recruitername STRING,
+  repset_variation_id INT64,
+  rescinded INT64,
+  rescindeddaysalert INT64,
+  uniqueid STRING,
+  update_stamp_actor STRING,
+  update_stamp_timestamp STRING,
+  updatestamp STRING,
+  infor_lastmodified STRING,
+  dw_last_update_date_time DATETIME
+)
+OPTIONS(
+  
+);

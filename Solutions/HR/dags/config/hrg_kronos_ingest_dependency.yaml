@@ -1,0 +1,90 @@
+ingest:
+- source_system: kronos
+  frequency: daily
+  start_date: pendulum.datetime(2022, 12, 6, tz=timezone)
+  schedule: [30 0 * * *]
+  type: files
+  done_file: Kronos_DailyFiles_YYYYMMDD.txt
+  dependency:
+  - source:
+      type: file
+      name: Current_Combined_EDW_PayDetail.txt
+      sensor: 'Yes'
+    target:
+      type: table
+      name: time_entry_pay_code_detail_stg
+      sql: update_bq_table_kronos_time_entry_pay_code_detail.sql
+    sensor:
+    - dag_id: dag_integrate_kronos_core_tables_weekly_19.30
+      task_id: TG-table-time_entry_pay_code_detail.run_hdw_kronos_time_entry_pay_code_detail.sql
+      schedule: 30 19 * * 2
+  - source:
+      type: file
+      name: Current_Combined_EDW_PunchDetail.txt
+      sensor: 'Yes'
+    target:
+      type: table
+      name: kronos_combined_edw_punchdetail_rej
+      sql: kronos_combined_edw_punchdetail_rej.sql
+    sensor:
+    - dag_id: dag_integrate_kronos_core_tables_weekly_19.30
+      task_id: TG-table-time_entry.run_hdw_kronos_time_entry.sql
+      schedule: 30 19 * * 2
+- source_system: kronos
+  frequency: weekly
+  start_date: pendulum.datetime(2022, 12, 20, tz=timezone)
+  schedule: [30 19 * * 2]
+  type: files
+  done_file: Kronos_WeeklyFiles_YYYYMMDD.txt
+  dependency:
+  - source:
+      type: file
+      name: Combined_EDW_Employee.txt
+    target:
+      type: table
+      name: krono_combined_edw_employee
+      sql: krono_combined_edw_employee.sql
+  - source:
+      type: file
+      name: Combined_EDW_Clocks.txt
+      encoding: 'cp1252'
+      sensor: 'No'
+    target:
+      type: table
+      name: ref_clock_stg
+      sql: ref_clock_stg.sql
+  - source:
+      type: file
+      name: Combined_EDW_PayDetail.txt
+    target:
+      type: table
+      name: time_entry_pay_code_detail_stg
+      sql: update_bq_table_kronos_time_entry_pay_code_detail.sql
+  - source:
+      type: file
+      name: Combined_EDW_PunchDetail.txt
+    target:
+      type: table
+      name: kronos_combined_edw_punchdetail_rej
+      sql: kronos_combined_edw_punchdetail_rej.sql
+  - source:
+      type: file
+      name: Combined_EDW_PayCds.txt
+    target:
+      type: table
+      name: pay_code_pay_summary_group_crosswalk_stg
+      sql: pay_code_pay_summary_group_crosswalk_stg.sql
+- source_system: kronos
+  frequency: None
+  start_date: pendulum.datetime(2022, 12, 20, tz=timezone)
+  schedule: ["None"]
+  type: files
+  done_file: None
+  dependency:
+  - source:
+      type: file
+      name: Ref_Code.txt
+    target:
+      type: table
+      name: ref_exception
+      sql: dummy.sql

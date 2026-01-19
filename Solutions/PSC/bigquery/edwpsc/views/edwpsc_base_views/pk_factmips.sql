@@ -1,0 +1,35 @@
+CREATE OR REPLACE VIEW edwpsc_base_views.`pk_factmips`
+AS SELECT
+  `pk_factmips`.pkmipskey,
+  `pk_factmips`.pkregionname,
+  `pk_factmips`.measure,
+  `pk_factmips`.measurenumber,
+  `pk_factmips`.measuredescription,
+  `pk_factmips`.measuretitle,
+  `pk_factmips`.responsesubmittedflag,
+  `pk_factmips`.responsedeletedflag,
+  `pk_factmips`.responseisbillingproviderflag,
+  `pk_factmips`.createddatetime,
+  `pk_factmips`.createdbyusername,
+  `pk_factmips`.createdbyuserlastname,
+  `pk_factmips`.createdbyuserfirstname,
+  `pk_factmips`.modifieddatetime,
+  `pk_factmips`.modifiedbyusername,
+  `pk_factmips`.modifiedbyuserlastname,
+  `pk_factmips`.modifiedbyuserfirstname,
+  `pk_factmips`.chargetransactionid,
+  `pk_factmips`.pkfinancialnumber,
+  `pk_factmips`.patientlastname,
+  `pk_factmips`.patientfirstname,
+  `pk_factmips`.rolename,
+  `pk_factmips`.sourceaprimarykeyvalue,
+  `pk_factmips`.sourcebprimarykeyvalue,
+  `pk_factmips`.sourcesystemcode,
+  `pk_factmips`.insertedby,
+  `pk_factmips`.inserteddtm,
+  `pk_factmips`.modifiedby,
+  `pk_factmips`.modifieddtm,
+  `pk_factmips`.dwlastupdatedatetime
+  FROM
+    edwpsc.`pk_factmips`
+;

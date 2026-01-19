@@ -1,0 +1,31 @@
+CREATE OR REPLACE VIEW edwpsc_base_views.`epic_factworkqueuepatient`
+AS SELECT
+  `epic_factworkqueuepatient`.regionkey,
+  `epic_factworkqueuepatient`.regionname,
+  `epic_factworkqueuepatient`.coid,
+  `epic_factworkqueuepatient`.workqueuename,
+  `epic_factworkqueuepatient`.encounterkey,
+  `epic_factworkqueuepatient`.visitdate,
+  `epic_factworkqueuepatient`.visitcopaydue,
+  `epic_factworkqueuepatient`.servicingproviderkey,
+  `epic_factworkqueuepatient`.servicingprovidername,
+  `epic_factworkqueuepatient`.patientkey,
+  `epic_factworkqueuepatient`.patientmrn,
+  `epic_factworkqueuepatient`.patientname,
+  `epic_factworkqueuepatient`.holdcodekey,
+  `epic_factworkqueuepatient`.holdcode,
+  `epic_factworkqueuepatient`.holdcodename,
+  `epic_factworkqueuepatient`.holdcodedescription,
+  `epic_factworkqueuepatient`.totalworkqueuecount,
+  `epic_factworkqueuepatient`.deferredstatus,
+  `epic_factworkqueuepatient`.activeworkqueueflag,
+  `epic_factworkqueuepatient`.typeofworkqueue,
+  `epic_factworkqueuepatient`.adminworkqueueflag,
+  `epic_factworkqueuepatient`.sourcesystemcode,
+  `epic_factworkqueuepatient`.sourceaprimarykeyvalue,
+  `epic_factworkqueuepatient`.insertedby,
+  `epic_factworkqueuepatient`.inserteddtm,
+  `epic_factworkqueuepatient`.dwlastupdatedatetime
+  FROM
+    edwpsc.`epic_factworkqueuepatient`
+;

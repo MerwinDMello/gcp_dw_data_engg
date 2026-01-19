@@ -1,0 +1,39 @@
+CREATE OR REPLACE VIEW edwpsc_views.`epic_factsnapshotfinancialadjustmentclaim`
+AS SELECT
+  `epic_factsnapshotfinancialadjustmentclaim`.adjustmentclaimkey,
+  `epic_factsnapshotfinancialadjustmentclaim`.monthid,
+  `epic_factsnapshotfinancialadjustmentclaim`.snapshotdate,
+  `epic_factsnapshotfinancialadjustmentclaim`.coid,
+  `epic_factsnapshotfinancialadjustmentclaim`.regionkey,
+  `epic_factsnapshotfinancialadjustmentclaim`.claimkey,
+  `epic_factsnapshotfinancialadjustmentclaim`.claimnumber,
+  `epic_factsnapshotfinancialadjustmentclaim`.visitnumber,
+  `epic_factsnapshotfinancialadjustmentclaim`.transactionnumber,
+  `epic_factsnapshotfinancialadjustmentclaim`.gldepartment,
+  `epic_factsnapshotfinancialadjustmentclaim`.patientid,
+  `epic_factsnapshotfinancialadjustmentclaim`.servicingproviderkey,
+  `epic_factsnapshotfinancialadjustmentclaim`.servicingproviderid,
+  `epic_factsnapshotfinancialadjustmentclaim`.renderingproviderkey,
+  `epic_factsnapshotfinancialadjustmentclaim`.renderingproviderid,
+  `epic_factsnapshotfinancialadjustmentclaim`.facilitykey,
+  `epic_factsnapshotfinancialadjustmentclaim`.facilityid,
+  `epic_factsnapshotfinancialadjustmentclaim`.claimdatekey,
+  `epic_factsnapshotfinancialadjustmentclaim`.servicedatekey,
+  `epic_factsnapshotfinancialadjustmentclaim`.iplan1iplankey,
+  `epic_factsnapshotfinancialadjustmentclaim`.iplan1id,
+  `epic_factsnapshotfinancialadjustmentclaim`.financialclasskey,
+  `epic_factsnapshotfinancialadjustmentclaim`.adjustmentid,
+  `epic_factsnapshotfinancialadjustmentclaim`.adjustmentcode,
+  `epic_factsnapshotfinancialadjustmentclaim`.adjustmentcodekey,
+  `epic_factsnapshotfinancialadjustmentclaim`.adjustmentamt,
+  `epic_factsnapshotfinancialadjustmentclaim`.unpostedcptamt,
+  `epic_factsnapshotfinancialadjustmentclaim`.unpostedclaimamt,
+  `epic_factsnapshotfinancialadjustmentclaim`.adjustmentcreatedatekey,
+  `epic_factsnapshotfinancialadjustmentclaim`.adjustmentmodifieddatekey,
+  `epic_factsnapshotfinancialadjustmentclaim`.dwlastupdatedatetime
+  FROM
+    edwpsc_base_views.`epic_factsnapshotfinancialadjustmentclaim`
+  INNER JOIN edwpsc_base_views.secref_facility
+  ON LPAD(TRIM(secref_facility.co_id, ' '), 5, '0') = LPAD(TRIM(`epic_factsnapshotfinancialadjustmentclaim`.coid, ' '), 5, '0')
+  AND TRIM(secref_facility.user_id, ' ') = TRIM(session_user(), ' ')
+;

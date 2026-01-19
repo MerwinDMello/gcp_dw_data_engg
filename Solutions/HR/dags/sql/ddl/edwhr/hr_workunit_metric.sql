@@ -1,0 +1,23 @@
+CREATE TABLE IF NOT EXISTS {{ params.param_hr_core_dataset_name }}.hr_workunit_metric (
+workunit_sid NUMERIC(18,0) NOT NULL OPTIONS(description="Unique identifier generated of the combination of Workunit and Source_System_Code.")
+, activity_seq_num INT64 NOT NULL OPTIONS(description="The activity sequence number captured by lawson for the workflow.")
+, user_profile_id_text STRING NOT NULL OPTIONS(description="Contains the unique identifier of the user account.")
+, valid_from_date DATETIME NOT NULL OPTIONS(description="Date on which the record became valid. Load date typically.")
+, valid_to_date DATETIME OPTIONS(description="Date on which the record was invalidated.")
+, workunit_num NUMERIC(12,0) NOT NULL OPTIONS(description="Categories each activity number into a separate group to help understand the workflow.")
+, task_name STRING OPTIONS(description="The operation that occured in the workflow.")
+, task_type_num INT64 NOT NULL OPTIONS(description="This field contains the type number for a specific task")
+, queue_assigment_num INT64 OPTIONS(description="Contains the Queue Assigment number.")
+, action_start_date_time DATETIME OPTIONS(description="Date the action started")
+, action_taken_text STRING OPTIONS(description="Date the action has been taken.")
+, comment_text STRING OPTIONS(description="Comment related to the action taken")
+, authenticated_author_text STRING OPTIONS(description="Contains the authenticated author identifier.")
+, lawson_company_num INT64 NOT NULL OPTIONS(description="The number that identifies a company.A company represents a business or legal entity of an organization")
+, process_level_code STRING NOT NULL OPTIONS(description="Unique process level code of an HR company value maintained in this field.")
+, active_dw_ind STRING NOT NULL OPTIONS(description="Y/N character to indicate this record as active in the EDW.")
+, source_system_code STRING NOT NULL OPTIONS(description="A one character code indicating the specific source system from which the data originated.")
+, dw_last_update_date_time DATETIME NOT NULL OPTIONS(description="Timestamp of update or load of this record to the Enterprise Data Warehouse.")
+)
+PARTITION BY DATE(Valid_From_Date)
+CLUSTER BY Workunit_SID, Activity_Seq_Num, User_Profile_Id_Text, Valid_From_Date
+OPTIONS(description="This table contains all the details on who has taken action on this workunit.");

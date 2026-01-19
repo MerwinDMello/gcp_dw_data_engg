@@ -1,0 +1,118 @@
+name: Invoke Metadata Cloud Function
+inputs:
+  workload_identity_provider:
+    description: "Workload Identity Provider for Google Cloud authentication."
+    required: true
+  service_account:
+    description: "Service Account for Google Cloud authentication."
+    required: true
+  dest_path:
+    description: Destination path in GCS.
+    required: true
+  cf_region:
+    description: Cloud Function region.
+    required: true
+  cf_project_id:
+    description: Cloud Function project ID.
+    required: true
+  cf_name:
+    description: Cloud Function name.
+    required: true
+  changed_files:
+    description: List of changed files.
+    required: true
+  gcs_file_path:
+    description: Path to metadata files.
+    required: true
+  execute_sql:
+    description: Execute SQL flag.
+    required: false
+    default: "False"
+  update_alation:
+    description: Update Alation flag.
+    required: false
+    default: "False"
+  bq_alation_cr_table:
+    description: BigQuery Alation CR table.
+    required: false
+    default: "hca-hin-dev-datagov.alation_metadata.alation_cr_tracker"
+    
+runs:
+  using: "composite"
+  steps:
+    - id: auth
+      uses: google-github-actions/auth@v1
+      with:
+        workload_identity_provider: ${{ inputs.workload_identity_provider }}
+        service_account: ${{ inputs.service_account }}
+        id_token_audience: https://${{ inputs.cf_region }}-${{ inputs.cf_project_id }}.cloudfunctions.net/${{ inputs.cf_name }}
+        token_format: 'id_token'
+
+    - name: Detect changed files
+      id: changed-files
+      uses: tj-actions/changed-files@v46.0.1
+      with:
+        files: ${{ inputs.gcs_file_path }}
+
+    - name: Output changed files
+      shell: bash
+      run: echo "changed_files=${{ steps.changed-files.outputs.all_changed_files }}"
+
+    - name: Process and invoke Cloud Function
+      shell: bash
+      run: |
+        echo "Invoking Cloud Function for changed files..."
+        processed_yaml_files=()
+
+        has_been_processed() {
+          local file="$1"
+          for processed_file in "${processed_yaml_files[@]}"; do
+            if [[ "$processed_file" == "$file" ]]; then
+              return 0
+            fi
+          done
+          return 1
+        }
+
+        process_yaml_file() {
+          local yaml_file="$1"
+          if [[ -f "$yaml_file" ]] && ! has_been_processed "$yaml_file"; then
+            echo "Processing YAML file: $yaml_file"
+            processed_yaml_files+=("$yaml_file")
+          else
+            echo "YAML file $yaml_file does not exist or has already been processed. Skipping..."
+          fi
+        }
+
+        for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+          echo "Processing changed file: $file"
+
+          if [[ "$file" == *.txt ]]; then
+            base_name=$(basename "$file" | sed -E 's/_(table|schema)_description_prompt_template\.txt$//')
+            dir_path=$(dirname "$file")
+            yaml_file="${dir_path}/${base_name}.yaml"
+            echo "Derived YAML file from .txt: $yaml_file"
+            process_yaml_file "$yaml_file"
+          fi
+
+          if [[ "$file" == *.yaml ]]; then
+            process_yaml_file "$file"
+          fi
+        done
+
+        for yaml_file in "${processed_yaml_files[@]}"; do
+          relative_path=${yaml_file#data_engineering/data_governance/}
+          gcs_path="${{ inputs.dest_path }}/${relative_path}"
+          echo "Invoking Cloud Function for GCS Path: $gcs_path"
+
+          curl -s -o /dev/null -w "%{http_code}" -X POST \
+            "https://${{ inputs.cf_region }}-${{ inputs.cf_project_id }}.cloudfunctions.net/${{ inputs.cf_name }}" \
+            -H "Authorization: Bearer ${{ steps.auth.outputs.id_token }}" \
+            -H "Content-Type: application/json" \
+            -d "{\"yaml_source_path\": \"${gcs_path}\", \"execute_sql\": \"${{ inputs.execute_sql }}\", \"bq_alation_cr_table\": \"${{ inputs.bq_alation_cr_table }}\", \"update_alation\": \"${{ inputs.update_alation }}\"}"
+
+          if [[ $? -ne 0 ]]; then
+            echo "Error invoking Cloud Function for $gcs_path"
+            exit 1
+          fi
+        done

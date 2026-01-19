@@ -1,0 +1,33 @@
+CREATE TABLE IF NOT EXISTS edwpsc_staging.ecw_factietv2questionsresponses
+(
+  ietv2questionresponsekey INT64 NOT NULL,
+  claimkey INT64,
+  claimnumber INT64,
+  questionnumber INT64,
+  question STRING,
+  questiondatekey DATE,
+  questiontime TIME,
+  questionuserid STRING,
+  questioncorrespondenceid INT64,
+  response STRING,
+  responsedatekey DATE,
+  responsetime TIME,
+  responseuserid STRING,
+  responsecorrespondenceid INT64,
+  daystorespond INT64,
+  resolution STRING,
+  resolutionid STRING,
+  resolutiondatekey DATE,
+  resolutiontime TIME,
+  resolutionuserid STRING,
+  claimcaseid STRING,
+  correspondencesubjectid STRING,
+  lastquestionflag INT64,
+  insertedby STRING,
+  inserteddtm DATETIME,
+  modifiedby STRING,
+  modifieddtm DATETIME,
+  dwlastupdatedatetime DATETIME,
+  PRIMARY KEY (ietv2questionresponsekey) NOT ENFORCED
+)
+;

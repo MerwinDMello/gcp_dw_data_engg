@@ -1,0 +1,23 @@
+INSERT INTO {{ params.param_parallon_ra_audit_dataset_name }}.audit_control (
+  uuid, table_id, src_sys_nm, src_tbl_nm, tgt_tbl_nm,
+  audit_type, expected_value, actual_value,
+  load_start_time, load_end_time, load_run_time,
+  job_name, audit_time, audit_status
+)
+VALUES 
+  (
+    GENERATE_UUID(), 
+    {{ table_id }}, 
+    '{{ source_system }}', 
+    '{{ file_name }}', 
+    '{{ table_name }}', 
+    'RECORD_COUNT', 
+    {{ expected_value }}, 
+    {{ actual_value }}, 
+    '{{ tableload_start_time }}', 
+    '{{ tableload_end_time }}', 
+    '{{ tableload_run_time }}', 
+    '{{ job_name }}', 
+    datetime_trunc(current_datetime('US/Central'), SECOND),
+    '{{ audit_status }}'
+  );

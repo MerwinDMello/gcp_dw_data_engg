@@ -1,0 +1,16 @@
+integrate:
+- source_system: precheck
+  frequency: daily
+  start_date: pendulum.datetime(2022, 12, 6, tz=timezone)
+  schedule: ["30 20 * * 1-5"]
+  type: core_tables
+  dependency:
+  - table: candidate_background_check
+    has_sensor: 'Yes'
+    sql:
+    - name: hdw_pre_check_candidate_background_check_wrk.sql
+    - name: hdw_pre_check_candidate_background_check_core.sql
+    sensor:
+    - dag_id: dag_ingest_precheck_files_daily_20.30
+      task_id:  TG-table-precheck_stg.archive_srcfile_precheck_stg
+      schedule: [30 20 * * *]

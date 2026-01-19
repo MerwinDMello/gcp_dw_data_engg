@@ -1,0 +1,32 @@
+CREATE TABLE IF NOT EXISTS edwpsc.ecw_factencountertocharge
+(
+  encountertochargekey INT64 NOT NULL,
+  encounterregionid INT64 NOT NULL,
+  encounterregionname STRING,
+  encountersourcesystem STRING,
+  sendingapplication STRING,
+  visitnumber STRING,
+  facilitymnemonic STRING NOT NULL,
+  placeofservicekey INT64,
+  practiceid STRING,
+  location STRING,
+  hospitalcoid STRING,
+  coid STRING NOT NULL,
+  sitecode STRING,
+  admitdatekey DATE NOT NULL,
+  admitdtm DATETIME NOT NULL,
+  dischargedatekey DATE NOT NULL,
+  dischargedtm DATETIME NOT NULL,
+  censusdatekey DATE NOT NULL,
+  patientname STRING,
+  patientmrn STRING,
+  patientage INT64,
+  sourceprimarykeyvalue STRING NOT NULL,
+  sourcerecordlastupdated DATETIME NOT NULL,
+  dwlastupdatedatetime DATETIME,
+  insertedby STRING,
+  inserteddtm DATETIME,
+  modifiedby STRING,
+  modifieddtm DATETIME
+)
+;
