@@ -1,0 +1,1 @@
+SELECT 'J_EP_STG_Remittance_Claim_CARC' || ',' || CAST(Count(*) AS VARCHAR(20)) || ',' as SOURCE_STRING FROM Edwpbs_Staging.Remittance_Claim_CARC

@@ -1,0 +1,1 @@
+Select 'J_REF_BREAST_CANCER_TYPE_STG'||','|| cast(count(*) as varchar(20))||',' as SOURCE_STRING from edwcr_staging.REF_BREAST_CANCER_TYPE_STG

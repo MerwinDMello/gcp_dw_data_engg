@@ -1,0 +1,13 @@
+Database,Table
+edwpbs_staging,stg_as_tam
+edwpbs_staging,stg_ed_tam
+edwpbs_staging,stg_oo_tam
+edwpbs_staging,stg_ws_tam
+edwpbs_staging,col_user_audit_acct_dtl_tam
+edwpbs_staging,stg_gcpool_tmp
+edwpbs_staging,stg_ctcalllog_tmp
+edwpbs_staging,stg_stmultimedia_tmp
+edwpbs_staging,stg_cspersisttimeacct_tmp
+edwpbs_staging,stg_hcpayer_tmp
+edwpbs_staging,stg_stuser_tmp
+edwpbs_staging,stg_tmp_agency_placement_detail

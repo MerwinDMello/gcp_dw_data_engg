@@ -1,0 +1,1 @@
+select 'J_EP_Remittance_Service_CARC' || ',' || CAST(COUNT(*) AS VARCHAR(20)) || ',' as Source_String from EDWPBS.Remittance_Service_CARC WHERE Audit_date= (select max(cast(Audit_Date as date)) from Edwpbs_Staging.Remittance_Service_CARC)

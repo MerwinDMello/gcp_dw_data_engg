@@ -1,0 +1,1 @@
+Select 'J_CR_REF_TREATMENT_TYPE_STG'||','|| cast(count(*) as varchar(20))||',' as SOURCE_STRING from edwcr_staging.Ref_CR_Treatment_Type_Stg

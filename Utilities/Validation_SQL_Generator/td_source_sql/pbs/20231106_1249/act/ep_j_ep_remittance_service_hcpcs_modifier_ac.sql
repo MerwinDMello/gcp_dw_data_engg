@@ -1,0 +1,1 @@
+select 'J_EP_Remittance_Service_HCPCS_Modifier' || ',' || CAST(COUNT(*) AS VARCHAR(20)) || ',' as Source_String from EDWPBS.REMITTANCE_SERVICE_HCPCS_MODIFIER

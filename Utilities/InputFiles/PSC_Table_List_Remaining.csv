@@ -1,0 +1,4 @@
+﻿Server,DatabaseName,Schema,TableName,View,Merge_Field
+Xrpswpdbspgu04.hca.corpad.net,SSP_Claim_DW,dbo,all_claims_cube_attributes,ECW_AllClaimsCube,
+Xrpswpdbspgu04.hca.corpad.net,SSP_Claim_DW,dbo,ar_cube_attributes,ECW_ArCube,
+Xrpswpdbspgu06.hca.corpad.net,PracticeVelocity_DW,dbo,dwcFactClaimsOnHold,PV_FactClaimsOnHold,

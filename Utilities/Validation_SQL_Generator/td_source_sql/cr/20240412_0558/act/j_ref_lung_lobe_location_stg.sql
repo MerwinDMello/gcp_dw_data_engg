@@ -1,0 +1,1 @@
+Select 'J_REF_LUNG_LOBE_LOCATION_STG'||','|| cast(count(*) as varchar(20))||',' as SOURCE_STRING from edwcr_staging.REF_LUNG_LOBE_LOCATION_STG

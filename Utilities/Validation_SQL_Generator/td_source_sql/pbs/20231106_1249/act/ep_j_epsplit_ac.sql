@@ -1,0 +1,1 @@
+SELECT 'J_EPSplit' || ',' || CAST(Count(*) AS VARCHAR(20)) || ',' as SOURCE_STRING FROM EDWPSU_Staging.EPSplit

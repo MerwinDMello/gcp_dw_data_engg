@@ -1,0 +1,19 @@
+select
+FAC.CSFACOIDNUM
+,HCP.CSPYIPLAN
+,'TMP' AS Artiva_Instance
+,FAC.CSFAHOSPNUM --Facility #
+-- ,FAC.CSFAHOSPNUMBER
+,HCP.CSPYFACILITYID --Facility ID
+,HCP.CSPYIPDESC --Insurance Plan Descrption
+,HCP.CSPYMAJORPYID
+,HCP.CSPYMAJORPYNAME
+,HCP.CSPYTOPBAL --Top Balance Threshold
+,HCP.CSPYHIGHBAL --High Balance Threshold
+,HCP.CSPYLOWBAL --Low Balance Threshold
+,HCP.CSPYULTRALOWBAL --Ultra Low Balance Threshold
+,'v_currtimestamp' as DW_Last_Update_Date_Time
+from SQLUser.HCPAYER HCP
+
+LEFT JOIN SQLUser.HCFACILITY FAC
+ON HCP.CSPYFACILITYID = FAC.HCFAID AND FAC.CSFAACTIVE = 'A'

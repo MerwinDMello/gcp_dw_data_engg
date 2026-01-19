@@ -1,0 +1,1 @@
+Select 'J_REF_RESULT_STG'||','|| cast(count(*) as varchar(20))||',' as SOURCE_STRING from edwcr_staging.REF_RESULT_STG

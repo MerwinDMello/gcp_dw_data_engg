@@ -1,0 +1,1 @@
+select 'J_IM_Lawsn_ESAF_Job'||','||cast(count(*) as varchar(20))||',' AS SOURCE_STRING from EDWIM_Staging.Lawsn_eSAF_Job ;

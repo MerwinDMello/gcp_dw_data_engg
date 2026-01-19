@@ -1,0 +1,8 @@
+v_jdbc_class_name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+v_jdbc_jar: mssql-jdbc-12.4.0.jre8.jar
+v_jdkfile: jre-8u351-linux-x64.tar.gz
+v_jdkversion: jre1.8.0_351
+v_jdbcbqpytemplate: Jdbc_to_BigQuery_PythonTemplate_sqlserver.py 
+v_machine_type: e2-highmem-8
+v_schedule_interval: 50 20 * * * 
+v_start_date: "pendulum.datetime(2023, 8, 29, tz=timezone)"

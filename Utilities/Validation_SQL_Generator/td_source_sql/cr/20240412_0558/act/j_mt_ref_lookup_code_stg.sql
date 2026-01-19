@@ -1,0 +1,1 @@
+Select 'J_MT_REF_LOOKUP_CODE_STG'||','|| cast(count(*) as varchar(20))||',' as SOURCE_STRING from edwcr_staging.REF_LOOKUP_CODE_Stg

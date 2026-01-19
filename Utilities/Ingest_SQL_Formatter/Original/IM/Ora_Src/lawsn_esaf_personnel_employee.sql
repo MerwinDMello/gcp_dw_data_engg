@@ -1,0 +1,29 @@
+SELECT
+	cmpy,
+	empl,
+	cmpy_num,
+	to_CHAR(CAST(dob AS DATE), 'YYYY-MM-DD') AS dob,
+	home_phn_num,
+	splmt_phn_num,
+	'v_currtimestamp' AS dw_last_update_date_time
+FROM
+	(
+	SELECT
+		t1.cmpy,
+		t1.empl,
+		t1.cmpy_num,
+		t1.dob,
+		t1.home_phn_num,
+		t1.splmt_phn_num
+	FROM
+		orafs.vw_esaf_personnel_employee t1
+UNION
+	SELECT
+		t2.cmpy,
+		t2.empl,
+		t2.cmpy_num,
+		t2.dob,
+		t2.home_phn_num,
+		t2.splmt_phn_num
+	FROM
+		oracorp.vw_esaf_personnel_employee t2)

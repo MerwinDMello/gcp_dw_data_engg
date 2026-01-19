@@ -1,0 +1,62 @@
+-- Translation time: 2023-09-22T18:46:04.447603Z
+-- Translation job ID: ba460d1f-d301-46b6-9c47-810d266c2894
+-- Source: internal_metastore/db_hca-hin-dev-cur-parallon/schema_edwpbs_base_views/gl_coid_department_provider.memory
+-- Translated from: Teradata
+-- Translated to: BigQuery
+
+CREATE VIEW IF NOT EXISTS `hca-hin-dev-cur-parallon`.edwpbs_base_views.gl_coid_department_provider AS SELECT
+    gl_coid_department_provider.practice_src_sys_key,
+    gl_coid_department_provider.provider_src_sys_key,
+    gl_coid_department_provider.coid_dept_provider_src_sys_key,
+    gl_coid_department_provider.pe_date,
+    gl_coid_department_provider.gl_provider_dept_num,
+    gl_coid_department_provider.hcp_dw_id,
+    gl_coid_department_provider.coid_dept_src_sys_key,
+    gl_coid_department_provider.coid,
+    gl_coid_department_provider.company_code,
+    gl_coid_department_provider.provider_relationship_name,
+    gl_coid_department_provider.specialty_name,
+    gl_coid_department_provider.specialty_type,
+    gl_coid_department_provider.compensation_type,
+    gl_coid_department_provider.budget_cc_ind,
+    gl_coid_department_provider.dept_name,
+    gl_coid_department_provider.provider_assigned_start_date,
+    gl_coid_department_provider.is_approved_ind,
+    gl_coid_department_provider.last_update_date,
+    gl_coid_department_provider.last_update_id,
+    gl_coid_department_provider.provider_status_ind,
+    gl_coid_department_provider.status_change_date,
+    gl_coid_department_provider.provider_start_date,
+    gl_coid_department_provider.ancillary_dept_num,
+    gl_coid_department_provider.budget_start_date,
+    gl_coid_department_provider.community_status,
+    gl_coid_department_provider.contract_pay_conversion_date,
+    gl_coid_department_provider.contract_compenstation_type,
+    gl_coid_department_provider.contract_current_pay,
+    gl_coid_department_provider.contract_effective_date,
+    gl_coid_department_provider.contract_expiration_date,
+    gl_coid_department_provider.fte_cnt,
+    gl_coid_department_provider.hospitalist_ind,
+    gl_coid_department_provider.multiple_provider_dept_ind,
+    gl_coid_department_provider.new_replacement_name,
+    gl_coid_department_provider.overhead_dept_num,
+    gl_coid_department_provider.practice_estb_by_process_name,
+    gl_coid_department_provider.productivity_reason,
+    gl_coid_department_provider.productivity_level_future,
+    gl_coid_department_provider.productivity_level_today,
+    gl_coid_department_provider.productivity_status,
+    gl_coid_department_provider.date_changed_to_productivity,
+    gl_coid_department_provider.technical_level,
+    gl_coid_department_provider.projected_termination_date,
+    gl_coid_department_provider.strategy_name,
+    gl_coid_department_provider.strategy_type_name,
+    gl_coid_department_provider.strategy_type_reason,
+    gl_coid_department_provider.termination_reason,
+    gl_coid_department_provider.termination_result,
+    gl_coid_department_provider.termination_type,
+    gl_coid_department_provider.mor_prov_status_id,
+    gl_coid_department_provider.data_source_code,
+    gl_coid_department_provider.source_system_code
+  FROM
+    `hca-hin-dev-cur-parallon`.edwps_base_views.gl_coid_department_provider
+;

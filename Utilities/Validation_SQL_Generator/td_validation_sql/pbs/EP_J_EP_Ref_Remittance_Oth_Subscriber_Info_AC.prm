@@ -1,0 +1,76 @@
+#  @@START DMEXPRESS_EXPORTED_VARIABLES
+
+export AC_EXP_TOLERANCE_PERCENT=0
+export AC_EXP_TOLERANCE_AMT=0
+export JOBNAME='J_EP_Ref_Remittance_Oth_Subscriber_Info'
+
+
+export AC_EXP_SQL_STATEMENT="SELECT 'J_EP_Ref_Remittance_Oth_Subscriber_Info' || ',' || CAST(COUNT(*) + 1 AS VARCHAR(20)) || ',' as Source_String from
+(
+SEL       
+(SELECT Coalesce(Max(Remittance_Oth_Subscriber_SID),0)  FROM EDWPBS.Ref_Remittance_Oth_Subscriber_Info ) +
+Row_Number() Over (ORDER BY 
+Oth_Subscriber_Id_Qualifier_Code,
+Oth_Subscriber_Id,
+Oth_Subscriber_Enty_Type_Qualifier_Code,
+Oth_Subscriber_Last_Name,
+Oth_Subscriber_First_Name,
+Oth_Subscriber_Middle_Name,
+Oth_Subscriber_Name_Suffix
+)AS Remittance_Oth_Subscriber_SID ,-- SID
+Oth_Subscriber_Id_Qualifier_Code,
+Oth_Subscriber_Id,
+Oth_Subscriber_Enty_Type_Qualifier_Code,
+Oth_Subscriber_Last_Name,
+Oth_Subscriber_First_Name,
+Oth_Subscriber_Middle_Name,
+Oth_Subscriber_Name_Suffix,
+'E' AS Source_System_Code ,           
+Current_Timestamp(0) AS DW_Last_Update_Date_Time 
+FROM
+(
+SEL
+Othr_Subcbr_Enty_Typ_Qulfr_Cod AS Oth_Subscriber_Enty_Type_Qualifier_Code,
+Other_Subscriber_Last_Name AS Oth_Subscriber_Last_Name,
+Other_Subscriber_First_Name AS Oth_Subscriber_First_Name,
+Other_Subscriber_Middle_Name AS Oth_Subscriber_Middle_Name,
+Other_Subscriber_Name_Suffix AS Oth_Subscriber_Name_Suffix,
+Othr_Subcbr_Idntfctn_Qulfr_Cod AS Oth_Subscriber_Id_Qualifier_Code,
+Other_Subscriber_Id AS Oth_Subscriber_Id
+FROM  EDWPBS_Staging.remittance_claim
+where dw_last_update_date_time = (select max(cast(dw_last_update_date_time as date)) from EDWPBS_STAGING.remittance_claim)
+and Coalesce(Othr_Subcbr_Enty_Typ_Qulfr_Cod,'') IS NOT IN ('')  OR Coalesce(Other_Subscriber_Last_Name,'') IS NOT IN ('') 
+OR Coalesce(Other_Subscriber_First_Name,'') IS NOT IN ('')  OR Coalesce(Other_Subscriber_Middle_Name,'') IS NOT IN ('')  
+OR Coalesce(Other_Subscriber_Name_Suffix,'') IS NOT IN ('')  OR Coalesce(Othr_Subcbr_Idntfctn_Qulfr_Cod,'') IS NOT IN ('')  
+OR Coalesce(Other_Subscriber_Id,'') IS NOT IN ('')   
+ 
+GROUP BY 1,2,3,4,5,6,7
+) F 
+
+WHERE 
+(
+Oth_Subscriber_Id_Qualifier_Code,
+Oth_Subscriber_Id,
+Oth_Subscriber_Enty_Type_Qualifier_Code,
+Oth_Subscriber_Last_Name,
+Oth_Subscriber_First_Name,
+Oth_Subscriber_Middle_Name,
+Oth_Subscriber_Name_Suffix
+) NOT IN 
+( 
+SEL 
+Oth_Subscriber_Id_Qualifier_Code,
+Oth_Subscriber_Id,
+Oth_Subscriber_Enty_Type_Qualifier_Code,
+Oth_Subscriber_Last_Name,
+Oth_Subscriber_First_Name,
+Oth_Subscriber_Middle_Name,
+Oth_Subscriber_Name_Suffix
+FROM EDWPBS.Ref_Remittance_Oth_Subscriber_Info  )
+)a ;
+"
+
+export AC_ACT_SQL_STATEMENT="select 'J_EP_Ref_Remittance_Oth_Subscriber_Info' || ',' || CAST(COUNT(*) AS VARCHAR(20)) || ',' as Source_String from EDWPBS.Ref_Remittance_Oth_Subscriber_Info where DW_Last_Update_Date_Time(date) = current_date"
+
+#  @@END DMEXPRESS_EXPORTED_VARIABLES
+#  End of Exported variables section

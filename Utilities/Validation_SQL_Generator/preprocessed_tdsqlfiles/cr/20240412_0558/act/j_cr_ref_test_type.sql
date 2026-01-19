@@ -1,0 +1,2 @@
+SELECT CONCAT(count(*)) AS SOURCE_STRING
+FROM edwcr_staging.REF_TEST_TYPE_STG

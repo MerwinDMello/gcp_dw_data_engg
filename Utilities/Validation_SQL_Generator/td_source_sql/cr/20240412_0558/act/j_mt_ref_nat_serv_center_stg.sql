@@ -1,0 +1,1 @@
+Select 'J_MT_REF_NAT_SERV_CENTER_STG'||','|| cast(coalesce(count(*),0) as varchar(20))||',' as SOURCE_STRING from edwcr_staging.Ref_National_Svc_Center_Stg

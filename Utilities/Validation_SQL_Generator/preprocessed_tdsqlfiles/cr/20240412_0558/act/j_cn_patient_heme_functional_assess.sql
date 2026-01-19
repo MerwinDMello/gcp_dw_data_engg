@@ -1,0 +1,6 @@
+SELECT CONCAT(count(*)) AS SOURCE_STRING
+FROM edwcr.CN_Patient_Heme_Func_Assess
+WHERE DW_Last_Update_Date_Time >=
+ (SELECT MAX(Job_Start_Date_Time) AS Job_Start_Date_Time
+ FROM EDWCR_DMX_AC_BASE_VIEWS.ETL_JOB_RUN
+ WHERE Job_Name = 'J_CN_PATIENT_HEME_FUNCTIONAL_ASSESS')

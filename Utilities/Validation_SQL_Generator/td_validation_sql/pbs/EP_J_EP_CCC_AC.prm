@@ -1,0 +1,10 @@
+export JOBNAME='J_EP_CCC'
+export P_EXP_Delimiter='|'
+export P_EXP_Control_Total_Field='1'
+export P_EXP_Number_of_Fields='9'
+export P_EXP_Control_Total_Type='1'
+export AC_EXP_INPUT_FILE='EP_CCC.txt'
+export JOBNAME='J_EP_CCC'
+export AC_EXP_TOLERANCE_PERCENT=0
+export AC_EXP_TOLERANCE_AMT=0
+export AC_ACT_SQL_STATEMENT="select 'J_EP_CCC' || ',' || CAST(COUNT(*) AS VARCHAR(20)) || ',' AS SOURCE_STRING FROM edwpsu_staging.stg_ep_ccc; "

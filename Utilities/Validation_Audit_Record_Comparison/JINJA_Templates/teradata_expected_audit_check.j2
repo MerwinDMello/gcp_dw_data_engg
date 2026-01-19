@@ -1,0 +1,5 @@
+SELECT Control_Value_{{ metric_param }}
+FROM
+{{ td_audit_control_dataset_param }}.ETL_Control_{{ metric_param }}
+WHERE UPPER(JOB_NAME) = '{{ job_name_dataset_param }}'
+AND CAST(JOB_START_DATE_TIME AS DATE) = CURRENT_DATE();

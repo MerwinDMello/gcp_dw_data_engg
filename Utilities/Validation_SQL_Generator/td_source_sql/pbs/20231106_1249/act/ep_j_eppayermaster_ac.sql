@@ -1,0 +1,1 @@
+SELECT 'J_EPPayerMaster' || ',' || CAST(Count(*) AS VARCHAR(20)) || ',' as SOURCE_STRING FROM EDWPSU_Staging.EPPayerMaster

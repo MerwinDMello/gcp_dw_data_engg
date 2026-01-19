@@ -1,0 +1,1 @@
+SELECT 'J_Dim_Bdgt_Time' || ',' || CAST(Count(*) AS VARCHAR(20)) || ',' as SOURCE_STRING FROM Edwpbs.Dim_Bdgt_Time

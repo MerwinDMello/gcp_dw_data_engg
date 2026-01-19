@@ -1,0 +1,28 @@
+Select
+Check_Num,
+Credit_Debit_Ind,
+Customer_Cd,
+DW_Last_Update_Date_Time,
+Interchange_Control_Num,
+Payer_Identifier,
+Payment_Type_Ind,
+Pay_Fmt_Cd,
+Pay_Method_Cd,
+Receiver_Acct_Num,
+Receiver_Acct_Num_Qual_Ind,
+Receiver_Identifier,
+Receiver_Remit_ID_Qual_Ind,
+Receiver_Remit_Num,
+CAST(Remit_Effective_Dt AS DATE) as Remit_Effective_Dt,
+CAST(Remit_Entered_Dt AS DATE) as Remit_Entered_Dt,
+Remit_ID,
+Remit_Total_Amt,
+Sender_Acct_Num,
+Sender_Acct_Num_Qual_Ind,
+Sender_Identifier,
+Sender_Remit_ID_Qual_Ind,
+Sender_Remit_Num,
+Source_System_Code,
+Tran_Handle_Cd
+from AdmitToRemit.dbo.Fact_Master_Remit with (nolock)
+Where Active=1;

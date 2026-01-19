@@ -1,0 +1,5 @@
+export AC_EXP_SQL_STATEMENT="SELECT 'CBS_LAWSON_PD_FACT_SSD_BGT' + ',' + CAST(COUNT(*) AS VARCHAR(20)) + ',' + CAST(SUM(LEN(Organization_Sid)) AS VARCHAR(20))+ ',' + CAST(SUM(Amount)AS VARCHAR(20)) + ',' as SOURCE_STRING from vw_Lawson_PaidHours"
+export JOBNAME='CBS_LAWSON_PD_FACT_SSD_BGT'
+export AC_EXP_TOLERANCE_PERCENT=0
+export AC_EXP_TOLERANCE_AMT=0
+export AC_ACT_SQL_STATEMENT="SELECT 'CBS_LAWSON_PD_FACT_SSD_BGT' + ',' + CAST(COUNT(*) AS VARCHAR(20)) + ',' + CAST(SUM(LEN(Organization_Sid)) AS VARCHAR(20))+ ',' + CAST(SUM(Amount)AS VARCHAR(20)) + ',' as SOURCE_STRING from Fact_SSD_Budget FCT WHERE FCT.Account_Sid IN (SELECT ACT.Account_Sid FROM dbo.Dim_Account_SSD_Budget ACT WHERE ACT.Account_Name_Child IN ('Lawson_Total_Man_Hours', 'Lawson_OT_Man_Hours'))"

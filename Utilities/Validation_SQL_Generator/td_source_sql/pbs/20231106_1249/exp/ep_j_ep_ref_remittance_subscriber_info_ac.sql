@@ -1,0 +1,66 @@
+SELECT 'J_EP_Ref_Remittance_Subscriber_Info' || ',' || CAST(COUNT(*) + 1 AS VARCHAR(20)) || ',' as Source_String from
+(
+SEL       
+(SELECT Coalesce(Max(Remittance_Subscriber_SID),0)  FROM EDWPBS.Ref_Remittance_Subscriber_Info ) +
+Row_Number() Over (ORDER BY 
+Patient_Health_Ins_Num,
+Insured_Identification_Qualifier_Code,
+Subscriber_Id,
+Insured_Entity_Type_Qualifier_Code,
+Subscriber_Last_Name,
+Subscriber_First_Name,
+Subscriber_Middle_Name,
+Subscriber_Name_Suffix
+)AS Remittance_Subscriber_SID ,-- SID
+Patient_Health_Ins_Num,
+Insured_Identification_Qualifier_Code,
+Subscriber_Id,
+Insured_Entity_Type_Qualifier_Code,
+Subscriber_Last_Name,
+Subscriber_First_Name,
+Subscriber_Middle_Name,
+Subscriber_Name_Suffix,
+'E' AS Source_System_Code ,           
+Current_Timestamp(0) AS DW_Last_Update_Date_Time 
+FROM
+(
+SEL
+Ins_Subscriber_Id AS Patient_Health_Ins_Num ,
+Insurd_Identifictn_Qualifr_Cod AS Insured_Identification_Qualifier_Code,
+Subscriber_Id AS Subscriber_Id,
+Insured_Entity_Typ_Qualifr_Cod AS Insured_Entity_Type_Qualifier_Code,
+Subscriber_Last_Name AS Subscriber_Last_Name,
+Subscriber_First_Name AS Subscriber_First_Name,
+Subscriber_Middle_Name AS Subscriber_Middle_Name,
+Subscriber_Name_Suffix AS Subscriber_Name_Suffix
+FROM  EDWPBS_Staging.remittance_claim
+ where dw_last_update_date_time = (select max(cast(dw_last_update_date_time as date)) from EDWPBS_STAGING.remittance_claim)
+and Coalesce(Ins_Subscriber_Id,'') IS NOT IN ('')  OR Coalesce(Insurd_Identifictn_Qualifr_Cod,'') IS NOT IN ('') 
+OR Coalesce(Subscriber_Id,'') IS NOT IN ('')  OR Coalesce(Insured_Entity_Typ_Qualifr_Cod,'') IS NOT IN ('')  
+OR Coalesce(Subscriber_Last_Name,'') IS NOT IN ('')  OR Coalesce(Subscriber_First_Name,'') IS NOT IN ('')  
+OR Coalesce(Subscriber_Middle_Name,'') IS NOT IN ('')  OR Coalesce(Subscriber_Name_Suffix,'') IS NOT IN ('')  
+GROUP BY 1,2,3,4,5,6,7,8
+) F 
+where (
+Patient_Health_Ins_Num,
+Insured_Identification_Qualifier_Code,
+Subscriber_Id,
+Insured_Entity_Type_Qualifier_Code,
+Subscriber_Last_Name,
+Subscriber_First_Name,
+Subscriber_Middle_Name,
+Subscriber_Name_Suffix
+) NOT IN 
+( 
+SEL 
+Patient_Health_Ins_Num,
+Insured_Identification_Qualifier_Code,
+Subscriber_Id,
+Insured_Entity_Type_Qualifier_Code,
+Subscriber_Last_Name,
+Subscriber_First_Name,
+Subscriber_Middle_Name,
+Subscriber_Name_Suffix
+FROM EDWPBS.Ref_Remittance_Subscriber_Info  )
+ 
+)a ;

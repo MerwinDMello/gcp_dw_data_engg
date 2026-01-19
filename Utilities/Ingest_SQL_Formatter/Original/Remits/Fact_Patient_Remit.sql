@@ -1,0 +1,31 @@
+Select 
+fpr.Claim_File_Inc_Cd,
+fpr.Claim_File_Name,
+fpr.Claim_Freq_Type_Cd,
+fpr.Customer_Cd,
+fpr.Discharge_Fraction,
+fpr.DRG,
+fpr.DRG_Weight,
+fpr.Facility_Cd,
+fpr.IPLAN,
+NULL as PAS_COID,
+fpr.Patient_Acct_Num,
+fpr.Patient_Remit_SID,
+fpr.Patient_Resp_Amt,
+fpr.Payer_Claim_Ctrll_Num,
+CAST(fpr.Remit_Bill_Dt AS DATE) as Remit_Bill_Dt,
+fpr.Remit_Claim_ID,
+fpr.Remit_Claim_Status_Cd,
+fpr.Remit_File_Name,
+fpr.Remit_File_Path,
+fpr.Remit_ID,
+fpr.Remit_Payer_ID,
+fpr.Remit_Payment_Amt,
+fpr.Remit_Provider_ID,
+fpr.Tot_Claim_Charge_Amt,
+fpr.Unit_Num,
+fpr.DW_Last_Update_Date_Time,
+fpr.Source_System_Code 
+from AdmitToRemit.dbo.Fact_Patient_Remit fpr with (nolock) 
+Join AdmitToRemit.dbo.Fact_Master_Remit fmr with (nolock) 
+on fpr.Remit_ID=fmr.Remit_ID Where fmr.Active=1

@@ -1,0 +1,2 @@
+SELECT 'PBMCB340-20' || ',' || cast(zeroifnull(Count(1)) as varchar(20)) || ',' AS SOURCE_STRING
+FROM edwpbs_staging.Stg_Rcom_Pars_CB ARP where Date_Sid = cast((add_months(current_date, -1) (format 'yyyymm')) as char(6))

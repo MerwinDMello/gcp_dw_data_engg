@@ -1,0 +1,61 @@
+-- Translation time: 2024-01-12T17:51:56.897679Z
+-- Translation job ID: daf02731-0647-4415-a27a-5b3d10f518dd
+-- Source: internal_metastore/db_hca-hin-dev-cur-parallon/schema_edwpbs_base_views/clnc_ordr_dtl_cdm.memory
+-- Translated from: Teradata
+-- Translated to: BigQuery
+
+CREATE VIEW IF NOT EXISTS `hca-hin-dev-cur-parallon`.edwpbs_base_views.clnc_ordr_dtl_cdm AS SELECT
+    a.clnc_ordr_sk,
+    a.vld_fr_ts,
+    a.patient_dw_id,
+    a.company_code,
+    a.coid,
+    a.vld_to_ts,
+    a.plcr_ordr_txt,
+    a.plcr_ordr_fld_1_txt,
+    a.plcr_ordr_fld_2_txt,
+    a.plcr_splmt_srvc_info_txt,
+    a.plcr_grp_txt,
+    a.entr_authrztn_mode_ref_cd,
+    a.entr_org_nm,
+    a.entr_dvc_nm,
+    a.ordr_mnem,
+    a.ordr_ts,
+    a.ordr_nm,
+    a.ordr_set_mnem,
+    a.tecn_nm,
+    a.exam_strt_ts,
+    a.exam_end_ts,
+    a.ordr_src_ref_cd,
+    a.ordr_actn_sts_ref_cd,
+    a.ordr_actn_rsn_ref_cd,
+    a.ordr_sts_ref_cd,
+    a.ordr_sts_modfr_ref_cd,
+    a.ordr_type_ref_cd,
+    a.ordr_mode_ref_cd,
+    a.ordr_sgn_ind,
+    a.ordr_prty_ref_cd,
+    a.ordr_qty,
+    a.ordr_type_cd_sk,
+    a.parnt_ordr_txt,
+    a.fill_ordr_txt,
+    a.fill_expct_avail_ts,
+    a.adv_bene_notc_ref_cd,
+    a.adv_bene_notc_ovrd_rsn_cd_sk,
+    a.accsn_txt,
+    a.cnfd_cd_sk,
+    a.rspn_flg,
+    a.call_bck_ph_txt,
+    a.effv_fr_dt,
+    a.effv_to_dt,
+    a.type_ref_cd,
+    a.src_sys_orgnl_cd,
+    a.src_sys_unq_key_txt,
+    a.src_sys_ref_cd,
+    a.lst_updt_run_id,
+    a.crt_run_id,
+    a.msg_ctrl_id_txt,
+    a.dw_insrt_ts
+  FROM
+    `hca-hin-dev-cur-parallon`.edwcdm_base_views.clnc_ordr_dtl AS a
+;

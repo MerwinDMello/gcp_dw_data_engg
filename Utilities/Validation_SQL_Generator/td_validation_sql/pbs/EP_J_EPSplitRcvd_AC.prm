@@ -1,0 +1,7 @@
+export AC_EXP_SQL_STATEMENT="SELECT 'J_EPSplitRcvd' + ',' + CAST(Count(*) AS VARCHAR(20)) + ',' as SOURCE_STRING FROM [EPLookups].[dbo].EPSplitRcvd_View"
+export JOBNAME='J_EPSplitRcvd'
+export AC_EXP_TOLERANCE_PERCENT=0
+export AC_EXP_TOLERANCE_AMT=0
+export AC_ACT_SQL_STATEMENT="SELECT 'J_EPSplitRcvd' || ',' || CAST(Count(*) AS VARCHAR(20)) || ',' as SOURCE_STRING FROM EDWPSU_Staging.EPSplitRcvd"
+
+

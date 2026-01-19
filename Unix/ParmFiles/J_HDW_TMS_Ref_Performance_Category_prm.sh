@@ -1,0 +1,20 @@
+export AC_EXP_SQL_STATEMENT="SELECT '$JOBNAME' || ',' || CAST(COUNT(*) AS VARCHAR(20)) || ',' AS SOURCE_STRING 
+FROM (
+SELECT 
+STG.Goal_Category
+FROM 
+
+(SELECT 
+Goal_Category,
+ROW_NUMBER() OVER (PARTITION BY Goal_Category ORDER BY Goal_Category) AS RowNum
+
+FROM $NCR_STG_SCHEMA.Employee_Perf_Goals) STG
+
+WHERE STG.Goal_Category IS NOT NULL 
+AND STG.RowNum = 1 ) SRC
+
+"
+
+
+
+export AC_ACT_SQL_STATEMENT="SELECT '$JOBNAME' || ',' || CAST(COUNT(*) AS VARCHAR(20)) || ',' AS SOURCE_STRING FROM $NCR_TGT_SCHEMA.Ref_Performance_Category"

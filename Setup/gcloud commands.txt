@@ -1,0 +1,7 @@
+gcloud config set proxy/type http
+gcloud config set proxy/port 80
+gcloud config set proxy/address proxy.nas.medcity.net
+gcloud init
+gcloud config set project YOUR_GCP_PROJECT
+gcloud auth login
+gcloud auth application-default login

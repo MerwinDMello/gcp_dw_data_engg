@@ -1,0 +1,88 @@
+-- Translation time: 2023-09-22T18:46:04.447603Z
+-- Translation job ID: ba460d1f-d301-46b6-9c47-810d266c2894
+-- Source: internal_metastore/db_hca-hin-dev-cur-parallon/schema_edwpbs_views/ada_patient_level_detail.memory
+-- Translated from: Teradata
+-- Translated to: BigQuery
+
+CREATE OR REPLACE VIEW {{ params.param_pbs_views_dataset_name }}.ada_patient_level_detail
+   OPTIONS(description='Account level detail for Allowance for Doubtful accounts')
+  AS SELECT
+      ROUND(a.patient_dw_id, 0, 'ROUND_HALF_EVEN') AS patient_dw_id,
+      a.month_id,
+      a.company_code,
+      a.coid,
+      ROUND(a.pat_acct_num, 0, 'ROUND_HALF_EVEN') AS pat_acct_num,
+      a.unit_num,
+      a.account_status_code,
+      a.patient_type_code,
+      a.derived_patient_type_code,
+      ROUND(a.financial_class_code, 0, 'ROUND_HALF_EVEN') AS financial_class_code,
+      ROUND(a.payor_dw_id_ins1, 0, 'ROUND_HALF_EVEN') AS payor_dw_id_ins1,
+      ROUND(a.payor_dw_id_ins2, 0, 'ROUND_HALF_EVEN') AS payor_dw_id_ins2,
+      ROUND(a.payor_dw_id_ins3, 0, 'ROUND_HALF_EVEN') AS payor_dw_id_ins3,
+      a.agency_code,
+      a.agency_type_code,
+      a.admission_date,
+      a.discharge_date,
+      a.final_bill_date,
+      ROUND(a.inhouse_charity_amt, 3, 'ROUND_HALF_EVEN') AS inhouse_charity_amt,
+      ROUND(a.insured_charity_amt, 3, 'ROUND_HALF_EVEN') AS insured_charity_amt,
+      ROUND(a.insured_self_pay_amt, 3, 'ROUND_HALF_EVEN') AS insured_self_pay_amt,
+      ROUND(a.uninsured_discount_amt, 3, 'ROUND_HALF_EVEN') AS uninsured_discount_amt,
+      ROUND(a.charity_discount_amt, 3, 'ROUND_HALF_EVEN') AS charity_discount_amt,
+      ROUND(a.patient_liab_prot_discount_amt, 3, 'ROUND_HALF_EVEN') AS patient_liab_prot_discount_amt,
+      ROUND(a.total_discount_amt, 3, 'ROUND_HALF_EVEN') AS total_discount_amt,
+      ROUND(a.secn_agcy_unins_discount_amt, 3, 'ROUND_HALF_EVEN') AS secn_agcy_unins_discount_amt,
+      ROUND(a.secn_agcy_charity_discount_amt, 3, 'ROUND_HALF_EVEN') AS secn_agcy_charity_discount_amt,
+      ROUND(a.secn_agcy_pat_liab_prot_discount_amt, 3, 'ROUND_HALF_EVEN') AS secn_agcy_pat_liab_prot_discount_amt,
+      ROUND(a.total_secn_agcy_discount_amt, 3, 'ROUND_HALF_EVEN') AS total_secn_agcy_discount_amt,
+      ROUND(a.non_secn_unins_disc_amt, 3, 'ROUND_HALF_EVEN') AS non_secn_unins_disc_amt,
+      ROUND(a.non_secn_charity_discount_amt, 3, 'ROUND_HALF_EVEN') AS non_secn_charity_discount_amt,
+      ROUND(a.non_secn_patient_liab_prot_discount_amt, 3, 'ROUND_HALF_EVEN') AS non_secn_patient_liab_prot_discount_amt,
+      ROUND(a.total_non_secn_discount_amt, 3, 'ROUND_HALF_EVEN') AS total_non_secn_discount_amt,
+      ROUND(a.self_pay_ar_amt, 3, 'ROUND_HALF_EVEN') AS self_pay_ar_amt,
+      ROUND(a.secn_agcy_acct_bal_amt, 3, 'ROUND_HALF_EVEN') AS secn_agcy_acct_bal_amt,
+      ROUND(a.non_secn_self_pay_ar_amt, 3, 'ROUND_HALF_EVEN') AS non_secn_self_pay_ar_amt,
+      ROUND(a.gross_non_secn_self_pay_ar_amt, 3, 'ROUND_HALF_EVEN') AS gross_non_secn_self_pay_ar_amt,
+      a.iplan_id_ins1,
+      ROUND(a.payor_balance_amt_ins1, 3, 'ROUND_HALF_EVEN') AS payor_balance_amt_ins1,
+      ROUND(a.payor_payment_amt_ins1, 3, 'ROUND_HALF_EVEN') AS payor_payment_amt_ins1,
+      ROUND(a.payor_adjustment_amt_ins1, 3, 'ROUND_HALF_EVEN') AS payor_adjustment_amt_ins1,
+      ROUND(a.payor_contractual_amt_ins1, 3, 'ROUND_HALF_EVEN') AS payor_contractual_amt_ins1,
+      a.iplan_id_ins2,
+      ROUND(a.payor_balance_amt_ins2, 3, 'ROUND_HALF_EVEN') AS payor_balance_amt_ins2,
+      ROUND(a.payor_payment_amt_ins2, 3, 'ROUND_HALF_EVEN') AS payor_payment_amt_ins2,
+      ROUND(a.payor_adjustment_amt_ins2, 3, 'ROUND_HALF_EVEN') AS payor_adjustment_amt_ins2,
+      ROUND(a.payor_contractual_amt_ins2, 3, 'ROUND_HALF_EVEN') AS payor_contractual_amt_ins2,
+      a.iplan_id_ins3,
+      ROUND(a.payor_balance_amt_ins3, 3, 'ROUND_HALF_EVEN') AS payor_balance_amt_ins3,
+      ROUND(a.payor_payment_amt_ins3, 3, 'ROUND_HALF_EVEN') AS payor_payment_amt_ins3,
+      ROUND(a.payor_adjustment_amt_ins3, 3, 'ROUND_HALF_EVEN') AS payor_adjustment_amt_ins3,
+      ROUND(a.payor_contractual_amt_ins3, 3, 'ROUND_HALF_EVEN') AS payor_contractual_amt_ins3,
+      ROUND(a.patient_balance_amt, 3, 'ROUND_HALF_EVEN') AS patient_balance_amt,
+      ROUND(a.patient_payment_amt, 3, 'ROUND_HALF_EVEN') AS patient_payment_amt,
+      ROUND(a.patient_adj_amt, 3, 'ROUND_HALF_EVEN') AS patient_adj_amt,
+      ROUND(a.patient_allowance_amt, 3, 'ROUND_HALF_EVEN') AS patient_allowance_amt,
+      ROUND(a.total_billed_charge_amt, 3, 'ROUND_HALF_EVEN') AS total_billed_charge_amt,
+      ROUND(a.total_account_balance_amt, 3, 'ROUND_HALF_EVEN') AS total_account_balance_amt,
+      ROUND(a.total_payment_amt, 3, 'ROUND_HALF_EVEN') AS total_payment_amt,
+      ROUND(a.total_adjustment_amt, 3, 'ROUND_HALF_EVEN') AS total_adjustment_amt,
+      ROUND(a.total_combined_adj_alw_amt, 3, 'ROUND_HALF_EVEN') AS total_combined_adj_alw_amt,
+      ROUND(a.total_contract_allow_amt, 3, 'ROUND_HALF_EVEN') AS total_contract_allow_amt,
+      ROUND(a.total_patient_due_amt, 3, 'ROUND_HALF_EVEN') AS total_patient_due_amt,
+      ROUND(a.total_write_off_bad_debt_amt, 3, 'ROUND_HALF_EVEN') AS total_write_off_bad_debt_amt,
+      ROUND(a.total_write_off_other_amt, 3, 'ROUND_HALF_EVEN') AS total_write_off_other_amt,
+      ROUND(a.discharged_not_final_bill_self_pay_amt, 3, 'ROUND_HALF_EVEN') AS discharged_not_final_bill_self_pay_amt,
+      ROUND(a.inhouse_self_pay_amt, 3, 'ROUND_HALF_EVEN') AS inhouse_self_pay_amt,
+      ROUND(a.discharged_not_final_bill_charity_amt, 3, 'ROUND_HALF_EVEN') AS discharged_not_final_bill_charity_amt,
+      ROUND(a.financial_class_code_ins1, 0, 'ROUND_HALF_EVEN') AS financial_class_code_ins1,
+      ROUND(a.financial_class_code_ins2, 0, 'ROUND_HALF_EVEN') AS financial_class_code_ins2,
+      ROUND(a.financial_class_code_ins3, 0, 'ROUND_HALF_EVEN') AS financial_class_code_ins3,
+      a.source_system_code,
+      a.dw_last_update_date_time
+    FROM
+      {{ params.param_pbs_base_views_dataset_name }}.ada_patient_level_detail AS a
+      INNER JOIN {{ params.param_auth_base_views_dataset_name }}.secref_facility AS b ON upper(a.company_code) = upper(b.company_code)
+       AND upper(a.coid) = upper(b.co_id)
+       AND b.user_id = session_user()
+  ;

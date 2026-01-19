@@ -1,0 +1,1 @@
+SELECT 'TMP' AS artiva_instance, REPLACE(stu.userid, ' ', '') AS userid, SUBSTR(stu.hcuadept, 1, 6) AS hcuadept, SUBSTR(stu.hcuadept, 1, 3) AS department, TRIM(stu.uafullname) AS uafullname, 'v_currtimestamp' AS dw_last_update_date_time FROM sqluser.stuser stu

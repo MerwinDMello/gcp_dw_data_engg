@@ -1,0 +1,1 @@
+select COALESCE(DimSiteID,0) AS DimSiteID, COALESCE(DimResourceID,0) AS DimResourceID, DimLookupID_ResourceType, COALESCE(ActualResourceID,0) AS ActualResourceID, ctrResourceSer, LogID, COALESCE(RunID,0) AS RunID, ctrstkh_id, 'v_currtimestamp' AS dw_last_update_date_time from EDW.DimResource

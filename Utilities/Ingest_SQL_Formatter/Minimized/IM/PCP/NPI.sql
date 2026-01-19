@@ -1,0 +1,1 @@
+SELECT DISTINCT CAST(npinumber AS INT) AS npi_number, divisionname AS division_name, divmnemonic AS division_mnem, createddate AS create_date, provider34id AS provider_34_id, 'v_currtimestamp' AS dw_last_update_date_time FROM pcpnotification.dbo.vw_providerenrollment_npi_34 WITH (nolock)

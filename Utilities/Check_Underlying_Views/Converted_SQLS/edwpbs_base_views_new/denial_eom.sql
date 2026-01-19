@@ -1,0 +1,63 @@
+-- Translation time: 2024-01-12T17:51:56.897679Z
+-- Translation job ID: daf02731-0647-4415-a27a-5b3d10f518dd
+-- Source: internal_metastore/db_hca-hin-dev-cur-parallon/schema_edwpbs_base_views/denial_eom.memory
+-- Translated from: Teradata
+-- Translated to: BigQuery
+
+CREATE VIEW IF NOT EXISTS `hca-hin-dev-cur-parallon`.edwpbs_base_views.denial_eom AS SELECT
+    denial_eom.company_code,
+    denial_eom.coid,
+    denial_eom.patient_dw_id,
+    denial_eom.payor_dw_id,
+    denial_eom.iplan_insurance_order_num,
+    denial_eom.pe_date,
+    denial_eom.denial_status_code,
+    denial_eom.unit_num,
+    denial_eom.pat_acct_num,
+    denial_eom.iplan_id,
+    denial_eom.patient_type_code,
+    denial_eom.patient_financial_class_code,
+    denial_eom.payor_financial_class_code,
+    denial_eom.disposition_num,
+    denial_eom.appeal_origination_date,
+    denial_eom.appeal_level_origination_date,
+    denial_eom.appeal_closing_date,
+    denial_eom.appeal_deadline_date,
+    denial_eom.appeal_level_num,
+    denial_eom.beginning_balance_amt,
+    denial_eom.beginning_balance_count,
+    denial_eom.beginning_appeal_amt,
+    denial_eom.new_denial_account_amt,
+    denial_eom.new_denial_account_count,
+    denial_eom.not_true_denial_amt,
+    denial_eom.write_off_denial_account_amt,
+    denial_eom.unworked_conversion_amt,
+    denial_eom.unworked_new_accounts_count,
+    denial_eom.overturned_account_amt,
+    denial_eom.corrections_account_amt,
+    denial_eom.trans_next_party_amt,
+    denial_eom.ending_balance_amt,
+    denial_eom.total_charge_amt,
+    denial_eom.account_balance_amt,
+    denial_eom.resolved_accounts_count,
+    denial_eom.attending_physician_name,
+    denial_eom.service_code,
+    denial_eom.medical_record_num,
+    denial_eom.discharge_date,
+    denial_eom.last_update_id,
+    denial_eom.last_update_date,
+    denial_eom.work_again_date,
+    denial_eom.source_system_code,
+    denial_eom.denied_charges,
+    denial_eom.cc_cash_adjustment_amt,
+    denial_eom.cc_contractual_allow_adj_amt,
+    denial_eom.cc_root_cause_id,
+    denial_eom.cc_denial_cat_code,
+    denial_eom.cc_disposition_code,
+    denial_eom.pa_vendor_code,
+    denial_eom.appeal_sent_date,
+    denial_eom.cc_appeal_num,
+    denial_eom.cc_appeal_detail_seq_num
+  FROM
+    `hca-hin-dev-cur-parallon`.edwpbs.denial_eom
+;

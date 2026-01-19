@@ -1,0 +1,1 @@
+select 'J_REF_IMAGING_TYPE' || ',' || CAST(COUNT(*) AS VARCHAR(20)) || ',' AS SOURCE_STRING from EDWCR.Ref_Imaging_Type

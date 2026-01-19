@@ -1,0 +1,1 @@
+select 'J_EP_Remittance_Payment' || ',' || CAST(COUNT(*) AS VARCHAR(20)) || ',' as Source_String from EDWPBS.REMITTANCE_PAYMENT where DW_Last_Update_Date_Time(date) = current_date

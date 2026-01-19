@@ -1,0 +1,1 @@
+SELECT 'J_Fact_SSD_Budget' || ',' || CAST(Count(*) AS VARCHAR(20)) || ',' as SOURCE_STRING FROM Edwpbs_Staging.Fact_SSD_Budget

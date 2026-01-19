@@ -1,0 +1,15 @@
+﻿UPDATE edwhr_copy.employee SET valid_to_date = TIMESTAMP("9999-12-31 23:59:59+00") WHERE DATE(valid_to_date) = DATE("9999-12-31");
+UPDATE edwhr_copy.junc_employee_status SET valid_to_date = TIMESTAMP("9999-12-31 23:59:59+00") WHERE DATE(valid_to_date) = DATE("9999-12-31");
+UPDATE edwhr_copy.employee_detail SET valid_to_date = TIMESTAMP("9999-12-31 23:59:59+00") WHERE DATE(valid_to_date) = DATE("9999-12-31");
+UPDATE edwhr_copy.employee_person SET valid_to_date = TIMESTAMP("9999-12-31 23:59:59+00") WHERE DATE(valid_to_date) = DATE("9999-12-31");
+UPDATE edwhr_copy.employee_position SET valid_to_date = TIMESTAMP("9999-12-31 23:59:59+00") WHERE DATE(valid_to_date) = DATE("9999-12-31");
+UPDATE edwhr_copy.employee_action_detail SET valid_to_date = TIMESTAMP("9999-12-31 23:59:59+00") WHERE DATE(valid_to_date) = DATE("9999-12-31");
+UPDATE edwhr_copy.job_position SET valid_to_date = TIMESTAMP("9999-12-31 23:59:59+00") WHERE DATE(valid_to_date) = DATE("9999-12-31");
+UPDATE edwhr_copy.job_code SET valid_to_date = TIMESTAMP("9999-12-31 23:59:59+00") WHERE DATE(valid_to_date) = DATE("9999-12-31");
+UPDATE edwhr_copy.process_level SET valid_to_date = TIMESTAMP("9999-12-31 23:59:59+00") WHERE DATE(valid_to_date) = DATE("9999-12-31");
+UPDATE edwhr_copy.department SET valid_to_date = TIMESTAMP("9999-12-31 23:59:59+00") WHERE DATE(valid_to_date) = DATE("9999-12-31");
+UPDATE edwhr_copy.gl_lawson_dept_crosswalk SET valid_to_date = TIMESTAMP("9999-12-31 23:59:59+00") WHERE DATE(valid_to_date) = DATE("9999-12-31");
+UPDATE edwhr_copy.requisition SET valid_to_date = TIMESTAMP("9999-12-31 23:59:59+00") WHERE DATE(valid_to_date) = DATE("9999-12-31");
+UPDATE edwhr_copy.requisition_position SET valid_to_date = TIMESTAMP("9999-12-31 23:59:59+00") WHERE DATE(valid_to_date) = DATE("9999-12-31");
+UPDATE edwhr_copy.requisition_status SET valid_to_date = TIMESTAMP("9999-12-31 23:59:59+00") WHERE DATE(valid_to_date) = DATE("9999-12-31");
+UPDATE edwhr_copy.requisition_approval_stage SET valid_to_date = TIMESTAMP("9999-12-31 23:59:59+00") WHERE DATE(valid_to_date) = DATE("9999-12-31");

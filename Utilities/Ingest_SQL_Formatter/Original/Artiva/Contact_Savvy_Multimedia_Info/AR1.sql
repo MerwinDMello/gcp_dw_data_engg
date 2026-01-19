@@ -1,0 +1,94 @@
+SELECT	
+		  CAST(DATEPART(yyyy, STM.STMMDATE) as CHAR(4)) || $MVFMT(CAST(DATEPART(mm, STM.STMMDATE) as CHAR(2)), '2"0"R') as Rptg_Period
+		,'TMP' AS Artiva_Instance
+		,PAS.HCPSID AS SSC
+		 
+		,CPT.CSPERSISTTIMEFAC --Facility
+		,CPT.CSPERSISTTIMEID --Account ID (HCAID)
+		,CPT.CSPERSISTTIMEPTNUM --Patient #
+		 
+		,FAC.CSFACOIDNUM --COID #
+		,FAC.CSFAHOSPNUM --Facility #
+		
+		,CTC.CTCLKEY	--Call Log Key
+		,CASE
+			WHEN (((CONVERT(INT, CTC.CTCLENDTM)) - (CONVERT(INT, CTC.CTCLINITTM)) )/60)  >= 1 THEN 'N'
+			WHEN (((CONVERT(INT, CTC.CTCLENDTM)) - (CONVERT(INT, CTC.CTCLINITTM)) )/60)  <1 THEN 'Y'
+		END as CTC_Short_Call
+		,CASE 
+            WHEN CTC.CTCLTYPE = 'PG' THEN 'Progressive'
+            ELSE 'Manual'
+     	END AS Call_Type
+		
+		,STM.STMMKEY --Multimedia Table Key
+		,STM.CSVTCALLLOGID --Call Log ID
+		,CAST(STM.CSVTHCENID AS VARCHAR(15)) AS CSVTHCENID--Encounter ID (R-Model)
+		,substr(STM.CSVTPOOL,1,6) AS CSVTPOOL--Pool Number for VoiceTrak
+		,STM.HCVTHCACID --Acct Number (HCACID) - R-Field
+		,SUBSTR(STM.STMMDESC,1,(CHARINDEX('-', STM.STMMDESC) - 2)) as Calc_STM_HCVTHCACID --HCVTHCACID from first part of STMMDESC field
+		,CAST(STM.STMMDESC AS VARCHAR(75)) AS STMMDESC--Short Description of File
+		,STM.STMMFILE --Multimedia File Name
+		 ,CAST(STM.STMMDATE as VARCHAR(10)) as STM_File_Create_Date --Date File was Created
+		 ,(CONVERT(INT, STM.STMMDATE))  as STM_File_Create_Date_Int
+		,CAST(STM.STMMTIME  as VARCHAR(8)) as STM_File_Create_Time --Time File was Created
+		,(CONVERT(INT, STM.STMMTIME)) as STM_File_Create_Time_Int
+		,STM.STMMTYPE --Type of File
+		,STM.STMMUSER --User Who Created the File
+		,substr(STM.STMMUSER,1,7) as Agent_ID	
+		,STM.STVTCALL --Call History
+		,STM.STVTLEN --Length of Recording
+		,ROUND((STM.STVTLEN/60),11) as STM_Record_Length_Min
+		,STM.STVTPOOL --Voice Trak Pool
+		,STM.STVTRTYP --Voice Trak Recording Type
+		
+		,STU.HCUADEPT --User's Department or Group
+	    ,substr(STU.HCUADEPT,1,3) as Department
+		,STU.UAFULLNAME --User's Full Name
+		
+		 ,GCP.GCDID --Dialer ID/Name
+		 ,GCP.GCPOOLNUM --Pool Number (Key)
+		 ,GCP.GCPDESC --Pool Description
+		 ,GCP.GCPTYPE --Dialing Status of Pool
+		 ,CASE
+	        WHEN GCP.GCPTYPE = 'D' THEN 'Progressive'
+	        WHEN GCP.GCPTYPE = 'N' AND GCP.GCDID = 'HCACTS' THEN 'Manual'
+	        WHEN GCP.GCPTYPE = 'N' AND GCP.GCDID IS NULL THEN 'Non-Dialing'
+    	END as Dialer_Type		
+FROM   SQLUser.STMULTIMEDIA STM
+
+LEFT JOIN SQLUser.STUSER STU
+     ON STM.STMMUSER = STU.USERID
+
+LEFT JOIN SQLUser.CTCALLLOG CTC
+	ON STM.CSVTCALLLOGID = CTC.CTCLKEY
+	
+LEFT JOIN 
+	(SELECT	
+		DISTINCT
+			CSPERSISTTIMEFAC --Facility
+			,CSPERSISTTIMEID --Account ID (HCACID)
+			,CSPERSISTTIMEPTNUM --Patient #
+	FROM	SQLUser.CSPERSISTTIMEACCT
+	WHERE  CSPERSISTTIMEFAC IS NOT NULL
+		AND CSPERSISTTIMEID IS NOT NULL
+	) CPT
+	ON SUBSTR(STM.STMMDESC,1,(CHARINDEX('-', STM.STMMDESC) - 2)) = CPT.CSPERSISTTIMEID
+
+LEFT JOIN SQLUser.HCFACILITY FAC
+	ON CPT.CSPERSISTTIMEFAC = FAC.HCFAID
+
+LEFT JOIN SQLUser.HCPAS PAS
+	ON FAC.HCFAPASID = PAS.HCPSID
+		
+LEFT JOIN SQLUser.GCPOOL GCP
+    ON STM.STVTPOOL = GCP.GCPOOLNUM
+	
+ WHERE STM.STMMDATE  = DATEADD(DD,-1,CURRENT_DATE) 
+               AND (STU.HCUADEPT LIKE '902%' 
+                    OR STU.HCUADEPT LIKE '602%'
+					OR STU.HCUADEPT LIKE '913%' 
+                    OR STU.HCUADEPT LIKE '613%'
+					OR STU.HCUADEPT LIKE '916%' 
+                    OR STU.HCUADEPT LIKE '616%'
+) AND STM.STVTPOOL<> '|TCP|16000|713723'
+ORDER BY  STM.STMMKEY

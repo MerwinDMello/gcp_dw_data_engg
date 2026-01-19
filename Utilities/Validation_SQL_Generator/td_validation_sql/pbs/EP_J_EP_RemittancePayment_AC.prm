@@ -1,0 +1,7 @@
+export AC_EXP_SQL_STATEMENT="SELECT 'J_EP_RemittancePayment' || ',' || CAST(Count(*) AS VARCHAR(20)) || ',' as SOURCE_STRING FROM EDWPSU_BASE_VIEWS.Remittance_Payment where DW_Last_Update_Date_Time =(select max(Dw_Last_Update_Date_Time) from EDWPSU_BASE_VIEWS.Remittance_Payment)"
+export JOBNAME='J_EP_RemittancePayment'
+export AC_EXP_TOLERANCE_PERCENT=0
+export AC_EXP_TOLERANCE_AMT=0
+export AC_ACT_SQL_STATEMENT="SELECT 'J_EP_RemittancePayment' || ',' || CAST(Count(*) AS VARCHAR(20)) || ',' as SOURCE_STRING FROM EDWPBS_Staging.remittance_payment where DW_Last_Update_Date_Time =(select max(Dw_Last_Update_Date_Time) from EDWPBS_Staging.remittance_payment)"
+
+

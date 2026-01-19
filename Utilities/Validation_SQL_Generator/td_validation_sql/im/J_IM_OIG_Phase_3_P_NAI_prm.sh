@@ -1,0 +1,1 @@
+export DATE=`date +%d-%m-%Y`

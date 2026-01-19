@@ -1,0 +1,15 @@
+{
+    "user_name"  :   "khu9683",
+    "password"  :   "Mer82@dme",
+    "host_name" :   "edwprod.dw.medcity.net",
+    "lob"   :   "CR",
+    "lob_abbr"  :   "CR",
+    "log_folder" :   "log_dump",
+    "conversion_target_folder"  :   "converted_scripts",
+    "post_dupchecks_bqsqls"    :   "post_dupchecks_bqsqls",
+    "postprocessqls"    :   "postprocessql_bqsqlfiles",
+    "prodready_bqsqls"  :   "prodready_bqsqls",
+    "project_id"    :   "hca-hin-dev-cur-ops",
+    "dag_bucket_path"   :   "us-east4-composerv2-snapsho-14b9254c-bucket/dags/edwcr/sql/validation_sql/integrate",
+    "fns_dataset"   :   "bqutil_fns"
+}

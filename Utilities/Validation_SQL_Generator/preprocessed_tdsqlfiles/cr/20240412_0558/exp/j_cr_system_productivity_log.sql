@@ -1,0 +1,2 @@
+SELECT CONCAT(count(*)) AS SOURCE_STRING
+FROM EDWCR_STAGING.CR_System_Productivity_Log_WRK

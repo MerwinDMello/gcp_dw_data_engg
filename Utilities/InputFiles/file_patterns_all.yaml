@@ -1,0 +1,46 @@
+file_patterns:
+  - file_pattern_python: ^CCLOG24MCRIP\_(?:[a-z]+_|)D\_\d+\.xlsx$
+    file_pattern_terminal: CCLOG24MCRIP_*D*.xlsx
+  - file_pattern_python: ^CCLOG24MCRIPB\_(?:[a-z]+_|)D\_\d+\.xlsx$
+    file_pattern_terminal: CCLOG24MCRIPB_*D*.xlsx
+  - file_pattern_python: ^CCLOG24MCRIPBCAH\_(?:[a-z]+_|)D\_\d+\.xlsx$
+    file_pattern_terminal: CCLOG24MCRIPBCAH_*D*.xlsx
+  - file_pattern_python: ^CCLOG24MCRIPCAH\_(?:[a-z]+_|)D\_\d+\.xlsx$
+    file_pattern_terminal: CCLOG24MCRIPCAH_*D*.xlsx
+  - file_pattern_python: ^CCLOG24MCRIPF\_(?:[a-z]+_|)D\_\d+\.xlsx$
+    file_pattern_terminal: CCLOG24MCRIPF_*D*.xlsx
+  - file_pattern_python: ^CCLOG24MCRIPSWB\_(?:[a-z]+_|)D\_\d+\.xlsx$
+    file_pattern_terminal: CCLOG24MCRIPSWB_*D*.xlsx
+  - file_pattern_python: ^CCLOG24MCRIRF\_(?:[a-z]+_|)D\_\d+\.xlsx$
+    file_pattern_terminal: CCLOG24MCRIRF_*D*.xlsx
+  - file_pattern_python: ^CCLOG24MCRLTCH\_(?:[a-z]+_|)D\_\d+\.xlsx$
+    file_pattern_terminal: CCLOG24MCRLTCH_*D*.xlsx
+  - file_pattern_python: ^CCLOG24MCROP\_(?:[a-z]+_|)D\_\d+\.xlsx$
+    file_pattern_terminal: CCLOG24MCROP_*D*.xlsx
+  - file_pattern_python: ^CCLOG24MCROPCAH\_(?:[a-z]+_|)D\_\d+\.xlsx$
+    file_pattern_terminal: CCLOG24MCROPCAH_*D*.xlsx
+  - file_pattern_python: ^CCLOG24MCRSNF\_(?:[a-z]+_|)D\_\d+\.xlsx$
+    file_pattern_terminal: CCLOG24MCRSNF_*D*.xlsx
+  - file_pattern_python: ^CCLOG65MCRIP\_(?:[a-z]+_|)\d+\.xlsx$
+    file_pattern_terminal: CCLOG65MCRIP_*.xlsx
+  - file_pattern_python: ^CCLOG65MCRIPB\_(?:[a-z]+_|)\d+\.xlsx$
+    file_pattern_terminal: CCLOG65MCRIPB_*.xlsx
+  - file_pattern_python: ^CCLOG65MCRIPBCAH\_(?:[a-z]+_|)\d+\.xlsx$
+    file_pattern_terminal: CCLOG65MCRIPBCAH_*.xlsx
+  - file_pattern_python: ^CCLOG65MCRIPCAH\_(?:[a-z]+_|)\d+\.xlsx$
+    file_pattern_terminal: CCLOG65MCRIPCAH_*.xlsx
+  - file_pattern_python: ^CCLOG65MCRIPF\_(?:[a-z]+_|)\d+\.xlsx$
+    file_pattern_terminal: CCLOG65MCRIPF_*.xlsx
+  - file_pattern_python: ^CCLOG65MCRIPSWB\_(?:[a-z]+_|)\d+\.xlsx$
+    file_pattern_terminal: CCLOG65MCRIPSWB_*.xlsx
+  - file_pattern_python: ^CCLOG65MCRIRF\_(?:[a-z]+_|)\d+\.xlsx$
+    file_pattern_terminal: CCLOG65MCRIRF_*.xlsx
+  - file_pattern_python: ^CCLOG65MCRLTCH\_(?:[a-z]+_|)\d+\.xlsx$
+    file_pattern_terminal: CCLOG65MCRLTCH_*.xlsx
+  - file_pattern_python: ^CCLOG65MCROP\_(?:[a-z]+_|)\d+\.xlsx$
+    file_pattern_terminal: CCLOG65MCROP_*.xlsx
+  - file_pattern_python: ^CCLOG65MCROPCAH\_(?:[a-z]+_|)\d+\.xlsx$
+    file_pattern_terminal: CCLOG65MCROPCAH_*.xlsx
+  - file_pattern_python: ^CCLOG65MCRSNF\_(?:[a-z]+_|)\d+\.xlsx$
+    file_pattern_terminal: CCLOG65MCRSNF_*.xlsx
+processing_groups: ['American','Atlantic','National']

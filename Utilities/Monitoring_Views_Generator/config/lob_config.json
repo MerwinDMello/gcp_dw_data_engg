@@ -1,0 +1,16 @@
+{
+    "lob"                   :   "PBS",
+    "domain_abbr"           :   "Parallon",
+    "domain_syn_names"      :   ["para"],
+    "project_id"            :   "hca-hin-dev-cur-clinical",
+    "monitoring_dataset"    :   "edwpara_ac",
+    "authviews_dataset"     :   "auth_base_views",
+    "audit_dataset"         :   "edwpbs_ac",
+
+    "yaml_template_path"    :   "YAML_Templates",
+    "jinja_extension"       :   ".j2",
+    "sql_extension"         :   ".sql",
+    "output_path_folder"    :   "LOB",
+    "parameterized_folder"  :   "Parameterized",
+    "qualified_folder"      :   "Qualified"
+}

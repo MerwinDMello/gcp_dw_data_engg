@@ -1,0 +1,49 @@
+SELECT 
+	artiva_instance_code,
+	patient_dw_id,
+	artiva_letter_num,
+	artiva_encounter_num,
+	letter_sent_date_time,
+	letter_code,
+	letter_name,
+	coid,
+	company_code,
+	pat_acct_num,
+	letter_action_code,
+	iplan_id,
+	iplan_insurance_order_num,
+	unit_num,
+	artiva_liability_num,
+	free_form_ind,
+	letter_tracking_id,
+	account_balance_amt,
+	user_id,
+	source_system_code,
+FROM
+hca-hin-prod-cur-hr.edwpbs.collection_letter_request_list
+Where DATE(dw_last_update_date_time) = '2023-12-21'
+EXCEPT DISTINCT
+SELECT 
+	artiva_instance_code,
+	patient_dw_id,
+	artiva_letter_num,
+	artiva_encounter_num,
+	letter_sent_date_time,
+	letter_code,
+	letter_name,
+	coid,
+	company_code,
+	pat_acct_num,
+	letter_action_code,
+	iplan_id,
+	iplan_insurance_order_num,
+	unit_num,
+	artiva_liability_num,
+	free_form_ind,
+	letter_tracking_id,
+	account_balance_amt,
+	user_id,
+	source_system_code,
+FROM
+hca-hin-dev-cur-hr.edwpbs_base_views.collection_letter_request_list
+Where DATE(dw_last_update_date_time) = '2023-12-21'

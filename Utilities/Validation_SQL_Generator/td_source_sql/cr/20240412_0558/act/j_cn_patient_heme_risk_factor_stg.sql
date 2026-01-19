@@ -1,0 +1,1 @@
+Select 'J_CN_PATIENT_HEME_RISK_FACTOR_STG'||','|| cast(count(*) as varchar(20))||',' as SOURCE_STRING from edwcr_staging.PATIENT_HEME_RISK_FACTOR_STG

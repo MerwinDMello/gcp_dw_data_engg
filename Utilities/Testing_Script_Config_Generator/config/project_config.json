@@ -1,0 +1,8 @@
+{
+    "src_project_id"    :   "hca-hin-dev-cur-parallon",
+    "tgt_project_id"    :   "hca-hin-dev-cur-parallon",
+    "src_dataset"       :   "edwpbs_base_views",
+    "tgt_dataset"       :   "edwpbs",
+    "audit_dataset"     :   "edwpbs_ac",
+    "tester"            :   "Merwin DMello"    
+}

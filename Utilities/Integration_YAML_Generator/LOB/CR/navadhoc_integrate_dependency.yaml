@@ -1,0 +1,440 @@
+integrate:
+- source_system: navadhoc
+  frequency: daily
+  dag_id_suffix: 1
+  start_date: pendulum.datetime(2024, 5, 6, tz=timezone)
+  schedule: None
+  type: sqlserver
+  done_file: None
+  trigger_dag_ids: ['dag_ingest_navadhoc_sqlserver_daily_02']
+  dependency:
+  - table: ref_status
+    has_sensor: 'No'
+    sql:
+    - name: ref_status.sql
+    validation:
+    - name: j_ref_status.sql
+  - table: ref_contact_method
+    has_sensor: 'No'
+    sql:
+    - name: ref_contact_method.sql
+    validation:
+    - name: j_ref_contact_method.sql
+  - table: ref_breast_cancer_type
+    has_sensor: 'No'
+    sql:
+    - name: ref_breast_cancer_type.sql
+    validation:
+    - name: j_ref_breast_cancer_type.sql
+  - table: ref_therapy_type
+    has_sensor: 'No'
+    sql:
+    - name: ref_therapy_type.sql
+    validation:
+    - name: j_ref_therapy_type.sql
+  - table: ref_site_location
+    has_sensor: 'No'
+    sql:
+    - name: ref_site_location.sql
+    validation:
+    - name: j_ref_site_location.sql
+  - table: ref_procedure_type
+    has_sensor: 'No'
+    sql:
+    - name: ref_procedure_type.sql
+    validation:
+    - name: j_ref_procedure_type.sql
+  - table: ref_physician_specialty
+    has_sensor: 'No'
+    sql:
+    - name: ref_physician_specialty.sql
+    validation:
+    - name: j_ref_physician_specialty.sql
+  - table: ref_result
+    has_sensor: 'No'
+    sql:
+    - name: ref_result.sql
+    validation:
+    - name: j_ref_result.sql
+  - table: ref_contact_person
+    has_sensor: 'No'
+    sql:
+    - name: ref_contact_person.sql
+    validation:
+    - name: j_ref_contact_person.sql
+  - table: ref_contact_purpose
+    has_sensor: 'No'
+    sql:
+    - name: ref_contact_purpose.sql
+    validation:
+    - name: j_ref_contact_purpose.sql
+  - table: ref_diagnosis_detail
+    has_sensor: 'No'
+    sql:
+    - name: ref_diagnosis_detail.sql
+    validation:
+    - name: j_ref_diagnosis_detail.sql
+  - table: ref_side
+    has_sensor: 'No'
+    sql:
+    - name: ref_side.sql
+    validation:
+    - name: j_ref_side.sql
+  - table: ref_lung_lobe_location
+    has_sensor: 'No'
+    sql:
+    - name: ref_lung_lobe_location.sql
+    validation:
+    - name: j_ref_lung_lobe_location.sql
+  - table: ref_facility
+    has_sensor: 'No'
+    sql:
+    - name: ref_facility.sql
+    validation:
+    - name: j_ref_facility.sql
+  - table: ref_imaging_mode
+    has_sensor: 'No'
+    sql:
+    - name: ref_imaging_mode.sql
+    validation:
+    - name: j_ref_imaging_mode.sql
+  - table: ref_tumor_type
+    has_sensor: 'No'
+    sql:
+    - name: j_ref_tumor_type.sql
+    validation:
+    - name: NONE
+- source_system: navadhoc
+  frequency: daily
+  dag_id_suffix: 2
+  start_date: pendulum.datetime(2024, 5, 6, tz=timezone)
+  schedule: None
+  type: sqlserver
+  done_file: None
+  trigger_dag_ids: ['dag_ingest_navadhoc_sqlserver_daily_04']
+  dependency:
+  - table: cn_physician_detail
+    has_sensor: 'No'
+    sql:
+    - name: cn_physician_detail_wrk.sql
+    - name: cn_physician_detail_core.sql
+    validation:
+    - name: j_cn_physician_detail.sql
+  - table: cn_patient
+    has_sensor: 'No'
+    sql:
+    - name: cn_patient.sql
+    validation:
+    - name: j_cn_patient.sql
+  - table: cn_patient_tumor
+    has_sensor: 'No'
+    sql:
+    - name: cn_patient_tumor.sql
+    validation:
+    - name: j_cn_patient_tumor.sql
+  - table: cn_patient_timeline
+    has_sensor: 'No'
+    sql:
+    - name: cn_patient_timeline.sql
+    validation:
+    - name: j_cn_patient_timeline.sql
+  - table: cn_person
+    has_sensor: 'No'
+    sql:
+    - name: cn_person.sql
+    validation:
+    - name: j_cn_person.sql
+  - table: cn_patient_test_result
+    has_sensor: 'No'
+    sql:
+    - name: cn_patient_test_result.sql
+    validation:
+    - name: j_cn_patient_test_result.sql
+  - table: cn_patient_survivorship_plan_task
+    has_sensor: 'No'
+    sql:
+    - name: cn_patient_surv_plan_task.sql
+    validation:
+    - name: j_cn_patient_survivorship_plan_task.sql
+  - table: cn_patient_surgery
+    has_sensor: 'No'
+    sql:
+    - name: cn_patient_surgery.sql
+    validation:
+    - name: j_cn_patient_surgery.sql
+  - table: cn_patient_surgery_reconstruction
+    has_sensor: 'No'
+    sql:
+    - name: cn_patient_surgery_recon.sql
+    validation:
+    - name: j_cn_patient_surgery_reconstruction.sql
+  - table: cn_patient_staging
+    has_sensor: 'No'
+    sql:
+    - name: cn_patient_staging.sql
+    validation:
+    - name: j_cn_patient_staging.sql
+  - table: cn_patient_radiation_oncology
+    has_sensor: 'No'
+    sql:
+    - name: cn_patient_radiation_oncology.sql
+    validation:
+    - name: j_cn_patient_radiation_oncology.sql
+  - table: cn_patient_procedure
+    has_sensor: 'No'
+    sql:
+    - name: cn_patient_procedure.sql
+    validation:
+    - name: j_cn_patient_procedure.sql
+  - table: cn_patient_phone_num
+    has_sensor: 'No'
+    sql:
+    - name: cn_patient_phone_num.sql
+    validation:
+    - name: j_cn_patient_phone_num.sql
+  - table: cn_patient_pathology_result
+    has_sensor: 'No'
+    sql:
+    - name: cn_patient_pathology_result.sql
+    validation:
+    - name: j_cn_patient_pathology_result.sql
+  - table: cn_patient_mltp_disciplinary_meeting
+    has_sensor: 'No'
+    sql:
+    - name: cn_patient_mltp_disp_meeting.sql
+    validation:
+    - name: j_cn_patient_mltp_disciplinary_meeting.sql
+  - table: cn_patient_medical_oncology
+    has_sensor: 'No'
+    sql:
+    - name: cn_patient_medical_oncology.sql
+    validation:
+    - name: j_cn_patient_medical_oncology.sql
+  - table: cn_patient_lab_result
+    has_sensor: 'No'
+    sql:
+    - name: cn_patient_lab_result.sql
+    validation:
+    - name: j_cn_patient_lab_result.sql
+  - table: cn_patient_genetics_testing
+    has_sensor: 'No'
+    sql:
+    - name: cn_patient_genetics_testing.sql
+    validation:
+    - name: j_cn_patient_genetics_testing.sql
+  - table: cn_patient_family_history
+    has_sensor: 'No'
+    sql:
+    - name: cn_patient_family_history.sql
+    validation:
+    - name: j_cn_patient_family_history.sql
+  - table: cn_patient_diagnosis
+    has_sensor: 'No'
+    sql:
+    - name: cn_patient_diagnosis.sql
+    validation:
+    - name: j_cn_patient_diagnosis.sql
+  - table: cn_patient_core_adherence
+    has_sensor: 'No'
+    sql:
+    - name: cn_patient_core_adherence.sql
+    validation:
+    - name: j_cn_patient_core_adherence.sql
+  - table: cn_patient_contact_detail
+    has_sensor: 'No'
+    sql:
+    - name: cn_patient_contact_detail.sql
+    validation:
+    - name: j_cn_patient_contact_detail.sql
+  - table: cn_patient_consultation
+    has_sensor: 'No'
+    sql:
+    - name: cn_patient_consultation.sql
+    validation:
+    - name: j_cn_patient_consultation.sql
+  - table: cn_patient_clinical_trial
+    has_sensor: 'No'
+    sql:
+    - name: cn_patient_clinical_trial.sql
+    validation:
+    - name: j_cn_patient_clinical_trial.sql
+  - table: cn_patient_brca_screening_assessment
+    has_sensor: 'No'
+    sql:
+    - name: cn_patient_brca_screening_assessment.sql
+    validation:
+    - name: j_cn_patient_brca_screening_assessment.sql
+  - table: cn_patient_biopsy
+    has_sensor: 'No'
+    sql:
+    - name: cn_patient_biopsy.sql
+    validation:
+    - name: j_cn_patient_biopsy.sql
+  - table: ref_housing_type
+    has_sensor: 'No'
+    sql:
+    - name: ref_housing_type.sql
+    validation:
+    - name: j_cr_ref_housing_type.sql
+  - table: cn_patient_address
+    has_sensor: 'No'
+    sql:
+    - name: cn_patient_address.sql
+    validation:
+    - name: j_cn_patient_address.sql
+  - table: cn_patient_contact
+    has_sensor: 'No'
+    sql:
+    - name: cn_patient_contact.sql
+    validation:
+    - name: j_cn_patient_contact.sql
+  - table: cn_patient_imaging
+    has_sensor: 'No'
+    sql:
+    - name: cn_patient_imaging.sql
+    validation:
+    - name: j_cn_patient_imaging.sql
+  - table: cn_patient_complication
+    has_sensor: 'No'
+    sql:
+    - name: cn_patient_complication.sql
+    validation:
+    - name: j_cn_patient_complication.sql
+  - table: cn_patient_procedure_pathology_result
+    has_sensor: 'No'
+    sql:
+    - name: cn_patient_procedure_pathology_result.sql
+    validation:
+    - name: j_cn_patient_procedure_pathology_result.sql
+  - table: navque_history
+    has_sensor: 'No'
+    sql:
+    - name: navque_history.sql
+    validation:
+    - name: j_navque_history.sql
+- source_system: navadhoc
+  frequency: daily
+  dag_id_suffix: 3
+  start_date: pendulum.datetime(2024, 5, 6, tz=timezone)
+  schedule: None
+  type: sqlserver
+  done_file: None
+  trigger_dag_ids: []
+  dependency:
+  - table: ref_referring_physician
+    has_sensor: 'No'
+    sql:
+    - name: j_ref_referring_physician.sql
+    validation:
+    - name: NONE
+- source_system: navadhoc
+  frequency: daily
+  dag_id_suffix: 4
+  start_date: pendulum.datetime(2024, 5, 6, tz=timezone)
+  schedule: None
+  type: sqlserver
+  done_file: None
+  trigger_dag_ids: []
+  dependency:
+  - table: ref_regimen
+    has_sensor: 'No'
+    sql:
+    - name: j_cr_ref_regimen.sql
+    validation:
+    - name: j_cr_ref_regimen.sql
+  - table: ref_treatment_phase
+    has_sensor: 'No'
+    sql:
+    - name: j_cr_ref_treatment_phase.sql
+    validation:
+    - name: j_cr_ref_treatment_phase.sql
+  - table: ref_test_type
+    has_sensor: 'No'
+    sql:
+    - name: ref_test_type.sql
+    validation:
+    - name: j_cr_ref_test_type.sql
+  - table: ref_pathway_var_reason
+    has_sensor: 'No'
+    sql:
+    - name: j_cr_ref_pathway_var_reason.sql
+    validation:
+    - name: j_cr_ref_pathway_var_reason.sql
+  - table: ref_transplant_type
+    has_sensor: 'No'
+    sql:
+    - name: ref_transplant_type.sql
+    validation:
+    - name: j_cr_ref_transplant_type.sql
+  - table: ref_disease_assess_source
+    has_sensor: 'No'
+    sql:
+    - name: ref_disease_assess_source.sql
+    validation:
+    - name: j_cr_ref_disease_assess_source.sql
+  - table: ref_sample_type
+    has_sensor: 'No'
+    sql:
+    - name: ref_sample_type.sql
+    validation:
+    - name: j_cr_ref_sample_type.sql
+  - table: cn_patient_heme
+    has_sensor: 'No'
+    sql:
+    - name: cn_patient_heme.sql
+    validation:
+    - name: j_cn_patient_heme.sql
+  - table: cn_patient_heme_transplant
+    has_sensor: 'No'
+    sql:
+    - name: cn_patient_heme_transplant.sql
+    validation:
+    - name: j_cn_patient_heme_transplant.sql
+  - table: cn_patient_heme_disease_assess
+    has_sensor: 'No'
+    sql:
+    - name: cn_patient_heme_disease_assess.sql
+    validation:
+    - name: j_cn_patient_heme_disease_assess.sql
+  - table: cn_patient_heme_disease_assess_detail
+    has_sensor: 'No'
+    sql:
+    - name: j_cn_patient_heme_disease_assess_detail.sql
+    validation:
+    - name: j_cn_patient_heme_disease_assess_detail.sql
+  - table: cn_patient_heme_diagnosis
+    has_sensor: 'No'
+    sql:
+    - name: cn_patient_heme_diagnosis.sql
+    validation:
+    - name: j_cn_patient_heme_diagnosis.sql
+  - table: cn_patient_heme_treatment_regimen
+    has_sensor: 'No'
+    sql:
+    - name: j_cn_patient_heme_treatment_regimen.sql
+    validation:
+    - name: j_cn_patient_heme_treatment_regimen.sql
+  - table: cn_patient_heme_risk_factor
+    has_sensor: 'No'
+    sql:
+    - name: cn_patient_heme_risk_factor.sql
+    validation:
+    - name: j_cn_patient_heme_risk_factor.sql
+  - table: cn_patient_heme_func_assess
+    has_sensor: 'No'
+    sql:
+    - name: cn_patient_heme_functional_assess.sql
+    validation:
+    - name: j_cn_patient_heme_func_assess.sql
+  - table: cn_physician_role
+    has_sensor: 'No'
+    sql:
+    - name: cn_physician_role.sql
+    validation:
+    - name: j_cn_physician_role.sql
+  - table: cn_patient_heme_clinical_trial
+    has_sensor: 'No'
+    sql:
+    - name: cn_patient_heme_clinical_trial.sql
+    validation:
+    - name: NONE

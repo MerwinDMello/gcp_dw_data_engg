@@ -1,0 +1,1 @@
+select 'J_EP_Junc_Remittance_Secn_Rendering_Prov_Service' || ',' || CAST(COUNT(*) AS VARCHAR(20)) || ',' as Source_String from EDWPBS.Junc_Remittance_Secn_Rendering_Prov where DW_Last_Update_Date_Time =(select max(Dw_Last_Update_Date_Time) from EDWPBS.Junc_Remittance_Secn_Rendering_Prov)

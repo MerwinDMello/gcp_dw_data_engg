@@ -1,0 +1,1 @@
+select 'J_EP_Remittance_Claim' || ',' || CAST(COUNT(*) AS VARCHAR(20)) || ',' as Source_String from EDWPBS.Remittance_Claim where DW_Last_Update_Date_Time(date) =(select cast(max(Dw_Last_Update_Date_Time) as date) from EDWPBS_Staging.remittance_claim);

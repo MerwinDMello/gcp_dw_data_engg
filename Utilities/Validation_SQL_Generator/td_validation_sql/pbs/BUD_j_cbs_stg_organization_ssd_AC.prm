@@ -1,0 +1,15 @@
+export JOBNAME='CBS_STG_ORGANIZATION_SSD'
+export P_EXP_Delimiter='|'
+export P_EXP_Control_Total_Field='1,5,13,'
+export P_EXP_Number_of_Fields='18'
+export P_EXP_Control_Total_Type='1,3,2,'
+export AC_EXP_INPUT_FILE='cbs_stg_organization_ssd.txt'
+export JOBNAME='CBS_STG_ORGANIZATION_SSD'
+export AC_EXP_TOLERANCE_PERCENT=0
+export AC_EXP_TOLERANCE_AMT=0
+
+
+export AC_ACT_SQL_STATEMENT="SELECT 'CBS_STG_ORGANIZATION_SSD' + ',' + 
+CAST(Count(*) AS VARCHAR(20)) + ',' + 
+CAST(SUM(LEN(ORG.Organization_Name_Child)) AS VARCHAR(20)) + ',' + 
+CAST(SUM(ORG.Member_Solve_Order_Num) AS VARCHAR(20)) + ',' as SOURCE_STRING FROM dbo.Stg_Organization ORG"

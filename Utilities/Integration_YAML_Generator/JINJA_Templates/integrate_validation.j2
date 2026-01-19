@@ -1,0 +1,8 @@
+    validation:
+{% for validation_file in validation_file_list %}
+    {% if validation_file.script_name != "NONE" %}
+    - name: {{ validation_file.script_name }}.sql
+    {% else %}
+    - name: NONE
+    {% endif %}
+{% endfor %}

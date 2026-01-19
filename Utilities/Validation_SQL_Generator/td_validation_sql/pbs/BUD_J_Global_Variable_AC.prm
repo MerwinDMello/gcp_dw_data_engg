@@ -1,0 +1,10 @@
+export JOBNAME='J_Global_Variable'
+export P_EXP_Delimiter='|'
+export P_EXP_Control_Total_Field='1'
+export P_EXP_Number_of_Fields='5'
+export P_EXP_Control_Total_Type='1'
+export AC_EXP_INPUT_FILE='BPGGLOBAL.txt'
+export JOBNAME='J_Global_Variable'
+export AC_EXP_TOLERANCE_PERCENT=0
+export AC_EXP_TOLERANCE_AMT=0
+export AC_ACT_SQL_STATEMENT="select 'J_Global_Variable' + ',' + CAST(COUNT(*) AS VARCHAR(20)) + ',' AS SOURCE_STRING FROM dbo.stg_Axiom_Global_Variable"

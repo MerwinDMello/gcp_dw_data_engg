@@ -1,0 +1,2 @@
+select 'J_Ref_NavQue_Reason' || ',' || CAST(COUNT(*) AS VARCHAR(20)) || ',' AS SOURCE_STRING from EDWCR.Ref_NavQue_Reason
+where DW_Last_Update_Date_Time>= (Select max(Job_Start_Date_Time) from EDWCR_DMX_AC.ETL_JOB_RUN where Job_Name='J_Ref_NavQue_Reason' and Job_Status_Code is NULL)

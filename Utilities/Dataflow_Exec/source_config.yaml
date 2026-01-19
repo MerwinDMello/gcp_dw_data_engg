@@ -1,0 +1,76 @@
+# pbs variables to use in DAGs
+# Note the yaml syntax, single space after colon
+env:
+ v_env_name: dev
+ v_curated_conn_id: hca-hin-dev-cur-parallon
+ v_lob: edwpbs
+
+#gcp projects
+ v_proc_project_id: hca-hin-dev-proc-parallon
+ v_landing_project_id: hca-hin-dev-landing-parallon
+ v_curated_project_id: hca-hin-dev-cur-parallon
+ v_pub_curated_project_id: hca-hin-dev-cur-pub
+ 
+# gcs bucket name does not start with gs://
+ v_dag_bucket_name: us-east4-composerv2-dev-b6ae2712-bucket
+ v_data_bucket_name: eim-parallon-cs-datamig-dev-0002
+ v_data_archive_bucket_name: eim-parallon-cs-datamig-dev-0002
+
+#folder structure in buckets
+ v_srcfilesdir: edwparallondata/srcfiles/
+ v_archivedir: edwparallondata/srcfilesarchive/
+ v_tgtfilesdir: edwparallondata/outboundfiles/
+ v_tmpobjdir: edwparallondata/tmp/
+ v_schemasubdir: schema/
+ 
+# big query datasets
+ v_pbs_core_dataset_name: edwpbs
+ v_pbs_stage_dataset_name: edwpbs_staging
+ v_pbs_base_views_dataset_name: edwpbs_base_views_copy
+ v_pbs_views_dataset_name: edwpbs_views_copy
+ v_pbs_audit_dataset_name: edwpbs_ac
+ v_pbs_dmx_ac: edwpbs_dmx_ac
+ v_pub_views_dataset_name: edw_pub_views
+ v_fs_stage_dataset_name: edwfs_staging
+ v_pbs_audit_dataset_name: edwpbs_ac
+ v_pf_core_dataset_name: edwpf
+ v_pf_stage_dataset_name: edwpf_staging
+ v_pf_views_dataset_name: edwpf_views
+ v_sec_base_views_dataset_name: edw_sec_base_views
+ v_sec_core_dataset_name: edw_sec
+ v_ra_stage_dataset_name: edwra_staging
+ v_ra_views_dataset_name: edwra_views
+ v_ra_base_views_dataset_name: edwra_base_views
+ v_pbp_tempdb_dataset_name: edwpbp_tempdb
+ v_pbs_bqutil_fns_dataset_name: param_pbs_bqutil_fns_dataset_name
+ v_auth_base_views_dataset_name: auth_base_views
+ v_monitoring_views_dataset_name: edwpara_ac
+ 
+# need to test this email list
+ v_success_email_list: 
+ v_failure_email_list: 
+ 
+#secrets
+ v_pwd_secrets_url: projects/259073358779/secrets/
+
+#dataflow buckets  
+ v_gcs_temp_bucket: gs://eim-parallon-cs-datamig-dev-0002/temp
+ v_dfstagebucket: gs://eim-parallon-cs-datamig-dev-0002/dfstage
+ v_dfjarbucket: gs://eim-parallon-cs-jar-dev-0003/jdbcjars/
+
+#dataflow environment values
+ v_region: us-east4
+ v_zone: us-east4-a
+ v_network: hca-hin-networks-shared-vpc
+ v_subnetwork: https://www.googleapis.com/compute/v1/projects/hca-hin-networks/regions/us-east4/subnetworks/hin-dev-proc-parallon-dataflow-us-east4
+ v_serviceaccountemail: df-atos@hca-hin-dev-proc-parallon.iam.gserviceaccount.com
+ v_kmskeyname: projects/hca-hin-dev-proc-parallon/locations/us/keyRings/hin-keyring-38ac6f/cryptoKeys/hin-key-38ac6f
+ v_maxworkers: 2
+ v_numworkers: 1
+ v_machinetype: n1-standard-4
+ #v_runner: DirectRunner
+ v_runner: DataflowRunner
+ v_gcpconnid: 3_hca-hin-dev-proc-parallon
+ v_bqconnid: 2_hca-hin-dev-cur-parallon
+#  v_sdkimage: us-docker.pkg.dev/hca-hin-dev-proc-ops/atos-docker-artifact-repo-dev-7477b6/py39-jdbc-bq-image-dev:latest
+ v_audittablename: edwpbs_ac.audit_control

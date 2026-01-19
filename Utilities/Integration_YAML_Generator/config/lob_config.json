@@ -1,0 +1,14 @@
+{
+    "lob"                       :   "CR",
+    "domain_abbr"               :   "OPS",
+    "core_dataset_list"         :   ["edwcr"],
+    "jinja_template_path"       :   "JINJA_Templates",    
+    "jinja_extension"           :   ".j2",
+    "yaml_extension"            :   ".yaml",
+    "output_parent_folder"      :   "LOB",
+    "integrate_meta_folder"     :   "Metadata",
+    "integrate_meta_file_name"  :   "cr_integrate_info.csv",
+    "dag_trigger_map_file_name" :   "cr_dag_trigger_map.csv",
+    "dag_id_timings_file_name"  :   "cr_dag_id_timings.csv",
+    "dag_schedule_file_name"    :   "cr_dag_schedule_info.csv"
+}

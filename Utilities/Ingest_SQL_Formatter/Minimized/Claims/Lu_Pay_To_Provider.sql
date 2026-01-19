@@ -1,0 +1,1 @@
+SELECT provider_addr1 AS pay_to_provider_addr1, provider_addr2 AS pay_to_provider_addr2, provider_city AS pay_to_provider_city, provider_name AS pay_to_provider_name, pay_to_provider_sid, provider_st AS pay_to_provider_st, provider_zip pay_to_provider_zip_cd, dw_last_update_date_time, source_system_code FROM claimsconnectdb.dbo.dw_pay_to_provider WITH (nolock);

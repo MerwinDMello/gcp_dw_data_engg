@@ -1,0 +1,5 @@
+export AC_EXP_SQL_STATEMENT="SELECT 'J_Dim_Employee' + ',' + CAST(COUNT(*) AS VARCHAR(20)) + ',' as SOURCE_STRING FROM [dbo].[Dim_Employee_SSD_Budget]"
+export JOBNAME='J_Dim_Employee'
+export AC_EXP_TOLERANCE_PERCENT=0
+export AC_EXP_TOLERANCE_AMT=0
+export AC_ACT_SQL_STATEMENT="SELECT 'J_Dim_Employee' || ',' || CAST(Count(*) AS VARCHAR(20)) || ',' as SOURCE_STRING FROM Edwpbs.Dim_Employee"

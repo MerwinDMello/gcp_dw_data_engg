@@ -1,0 +1,63 @@
+-- Translation time: 2023-09-22T18:46:04.447603Z
+-- Translation job ID: ba460d1f-d301-46b6-9c47-810d266c2894
+-- Source: internal_metastore/db_hca-hin-dev-cur-parallon/schema_edwpbs_views/lu_date.memory
+-- Translated from: Teradata
+-- Translated to: BigQuery
+
+CREATE VIEW IF NOT EXISTS `hca-hin-dev-cur-parallon`.edwpbs_views.lu_date AS SELECT
+    lu_date.date_id,
+    lu_date.week_id,
+    lu_date.week_num,
+    lu_date.week_end_date,
+    lu_date.month_id,
+    lu_date.month_id_desc_s,
+    lu_date.month_id_desc_l,
+    lu_date.month_num,
+    lu_date.month_num_desc_s,
+    lu_date.month_num_desc_l,
+    lu_date.qtr_id,
+    lu_date.qtr_desc,
+    lu_date.qtr_num,
+    lu_date.qtr_num_desc_s,
+    lu_date.qtr_num_desc_l,
+    lu_date.semi_annual_id,
+    lu_date.semi_annual_desc,
+    lu_date.year_id,
+    lu_date.day_of_week,
+    lu_date.dow_desc_s,
+    lu_date.dow_desc_l,
+    lu_date.day_of_month,
+    lu_date.day_of_qtr,
+    lu_date.day_of_year,
+    lu_date.days_in_week,
+    lu_date.days_in_month,
+    lu_date.days_in_qtr,
+    lu_date.days_in_year,
+    lu_date.month_days_left,
+    lu_date.week_days_left,
+    lu_date.qtr_days_left,
+    lu_date.year_days_left,
+    lu_date.week_day_flag,
+    lu_date.week_end_flag,
+    lu_date.federal_bank_holiday_flag,
+    lu_date.hca_holiday_flag,
+    lu_date.pe_date,
+    lu_date.pe_date_prior_month,
+    lu_date.week_of_month,
+    lu_date.bank_day_flag,
+    lu_date.qtr_desc_dss,
+    lu_date.date_prev,
+    lu_date.qtr_num_prev,
+    lu_date.year_id_prev,
+    lu_date.month_id_prev,
+    lu_date.week_id_prev,
+    lu_date.week_num_desc,
+    lu_date.prev_month_day_date,
+    lu_date.prev_qtr_day_date,
+    lu_date.prev_year_day_date,
+    lu_date.business_day,
+    lu_date.business_day_mtd,
+    lu_date.business_day_ytd
+  FROM
+    `hca-hin-dev-cur-parallon`.edwpbs_base_views.lu_date
+;

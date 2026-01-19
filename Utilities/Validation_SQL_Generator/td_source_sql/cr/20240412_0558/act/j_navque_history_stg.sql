@@ -1,0 +1,1 @@
+Select 'J_NavQue_History_Stg'||','|| cast(count(*) as varchar(20))||',' as SOURCE_STRING from edwcr_staging.NavQue_History_Stg

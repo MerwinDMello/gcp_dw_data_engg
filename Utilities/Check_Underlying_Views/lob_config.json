@@ -1,0 +1,9 @@
+{
+    "lob"                       :   "PBS",
+    "project_id"                :   "hca-hin-dev-cur-hr",
+    "input_path_folder"         :   "Converted_SQLS",
+    "output_path_folder"        :   "Parameterized_SQLS",
+    "input_core_tables_file"    :   "core_tables.csv",
+    "sql_extension"             :   ".sql",
+    "datasets"                  :   ["edwpbs_base_views","edwpbs_views"]
+}

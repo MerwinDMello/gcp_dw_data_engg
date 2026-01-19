@@ -1,0 +1,1 @@
+select 'J_Stg_HPS_Pat_Payment_Link_Dtl' || ',' || CAST(COUNT(*) AS VARCHAR(20)) || ',' as Source_String from EDWPBS_Staging.Stg_HPS_Pat_Payment_Link_Dtl

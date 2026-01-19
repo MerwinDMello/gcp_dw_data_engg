@@ -1,0 +1,3 @@
+{% for script_file in script_file_list %}
+    - name: {{ script_file.script_name }}.sql
+{% endfor %}

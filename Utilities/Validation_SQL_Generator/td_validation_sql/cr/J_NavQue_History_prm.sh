@@ -1,0 +1,35 @@
+export JOBNAME='J_NavQue_History'
+export AC_EXP_SQL_STATEMENT="SELECT	'J_NavQue_History'||','|| cast(count(*) as varchar(20))||',	' as SOURCE_STRING 
+FROM
+(
+Select
+STG.NavQue_History_Id
+,STG.NavQue_Action_Id
+,STG.NavQue_Reason_Id
+,STG.Tumor_Type_Id
+,STG.Navigator_Id
+,STG.Coid
+,STG.Company_Code
+,STG.Message_Control_Id_Text
+,STG.Message_Date
+,STG.NavQue_Insert_Date
+,STG.NavQue_Action_Date
+,STG.Medical_Record_Num
+,STG.Patient_Market_URN
+,STG.Network_Mnemonic_CS
+,STG.Transition_Of_Care_Score_Num
+,STG.Navigated_Patient_Ind
+,STG.Message_Source_Flag
+,STG.Hashbite_SSK
+,STG.Source_System_Code
+,current_timestamp(0) as DW_Last_Update_Date_Time
+ 
+from  edwcr_staging.NavQue_History_STG STG
+where trim(STG.Hashbite_SSK) not in ( Select trim(Hashbite_SSK) from edwcr.NavQue_History)
+
+) A
+"
+
+export AC_ACT_SQL_STATEMENT="Select 'J_NavQue_History'||','|| cast(count(*) as varchar(20))||',' as SOURCE_STRING from ${NCR_TGT_SCHEMA}.NavQue_History
+where DW_Last_Update_Date_Time >= (SELECT MAX(Job_Start_Date_Time) as Job_Start_Date_Time FROM EDWCR_DMX_AC.ETL_JOB_RUN where Job_Name = 'J_NavQue_History');
+"

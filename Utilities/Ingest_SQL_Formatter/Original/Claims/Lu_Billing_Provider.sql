@@ -1,0 +1,13 @@
+SELECT
+Bill_Provider_Addr1,
+Bill_Provider_Addr2,
+Bill_Prov_Provider_City as Bill_Provider_City,
+Bill_Provider_Name,
+Bill_Provider_NPI,
+Billing_Provider_SID as Bill_Provider_SID,
+Bill_Provider_St,
+Bill_Provider_Zip as Bill_Provider_Zip_Cd,
+DW_Last_Update_Date_Time,
+Source_System_Code
+FROM
+ClaimsConnectDB.dbo.Dw_Billing_Provider WITH (nolock);

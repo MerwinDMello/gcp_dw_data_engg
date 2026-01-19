@@ -1,0 +1,48 @@
+project:
+  src-project-id: hca-hin-dev-cur-parallon
+  tgt-project-id: hca-hin-dev-cur-parallon
+  datasets:
+    -
+      src-dataset: edwpbs_base_views
+      tgt-dataset: edwpbs
+      tables:
+        -
+          name: fact_*
+          exclude-columns: [dw_last_update_date_time]
+          order-by: dw_last_update_date_time desc
+        -
+          name: eis_*
+          exclude-columns: [dw_last_update_date_time]
+          order-by: dw_last_update_date_time desc
+        -
+          name: patient_*
+          exclude-columns: [dw_last_update_date_time]
+          order-by: dw_last_update_date_time desc
+        -
+          name: pass_eow
+          exclude-columns: [dw_last_update_date_time]
+          order-by: dw_last_update_date_time desc
+        -
+          name: ar_transaction
+          exclude-columns: [dw_last_update_date_time]
+          order-by: dw_last_update_date_time desc
+        -
+          name: pat_balance_liability
+          exclude-columns: [dw_last_update_date_time]
+          order-by: dw_last_update_date_time desc
+        -
+          name: smry_ar_cash_collections_lp
+          exclude-columns: [dw_last_update_date_time]
+          order-by: dw_last_update_date_time desc
+        -
+          name: junc_reason_code
+          exclude-columns: [dw_last_update_date_time]
+          order-by: dw_last_update_date_time desc
+        -
+          name: tmp_rcom_ar_patient_level
+          exclude-columns: [dw_last_update_date_time]
+          order-by: dw_last_update_date_time desc
+result:
+  dataset: edwpbs_ac
+  table: data_validation_result
+remarks: Tested by Merwin DMello on 2023-09-26 05:30

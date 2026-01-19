@@ -1,0 +1,1 @@
+SELECT bill_provider_addr1, bill_provider_addr2, bill_prov_provider_city AS bill_provider_city, bill_provider_name, bill_provider_npi, billing_provider_sid AS bill_provider_sid, bill_provider_st, bill_provider_zip AS bill_provider_zip_cd, dw_last_update_date_time, source_system_code FROM claimsconnectdb.dbo.dw_billing_provider WITH (nolock);

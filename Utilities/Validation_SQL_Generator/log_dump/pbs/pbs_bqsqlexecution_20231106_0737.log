@@ -1,0 +1,1602 @@
+2023-11-06 07:44:06,226 - ERROR - Error executing SQL file ar_j_pf_fact_patient_cm_prm.sh.sql: 404 Not found: Table hca-hin-dev-cur-parallon:auth_base_views.fact_rcom_ar_patient_level was not found in location US
+
+Location: US
+Job ID: 73de89a7-762d-47d3-8716-4b5dff462e4e
+
+2023-11-06 07:44:07,901 - INFO - SQL file ar_j_pf_fact_patient_level_legacyar_prm.sh.sql executed successfully.
+2023-11-06 07:44:08,229 - ERROR - Error executing SQL file ar_j_pf_fact_patient_ltchg_prm.sh.sql: 404 Not found: Table hca-hin-dev-cur-parallon:auth_base_views.fact_rcom_ar_patient_level was not found in location US
+
+Location: US
+Job ID: 934945be-3970-4c08-9578-026a176b238e
+
+2023-11-06 07:44:08,578 - ERROR - Error executing SQL file ar_j_pf_fact_pat_dchrg_cnt_prm.sh.sql: 404 Not found: Table hca-hin-dev-cur-parallon:auth_base_views.fact_rcom_ar_patient_level was not found in location US
+
+Location: US
+Job ID: 98ed1de9-a6d4-43bd-8585-d3b1e00ce923
+
+2023-11-06 07:44:56,384 - INFO - SQL file ar_j_pf_fact_pat_dwoff_amt_prm.sh.sql executed successfully.
+2023-11-06 07:45:00,001 - INFO - SQL file ar_j_pf_fact_pat_unbil_bus_prm.sh.sql executed successfully.
+2023-11-06 07:45:03,965 - INFO - SQL file ar_j_pf_fact_pat_unbil_med_prm.sh.sql executed successfully.
+2023-11-06 07:45:48,770 - INFO - SQL file ar_j_pf_fact_pat_upfrntcol_prm.sh.sql executed successfully.
+2023-11-06 07:45:51,046 - INFO - SQL file ar_pbs_j_pf_fact_patient_cm_prm.sh.sql executed successfully.
+2023-11-06 07:45:52,439 - INFO - SQL file ar_pbs_j_pf_fact_patient_level_legacyar_prm.sh.sql executed successfully.
+2023-11-06 07:45:53,115 - ERROR - Error executing SQL file ar_pbs_j_pf_fact_patient_ltchg_prm.sh.sql: 400 Function not found: ERROR_UNIMPLEMENTED at [15:11]
+
+Location: US
+Job ID: 04eddbe0-9211-4692-9aa2-775e7fecd7c5
+
+2023-11-06 07:45:53,841 - ERROR - Error executing SQL file ar_pbs_j_pf_fact_pat_dchrg_cnt_prm.sh.sql: 403 Access Denied: Table hca-hin-curated-mirroring-td:edwpf_staging.pass_current: User does not have permission to query table hca-hin-curated-mirroring-td:edwpf_staging.pass_current, or perhaps it does not exist in location US.
+
+Location: US
+Job ID: 129357c6-e5f0-49b6-8a23-cecfcfa358b8
+
+2023-11-06 07:46:24,640 - INFO - SQL file ar_pbs_j_pf_fact_pat_dwoff_amt_prm.sh.sql executed successfully.
+2023-11-06 07:46:25,068 - ERROR - Error executing SQL file ar_pbs_j_pf_fact_pat_fc_level_prm.sh.sql: 404 Not found: Table hca-hin-dev-cur-parallon:auth_base_views.revstats_department was not found in location US
+
+Location: US
+Job ID: 0817c4d8-5a97-4077-86ee-f20ca773742f
+
+2023-11-06 07:46:27,883 - INFO - SQL file ar_pbs_j_pf_fact_pat_unbil_bus_prm.sh.sql executed successfully.
+2023-11-06 07:46:31,741 - INFO - SQL file ar_pbs_j_pf_fact_pat_unbil_med_prm.sh.sql executed successfully.
+2023-11-06 07:47:07,895 - INFO - SQL file ar_pbs_j_pf_fact_pat_upfrntcol_prm.sh.sql executed successfully.
+2023-11-06 07:47:08,900 - INFO - SQL file crcb_j_payment_compliance_credit_inventory_bal_prm.sh.sql executed successfully.
+2023-11-06 07:47:09,995 - INFO - SQL file crcb_j_payment_compliance_credit_inventory_rfnd_prm.sh.sql executed successfully.
+2023-11-06 07:47:10,938 - INFO - SQL file crcb_j_payment_compliance_credit_refund_prm.sh.sql executed successfully.
+2023-11-06 07:47:11,814 - INFO - SQL file crcb_j_pf_fact_pars_cdtbal_prm.sh.sql executed successfully.
+2023-11-06 07:47:12,788 - INFO - SQL file crcb_j_pf_fact_pars_cdtrfd_prm.sh.sql executed successfully.
+2023-11-06 07:47:13,875 - INFO - SQL file edwdim_j_pf_dim_organization_prm.sh.sql executed successfully.
+2023-11-06 07:47:15,017 - INFO - SQL file ep_j_ep_junc_remittance_additional_payee_ac.prm.sql executed successfully.
+2023-11-06 07:47:58,669 - INFO - SQL file ep_j_ep_junc_remittance_delete_ac.prm.sql executed successfully.
+2023-11-06 07:47:59,828 - INFO - SQL file ep_j_ep_junc_remittance_other_claim_related_info_ac.prm.sql executed successfully.
+2023-11-06 07:48:01,040 - INFO - SQL file ep_j_ep_junc_remittance_provider_serv_ac.prm.sql executed successfully.
+2023-11-06 07:48:02,270 - INFO - SQL file ep_j_ep_junc_remittance_secn_rendering_prov_ac.prm.sql executed successfully.
+2023-11-06 07:48:03,314 - INFO - SQL file ep_j_ep_junc_remittance_secn_rendering_prov_service_ac.prm.sql executed successfully.
+2023-11-06 07:48:04,377 - INFO - SQL file ep_j_ep_ref_provider_service_ac.prm.sql executed successfully.
+2023-11-06 07:48:05,361 - INFO - SQL file ep_j_ep_ref_remittance_additional_payee_ac.prm.sql executed successfully.
+2023-11-06 07:48:06,735 - INFO - SQL file ep_j_ep_ref_remittance_cob_carrier_ac.prm.sql executed successfully.
+2023-11-06 07:48:07,929 - INFO - SQL file ep_j_ep_ref_remittance_corrected_priority_payor_ac.prm.sql executed successfully.
+2023-11-06 07:48:08,959 - INFO - SQL file ep_j_ep_ref_remittance_other_claim_related_info_ac.prm.sql executed successfully.
+2023-11-06 07:48:10,052 - INFO - SQL file ep_j_ep_ref_remittance_oth_subscriber_info_ac.prm.sql executed successfully.
+2023-11-06 07:48:11,291 - INFO - SQL file ep_j_ep_ref_remittance_payee_ac.prm.sql executed successfully.
+2023-11-06 07:48:12,730 - INFO - SQL file ep_j_ep_ref_remittance_payor_ac.prm.sql executed successfully.
+2023-11-06 07:48:13,894 - INFO - SQL file ep_j_ep_ref_remittance_rendering_provider_ac.prm.sql executed successfully.
+2023-11-06 07:48:15,069 - INFO - SQL file ep_j_ep_ref_remittance_subscriber_info_ac.prm.sql executed successfully.
+2023-11-06 07:48:16,108 - INFO - SQL file ep_j_ep_ref_secn_remittance_rendering_provider_ac.prm.sql executed successfully.
+2023-11-06 07:48:17,307 - INFO - SQL file ep_j_ep_ref_secn_remittance_rendering_provider_service_ac.prm.sql executed successfully.
+2023-11-06 07:48:19,259 - INFO - SQL file ep_j_ep_remittance_claim_ac.prm.sql executed successfully.
+2023-11-06 07:48:21,283 - INFO - SQL file ep_j_ep_remittance_claim_carc_ac.prm.sql executed successfully.
+2023-11-06 07:48:22,448 - INFO - SQL file ep_j_ep_remittance_payment_ac.prm.sql executed successfully.
+2023-11-06 07:48:29,787 - INFO - SQL file ep_j_ep_remittance_service_carc_ac.prm.sql executed successfully.
+2023-11-06 07:48:30,655 - INFO - SQL file ep_j_ep_remittance_service_hcpcs_modifier_ac.prm.sql executed successfully.
+2023-11-06 07:48:31,858 - INFO - SQL file ep_j_ep_remittance_service_rarc_ac.prm.sql executed successfully.
+2023-11-06 07:48:32,722 - INFO - SQL file ep_j_remittance_plb_adj_ac.prm.sql executed successfully.
+2023-11-06 07:48:33,869 - INFO - SQL file ep_j_remittance_service_ac.prm.sql executed successfully.
+2023-11-06 07:48:34,571 - ERROR - Error executing SQL file pa_j_ada_patient_level_detail_prm.sh.sql: 400 Aggregate function SUM not allowed in UNNEST at [459:38]
+
+Location: US
+Job ID: 5cef5f03-7271-4a3b-a447-2277c69d3975
+
+2023-11-06 07:48:35,252 - ERROR - Error executing SQL file pa_j_pf_rpt_ar_ada_detail_prm.sh.sql: 400 Aggregate function SUM not allowed in UNNEST at [446:41]
+
+Location: US
+Job ID: e4aa84be-13d6-4ec8-9d2f-31c6ac64bf2f
+
+2023-11-06 07:48:36,641 - INFO - SQL file pc_j_pf_fact_disc_costyear_prm.sh.sql executed successfully.
+2023-11-06 07:49:25,007 - INFO - SQL file pc_j_pf_fact_disc_open_prm.sh.sql executed successfully.
+2023-11-06 07:49:25,359 - ERROR - Error executing SQL file pc_j_pf_fact_disc_ratevar_prm.sh.sql: 404 Not found: Table hca-hin-dev-cur-parallon:auth_base_views.facility_reimbursement_log was not found in location US
+
+Location: US
+Job ID: 3ad5bf67-bff3-4fbd-b64f-79d11ecf0fd5
+
+2023-11-06 07:50:14,063 - INFO - SQL file pc_j_pf_fact_disc_rsld_cm_prm.sh.sql executed successfully.
+2023-11-06 07:51:09,829 - INFO - SQL file pc_j_pf_fact_disc_rsld_pm_prm.sh.sql executed successfully.
+2023-11-06 07:51:10,170 - ERROR - Error executing SQL file ar_j_pf_fact_patient_cm_prm.sh.sql: 404 Not found: Table hca-hin-dev-cur-parallon:auth_base_views.fact_rcom_ar_patient_lvl_cm was not found in location US
+
+Location: US
+Job ID: e3de29ca-510a-4030-9f81-eef2b45ef77c
+
+2023-11-06 07:51:10,484 - ERROR - Error executing SQL file ar_j_pf_fact_patient_level_legacyar_prm.sh.sql: 404 Not found: Table hca-hin-dev-cur-parallon:auth_base_views.fact_rcom_ar_patient_level was not found in location US
+
+Location: US
+Job ID: 5f0fbbb8-5b82-4a4b-8b0e-9373b30504d2
+
+2023-11-06 07:51:10,807 - ERROR - Error executing SQL file ar_j_pf_fact_patient_level_prm.sh.sql: 404 Not found: Table hca-hin-dev-cur-parallon:auth_base_views.fact_rcom_ar_patient_level was not found in location US
+
+Location: US
+Job ID: 3d1b72b3-f97e-49d7-96ae-4558a48acd34
+
+2023-11-06 07:51:11,117 - ERROR - Error executing SQL file ar_j_pf_fact_patient_ltchg_prm.sh.sql: 404 Not found: Table hca-hin-dev-cur-parallon:auth_base_views.fact_rcom_ar_patient_level was not found in location US
+
+Location: US
+Job ID: 052f45eb-f0cb-4f8a-b3ee-c44a7e9e9a1c
+
+2023-11-06 07:51:11,443 - ERROR - Error executing SQL file ar_j_pf_fact_pat_dchrg_cnt_prm.sh.sql: 404 Not found: Table hca-hin-dev-cur-parallon:auth_base_views.fact_rcom_ar_patient_level was not found in location US
+
+Location: US
+Job ID: c210b1c7-adf5-4412-9843-7f36eef22a52
+
+2023-11-06 07:51:12,437 - INFO - SQL file ar_j_pf_fact_pat_dwoff_amt_prm.sh.sql executed successfully.
+2023-11-06 07:51:12,817 - ERROR - Error executing SQL file ar_j_pf_fact_pat_unbil_bus_prm.sh.sql: 404 Not found: Table hca-hin-dev-cur-parallon:auth_base_views.fact_rcom_ar_patient_level was not found in location US
+
+Location: US
+Job ID: b4776830-785c-4b16-8dda-658ac1f50627
+
+2023-11-06 07:51:13,130 - ERROR - Error executing SQL file ar_j_pf_fact_pat_unbil_med_prm.sh.sql: 404 Not found: Table hca-hin-dev-cur-parallon:auth_base_views.fact_rcom_ar_patient_level was not found in location US
+
+Location: US
+Job ID: 000c5870-5c06-4e07-9bfd-a11519e382e1
+
+2023-11-06 07:51:14,202 - INFO - SQL file ar_j_pf_fact_pat_upfrntcol_prm.sh.sql executed successfully.
+2023-11-06 07:51:14,525 - ERROR - Error executing SQL file ar_j_pf_fact_pat_w_off_amt_prm.sh.sql: 404 Not found: Table hca-hin-dev-cur-parallon:auth_base_views.fact_rcom_ar_patient_level was not found in location US
+
+Location: US
+Job ID: ee39ecee-a6a6-490c-8abf-e5dfd53bcafa
+
+2023-11-06 07:51:14,834 - ERROR - Error executing SQL file ar_pbs_j_pf_fact_patient_cm_prm.sh.sql: 404 Not found: Table hca-hin-dev-cur-parallon:auth_base_views.fact_rcom_ar_patient_lvl_cm was not found in location US
+
+Location: US
+Job ID: a2f826e0-612d-43fb-bd27-ec2eb5f76915
+
+2023-11-06 07:51:16,524 - INFO - SQL file ar_pbs_j_pf_fact_patient_level_legacyar_prm.sh.sql executed successfully.
+2023-11-06 07:51:19,515 - INFO - SQL file ar_pbs_j_pf_fact_patient_level_prm.sh.sql executed successfully.
+2023-11-06 07:51:20,509 - INFO - SQL file ar_pbs_j_pf_fact_patient_ltchg_prm.sh.sql executed successfully.
+2023-11-06 07:51:21,542 - INFO - SQL file ar_pbs_j_pf_fact_pat_dchrg_cnt_prm.sh.sql executed successfully.
+2023-11-06 07:51:22,537 - INFO - SQL file ar_pbs_j_pf_fact_pat_dwoff_amt_prm.sh.sql executed successfully.
+2023-11-06 07:51:23,588 - INFO - SQL file ar_pbs_j_pf_fact_pat_fc_level_prm.sh.sql executed successfully.
+2023-11-06 07:51:24,689 - INFO - SQL file ar_pbs_j_pf_fact_pat_unbil_bus_prm.sh.sql executed successfully.
+2023-11-06 07:51:26,286 - INFO - SQL file ar_pbs_j_pf_fact_pat_unbil_med_prm.sh.sql executed successfully.
+2023-11-06 07:51:27,255 - INFO - SQL file ar_pbs_j_pf_fact_pat_upfrntcol_prm.sh.sql executed successfully.
+2023-11-06 07:51:28,294 - INFO - SQL file ar_pbs_j_pf_fact_pat_w_off_amt_prm.sh.sql executed successfully.
+2023-11-06 07:51:29,314 - INFO - SQL file ar_pbs_j_stg_pf_pass_current_prm.sh.sql executed successfully.
+2023-11-06 07:51:30,252 - INFO - SQL file bud_j_dim_account_ac.prm.sql executed successfully.
+2023-11-06 07:51:31,123 - INFO - SQL file bud_j_dim_bdgt_organization_ac.prm.sql executed successfully.
+2023-11-06 07:51:31,991 - INFO - SQL file bud_j_dim_bdgt_scenario_ac.prm.sql executed successfully.
+2023-11-06 07:51:32,956 - INFO - SQL file bud_j_dim_bdgt_time_ac.prm.sql executed successfully.
+2023-11-06 07:51:33,752 - INFO - SQL file bud_j_dim_bdgt_value_ac.prm.sql executed successfully.
+2023-11-06 07:51:34,668 - INFO - SQL file bud_j_dim_bdgt_year_ac.prm.sql executed successfully.
+2023-11-06 07:51:35,439 - INFO - SQL file bud_j_dim_department_ac.prm.sql executed successfully.
+2023-11-06 07:51:36,325 - INFO - SQL file bud_j_dim_employee_ac.prm.sql executed successfully.
+2023-11-06 07:51:37,273 - INFO - SQL file bud_j_fact_ssd_budget_ac.prm.sql executed successfully.
+2023-11-06 07:51:38,147 - INFO - SQL file crcb_j_payment_compliance_credit_inventory_bal_prm.sh.sql executed successfully.
+2023-11-06 07:51:39,042 - INFO - SQL file crcb_j_payment_compliance_credit_inventory_rfnd_prm.sh.sql executed successfully.
+2023-11-06 07:51:39,354 - ERROR - Error executing SQL file crcb_j_payment_compliance_credit_refund_prm.sh.sql: 404 Not found: Table hca-hin-dev-cur-parallon:edwpbs.payment_compliance_credit_refund was not found in location US
+
+Location: US
+Job ID: b4ef6dc1-8c6b-486e-bab2-0c893f6f6f77
+
+2023-11-06 07:51:40,200 - INFO - SQL file crcb_j_pf_fact_pars_cdtbal_prm.sh.sql executed successfully.
+2023-11-06 07:51:41,114 - INFO - SQL file crcb_j_pf_fact_pars_cdtrfd_prm.sh.sql executed successfully.
+2023-11-06 07:51:41,967 - INFO - SQL file crcb_j_stg_payment_compliance_credit_inventory_bal_prm.sh.sql executed successfully.
+2023-11-06 07:51:42,849 - INFO - SQL file crcb_j_stg_payment_compliance_credit_inventory_rfnd_prm.sh.sql executed successfully.
+2023-11-06 07:51:43,723 - INFO - SQL file crcb_j_stg_pc_cr_refund_dly_prm.sh.sql executed successfully.
+2023-11-06 07:51:44,972 - INFO - SQL file crcb_j_stg_rcom_pars_cb_prm.sh.sql executed successfully.
+2023-11-06 07:51:45,899 - INFO - SQL file crcb_j_stg_rcom_pars_cr_prm.sh.sql executed successfully.
+2023-11-06 07:51:46,846 - INFO - SQL file edwdim_j_pf_dim_organization_prm.sh.sql executed successfully.
+2023-11-06 07:51:47,104 - ERROR - Error executing SQL file ep_j_epcarc_ac.prm.sql: 404 Not found: Table hca-hin-dev-cur-parallon:edwpsu_staging.epcarc was not found in location US
+
+Location: US
+Job ID: d62af19d-f2e3-4853-aaf3-2e267a72710e
+
+2023-11-06 07:51:47,338 - ERROR - Error executing SQL file ep_j_ephcpcs_ac.prm.sql: 404 Not found: Table hca-hin-dev-cur-parallon:edwpsu_staging.ephcpcs was not found in location US
+
+Location: US
+Job ID: 877109b8-ed73-4620-bbbc-266b2b865d7a
+
+2023-11-06 07:51:47,638 - ERROR - Error executing SQL file ep_j_epizcarc_ac.prm.sql: 404 Not found: Table hca-hin-dev-cur-parallon:edwpsu_staging.epizcarc was not found in location US
+
+Location: US
+Job ID: 0c1040e5-d96b-4eb7-a4b6-53195497874d
+
+2023-11-06 07:51:47,882 - ERROR - Error executing SQL file ep_j_epizrarc_ac.prm.sql: 404 Not found: Table hca-hin-dev-cur-parallon:edwpsu_staging.epizrarc was not found in location US
+
+Location: US
+Job ID: fb2bd97a-c8a1-4af6-a45c-4abd7c2a60e6
+
+2023-11-06 07:51:48,191 - ERROR - Error executing SQL file ep_j_eppayermaster_ac.prm.sql: 404 Not found: Table hca-hin-dev-cur-parallon:edwpsu_staging.eppayermaster was not found in location US
+
+Location: US
+Job ID: b86f481d-0a96-4136-b154-518033293b7d
+
+2023-11-06 07:51:48,512 - ERROR - Error executing SQL file ep_j_epplb_ac.prm.sql: 404 Not found: Table hca-hin-dev-cur-parallon:edwpsu_staging.epplb was not found in location US
+
+Location: US
+Job ID: cb6f356f-c600-44c8-99bb-71832f11dc7a
+
+2023-11-06 07:51:48,792 - ERROR - Error executing SQL file ep_j_epsplitfac_ac.prm.sql: 404 Not found: Table hca-hin-dev-cur-parallon:edwpsu_staging.epsplitfac was not found in location US
+
+Location: US
+Job ID: 0bd3c128-42dd-4690-93c4-c5e56228ce7d
+
+2023-11-06 07:51:49,101 - ERROR - Error executing SQL file ep_j_epsplitpayer_ac.prm.sql: 404 Not found: Table hca-hin-dev-cur-parallon:edwpsu_staging.epsplitpayer was not found in location US
+
+Location: US
+Job ID: d836ec7e-3dba-44d2-9327-616c4f7ba0c0
+
+2023-11-06 07:51:49,316 - ERROR - Error executing SQL file ep_j_epsplitrcvd_ac.prm.sql: 404 Not found: Table hca-hin-dev-cur-parallon:edwpsu_staging.epsplitrcvd was not found in location US
+
+Location: US
+Job ID: 99e3ff96-0564-4889-b6b1-072655f369c9
+
+2023-11-06 07:51:49,691 - ERROR - Error executing SQL file ep_j_epsplit_ac.prm.sql: 404 Not found: Table hca-hin-dev-cur-parallon:edwpsu_staging.epsplit was not found in location US
+
+Location: US
+Job ID: b0f0334e-d7eb-4e5b-8e01-6d36c8367576
+
+2023-11-06 07:51:49,964 - ERROR - Error executing SQL file ep_j_ep_ccc_ac.prm.sql: 404 Not found: Table hca-hin-dev-cur-parallon:edwpsu_staging.stg_ep_ccc was not found in location US
+
+Location: US
+Job ID: e4e5114d-1231-4a2c-b4ba-2fb09eef1a5e
+
+2023-11-06 07:51:50,281 - ERROR - Error executing SQL file ep_j_ep_clm_ac.prm.sql: 404 Not found: Table hca-hin-dev-cur-parallon:edwpsu_staging.stg_ep_clm was not found in location US
+
+Location: US
+Job ID: fb5509cf-ee41-4f78-859c-44acf55e5ba7
+
+2023-11-06 07:51:50,581 - ERROR - Error executing SQL file ep_j_ep_del_ac.prm.sql: 404 Not found: Table hca-hin-dev-cur-parallon:edwpsu_staging.stg_ep_del was not found in location US
+
+Location: US
+Job ID: 852d7cef-33b9-4111-b109-106270113845
+
+2023-11-06 07:51:51,475 - INFO - SQL file ep_j_ep_junc_remittance_additional_payee_ac.prm.sql executed successfully.
+2023-11-06 07:51:52,340 - INFO - SQL file ep_j_ep_junc_remittance_delete_ac.prm.sql executed successfully.
+2023-11-06 07:51:53,146 - INFO - SQL file ep_j_ep_junc_remittance_other_claim_related_info_ac.prm.sql executed successfully.
+2023-11-06 07:51:53,975 - INFO - SQL file ep_j_ep_junc_remittance_provider_serv_ac.prm.sql executed successfully.
+2023-11-06 07:51:54,813 - INFO - SQL file ep_j_ep_junc_remittance_secn_rendering_prov_ac.prm.sql executed successfully.
+2023-11-06 07:51:55,754 - INFO - SQL file ep_j_ep_junc_remittance_secn_rendering_prov_service_ac.prm.sql executed successfully.
+2023-11-06 07:51:56,073 - ERROR - Error executing SQL file ep_j_ep_plb_ac.prm.sql: 404 Not found: Table hca-hin-dev-cur-parallon:edwpsu_staging.stg_ep_plb was not found in location US
+
+Location: US
+Job ID: 74b69657-780e-4cec-958e-0873c953a297
+
+2023-11-06 07:51:56,378 - ERROR - Error executing SQL file ep_j_ep_pmt_ac.prm.sql: 404 Not found: Table hca-hin-dev-cur-parallon:edwpsu_staging.stg_ep_pmt was not found in location US
+
+Location: US
+Job ID: a8373e12-44d4-4281-9a1a-7d748532a6a2
+
+2023-11-06 07:51:57,330 - INFO - SQL file ep_j_ep_ref_provider_service_ac.prm.sql executed successfully.
+2023-11-06 07:51:58,129 - INFO - SQL file ep_j_ep_ref_remittance_additional_payee_ac.prm.sql executed successfully.
+2023-11-06 07:51:58,942 - INFO - SQL file ep_j_ep_ref_remittance_cob_carrier_ac.prm.sql executed successfully.
+2023-11-06 07:51:59,838 - INFO - SQL file ep_j_ep_ref_remittance_corrected_priority_payor_ac.prm.sql executed successfully.
+2023-11-06 07:52:00,663 - INFO - SQL file ep_j_ep_ref_remittance_other_claim_related_info_ac.prm.sql executed successfully.
+2023-11-06 07:52:01,437 - INFO - SQL file ep_j_ep_ref_remittance_oth_subscriber_info_ac.prm.sql executed successfully.
+2023-11-06 07:52:02,244 - INFO - SQL file ep_j_ep_ref_remittance_payee_ac.prm.sql executed successfully.
+2023-11-06 07:52:03,015 - INFO - SQL file ep_j_ep_ref_remittance_payor_ac.prm.sql executed successfully.
+2023-11-06 07:52:03,856 - INFO - SQL file ep_j_ep_ref_remittance_rendering_provider_ac.prm.sql executed successfully.
+2023-11-06 07:52:04,654 - INFO - SQL file ep_j_ep_ref_remittance_subscriber_info_ac.prm.sql executed successfully.
+2023-11-06 07:52:05,511 - INFO - SQL file ep_j_ep_ref_secn_remittance_rendering_provider_ac.prm.sql executed successfully.
+2023-11-06 07:52:06,413 - INFO - SQL file ep_j_ep_ref_secn_remittance_rendering_provider_service_ac.prm.sql executed successfully.
+2023-11-06 07:52:07,377 - INFO - SQL file ep_j_ep_remittancepayment_ac.prm.sql executed successfully.
+2023-11-06 07:52:08,439 - INFO - SQL file ep_j_ep_remittance_claim_ac.prm.sql executed successfully.
+2023-11-06 07:52:10,628 - INFO - SQL file ep_j_ep_remittance_claim_carc_ac.prm.sql executed successfully.
+2023-11-06 07:52:11,511 - INFO - SQL file ep_j_ep_remittance_payment_ac.prm.sql executed successfully.
+2023-11-06 07:52:12,302 - INFO - SQL file ep_j_ep_remittance_service_ac.prm.sql executed successfully.
+2023-11-06 07:52:13,232 - INFO - SQL file ep_j_ep_remittance_service_carc_ac.prm.sql executed successfully.
+2023-11-06 07:52:14,304 - INFO - SQL file ep_j_ep_remittance_service_hcpcs_modifier_ac.prm.sql executed successfully.
+2023-11-06 07:52:16,179 - INFO - SQL file ep_j_ep_remittance_service_rarc_ac.prm.sql executed successfully.
+2023-11-06 07:52:16,514 - ERROR - Error executing SQL file ep_j_ep_scc_ac.prm.sql: 404 Not found: Table hca-hin-dev-cur-parallon:edwpsu_staging.stg_ep_scc was not found in location US
+
+Location: US
+Job ID: 9d7a8974-f1e7-4f11-a25c-6581be3be396
+
+2023-11-06 07:52:16,819 - ERROR - Error executing SQL file ep_j_ep_src_ac.prm.sql: 404 Not found: Table hca-hin-dev-cur-parallon:edwpsu_staging.stg_ep_src was not found in location US
+
+Location: US
+Job ID: 12fdf274-f9dc-4324-a2e2-7292d1023764
+
+2023-11-06 07:52:17,864 - INFO - SQL file ep_j_ep_stg_remittance_claim_carc_ac.prm.sql executed successfully.
+2023-11-06 07:52:18,772 - INFO - SQL file ep_j_ep_stg_remittance_service_carc_ac.prm.sql executed successfully.
+2023-11-06 07:52:19,596 - INFO - SQL file ep_j_ep_stg_remittance_service_rarc_ac.prm.sql executed successfully.
+2023-11-06 07:52:19,832 - ERROR - Error executing SQL file ep_j_ep_svc_ac.prm.sql: 404 Not found: Table hca-hin-dev-cur-parallon:edwpsu_staging.stg_ep_svc was not found in location US
+
+Location: US
+Job ID: 37125a78-e98b-4c71-bd48-23b3388d831c
+
+2023-11-06 07:52:20,792 - INFO - SQL file ep_j_remittance_claim_ac.prm.sql executed successfully.
+2023-11-06 07:52:21,635 - INFO - SQL file ep_j_remittance_plb_adj_ac.prm.sql executed successfully.
+2023-11-06 07:52:22,574 - INFO - SQL file ep_j_remittance_service_ac.prm.sql executed successfully.
+2023-11-06 07:52:23,703 - INFO - SQL file ep_j_stg_remittance_plb_adj_ac.prm.sql executed successfully.
+2023-11-06 07:52:24,603 - INFO - SQL file hps_j_stg_hps_pat_payment_link_dtl_prm.sh.sql executed successfully.
+2023-11-06 07:52:25,482 - INFO - SQL file pa_j_ada_patient_level_detail_prm.sh.sql executed successfully.
+2023-11-06 07:52:26,534 - INFO - SQL file pa_j_pf_ref_ada_facility_metric_prm.sh.sql executed successfully.
+2023-11-06 07:52:27,446 - INFO - SQL file pa_j_pf_rpt_ar_ada_detail_prm.sh.sql executed successfully.
+2023-11-06 07:52:28,426 - INFO - SQL file pc_j_pf_dim_reason_code_prm.sh.sql executed successfully.
+2023-11-06 07:52:28,781 - ERROR - Error executing SQL file pc_j_pf_fact_disc_beg_bal_prm.sh.sql: 400 Column 1 contains an aggregation function, which is not allowed in GROUP BY at [24:10]
+
+Location: US
+Job ID: b7d37c0a-9978-4d95-9186-55cb3a4a3686
+
+2023-11-06 07:52:29,092 - ERROR - Error executing SQL file pc_j_pf_fact_disc_costyear_prm.sh.sql: 404 Not found: Table hca-hin-dev-cur-parallon:edwpbs_staging.eis_dcrp_unit_cost_year_dim was not found in location US
+
+Location: US
+Job ID: f5840c0e-c271-4ac5-b0e7-478f3f220245
+
+2023-11-06 07:52:30,287 - INFO - SQL file pc_j_pf_fact_disc_open_prm.sh.sql executed successfully.
+2023-11-06 07:52:32,065 - INFO - SQL file pc_j_pf_fact_disc_oth_amt_prm.sh.sql executed successfully.
+2023-11-06 07:52:33,913 - INFO - SQL file pc_j_pf_fact_disc_ratevar_prm.sh.sql executed successfully.
+2023-11-06 07:52:35,149 - INFO - SQL file pc_j_pf_fact_disc_rsld_cm_prm.sh.sql executed successfully.
+2023-11-06 07:52:36,311 - INFO - SQL file pc_j_pf_fact_disc_rsld_pm_prm.sh.sql executed successfully.
+2023-11-06 07:52:36,328 - INFO - =========execution_results================
+2023-11-06 07:52:36,329 - INFO - Total SQL files executed: 161
+2023-11-06 07:52:36,329 - INFO - SQL files executed successfully: 122
+2023-11-06 07:52:36,329 - INFO - SQL files failed with errors: 39
+2023-11-06 07:52:36,329 - INFO -  --SQL files with Missing db objects: 34
+2023-11-06 07:52:36,329 - INFO -  --SQL files with Dup Data Issues: 0
+2023-11-06 08:04:41,678 - INFO - SQL file edwci_j_mhb_alerting_audit_detail_prm.sh.sql executed successfully.
+2023-11-06 08:04:43,165 - INFO - SQL file edwci_j_mhb_broadcast_message_detail_prm.sh.sql executed successfully.
+2023-11-06 08:04:44,155 - INFO - SQL file edwci_j_mhb_broadcast_message_prm.sh.sql executed successfully.
+2023-11-06 08:05:36,341 - INFO - SQL file edwci_j_mhb_care_attachment_prm.sh.sql executed successfully.
+2023-11-06 08:06:04,064 - INFO - SQL file edwci_j_mhb_care_detachment_prm.sh.sql executed successfully.
+2023-11-06 08:06:05,619 - INFO - SQL file edwci_j_mhb_dynamic_role_attachment_prm.sh.sql executed successfully.
+2023-11-06 08:06:07,243 - INFO - SQL file edwci_j_mhb_dynamic_role_detachment_prm.sh.sql executed successfully.
+2023-11-06 08:06:07,537 - ERROR - Error executing SQL file edwci_j_mhb_group_chat_message_prm.sh.sql: 400 Syntax error: Unexpected "." at [32:101]
+
+Location: US
+Job ID: 73862545-5021-4ba4-8d22-008d44a001a0
+
+2023-11-06 08:06:07,843 - ERROR - Error executing SQL file edwci_j_mhb_inter_application_inbound_prm.sh.sql: 400 Syntax error: Unexpected "." at [25:101]
+
+Location: US
+Job ID: caa49daa-dd2e-44dd-ae30-38e7a675c4e9
+
+2023-11-06 08:06:08,084 - ERROR - Error executing SQL file edwci_j_mhb_inter_application_outbound_prm.sh.sql: 400 Syntax error: Unexpected "." at [29:101]
+
+Location: US
+Job ID: b7f53441-aaca-49e2-b87a-db60577aa126
+
+2023-11-06 08:06:09,183 - INFO - SQL file edwci_j_mhb_lab_order_audit_detail_prm.sh.sql executed successfully.
+2023-11-06 08:06:13,376 - INFO - SQL file edwci_j_mhb_message_prm.sh.sql executed successfully.
+2023-11-06 08:06:14,239 - INFO - SQL file edwci_j_mhb_patient_vital_audits_prm.sh.sql executed successfully.
+2023-11-06 08:06:15,697 - INFO - SQL file edwci_j_mhb_phone_call_audit_detail_prm.sh.sql executed successfully.
+2023-11-06 08:06:16,838 - INFO - SQL file edwci_j_mhb_phone_prm.sh.sql executed successfully.
+2023-11-06 08:06:18,228 - INFO - SQL file edwci_j_mhb_ref_mhb_action_type_prm.sh.sql executed successfully.
+2023-11-06 08:06:19,319 - INFO - SQL file edwci_j_mhb_ref_mhb_alert_type_prm.sh.sql executed successfully.
+2023-11-06 08:06:20,544 - INFO - SQL file edwci_j_mhb_ref_mhb_dynamic_role_prm.sh.sql executed successfully.
+2023-11-06 08:06:21,837 - INFO - SQL file edwci_j_mhb_ref_mhb_login_type_prm.sh.sql executed successfully.
+2023-11-06 08:06:23,282 - INFO - SQL file edwci_j_mhb_ref_mhb_message_delivery_priority_prm.sh.sql executed successfully.
+2023-11-06 08:06:24,411 - INFO - SQL file edwci_j_mhb_ref_mhb_unit_prm.sh.sql executed successfully.
+2023-11-06 08:06:25,636 - INFO - SQL file edwci_j_mhb_ref_mhb_user_action_type_prm.sh.sql executed successfully.
+2023-11-06 08:06:26,918 - INFO - SQL file edwci_j_mhb_ref_mhb_user_group_prm.sh.sql executed successfully.
+2023-11-06 08:06:28,074 - INFO - SQL file edwci_j_mhb_ref_mhb_user_role_prm.sh.sql executed successfully.
+2023-11-06 08:06:29,203 - INFO - SQL file edwci_j_mhb_ref_mhb_wctp_destination_name_prm.sh.sql executed successfully.
+2023-11-06 08:06:30,458 - INFO - SQL file edwci_j_mhb_ref_mhb_wctp_source_name_prm.sh.sql executed successfully.
+2023-11-06 08:06:31,940 - INFO - SQL file edwci_j_mhb_ref_mhb_wctp_source_type_prm.sh.sql executed successfully.
+2023-11-06 08:06:32,908 - INFO - SQL file edwci_j_mhb_user_prm.sh.sql executed successfully.
+2023-11-06 08:06:34,545 - INFO - SQL file edwci_j_mhb_wctp_inbound_message_prm.sh.sql executed successfully.
+2023-11-06 08:06:36,003 - INFO - SQL file edwci_j_mhb_wctp_outbound_message_prm.sh.sql executed successfully.
+2023-11-06 08:06:37,627 - INFO - SQL file edwci_j_mhb_alerting_audit_detail_prm.sh.sql executed successfully.
+2023-11-06 08:06:39,051 - INFO - SQL file edwci_j_mhb_broadcast_message_detail_prm.sh.sql executed successfully.
+2023-11-06 08:06:40,072 - INFO - SQL file edwci_j_mhb_broadcast_message_prm.sh.sql executed successfully.
+2023-11-06 08:06:40,941 - INFO - SQL file edwci_j_mhb_care_attachment_prm.sh.sql executed successfully.
+2023-11-06 08:06:43,173 - INFO - SQL file edwci_j_mhb_care_detachment_prm.sh.sql executed successfully.
+2023-11-06 08:06:44,195 - INFO - SQL file edwci_j_mhb_dynamic_role_attachment_prm.sh.sql executed successfully.
+2023-11-06 08:06:44,990 - INFO - SQL file edwci_j_mhb_dynamic_role_detachment_prm.sh.sql executed successfully.
+2023-11-06 08:06:45,824 - INFO - SQL file edwci_j_mhb_group_chat_message_prm.sh.sql executed successfully.
+2023-11-06 08:06:46,737 - INFO - SQL file edwci_j_mhb_inter_application_inbound_prm.sh.sql executed successfully.
+2023-11-06 08:06:48,142 - INFO - SQL file edwci_j_mhb_inter_application_outbound_prm.sh.sql executed successfully.
+2023-11-06 08:06:49,044 - INFO - SQL file edwci_j_mhb_lab_order_audit_detail_prm.sh.sql executed successfully.
+2023-11-06 08:06:49,970 - INFO - SQL file edwci_j_mhb_message_prm.sh.sql executed successfully.
+2023-11-06 08:06:50,905 - INFO - SQL file edwci_j_mhb_patient_vital_audits_prm.sh.sql executed successfully.
+2023-11-06 08:06:51,723 - INFO - SQL file edwci_j_mhb_phone_call_audit_detail_prm.sh.sql executed successfully.
+2023-11-06 08:06:52,457 - INFO - SQL file edwci_j_mhb_phone_prm.sh.sql executed successfully.
+2023-11-06 08:06:53,269 - INFO - SQL file edwci_j_mhb_ref_mhb_action_type_prm.sh.sql executed successfully.
+2023-11-06 08:06:54,093 - INFO - SQL file edwci_j_mhb_ref_mhb_alert_type_prm.sh.sql executed successfully.
+2023-11-06 08:06:54,957 - INFO - SQL file edwci_j_mhb_ref_mhb_dynamic_role_prm.sh.sql executed successfully.
+2023-11-06 08:06:55,779 - INFO - SQL file edwci_j_mhb_ref_mhb_login_type_prm.sh.sql executed successfully.
+2023-11-06 08:06:56,582 - INFO - SQL file edwci_j_mhb_ref_mhb_message_delivery_priority_prm.sh.sql executed successfully.
+2023-11-06 08:06:57,396 - INFO - SQL file edwci_j_mhb_ref_mhb_unit_prm.sh.sql executed successfully.
+2023-11-06 08:06:58,247 - INFO - SQL file edwci_j_mhb_ref_mhb_user_action_type_prm.sh.sql executed successfully.
+2023-11-06 08:06:59,059 - INFO - SQL file edwci_j_mhb_ref_mhb_user_group_prm.sh.sql executed successfully.
+2023-11-06 08:06:59,824 - INFO - SQL file edwci_j_mhb_ref_mhb_user_role_prm.sh.sql executed successfully.
+2023-11-06 08:07:00,862 - INFO - SQL file edwci_j_mhb_ref_mhb_wctp_destination_name_prm.sh.sql executed successfully.
+2023-11-06 08:07:01,967 - INFO - SQL file edwci_j_mhb_ref_mhb_wctp_source_name_prm.sh.sql executed successfully.
+2023-11-06 08:07:02,747 - INFO - SQL file edwci_j_mhb_ref_mhb_wctp_source_type_prm.sh.sql executed successfully.
+2023-11-06 08:07:03,744 - INFO - SQL file edwci_j_mhb_user_prm.sh.sql executed successfully.
+2023-11-06 08:07:04,532 - INFO - SQL file edwci_j_mhb_vwunits_stgload_prm.sh.sql executed successfully.
+2023-11-06 08:07:05,470 - INFO - SQL file edwci_j_mhb_vw_broadcast_messages_stgload_prm.sh.sql executed successfully.
+2023-11-06 08:07:06,407 - INFO - SQL file edwci_j_mhb_vw_dynamic_care_attachment_stgload_prm.sh.sql executed successfully.
+2023-11-06 08:07:07,294 - INFO - SQL file edwci_j_mhb_vw_dynamic_care_detachment_stgload_prm.sh.sql executed successfully.
+2023-11-06 08:07:08,108 - INFO - SQL file edwci_j_mhb_vw_dynamic_role_attachment_stgload_prm.sh.sql executed successfully.
+2023-11-06 08:07:09,014 - INFO - SQL file edwci_j_mhb_vw_dynamic_role_detachment_stgload_prm.sh.sql executed successfully.
+2023-11-06 08:07:10,114 - INFO - SQL file edwci_j_mhb_vw_group_chat_messages_stgload_prm.sh.sql executed successfully.
+2023-11-06 08:07:10,969 - INFO - SQL file edwci_j_mhb_vw_inter_application_inbound_stgload_prm.sh.sql executed successfully.
+2023-11-06 08:07:11,999 - INFO - SQL file edwci_j_mhb_vw_inter_application_outbound_stgload_prm.sh.sql executed successfully.
+2023-11-06 08:07:12,745 - INFO - SQL file edwci_j_mhb_vw_lab_order_audits_stgload_prm.sh.sql executed successfully.
+2023-11-06 08:07:13,618 - INFO - SQL file edwci_j_mhb_vw_patient_alert_tracker_stgload_prm.sh.sql executed successfully.
+2023-11-06 08:07:14,558 - INFO - SQL file edwci_j_mhb_vw_patient_vital_audits_stg_load_prm.sh.sql executed successfully.
+2023-11-06 08:07:15,393 - INFO - SQL file edwci_j_mhb_vw_phone_stgload_prm.sh.sql executed successfully.
+2023-11-06 08:07:16,146 - INFO - SQL file edwci_j_mhb_vw_photo_save_audits_stgload_prm.sh.sql executed successfully.
+2023-11-06 08:07:17,017 - INFO - SQL file edwci_j_mhb_vw_photo_view_audits_stg_load_prm.sh.sql executed successfully.
+2023-11-06 08:07:17,859 - INFO - SQL file edwci_j_mhb_vw_text_messages_stgload_prm.sh.sql executed successfully.
+2023-11-06 08:07:18,717 - INFO - SQL file edwci_j_mhb_vw_user_groups_stgload_prm.sh.sql executed successfully.
+2023-11-06 08:07:19,578 - INFO - SQL file edwci_j_mhb_vw_user_login_stgload_prm.sh.sql executed successfully.
+2023-11-06 08:07:20,374 - INFO - SQL file edwci_j_mhb_vw_user_phonecalls_stg_load_prm.sh.sql executed successfully.
+2023-11-06 08:07:21,123 - INFO - SQL file edwci_j_mhb_vw_user_stgload_prm.sh.sql executed successfully.
+2023-11-06 08:07:21,936 - INFO - SQL file edwci_j_mhb_vw_wctp_inbound_messages_stgload_prm.sh.sql executed successfully.
+2023-11-06 08:07:22,619 - INFO - SQL file edwci_j_mhb_vw_wctp_outbound_messages_stgload_prm.sh.sql executed successfully.
+2023-11-06 08:07:23,479 - INFO - SQL file edwci_j_mhb_wctp_inbound_message_prm.sh.sql executed successfully.
+2023-11-06 08:07:24,396 - INFO - SQL file edwci_j_mhb_wctp_outbound_message_prm.sh.sql executed successfully.
+2023-11-06 08:44:07,855 - INFO - SQL file edwci_j_mhb_alerting_audit_detail_prm.sh.sql executed successfully.
+2023-11-06 08:44:09,128 - INFO - SQL file edwci_j_mhb_broadcast_message_detail_prm.sh.sql executed successfully.
+2023-11-06 08:44:10,121 - INFO - SQL file edwci_j_mhb_broadcast_message_prm.sh.sql executed successfully.
+2023-11-06 08:45:12,431 - INFO - SQL file edwci_j_mhb_care_attachment_prm.sh.sql executed successfully.
+2023-11-06 08:45:46,912 - INFO - SQL file edwci_j_mhb_care_detachment_prm.sh.sql executed successfully.
+2023-11-06 08:45:48,709 - INFO - SQL file edwci_j_mhb_dynamic_role_attachment_prm.sh.sql executed successfully.
+2023-11-06 08:45:50,344 - INFO - SQL file edwci_j_mhb_dynamic_role_detachment_prm.sh.sql executed successfully.
+2023-11-06 08:46:27,150 - INFO - SQL file edwci_j_mhb_group_chat_message_prm.sh.sql executed successfully.
+2023-11-06 08:47:02,417 - INFO - SQL file edwci_j_mhb_inter_application_inbound_prm.sh.sql executed successfully.
+2023-11-06 08:47:40,124 - INFO - SQL file edwci_j_mhb_inter_application_outbound_prm.sh.sql executed successfully.
+2023-11-06 08:47:41,066 - INFO - SQL file edwci_j_mhb_lab_order_audit_detail_prm.sh.sql executed successfully.
+2023-11-06 08:47:43,866 - INFO - SQL file edwci_j_mhb_message_prm.sh.sql executed successfully.
+2023-11-06 08:47:44,714 - INFO - SQL file edwci_j_mhb_patient_vital_audits_prm.sh.sql executed successfully.
+2023-11-06 08:47:46,022 - INFO - SQL file edwci_j_mhb_phone_call_audit_detail_prm.sh.sql executed successfully.
+2023-11-06 08:47:47,045 - INFO - SQL file edwci_j_mhb_phone_prm.sh.sql executed successfully.
+2023-11-06 08:47:48,373 - INFO - SQL file edwci_j_mhb_ref_mhb_action_type_prm.sh.sql executed successfully.
+2023-11-06 08:47:49,360 - INFO - SQL file edwci_j_mhb_ref_mhb_alert_type_prm.sh.sql executed successfully.
+2023-11-06 08:47:50,546 - INFO - SQL file edwci_j_mhb_ref_mhb_dynamic_role_prm.sh.sql executed successfully.
+2023-11-06 08:47:51,638 - INFO - SQL file edwci_j_mhb_ref_mhb_login_type_prm.sh.sql executed successfully.
+2023-11-06 08:47:52,947 - INFO - SQL file edwci_j_mhb_ref_mhb_message_delivery_priority_prm.sh.sql executed successfully.
+2023-11-06 08:47:54,108 - INFO - SQL file edwci_j_mhb_ref_mhb_unit_prm.sh.sql executed successfully.
+2023-11-06 08:47:55,426 - INFO - SQL file edwci_j_mhb_ref_mhb_user_action_type_prm.sh.sql executed successfully.
+2023-11-06 08:47:56,709 - INFO - SQL file edwci_j_mhb_ref_mhb_user_group_prm.sh.sql executed successfully.
+2023-11-06 08:47:57,782 - INFO - SQL file edwci_j_mhb_ref_mhb_user_role_prm.sh.sql executed successfully.
+2023-11-06 08:47:58,830 - INFO - SQL file edwci_j_mhb_ref_mhb_wctp_destination_name_prm.sh.sql executed successfully.
+2023-11-06 08:48:00,186 - INFO - SQL file edwci_j_mhb_ref_mhb_wctp_source_name_prm.sh.sql executed successfully.
+2023-11-06 08:48:01,775 - INFO - SQL file edwci_j_mhb_ref_mhb_wctp_source_type_prm.sh.sql executed successfully.
+2023-11-06 08:48:02,817 - INFO - SQL file edwci_j_mhb_user_prm.sh.sql executed successfully.
+2023-11-06 08:48:04,515 - INFO - SQL file edwci_j_mhb_wctp_inbound_message_prm.sh.sql executed successfully.
+2023-11-06 08:48:06,061 - INFO - SQL file edwci_j_mhb_wctp_outbound_message_prm.sh.sql executed successfully.
+2023-11-06 08:48:06,886 - INFO - SQL file edwci_j_mhb_alerting_audit_detail_prm.sh.sql executed successfully.
+2023-11-06 08:48:07,674 - INFO - SQL file edwci_j_mhb_broadcast_message_detail_prm.sh.sql executed successfully.
+2023-11-06 08:48:08,524 - INFO - SQL file edwci_j_mhb_broadcast_message_prm.sh.sql executed successfully.
+2023-11-06 08:48:09,363 - INFO - SQL file edwci_j_mhb_care_attachment_prm.sh.sql executed successfully.
+2023-11-06 08:48:10,257 - INFO - SQL file edwci_j_mhb_care_detachment_prm.sh.sql executed successfully.
+2023-11-06 08:48:10,964 - INFO - SQL file edwci_j_mhb_dynamic_role_attachment_prm.sh.sql executed successfully.
+2023-11-06 08:48:11,827 - INFO - SQL file edwci_j_mhb_dynamic_role_detachment_prm.sh.sql executed successfully.
+2023-11-06 08:48:12,613 - INFO - SQL file edwci_j_mhb_group_chat_message_prm.sh.sql executed successfully.
+2023-11-06 08:48:13,595 - INFO - SQL file edwci_j_mhb_inter_application_inbound_prm.sh.sql executed successfully.
+2023-11-06 08:48:14,319 - INFO - SQL file edwci_j_mhb_inter_application_outbound_prm.sh.sql executed successfully.
+2023-11-06 08:48:15,147 - INFO - SQL file edwci_j_mhb_lab_order_audit_detail_prm.sh.sql executed successfully.
+2023-11-06 08:48:16,156 - INFO - SQL file edwci_j_mhb_message_prm.sh.sql executed successfully.
+2023-11-06 08:48:16,978 - INFO - SQL file edwci_j_mhb_patient_vital_audits_prm.sh.sql executed successfully.
+2023-11-06 08:48:17,820 - INFO - SQL file edwci_j_mhb_phone_call_audit_detail_prm.sh.sql executed successfully.
+2023-11-06 08:48:18,641 - INFO - SQL file edwci_j_mhb_phone_prm.sh.sql executed successfully.
+2023-11-06 08:48:19,447 - INFO - SQL file edwci_j_mhb_ref_mhb_action_type_prm.sh.sql executed successfully.
+2023-11-06 08:48:20,396 - INFO - SQL file edwci_j_mhb_ref_mhb_alert_type_prm.sh.sql executed successfully.
+2023-11-06 08:48:21,251 - INFO - SQL file edwci_j_mhb_ref_mhb_dynamic_role_prm.sh.sql executed successfully.
+2023-11-06 08:48:22,047 - INFO - SQL file edwci_j_mhb_ref_mhb_login_type_prm.sh.sql executed successfully.
+2023-11-06 08:48:22,920 - INFO - SQL file edwci_j_mhb_ref_mhb_message_delivery_priority_prm.sh.sql executed successfully.
+2023-11-06 08:48:23,612 - INFO - SQL file edwci_j_mhb_ref_mhb_unit_prm.sh.sql executed successfully.
+2023-11-06 08:48:24,535 - INFO - SQL file edwci_j_mhb_ref_mhb_user_action_type_prm.sh.sql executed successfully.
+2023-11-06 08:48:25,323 - INFO - SQL file edwci_j_mhb_ref_mhb_user_group_prm.sh.sql executed successfully.
+2023-11-06 08:48:26,146 - INFO - SQL file edwci_j_mhb_ref_mhb_user_role_prm.sh.sql executed successfully.
+2023-11-06 08:48:26,973 - INFO - SQL file edwci_j_mhb_ref_mhb_wctp_destination_name_prm.sh.sql executed successfully.
+2023-11-06 08:48:27,864 - INFO - SQL file edwci_j_mhb_ref_mhb_wctp_source_name_prm.sh.sql executed successfully.
+2023-11-06 08:48:28,672 - INFO - SQL file edwci_j_mhb_ref_mhb_wctp_source_type_prm.sh.sql executed successfully.
+2023-11-06 08:48:29,517 - INFO - SQL file edwci_j_mhb_user_prm.sh.sql executed successfully.
+2023-11-06 08:48:30,317 - INFO - SQL file edwci_j_mhb_vwunits_stgload_prm.sh.sql executed successfully.
+2023-11-06 08:48:31,153 - INFO - SQL file edwci_j_mhb_vw_broadcast_messages_stgload_prm.sh.sql executed successfully.
+2023-11-06 08:48:32,025 - INFO - SQL file edwci_j_mhb_vw_dynamic_care_attachment_stgload_prm.sh.sql executed successfully.
+2023-11-06 08:48:32,885 - INFO - SQL file edwci_j_mhb_vw_dynamic_care_detachment_stgload_prm.sh.sql executed successfully.
+2023-11-06 08:48:33,698 - INFO - SQL file edwci_j_mhb_vw_dynamic_role_attachment_stgload_prm.sh.sql executed successfully.
+2023-11-06 08:48:34,615 - INFO - SQL file edwci_j_mhb_vw_dynamic_role_detachment_stgload_prm.sh.sql executed successfully.
+2023-11-06 08:48:35,287 - INFO - SQL file edwci_j_mhb_vw_group_chat_messages_stgload_prm.sh.sql executed successfully.
+2023-11-06 08:48:36,122 - INFO - SQL file edwci_j_mhb_vw_inter_application_inbound_stgload_prm.sh.sql executed successfully.
+2023-11-06 08:48:36,990 - INFO - SQL file edwci_j_mhb_vw_inter_application_outbound_stgload_prm.sh.sql executed successfully.
+2023-11-06 08:48:37,767 - INFO - SQL file edwci_j_mhb_vw_lab_order_audits_stgload_prm.sh.sql executed successfully.
+2023-11-06 08:48:38,640 - INFO - SQL file edwci_j_mhb_vw_patient_alert_tracker_stgload_prm.sh.sql executed successfully.
+2023-11-06 08:48:39,561 - INFO - SQL file edwci_j_mhb_vw_patient_vital_audits_stg_load_prm.sh.sql executed successfully.
+2023-11-06 08:48:40,440 - INFO - SQL file edwci_j_mhb_vw_phone_stgload_prm.sh.sql executed successfully.
+2023-11-06 08:48:41,386 - INFO - SQL file edwci_j_mhb_vw_photo_save_audits_stgload_prm.sh.sql executed successfully.
+2023-11-06 08:48:42,704 - INFO - SQL file edwci_j_mhb_vw_photo_view_audits_stg_load_prm.sh.sql executed successfully.
+2023-11-06 08:48:43,917 - INFO - SQL file edwci_j_mhb_vw_text_messages_stgload_prm.sh.sql executed successfully.
+2023-11-06 08:48:44,929 - INFO - SQL file edwci_j_mhb_vw_user_groups_stgload_prm.sh.sql executed successfully.
+2023-11-06 08:48:45,799 - INFO - SQL file edwci_j_mhb_vw_user_login_stgload_prm.sh.sql executed successfully.
+2023-11-06 08:48:46,626 - INFO - SQL file edwci_j_mhb_vw_user_phonecalls_stg_load_prm.sh.sql executed successfully.
+2023-11-06 08:48:50,123 - INFO - SQL file edwci_j_mhb_vw_user_stgload_prm.sh.sql executed successfully.
+2023-11-06 08:48:51,507 - INFO - SQL file edwci_j_mhb_vw_wctp_inbound_messages_stgload_prm.sh.sql executed successfully.
+2023-11-06 08:48:52,459 - INFO - SQL file edwci_j_mhb_vw_wctp_outbound_messages_stgload_prm.sh.sql executed successfully.
+2023-11-06 08:48:53,291 - INFO - SQL file edwci_j_mhb_wctp_inbound_message_prm.sh.sql executed successfully.
+2023-11-06 08:48:54,348 - INFO - SQL file edwci_j_mhb_wctp_outbound_message_prm.sh.sql executed successfully.
+2023-11-06 10:05:19,969 - INFO - SQL file edwci_j_mhb_alerting_audit_detail_prm.sh.sql executed successfully.
+2023-11-06 10:05:20,920 - INFO - SQL file edwci_j_mhb_broadcast_message_detail_prm.sh.sql executed successfully.
+2023-11-06 10:05:21,673 - INFO - SQL file edwci_j_mhb_broadcast_message_prm.sh.sql executed successfully.
+2023-11-06 10:06:11,031 - INFO - SQL file edwci_j_mhb_care_attachment_prm.sh.sql executed successfully.
+2023-11-06 10:06:52,437 - INFO - SQL file edwci_j_mhb_care_detachment_prm.sh.sql executed successfully.
+2023-11-06 10:06:53,905 - INFO - SQL file edwci_j_mhb_dynamic_role_attachment_prm.sh.sql executed successfully.
+2023-11-06 10:06:55,460 - INFO - SQL file edwci_j_mhb_dynamic_role_detachment_prm.sh.sql executed successfully.
+2023-11-06 10:07:37,270 - INFO - SQL file edwci_j_mhb_group_chat_message_prm.sh.sql executed successfully.
+2023-11-06 10:08:21,268 - INFO - SQL file edwci_j_mhb_inter_application_inbound_prm.sh.sql executed successfully.
+2023-11-06 10:09:00,148 - INFO - SQL file edwci_j_mhb_inter_application_outbound_prm.sh.sql executed successfully.
+2023-11-06 10:09:00,865 - INFO - SQL file edwci_j_mhb_lab_order_audit_detail_prm.sh.sql executed successfully.
+2023-11-06 10:09:04,998 - INFO - SQL file edwci_j_mhb_message_prm.sh.sql executed successfully.
+2023-11-06 10:09:05,666 - INFO - SQL file edwci_j_mhb_patient_vital_audits_prm.sh.sql executed successfully.
+2023-11-06 10:09:06,862 - INFO - SQL file edwci_j_mhb_phone_call_audit_detail_prm.sh.sql executed successfully.
+2023-11-06 10:09:07,905 - INFO - SQL file edwci_j_mhb_phone_prm.sh.sql executed successfully.
+2023-11-06 10:09:09,203 - INFO - SQL file edwci_j_mhb_ref_mhb_action_type_prm.sh.sql executed successfully.
+2023-11-06 10:09:10,282 - INFO - SQL file edwci_j_mhb_ref_mhb_alert_type_prm.sh.sql executed successfully.
+2023-11-06 10:09:11,348 - INFO - SQL file edwci_j_mhb_ref_mhb_dynamic_role_prm.sh.sql executed successfully.
+2023-11-06 10:09:12,376 - INFO - SQL file edwci_j_mhb_ref_mhb_login_type_prm.sh.sql executed successfully.
+2023-11-06 10:09:13,716 - INFO - SQL file edwci_j_mhb_ref_mhb_message_delivery_priority_prm.sh.sql executed successfully.
+2023-11-06 10:09:14,831 - INFO - SQL file edwci_j_mhb_ref_mhb_unit_prm.sh.sql executed successfully.
+2023-11-06 10:09:15,813 - INFO - SQL file edwci_j_mhb_ref_mhb_user_action_type_prm.sh.sql executed successfully.
+2023-11-06 10:09:16,920 - INFO - SQL file edwci_j_mhb_ref_mhb_user_group_prm.sh.sql executed successfully.
+2023-11-06 10:09:17,873 - INFO - SQL file edwci_j_mhb_ref_mhb_user_role_prm.sh.sql executed successfully.
+2023-11-06 10:09:18,815 - INFO - SQL file edwci_j_mhb_ref_mhb_wctp_destination_name_prm.sh.sql executed successfully.
+2023-11-06 10:09:20,281 - INFO - SQL file edwci_j_mhb_ref_mhb_wctp_source_name_prm.sh.sql executed successfully.
+2023-11-06 10:09:21,552 - INFO - SQL file edwci_j_mhb_ref_mhb_wctp_source_type_prm.sh.sql executed successfully.
+2023-11-06 10:09:22,470 - INFO - SQL file edwci_j_mhb_user_prm.sh.sql executed successfully.
+2023-11-06 10:09:23,862 - INFO - SQL file edwci_j_mhb_wctp_inbound_message_prm.sh.sql executed successfully.
+2023-11-06 10:09:25,393 - INFO - SQL file edwci_j_mhb_wctp_outbound_message_prm.sh.sql executed successfully.
+2023-11-06 10:09:26,047 - INFO - SQL file edwci_j_mhb_alerting_audit_detail_prm.sh.sql executed successfully.
+2023-11-06 10:09:26,844 - INFO - SQL file edwci_j_mhb_broadcast_message_detail_prm.sh.sql executed successfully.
+2023-11-06 10:09:27,654 - INFO - SQL file edwci_j_mhb_broadcast_message_prm.sh.sql executed successfully.
+2023-11-06 10:09:28,417 - INFO - SQL file edwci_j_mhb_care_attachment_prm.sh.sql executed successfully.
+2023-11-06 10:09:29,216 - INFO - SQL file edwci_j_mhb_care_detachment_prm.sh.sql executed successfully.
+2023-11-06 10:09:29,891 - INFO - SQL file edwci_j_mhb_dynamic_role_attachment_prm.sh.sql executed successfully.
+2023-11-06 10:09:30,500 - INFO - SQL file edwci_j_mhb_dynamic_role_detachment_prm.sh.sql executed successfully.
+2023-11-06 10:09:31,356 - INFO - SQL file edwci_j_mhb_group_chat_message_prm.sh.sql executed successfully.
+2023-11-06 10:09:32,083 - INFO - SQL file edwci_j_mhb_inter_application_inbound_prm.sh.sql executed successfully.
+2023-11-06 10:09:32,762 - INFO - SQL file edwci_j_mhb_inter_application_outbound_prm.sh.sql executed successfully.
+2023-11-06 10:09:33,301 - INFO - SQL file edwci_j_mhb_lab_order_audit_detail_prm.sh.sql executed successfully.
+2023-11-06 10:09:34,000 - INFO - SQL file edwci_j_mhb_message_prm.sh.sql executed successfully.
+2023-11-06 10:09:34,712 - INFO - SQL file edwci_j_mhb_patient_vital_audits_prm.sh.sql executed successfully.
+2023-11-06 10:09:35,380 - INFO - SQL file edwci_j_mhb_phone_call_audit_detail_prm.sh.sql executed successfully.
+2023-11-06 10:09:35,989 - INFO - SQL file edwci_j_mhb_phone_prm.sh.sql executed successfully.
+2023-11-06 10:09:36,701 - INFO - SQL file edwci_j_mhb_ref_mhb_action_type_prm.sh.sql executed successfully.
+2023-11-06 10:09:37,334 - INFO - SQL file edwci_j_mhb_ref_mhb_alert_type_prm.sh.sql executed successfully.
+2023-11-06 10:09:38,095 - INFO - SQL file edwci_j_mhb_ref_mhb_dynamic_role_prm.sh.sql executed successfully.
+2023-11-06 10:09:38,785 - INFO - SQL file edwci_j_mhb_ref_mhb_login_type_prm.sh.sql executed successfully.
+2023-11-06 10:09:39,459 - INFO - SQL file edwci_j_mhb_ref_mhb_message_delivery_priority_prm.sh.sql executed successfully.
+2023-11-06 10:09:40,272 - INFO - SQL file edwci_j_mhb_ref_mhb_unit_prm.sh.sql executed successfully.
+2023-11-06 10:09:40,950 - INFO - SQL file edwci_j_mhb_ref_mhb_user_action_type_prm.sh.sql executed successfully.
+2023-11-06 10:09:41,644 - INFO - SQL file edwci_j_mhb_ref_mhb_user_group_prm.sh.sql executed successfully.
+2023-11-06 10:09:42,290 - INFO - SQL file edwci_j_mhb_ref_mhb_user_role_prm.sh.sql executed successfully.
+2023-11-06 10:09:42,892 - INFO - SQL file edwci_j_mhb_ref_mhb_wctp_destination_name_prm.sh.sql executed successfully.
+2023-11-06 10:09:43,519 - INFO - SQL file edwci_j_mhb_ref_mhb_wctp_source_name_prm.sh.sql executed successfully.
+2023-11-06 10:09:44,173 - INFO - SQL file edwci_j_mhb_ref_mhb_wctp_source_type_prm.sh.sql executed successfully.
+2023-11-06 10:09:44,839 - INFO - SQL file edwci_j_mhb_user_prm.sh.sql executed successfully.
+2023-11-06 10:09:45,535 - INFO - SQL file edwci_j_mhb_vwunits_stgload_prm.sh.sql executed successfully.
+2023-11-06 10:09:46,366 - INFO - SQL file edwci_j_mhb_vw_broadcast_messages_stgload_prm.sh.sql executed successfully.
+2023-11-06 10:09:47,030 - INFO - SQL file edwci_j_mhb_vw_dynamic_care_attachment_stgload_prm.sh.sql executed successfully.
+2023-11-06 10:09:47,706 - INFO - SQL file edwci_j_mhb_vw_dynamic_care_detachment_stgload_prm.sh.sql executed successfully.
+2023-11-06 10:09:48,876 - INFO - SQL file edwci_j_mhb_vw_dynamic_role_attachment_stgload_prm.sh.sql executed successfully.
+2023-11-06 10:09:49,579 - INFO - SQL file edwci_j_mhb_vw_dynamic_role_detachment_stgload_prm.sh.sql executed successfully.
+2023-11-06 10:09:50,153 - INFO - SQL file edwci_j_mhb_vw_group_chat_messages_stgload_prm.sh.sql executed successfully.
+2023-11-06 10:09:50,823 - INFO - SQL file edwci_j_mhb_vw_inter_application_inbound_stgload_prm.sh.sql executed successfully.
+2023-11-06 10:09:51,442 - INFO - SQL file edwci_j_mhb_vw_inter_application_outbound_stgload_prm.sh.sql executed successfully.
+2023-11-06 10:09:52,163 - INFO - SQL file edwci_j_mhb_vw_lab_order_audits_stgload_prm.sh.sql executed successfully.
+2023-11-06 10:09:52,800 - INFO - SQL file edwci_j_mhb_vw_patient_alert_tracker_stgload_prm.sh.sql executed successfully.
+2023-11-06 10:09:53,468 - INFO - SQL file edwci_j_mhb_vw_patient_vital_audits_stg_load_prm.sh.sql executed successfully.
+2023-11-06 10:09:54,173 - INFO - SQL file edwci_j_mhb_vw_phone_stgload_prm.sh.sql executed successfully.
+2023-11-06 10:09:54,871 - INFO - SQL file edwci_j_mhb_vw_photo_save_audits_stgload_prm.sh.sql executed successfully.
+2023-11-06 10:09:55,513 - INFO - SQL file edwci_j_mhb_vw_photo_view_audits_stg_load_prm.sh.sql executed successfully.
+2023-11-06 10:09:56,092 - INFO - SQL file edwci_j_mhb_vw_text_messages_stgload_prm.sh.sql executed successfully.
+2023-11-06 10:09:56,791 - INFO - SQL file edwci_j_mhb_vw_user_groups_stgload_prm.sh.sql executed successfully.
+2023-11-06 10:09:57,618 - INFO - SQL file edwci_j_mhb_vw_user_login_stgload_prm.sh.sql executed successfully.
+2023-11-06 10:09:58,343 - INFO - SQL file edwci_j_mhb_vw_user_phonecalls_stg_load_prm.sh.sql executed successfully.
+2023-11-06 10:09:59,032 - INFO - SQL file edwci_j_mhb_vw_user_stgload_prm.sh.sql executed successfully.
+2023-11-06 10:09:59,711 - INFO - SQL file edwci_j_mhb_vw_wctp_inbound_messages_stgload_prm.sh.sql executed successfully.
+2023-11-06 10:10:00,444 - INFO - SQL file edwci_j_mhb_vw_wctp_outbound_messages_stgload_prm.sh.sql executed successfully.
+2023-11-06 10:10:01,009 - INFO - SQL file edwci_j_mhb_wctp_inbound_message_prm.sh.sql executed successfully.
+2023-11-06 10:10:01,676 - INFO - SQL file edwci_j_mhb_wctp_outbound_message_prm.sh.sql executed successfully.
+2023-11-06 10:15:32,275 - INFO - Connected (version 2.0, client OpenSSH_7.5)
+2023-11-06 10:15:33,298 - INFO - Auth banner: b'\nBy proceeding further, I accept the following:\n\nYou are about to access an HCA-Information Technology & Services, Inc. (IT&S)\ncomputer system. This system is to be used only by authorized users of IT&S, its\ncustomers and affiliates. As a user of this system, you have no expectation of\nprivacy rights or ownership in anything you may create, store, send or receive\non this system. By proceeding, your use of this system 1) constitutes your\nagreement that IT&S and/or your company may consent to law enforcement officials\nand agencies accessing information regarding your use of this network, 2)\nconstitutes your consent to monitoring, retrieval, and disclosure of any\ninformation within this system for all purposes deemed appropriate by IT&S,\nincluding enforcement of rules concerning unacceptable uses of this system, and\n3) constitutes your agreement to comply with all privacy, security and other\npolicies and procedures of IT&S and your company. If you have any questions\nabout what constitutes an acceptable use by you, please consult the written\npolicies provided by IT&S and your company.\n\n\n'
+2023-11-06 10:15:33,299 - INFO - Authentication (publickey) failed.
+2023-11-06 10:15:33,532 - INFO - Authentication (password) successful!
+2023-11-06 10:15:33,715 - INFO - [chan 0] Opened sftp connection (server version 3)
+2023-11-06 10:34:06,582 - INFO - SQL file j_mhb_alerting_audit_detail_prm.sql executed successfully.
+2023-11-06 10:34:09,702 - INFO - SQL file j_mhb_broadcast_message_detail_prm.sql executed successfully.
+2023-11-06 10:34:10,704 - INFO - SQL file j_mhb_broadcast_message_prm.sql executed successfully.
+2023-11-06 10:34:57,936 - INFO - SQL file j_mhb_care_attachment_prm.sql executed successfully.
+2023-11-06 10:35:31,148 - INFO - SQL file j_mhb_care_detachment_prm.sql executed successfully.
+2023-11-06 10:35:32,877 - INFO - SQL file j_mhb_dynamic_role_attachment_prm.sql executed successfully.
+2023-11-06 10:35:34,525 - INFO - SQL file j_mhb_dynamic_role_detachment_prm.sql executed successfully.
+2023-11-06 10:36:14,236 - INFO - SQL file j_mhb_group_chat_message_prm.sql executed successfully.
+2023-11-06 10:36:56,062 - INFO - SQL file j_mhb_inter_application_inbound_prm.sql executed successfully.
+2023-11-06 10:37:41,048 - INFO - SQL file j_mhb_inter_application_outbound_prm.sql executed successfully.
+2023-11-06 10:37:41,958 - INFO - SQL file j_mhb_lab_order_audit_detail_prm.sql executed successfully.
+2023-11-06 10:37:46,566 - INFO - SQL file j_mhb_message_prm.sql executed successfully.
+2023-11-06 10:37:47,665 - INFO - SQL file j_mhb_patient_vital_audits_prm.sql executed successfully.
+2023-11-06 10:37:48,999 - INFO - SQL file j_mhb_phone_call_audit_detail_prm.sql executed successfully.
+2023-11-06 10:37:50,214 - INFO - SQL file j_mhb_phone_prm.sql executed successfully.
+2023-11-06 10:37:51,387 - INFO - SQL file j_mhb_ref_mhb_action_type_prm.sql executed successfully.
+2023-11-06 10:37:52,558 - INFO - SQL file j_mhb_ref_mhb_alert_type_prm.sql executed successfully.
+2023-11-06 10:37:54,009 - INFO - SQL file j_mhb_ref_mhb_dynamic_role_prm.sql executed successfully.
+2023-11-06 10:37:55,145 - INFO - SQL file j_mhb_ref_mhb_login_type_prm.sql executed successfully.
+2023-11-06 10:37:56,741 - INFO - SQL file j_mhb_ref_mhb_message_delivery_priority_prm.sql executed successfully.
+2023-11-06 10:37:57,899 - INFO - SQL file j_mhb_ref_mhb_unit_prm.sql executed successfully.
+2023-11-06 10:37:59,041 - INFO - SQL file j_mhb_ref_mhb_user_action_type_prm.sql executed successfully.
+2023-11-06 10:38:00,389 - INFO - SQL file j_mhb_ref_mhb_user_group_prm.sql executed successfully.
+2023-11-06 10:38:01,494 - INFO - SQL file j_mhb_ref_mhb_user_role_prm.sql executed successfully.
+2023-11-06 10:38:02,550 - INFO - SQL file j_mhb_ref_mhb_wctp_destination_name_prm.sql executed successfully.
+2023-11-06 10:38:04,088 - INFO - SQL file j_mhb_ref_mhb_wctp_source_name_prm.sql executed successfully.
+2023-11-06 10:38:05,686 - INFO - SQL file j_mhb_ref_mhb_wctp_source_type_prm.sql executed successfully.
+2023-11-06 10:38:06,743 - INFO - SQL file j_mhb_user_prm.sql executed successfully.
+2023-11-06 10:38:08,427 - INFO - SQL file j_mhb_wctp_inbound_message_prm.sql executed successfully.
+2023-11-06 10:38:10,049 - INFO - SQL file j_mhb_wctp_outbound_message_prm.sql executed successfully.
+2023-11-06 10:38:10,850 - INFO - SQL file j_mhb_alerting_audit_detail_prm.sql executed successfully.
+2023-11-06 10:38:11,734 - INFO - SQL file j_mhb_broadcast_message_detail_prm.sql executed successfully.
+2023-11-06 10:38:13,122 - INFO - SQL file j_mhb_broadcast_message_prm.sql executed successfully.
+2023-11-06 10:38:13,845 - INFO - SQL file j_mhb_care_attachment_prm.sql executed successfully.
+2023-11-06 10:38:14,726 - INFO - SQL file j_mhb_care_detachment_prm.sql executed successfully.
+2023-11-06 10:38:15,492 - INFO - SQL file j_mhb_dynamic_role_attachment_prm.sql executed successfully.
+2023-11-06 10:38:16,366 - INFO - SQL file j_mhb_dynamic_role_detachment_prm.sql executed successfully.
+2023-11-06 10:38:17,256 - INFO - SQL file j_mhb_group_chat_message_prm.sql executed successfully.
+2023-11-06 10:38:18,250 - INFO - SQL file j_mhb_inter_application_inbound_prm.sql executed successfully.
+2023-11-06 10:38:19,091 - INFO - SQL file j_mhb_inter_application_outbound_prm.sql executed successfully.
+2023-11-06 10:38:19,964 - INFO - SQL file j_mhb_lab_order_audit_detail_prm.sql executed successfully.
+2023-11-06 10:38:21,017 - INFO - SQL file j_mhb_message_prm.sql executed successfully.
+2023-11-06 10:38:21,790 - INFO - SQL file j_mhb_patient_vital_audits_prm.sql executed successfully.
+2023-11-06 10:38:22,575 - INFO - SQL file j_mhb_phone_call_audit_detail_prm.sql executed successfully.
+2023-11-06 10:38:23,332 - INFO - SQL file j_mhb_phone_prm.sql executed successfully.
+2023-11-06 10:38:24,099 - INFO - SQL file j_mhb_ref_mhb_action_type_prm.sql executed successfully.
+2023-11-06 10:38:25,000 - INFO - SQL file j_mhb_ref_mhb_alert_type_prm.sql executed successfully.
+2023-11-06 10:38:25,770 - INFO - SQL file j_mhb_ref_mhb_dynamic_role_prm.sql executed successfully.
+2023-11-06 10:38:26,619 - INFO - SQL file j_mhb_ref_mhb_login_type_prm.sql executed successfully.
+2023-11-06 10:38:27,355 - INFO - SQL file j_mhb_ref_mhb_message_delivery_priority_prm.sql executed successfully.
+2023-11-06 10:38:28,297 - INFO - SQL file j_mhb_ref_mhb_unit_prm.sql executed successfully.
+2023-11-06 10:38:29,359 - INFO - SQL file j_mhb_ref_mhb_user_action_type_prm.sql executed successfully.
+2023-11-06 10:38:30,155 - INFO - SQL file j_mhb_ref_mhb_user_group_prm.sql executed successfully.
+2023-11-06 10:38:31,009 - INFO - SQL file j_mhb_ref_mhb_user_role_prm.sql executed successfully.
+2023-11-06 10:38:31,820 - INFO - SQL file j_mhb_ref_mhb_wctp_destination_name_prm.sql executed successfully.
+2023-11-06 10:38:32,759 - INFO - SQL file j_mhb_ref_mhb_wctp_source_name_prm.sql executed successfully.
+2023-11-06 10:38:33,461 - INFO - SQL file j_mhb_ref_mhb_wctp_source_type_prm.sql executed successfully.
+2023-11-06 10:38:34,269 - INFO - SQL file j_mhb_user_prm.sql executed successfully.
+2023-11-06 10:38:35,711 - INFO - SQL file j_mhb_vwunits_stgload_prm.sql executed successfully.
+2023-11-06 10:38:36,664 - INFO - SQL file j_mhb_vw_broadcast_messages_stgload_prm.sql executed successfully.
+2023-11-06 10:38:37,570 - INFO - SQL file j_mhb_vw_dynamic_care_attachment_stgload_prm.sql executed successfully.
+2023-11-06 10:38:38,365 - INFO - SQL file j_mhb_vw_dynamic_care_detachment_stgload_prm.sql executed successfully.
+2023-11-06 10:38:39,196 - INFO - SQL file j_mhb_vw_dynamic_role_attachment_stgload_prm.sql executed successfully.
+2023-11-06 10:38:40,038 - INFO - SQL file j_mhb_vw_dynamic_role_detachment_stgload_prm.sql executed successfully.
+2023-11-06 10:38:40,892 - INFO - SQL file j_mhb_vw_group_chat_messages_stgload_prm.sql executed successfully.
+2023-11-06 10:38:41,768 - INFO - SQL file j_mhb_vw_inter_application_inbound_stgload_prm.sql executed successfully.
+2023-11-06 10:38:42,525 - INFO - SQL file j_mhb_vw_inter_application_outbound_stgload_prm.sql executed successfully.
+2023-11-06 10:38:43,268 - INFO - SQL file j_mhb_vw_lab_order_audits_stgload_prm.sql executed successfully.
+2023-11-06 10:38:44,133 - INFO - SQL file j_mhb_vw_patient_alert_tracker_stgload_prm.sql executed successfully.
+2023-11-06 10:38:44,853 - INFO - SQL file j_mhb_vw_patient_vital_audits_stg_load_prm.sql executed successfully.
+2023-11-06 10:38:45,642 - INFO - SQL file j_mhb_vw_phone_stgload_prm.sql executed successfully.
+2023-11-06 10:38:46,504 - INFO - SQL file j_mhb_vw_photo_save_audits_stgload_prm.sql executed successfully.
+2023-11-06 10:38:47,492 - INFO - SQL file j_mhb_vw_photo_view_audits_stg_load_prm.sql executed successfully.
+2023-11-06 10:38:48,315 - INFO - SQL file j_mhb_vw_text_messages_stgload_prm.sql executed successfully.
+2023-11-06 10:38:49,187 - INFO - SQL file j_mhb_vw_user_groups_stgload_prm.sql executed successfully.
+2023-11-06 10:38:50,088 - INFO - SQL file j_mhb_vw_user_login_stgload_prm.sql executed successfully.
+2023-11-06 10:38:50,965 - INFO - SQL file j_mhb_vw_user_phonecalls_stg_load_prm.sql executed successfully.
+2023-11-06 10:38:51,923 - INFO - SQL file j_mhb_vw_user_stgload_prm.sql executed successfully.
+2023-11-06 10:38:52,818 - INFO - SQL file j_mhb_vw_wctp_inbound_messages_stgload_prm.sql executed successfully.
+2023-11-06 10:38:53,604 - INFO - SQL file j_mhb_vw_wctp_outbound_messages_stgload_prm.sql executed successfully.
+2023-11-06 10:38:54,274 - INFO - SQL file j_mhb_wctp_inbound_message_prm.sql executed successfully.
+2023-11-06 10:38:54,979 - INFO - SQL file j_mhb_wctp_outbound_message_prm.sql executed successfully.
+2023-11-06 10:48:40,837 - INFO - SQL file j_mhb_alerting_audit_detail_prm.sql executed successfully.
+2023-11-06 10:48:41,765 - INFO - SQL file j_mhb_broadcast_message_detail_prm.sql executed successfully.
+2023-11-06 10:48:42,602 - INFO - SQL file j_mhb_broadcast_message_prm.sql executed successfully.
+2023-11-06 10:48:43,519 - INFO - SQL file j_mhb_care_attachment_prm.sql executed successfully.
+2023-11-06 10:48:45,493 - INFO - SQL file j_mhb_care_detachment_prm.sql executed successfully.
+2023-11-06 10:48:46,380 - INFO - SQL file j_mhb_dynamic_role_attachment_prm.sql executed successfully.
+2023-11-06 10:48:47,295 - INFO - SQL file j_mhb_dynamic_role_detachment_prm.sql executed successfully.
+2023-11-06 10:48:48,129 - INFO - SQL file j_mhb_group_chat_message_prm.sql executed successfully.
+2023-11-06 10:48:48,931 - INFO - SQL file j_mhb_inter_application_inbound_prm.sql executed successfully.
+2023-11-06 10:48:50,109 - INFO - SQL file j_mhb_inter_application_outbound_prm.sql executed successfully.
+2023-11-06 10:48:50,881 - INFO - SQL file j_mhb_lab_order_audit_detail_prm.sql executed successfully.
+2023-11-06 10:48:51,653 - INFO - SQL file j_mhb_message_prm.sql executed successfully.
+2023-11-06 10:48:52,425 - INFO - SQL file j_mhb_patient_vital_audits_prm.sql executed successfully.
+2023-11-06 10:48:55,135 - INFO - SQL file j_mhb_phone_call_audit_detail_prm.sql executed successfully.
+2023-11-06 10:48:56,036 - INFO - SQL file j_mhb_phone_prm.sql executed successfully.
+2023-11-06 10:48:56,982 - INFO - SQL file j_mhb_ref_mhb_action_type_prm.sql executed successfully.
+2023-11-06 10:48:57,931 - INFO - SQL file j_mhb_ref_mhb_alert_type_prm.sql executed successfully.
+2023-11-06 10:48:58,879 - INFO - SQL file j_mhb_ref_mhb_dynamic_role_prm.sql executed successfully.
+2023-11-06 10:49:00,131 - INFO - SQL file j_mhb_ref_mhb_login_type_prm.sql executed successfully.
+2023-11-06 10:49:01,296 - INFO - SQL file j_mhb_ref_mhb_message_delivery_priority_prm.sql executed successfully.
+2023-11-06 10:49:02,339 - INFO - SQL file j_mhb_ref_mhb_unit_prm.sql executed successfully.
+2023-11-06 10:49:03,214 - INFO - SQL file j_mhb_ref_mhb_user_action_type_prm.sql executed successfully.
+2023-11-06 10:49:04,015 - INFO - SQL file j_mhb_ref_mhb_user_group_prm.sql executed successfully.
+2023-11-06 10:49:04,809 - INFO - SQL file j_mhb_ref_mhb_user_role_prm.sql executed successfully.
+2023-11-06 10:49:05,670 - INFO - SQL file j_mhb_ref_mhb_wctp_destination_name_prm.sql executed successfully.
+2023-11-06 10:49:09,907 - INFO - SQL file j_mhb_ref_mhb_wctp_source_name_prm.sql executed successfully.
+2023-11-06 10:49:10,973 - INFO - SQL file j_mhb_ref_mhb_wctp_source_type_prm.sql executed successfully.
+2023-11-06 10:49:11,707 - INFO - SQL file j_mhb_user_prm.sql executed successfully.
+2023-11-06 10:49:12,561 - INFO - SQL file j_mhb_vwunits_stgload_prm.sql executed successfully.
+2023-11-06 10:49:13,706 - INFO - SQL file j_mhb_vw_broadcast_messages_stgload_prm.sql executed successfully.
+2023-11-06 10:49:14,662 - INFO - SQL file j_mhb_vw_dynamic_care_attachment_stgload_prm.sql executed successfully.
+2023-11-06 10:49:15,475 - INFO - SQL file j_mhb_vw_dynamic_care_detachment_stgload_prm.sql executed successfully.
+2023-11-06 10:49:16,367 - INFO - SQL file j_mhb_vw_dynamic_role_attachment_stgload_prm.sql executed successfully.
+2023-11-06 10:49:17,203 - INFO - SQL file j_mhb_vw_dynamic_role_detachment_stgload_prm.sql executed successfully.
+2023-11-06 10:49:18,292 - INFO - SQL file j_mhb_vw_group_chat_messages_stgload_prm.sql executed successfully.
+2023-11-06 10:49:19,171 - INFO - SQL file j_mhb_vw_inter_application_inbound_stgload_prm.sql executed successfully.
+2023-11-06 10:49:20,279 - INFO - SQL file j_mhb_vw_inter_application_outbound_stgload_prm.sql executed successfully.
+2023-11-06 10:49:21,189 - INFO - SQL file j_mhb_vw_lab_order_audits_stgload_prm.sql executed successfully.
+2023-11-06 10:49:21,945 - INFO - SQL file j_mhb_vw_patient_alert_tracker_stgload_prm.sql executed successfully.
+2023-11-06 10:49:22,925 - INFO - SQL file j_mhb_vw_patient_vital_audits_stg_load_prm.sql executed successfully.
+2023-11-06 10:49:23,831 - INFO - SQL file j_mhb_vw_phone_stgload_prm.sql executed successfully.
+2023-11-06 10:49:24,643 - INFO - SQL file j_mhb_vw_photo_save_audits_stgload_prm.sql executed successfully.
+2023-11-06 10:49:25,596 - INFO - SQL file j_mhb_vw_photo_view_audits_stg_load_prm.sql executed successfully.
+2023-11-06 10:49:26,362 - INFO - SQL file j_mhb_vw_text_messages_stgload_prm.sql executed successfully.
+2023-11-06 10:49:27,268 - INFO - SQL file j_mhb_vw_user_groups_stgload_prm.sql executed successfully.
+2023-11-06 10:49:28,128 - INFO - SQL file j_mhb_vw_user_login_stgload_prm.sql executed successfully.
+2023-11-06 10:49:28,940 - INFO - SQL file j_mhb_vw_user_phonecalls_stg_load_prm.sql executed successfully.
+2023-11-06 10:49:29,971 - INFO - SQL file j_mhb_vw_user_stgload_prm.sql executed successfully.
+2023-11-06 10:49:31,175 - INFO - SQL file j_mhb_vw_wctp_inbound_messages_stgload_prm.sql executed successfully.
+2023-11-06 10:49:32,003 - INFO - SQL file j_mhb_vw_wctp_outbound_messages_stgload_prm.sql executed successfully.
+2023-11-06 10:49:32,753 - INFO - SQL file j_mhb_wctp_inbound_message_prm.sql executed successfully.
+2023-11-06 10:49:34,987 - INFO - SQL file j_mhb_wctp_outbound_message_prm.sql executed successfully.
+2023-11-06 12:56:20,197 - INFO - SQL file j_mhb_alerting_audit_detail_prm.sql executed successfully.
+2023-11-06 12:56:28,575 - INFO - SQL file j_mhb_broadcast_message_detail_prm.sql executed successfully.
+2023-11-06 12:56:33,184 - INFO - SQL file j_mhb_broadcast_message_prm.sql executed successfully.
+2023-11-06 12:57:33,638 - INFO - SQL file j_mhb_care_attachment_prm.sql executed successfully.
+2023-11-06 12:58:32,937 - INFO - SQL file j_mhb_care_detachment_prm.sql executed successfully.
+2023-11-06 12:58:34,619 - INFO - SQL file j_mhb_dynamic_role_attachment_prm.sql executed successfully.
+2023-11-06 12:58:37,957 - INFO - SQL file j_mhb_dynamic_role_detachment_prm.sql executed successfully.
+2023-11-06 12:59:37,057 - INFO - SQL file j_mhb_group_chat_message_prm.sql executed successfully.
+2023-11-06 13:00:27,293 - INFO - SQL file j_mhb_inter_application_inbound_prm.sql executed successfully.
+2023-11-06 13:01:22,746 - INFO - SQL file j_mhb_inter_application_outbound_prm.sql executed successfully.
+2023-11-06 13:01:23,831 - INFO - SQL file j_mhb_lab_order_audit_detail_prm.sql executed successfully.
+2023-11-06 13:01:30,138 - INFO - SQL file j_mhb_message_prm.sql executed successfully.
+2023-11-06 13:01:31,157 - INFO - SQL file j_mhb_patient_vital_audits_prm.sql executed successfully.
+2023-11-06 13:01:33,132 - INFO - SQL file j_mhb_phone_call_audit_detail_prm.sql executed successfully.
+2023-11-06 13:01:34,773 - INFO - SQL file j_mhb_phone_prm.sql executed successfully.
+2023-11-06 13:01:36,518 - INFO - SQL file j_mhb_ref_mhb_action_type_prm.sql executed successfully.
+2023-11-06 13:01:37,890 - INFO - SQL file j_mhb_ref_mhb_alert_type_prm.sql executed successfully.
+2023-11-06 13:01:39,792 - INFO - SQL file j_mhb_ref_mhb_dynamic_role_prm.sql executed successfully.
+2023-11-06 13:01:41,485 - INFO - SQL file j_mhb_ref_mhb_login_type_prm.sql executed successfully.
+2023-11-06 13:01:43,223 - INFO - SQL file j_mhb_ref_mhb_message_delivery_priority_prm.sql executed successfully.
+2023-11-06 13:01:44,881 - INFO - SQL file j_mhb_ref_mhb_unit_prm.sql executed successfully.
+2023-11-06 13:01:46,431 - INFO - SQL file j_mhb_ref_mhb_user_action_type_prm.sql executed successfully.
+2023-11-06 13:01:48,172 - INFO - SQL file j_mhb_ref_mhb_user_group_prm.sql executed successfully.
+2023-11-06 13:01:49,707 - INFO - SQL file j_mhb_ref_mhb_user_role_prm.sql executed successfully.
+2023-11-06 13:01:51,190 - INFO - SQL file j_mhb_ref_mhb_wctp_destination_name_prm.sql executed successfully.
+2023-11-06 13:01:53,359 - INFO - SQL file j_mhb_ref_mhb_wctp_source_name_prm.sql executed successfully.
+2023-11-06 13:01:55,268 - INFO - SQL file j_mhb_ref_mhb_wctp_source_type_prm.sql executed successfully.
+2023-11-06 13:01:56,944 - INFO - SQL file j_mhb_user_prm.sql executed successfully.
+2023-11-06 13:01:59,964 - INFO - SQL file j_mhb_wctp_inbound_message_prm.sql executed successfully.
+2023-11-06 13:02:02,808 - INFO - SQL file j_mhb_wctp_outbound_message_prm.sql executed successfully.
+2023-11-06 13:02:03,960 - INFO - SQL file j_mhb_alerting_audit_detail_prm.sql executed successfully.
+2023-11-06 13:02:04,997 - INFO - SQL file j_mhb_broadcast_message_detail_prm.sql executed successfully.
+2023-11-06 13:02:05,868 - INFO - SQL file j_mhb_broadcast_message_prm.sql executed successfully.
+2023-11-06 13:02:06,730 - INFO - SQL file j_mhb_care_attachment_prm.sql executed successfully.
+2023-11-06 13:02:07,595 - INFO - SQL file j_mhb_care_detachment_prm.sql executed successfully.
+2023-11-06 13:02:08,486 - INFO - SQL file j_mhb_dynamic_role_attachment_prm.sql executed successfully.
+2023-11-06 13:02:09,329 - INFO - SQL file j_mhb_dynamic_role_detachment_prm.sql executed successfully.
+2023-11-06 13:02:10,186 - INFO - SQL file j_mhb_group_chat_message_prm.sql executed successfully.
+2023-11-06 13:02:11,160 - INFO - SQL file j_mhb_inter_application_inbound_prm.sql executed successfully.
+2023-11-06 13:02:12,221 - INFO - SQL file j_mhb_inter_application_outbound_prm.sql executed successfully.
+2023-11-06 13:02:13,069 - INFO - SQL file j_mhb_lab_order_audit_detail_prm.sql executed successfully.
+2023-11-06 13:02:13,954 - INFO - SQL file j_mhb_message_prm.sql executed successfully.
+2023-11-06 13:02:14,855 - INFO - SQL file j_mhb_patient_vital_audits_prm.sql executed successfully.
+2023-11-06 13:02:15,738 - INFO - SQL file j_mhb_phone_call_audit_detail_prm.sql executed successfully.
+2023-11-06 13:02:16,784 - INFO - SQL file j_mhb_phone_prm.sql executed successfully.
+2023-11-06 13:02:17,798 - INFO - SQL file j_mhb_ref_mhb_action_type_prm.sql executed successfully.
+2023-11-06 13:02:40,177 - INFO - SQL file j_mhb_ref_mhb_alert_type_prm.sql executed successfully.
+2023-11-06 13:02:40,998 - INFO - SQL file j_mhb_ref_mhb_dynamic_role_prm.sql executed successfully.
+2023-11-06 13:02:41,784 - INFO - SQL file j_mhb_ref_mhb_login_type_prm.sql executed successfully.
+2023-11-06 13:02:42,639 - INFO - SQL file j_mhb_ref_mhb_message_delivery_priority_prm.sql executed successfully.
+2023-11-06 13:02:43,510 - INFO - SQL file j_mhb_ref_mhb_unit_prm.sql executed successfully.
+2023-11-06 13:02:44,399 - INFO - SQL file j_mhb_ref_mhb_user_action_type_prm.sql executed successfully.
+2023-11-06 13:02:45,234 - INFO - SQL file j_mhb_ref_mhb_user_group_prm.sql executed successfully.
+2023-11-06 13:02:46,064 - INFO - SQL file j_mhb_ref_mhb_user_role_prm.sql executed successfully.
+2023-11-06 13:02:46,989 - INFO - SQL file j_mhb_ref_mhb_wctp_destination_name_prm.sql executed successfully.
+2023-11-06 13:02:47,903 - INFO - SQL file j_mhb_ref_mhb_wctp_source_name_prm.sql executed successfully.
+2023-11-06 13:02:48,875 - INFO - SQL file j_mhb_ref_mhb_wctp_source_type_prm.sql executed successfully.
+2023-11-06 13:02:49,776 - INFO - SQL file j_mhb_user_prm.sql executed successfully.
+2023-11-06 13:02:50,722 - INFO - SQL file j_mhb_vwunits_stgload_prm.sql executed successfully.
+2023-11-06 13:02:51,723 - INFO - SQL file j_mhb_vw_broadcast_messages_stgload_prm.sql executed successfully.
+2023-11-06 13:02:52,930 - INFO - SQL file j_mhb_vw_dynamic_care_attachment_stgload_prm.sql executed successfully.
+2023-11-06 13:02:53,876 - INFO - SQL file j_mhb_vw_dynamic_care_detachment_stgload_prm.sql executed successfully.
+2023-11-06 13:02:55,106 - INFO - SQL file j_mhb_vw_dynamic_role_attachment_stgload_prm.sql executed successfully.
+2023-11-06 13:02:56,088 - INFO - SQL file j_mhb_vw_dynamic_role_detachment_stgload_prm.sql executed successfully.
+2023-11-06 13:02:57,289 - INFO - SQL file j_mhb_vw_group_chat_messages_stgload_prm.sql executed successfully.
+2023-11-06 13:02:58,434 - INFO - SQL file j_mhb_vw_inter_application_inbound_stgload_prm.sql executed successfully.
+2023-11-06 13:02:59,448 - INFO - SQL file j_mhb_vw_inter_application_outbound_stgload_prm.sql executed successfully.
+2023-11-06 13:03:00,265 - INFO - SQL file j_mhb_vw_lab_order_audits_stgload_prm.sql executed successfully.
+2023-11-06 13:03:01,445 - INFO - SQL file j_mhb_vw_patient_alert_tracker_stgload_prm.sql executed successfully.
+2023-11-06 13:03:02,656 - INFO - SQL file j_mhb_vw_patient_vital_audits_stg_load_prm.sql executed successfully.
+2023-11-06 13:03:03,464 - INFO - SQL file j_mhb_vw_phone_stgload_prm.sql executed successfully.
+2023-11-06 13:03:04,513 - INFO - SQL file j_mhb_vw_photo_save_audits_stgload_prm.sql executed successfully.
+2023-11-06 13:03:05,377 - INFO - SQL file j_mhb_vw_photo_view_audits_stg_load_prm.sql executed successfully.
+2023-11-06 13:03:06,446 - INFO - SQL file j_mhb_vw_text_messages_stgload_prm.sql executed successfully.
+2023-11-06 13:03:07,363 - INFO - SQL file j_mhb_vw_user_groups_stgload_prm.sql executed successfully.
+2023-11-06 13:03:08,215 - INFO - SQL file j_mhb_vw_user_login_stgload_prm.sql executed successfully.
+2023-11-06 13:03:09,370 - INFO - SQL file j_mhb_vw_user_phonecalls_stg_load_prm.sql executed successfully.
+2023-11-06 13:03:10,228 - INFO - SQL file j_mhb_vw_user_stgload_prm.sql executed successfully.
+2023-11-06 13:03:11,257 - INFO - SQL file j_mhb_vw_wctp_inbound_messages_stgload_prm.sql executed successfully.
+2023-11-06 13:03:12,179 - INFO - SQL file j_mhb_vw_wctp_outbound_messages_stgload_prm.sql executed successfully.
+2023-11-06 13:03:13,394 - INFO - SQL file j_mhb_wctp_inbound_message_prm.sql executed successfully.
+2023-11-06 13:03:14,316 - INFO - SQL file j_mhb_wctp_outbound_message_prm.sql executed successfully.
+2023-11-06 13:15:08,449 - ERROR - Error executing SQL file ar_j_pf_fact_patient_cm_prm.sql: 404 Not found: Table hca-hin-dev-cur-parallon:auth_base_views.fact_rcom_ar_patient_level was not found in location US
+
+Location: US
+Job ID: 0838c65d-efac-4ae7-bc9a-0dde2ab33548
+
+2023-11-06 13:15:09,735 - INFO - SQL file ar_j_pf_fact_patient_level_legacyar_prm.sql executed successfully.
+2023-11-06 13:15:10,122 - ERROR - Error executing SQL file ar_j_pf_fact_patient_ltchg_prm.sql: 404 Not found: Table hca-hin-dev-cur-parallon:auth_base_views.fact_rcom_ar_patient_level was not found in location US
+
+Location: US
+Job ID: 5be734d7-39f6-4f43-a80f-091856deb4ad
+
+2023-11-06 13:15:10,378 - ERROR - Error executing SQL file ar_j_pf_fact_pat_dchrg_cnt_prm.sql: 404 Not found: Table hca-hin-dev-cur-parallon:auth_base_views.fact_rcom_ar_patient_level was not found in location US
+
+Location: US
+Job ID: 0a55f27b-51ff-44a7-b5ba-47ee317ed8c0
+
+2023-11-06 13:15:53,377 - INFO - SQL file ar_j_pf_fact_pat_dwoff_amt_prm.sql executed successfully.
+2023-11-06 13:15:56,221 - INFO - SQL file ar_j_pf_fact_pat_unbil_bus_prm.sql executed successfully.
+2023-11-06 13:15:59,147 - INFO - SQL file ar_j_pf_fact_pat_unbil_med_prm.sql executed successfully.
+2023-11-06 13:16:25,270 - INFO - SQL file ar_j_pf_fact_pat_upfrntcol_prm.sql executed successfully.
+2023-11-06 13:16:27,633 - INFO - SQL file ar_pbs_j_pf_fact_patient_cm_prm.sql executed successfully.
+2023-11-06 13:16:29,261 - INFO - SQL file ar_pbs_j_pf_fact_patient_level_legacyar_prm.sql executed successfully.
+2023-11-06 13:16:29,956 - ERROR - Error executing SQL file ar_pbs_j_pf_fact_patient_ltchg_prm.sql: 400 Function not found: ERROR_UNIMPLEMENTED at [15:11]
+
+Location: US
+Job ID: 22059fd2-e6c3-4252-927b-ac1a1f6819b3
+
+2023-11-06 13:16:31,016 - ERROR - Error executing SQL file ar_pbs_j_pf_fact_pat_dchrg_cnt_prm.sql: 403 Access Denied: Table hca-hin-curated-mirroring-td:edwpf_staging.pass_current: User does not have permission to query table hca-hin-curated-mirroring-td:edwpf_staging.pass_current, or perhaps it does not exist in location US.
+
+Location: US
+Job ID: 3eb25da8-c9e8-450e-9722-24a533804694
+
+2023-11-06 13:17:00,596 - INFO - SQL file ar_pbs_j_pf_fact_pat_dwoff_amt_prm.sql executed successfully.
+2023-11-06 13:17:00,869 - ERROR - Error executing SQL file ar_pbs_j_pf_fact_pat_fc_level_prm.sql: 404 Not found: Table hca-hin-dev-cur-parallon:auth_base_views.revstats_department was not found in location US
+
+Location: US
+Job ID: 3e748eb3-6bde-4c2a-94db-099236fd9886
+
+2023-11-06 13:17:03,846 - INFO - SQL file ar_pbs_j_pf_fact_pat_unbil_bus_prm.sql executed successfully.
+2023-11-06 13:17:06,806 - INFO - SQL file ar_pbs_j_pf_fact_pat_unbil_med_prm.sql executed successfully.
+2023-11-06 13:17:37,532 - INFO - SQL file ar_pbs_j_pf_fact_pat_upfrntcol_prm.sql executed successfully.
+2023-11-06 13:17:38,513 - INFO - SQL file crcb_j_payment_compliance_credit_inventory_bal_prm.sql executed successfully.
+2023-11-06 13:17:39,364 - INFO - SQL file crcb_j_payment_compliance_credit_inventory_rfnd_prm.sql executed successfully.
+2023-11-06 13:17:40,203 - INFO - SQL file crcb_j_payment_compliance_credit_refund_prm.sql executed successfully.
+2023-11-06 13:17:41,037 - INFO - SQL file crcb_j_pf_fact_pars_cdtbal_prm.sql executed successfully.
+2023-11-06 13:17:41,799 - INFO - SQL file crcb_j_pf_fact_pars_cdtrfd_prm.sql executed successfully.
+2023-11-06 13:17:42,791 - INFO - SQL file edwdim_j_pf_dim_organization_prm.sql executed successfully.
+2023-11-06 13:17:43,716 - INFO - SQL file ep_j_ep_junc_remittance_additional_payee_ac.sql executed successfully.
+2023-11-06 13:18:34,061 - INFO - SQL file ep_j_ep_junc_remittance_delete_ac.sql executed successfully.
+2023-11-06 13:18:35,092 - INFO - SQL file ep_j_ep_junc_remittance_other_claim_related_info_ac.sql executed successfully.
+2023-11-06 13:18:36,302 - INFO - SQL file ep_j_ep_junc_remittance_provider_serv_ac.sql executed successfully.
+2023-11-06 13:18:37,382 - INFO - SQL file ep_j_ep_junc_remittance_secn_rendering_prov_ac.sql executed successfully.
+2023-11-06 13:18:38,406 - INFO - SQL file ep_j_ep_junc_remittance_secn_rendering_prov_service_ac.sql executed successfully.
+2023-11-06 13:18:39,186 - INFO - SQL file ep_j_ep_ref_provider_service_ac.sql executed successfully.
+2023-11-06 13:18:39,979 - INFO - SQL file ep_j_ep_ref_remittance_additional_payee_ac.sql executed successfully.
+2023-11-06 13:18:41,967 - INFO - SQL file ep_j_ep_ref_remittance_cob_carrier_ac.sql executed successfully.
+2023-11-06 13:18:43,073 - INFO - SQL file ep_j_ep_ref_remittance_corrected_priority_payor_ac.sql executed successfully.
+2023-11-06 13:18:44,072 - INFO - SQL file ep_j_ep_ref_remittance_other_claim_related_info_ac.sql executed successfully.
+2023-11-06 13:18:45,093 - INFO - SQL file ep_j_ep_ref_remittance_oth_subscriber_info_ac.sql executed successfully.
+2023-11-06 13:18:46,322 - INFO - SQL file ep_j_ep_ref_remittance_payee_ac.sql executed successfully.
+2023-11-06 13:18:47,923 - INFO - SQL file ep_j_ep_ref_remittance_payor_ac.sql executed successfully.
+2023-11-06 13:18:49,250 - INFO - SQL file ep_j_ep_ref_remittance_rendering_provider_ac.sql executed successfully.
+2023-11-06 13:18:50,367 - INFO - SQL file ep_j_ep_ref_remittance_subscriber_info_ac.sql executed successfully.
+2023-11-06 13:18:51,152 - INFO - SQL file ep_j_ep_ref_secn_remittance_rendering_provider_ac.sql executed successfully.
+2023-11-06 13:18:52,512 - INFO - SQL file ep_j_ep_ref_secn_remittance_rendering_provider_service_ac.sql executed successfully.
+2023-11-06 13:18:56,552 - INFO - SQL file ep_j_ep_remittance_claim_ac.sql executed successfully.
+2023-11-06 13:18:58,938 - INFO - SQL file ep_j_ep_remittance_claim_carc_ac.sql executed successfully.
+2023-11-06 13:19:00,079 - INFO - SQL file ep_j_ep_remittance_payment_ac.sql executed successfully.
+2023-11-06 13:19:08,824 - INFO - SQL file ep_j_ep_remittance_service_carc_ac.sql executed successfully.
+2023-11-06 13:19:09,982 - INFO - SQL file ep_j_ep_remittance_service_hcpcs_modifier_ac.sql executed successfully.
+2023-11-06 13:19:10,904 - INFO - SQL file ep_j_ep_remittance_service_rarc_ac.sql executed successfully.
+2023-11-06 13:19:11,711 - INFO - SQL file ep_j_remittance_plb_adj_ac.sql executed successfully.
+2023-11-06 13:19:13,022 - INFO - SQL file ep_j_remittance_service_ac.sql executed successfully.
+2023-11-06 13:19:13,788 - ERROR - Error executing SQL file pa_j_ada_patient_level_detail_prm.sql: 400 Aggregate function SUM not allowed in UNNEST at [459:38]
+
+Location: US
+Job ID: ec62e6ab-7497-483d-8cb0-5dab0e35e610
+
+2023-11-06 13:19:14,838 - ERROR - Error executing SQL file pa_j_pf_rpt_ar_ada_detail_prm.sql: 400 Aggregate function SUM not allowed in UNNEST at [446:41]
+
+Location: US
+Job ID: 35aaf5c6-263f-4b45-a6c3-adda522ba81b
+
+2023-11-06 13:19:16,062 - INFO - SQL file pc_j_pf_fact_disc_costyear_prm.sql executed successfully.
+2023-11-06 13:20:01,951 - INFO - SQL file pc_j_pf_fact_disc_open_prm.sql executed successfully.
+2023-11-06 13:20:02,248 - ERROR - Error executing SQL file pc_j_pf_fact_disc_ratevar_prm.sql: 404 Not found: Table hca-hin-dev-cur-parallon:auth_base_views.facility_reimbursement_log was not found in location US
+
+Location: US
+Job ID: 6c000272-1d5e-49c0-923a-459095d06c9f
+
+2023-11-06 13:20:56,509 - INFO - SQL file pc_j_pf_fact_disc_rsld_cm_prm.sql executed successfully.
+2023-11-06 13:22:15,157 - INFO - SQL file pc_j_pf_fact_disc_rsld_pm_prm.sql executed successfully.
+2023-11-06 13:22:15,415 - ERROR - Error executing SQL file ar_j_pf_fact_patient_cm_prm.sql: 404 Not found: Table hca-hin-dev-cur-parallon:auth_base_views.fact_rcom_ar_patient_lvl_cm was not found in location US
+
+Location: US
+Job ID: 94048e99-a305-4896-8d4c-14e08845cfac
+
+2023-11-06 13:22:15,761 - ERROR - Error executing SQL file ar_j_pf_fact_patient_level_legacyar_prm.sql: 404 Not found: Table hca-hin-dev-cur-parallon:auth_base_views.fact_rcom_ar_patient_level was not found in location US
+
+Location: US
+Job ID: d43991a9-6002-4959-87f2-c50d6679bd15
+
+2023-11-06 13:22:16,016 - ERROR - Error executing SQL file ar_j_pf_fact_patient_level_prm.sql: 404 Not found: Table hca-hin-dev-cur-parallon:auth_base_views.fact_rcom_ar_patient_level was not found in location US
+
+Location: US
+Job ID: c0a39463-fc57-480a-93ed-3f339eddca96
+
+2023-11-06 13:22:16,252 - ERROR - Error executing SQL file ar_j_pf_fact_patient_ltchg_prm.sql: 404 Not found: Table hca-hin-dev-cur-parallon:auth_base_views.fact_rcom_ar_patient_level was not found in location US
+
+Location: US
+Job ID: 8c3f24d5-bff4-4dcc-90ed-8fb39d0b1524
+
+2023-11-06 13:22:16,500 - ERROR - Error executing SQL file ar_j_pf_fact_pat_dchrg_cnt_prm.sql: 404 Not found: Table hca-hin-dev-cur-parallon:auth_base_views.fact_rcom_ar_patient_level was not found in location US
+
+Location: US
+Job ID: 1db9308b-5dcb-43ca-b378-1b756cae59dc
+
+2023-11-06 13:22:17,366 - INFO - SQL file ar_j_pf_fact_pat_dwoff_amt_prm.sql executed successfully.
+2023-11-06 13:22:17,620 - ERROR - Error executing SQL file ar_j_pf_fact_pat_unbil_bus_prm.sql: 404 Not found: Table hca-hin-dev-cur-parallon:auth_base_views.fact_rcom_ar_patient_level was not found in location US
+
+Location: US
+Job ID: 1ba2eed5-095c-4dfe-a701-af65350b5eed
+
+2023-11-06 13:22:17,870 - ERROR - Error executing SQL file ar_j_pf_fact_pat_unbil_med_prm.sql: 404 Not found: Table hca-hin-dev-cur-parallon:auth_base_views.fact_rcom_ar_patient_level was not found in location US
+
+Location: US
+Job ID: 84851652-53b7-4298-a1f9-a1fa39ac7c60
+
+2023-11-06 13:22:18,703 - INFO - SQL file ar_j_pf_fact_pat_upfrntcol_prm.sql executed successfully.
+2023-11-06 13:22:18,992 - ERROR - Error executing SQL file ar_j_pf_fact_pat_w_off_amt_prm.sql: 404 Not found: Table hca-hin-dev-cur-parallon:auth_base_views.fact_rcom_ar_patient_level was not found in location US
+
+Location: US
+Job ID: bcbec87b-f942-4b97-9bc0-3a220fa5db1a
+
+2023-11-06 13:22:19,291 - ERROR - Error executing SQL file ar_pbs_j_pf_fact_patient_cm_prm.sql: 404 Not found: Table hca-hin-dev-cur-parallon:auth_base_views.fact_rcom_ar_patient_lvl_cm was not found in location US
+
+Location: US
+Job ID: f2154e5e-9f28-4d68-992b-af350965b77c
+
+2023-11-06 13:22:20,506 - INFO - SQL file ar_pbs_j_pf_fact_patient_level_legacyar_prm.sql executed successfully.
+2023-11-06 13:22:21,981 - INFO - SQL file ar_pbs_j_pf_fact_patient_level_prm.sql executed successfully.
+2023-11-06 13:22:22,843 - INFO - SQL file ar_pbs_j_pf_fact_patient_ltchg_prm.sql executed successfully.
+2023-11-06 13:22:23,972 - INFO - SQL file ar_pbs_j_pf_fact_pat_dchrg_cnt_prm.sql executed successfully.
+2023-11-06 13:22:24,820 - INFO - SQL file ar_pbs_j_pf_fact_pat_dwoff_amt_prm.sql executed successfully.
+2023-11-06 13:22:25,623 - INFO - SQL file ar_pbs_j_pf_fact_pat_fc_level_prm.sql executed successfully.
+2023-11-06 13:22:26,752 - INFO - SQL file ar_pbs_j_pf_fact_pat_unbil_bus_prm.sql executed successfully.
+2023-11-06 13:22:28,137 - INFO - SQL file ar_pbs_j_pf_fact_pat_unbil_med_prm.sql executed successfully.
+2023-11-06 13:22:29,038 - INFO - SQL file ar_pbs_j_pf_fact_pat_upfrntcol_prm.sql executed successfully.
+2023-11-06 13:22:30,037 - INFO - SQL file ar_pbs_j_pf_fact_pat_w_off_amt_prm.sql executed successfully.
+2023-11-06 13:22:30,865 - INFO - SQL file ar_pbs_j_stg_pf_pass_current_prm.sql executed successfully.
+2023-11-06 13:22:31,823 - INFO - SQL file bud_j_dim_account_ac.sql executed successfully.
+2023-11-06 13:22:32,683 - INFO - SQL file bud_j_dim_bdgt_organization_ac.sql executed successfully.
+2023-11-06 13:22:33,438 - INFO - SQL file bud_j_dim_bdgt_scenario_ac.sql executed successfully.
+2023-11-06 13:22:34,215 - INFO - SQL file bud_j_dim_bdgt_time_ac.sql executed successfully.
+2023-11-06 13:22:35,040 - INFO - SQL file bud_j_dim_bdgt_value_ac.sql executed successfully.
+2023-11-06 13:22:35,820 - INFO - SQL file bud_j_dim_bdgt_year_ac.sql executed successfully.
+2023-11-06 13:22:36,675 - INFO - SQL file bud_j_dim_department_ac.sql executed successfully.
+2023-11-06 13:22:37,489 - INFO - SQL file bud_j_dim_employee_ac.sql executed successfully.
+2023-11-06 13:22:38,263 - INFO - SQL file bud_j_fact_ssd_budget_ac.sql executed successfully.
+2023-11-06 13:22:39,060 - INFO - SQL file crcb_j_payment_compliance_credit_inventory_bal_prm.sql executed successfully.
+2023-11-06 13:22:39,688 - INFO - SQL file crcb_j_payment_compliance_credit_inventory_rfnd_prm.sql executed successfully.
+2023-11-06 13:22:39,901 - ERROR - Error executing SQL file crcb_j_payment_compliance_credit_refund_prm.sql: 404 Not found: Table hca-hin-dev-cur-parallon:edwpbs.payment_compliance_credit_refund was not found in location US
+
+Location: US
+Job ID: de68b9cd-fcf0-4c1d-8333-1b1df9387c6f
+
+2023-11-06 13:22:40,791 - INFO - SQL file crcb_j_pf_fact_pars_cdtbal_prm.sql executed successfully.
+2023-11-06 13:22:41,673 - INFO - SQL file crcb_j_pf_fact_pars_cdtrfd_prm.sql executed successfully.
+2023-11-06 13:22:42,532 - INFO - SQL file crcb_j_stg_payment_compliance_credit_inventory_bal_prm.sql executed successfully.
+2023-11-06 13:22:43,296 - INFO - SQL file crcb_j_stg_payment_compliance_credit_inventory_rfnd_prm.sql executed successfully.
+2023-11-06 13:22:43,966 - INFO - SQL file crcb_j_stg_pc_cr_refund_dly_prm.sql executed successfully.
+2023-11-06 13:22:44,846 - INFO - SQL file crcb_j_stg_rcom_pars_cb_prm.sql executed successfully.
+2023-11-06 13:22:45,924 - INFO - SQL file crcb_j_stg_rcom_pars_cr_prm.sql executed successfully.
+2023-11-06 13:22:46,743 - INFO - SQL file edwdim_j_pf_dim_organization_prm.sql executed successfully.
+2023-11-06 13:22:47,007 - ERROR - Error executing SQL file ep_j_epcarc_ac.sql: 404 Not found: Table hca-hin-dev-cur-parallon:edwpsu_staging.epcarc was not found in location US
+
+Location: US
+Job ID: aa4917c4-f854-47f9-af0d-52618afc97f8
+
+2023-11-06 13:22:47,259 - ERROR - Error executing SQL file ep_j_ephcpcs_ac.sql: 404 Not found: Table hca-hin-dev-cur-parallon:edwpsu_staging.ephcpcs was not found in location US
+
+Location: US
+Job ID: f304af2f-1678-4c10-aa78-08203750c636
+
+2023-11-06 13:22:47,466 - ERROR - Error executing SQL file ep_j_epizcarc_ac.sql: 404 Not found: Table hca-hin-dev-cur-parallon:edwpsu_staging.epizcarc was not found in location US
+
+Location: US
+Job ID: b857ef9d-e4e0-4c3c-b40d-a7f7086e75f2
+
+2023-11-06 13:22:47,820 - ERROR - Error executing SQL file ep_j_epizrarc_ac.sql: 404 Not found: Table hca-hin-dev-cur-parallon:edwpsu_staging.epizrarc was not found in location US
+
+Location: US
+Job ID: 9d4dbd61-e87f-4f28-9646-113b3cbd734c
+
+2023-11-06 13:22:48,137 - ERROR - Error executing SQL file ep_j_eppayermaster_ac.sql: 404 Not found: Table hca-hin-dev-cur-parallon:edwpsu_staging.eppayermaster was not found in location US
+
+Location: US
+Job ID: a9b0fdf3-a015-426e-96a1-9b0e16023b8a
+
+2023-11-06 13:22:48,384 - ERROR - Error executing SQL file ep_j_epplb_ac.sql: 404 Not found: Table hca-hin-dev-cur-parallon:edwpsu_staging.epplb was not found in location US
+
+Location: US
+Job ID: 32e4daba-299e-4a02-97a6-a0082b691391
+
+2023-11-06 13:22:48,685 - ERROR - Error executing SQL file ep_j_epsplitfac_ac.sql: 404 Not found: Table hca-hin-dev-cur-parallon:edwpsu_staging.epsplitfac was not found in location US
+
+Location: US
+Job ID: a943e189-87e6-4578-ba84-4cd3666c0fd7
+
+2023-11-06 13:22:48,937 - ERROR - Error executing SQL file ep_j_epsplitpayer_ac.sql: 404 Not found: Table hca-hin-dev-cur-parallon:edwpsu_staging.epsplitpayer was not found in location US
+
+Location: US
+Job ID: d550b597-4dec-4ae4-921f-16e4653f3690
+
+2023-11-06 13:22:49,156 - ERROR - Error executing SQL file ep_j_epsplitrcvd_ac.sql: 404 Not found: Table hca-hin-dev-cur-parallon:edwpsu_staging.epsplitrcvd was not found in location US
+
+Location: US
+Job ID: 832f2cf1-d3ac-4609-a284-0082d97fef70
+
+2023-11-06 13:22:49,491 - ERROR - Error executing SQL file ep_j_epsplit_ac.sql: 404 Not found: Table hca-hin-dev-cur-parallon:edwpsu_staging.epsplit was not found in location US
+
+Location: US
+Job ID: 394cba82-587e-45fe-8c74-0f5b709eff2e
+
+2023-11-06 13:22:49,708 - ERROR - Error executing SQL file ep_j_ep_ccc_ac.sql: 404 Not found: Table hca-hin-dev-cur-parallon:edwpsu_staging.stg_ep_ccc was not found in location US
+
+Location: US
+Job ID: b8cfd42c-3444-4eef-88bc-d72ac5bfb8b6
+
+2023-11-06 13:22:49,956 - ERROR - Error executing SQL file ep_j_ep_clm_ac.sql: 404 Not found: Table hca-hin-dev-cur-parallon:edwpsu_staging.stg_ep_clm was not found in location US
+
+Location: US
+Job ID: c09e90e6-3818-4c3e-a986-f27ee3bc22e6
+
+2023-11-06 13:22:50,200 - ERROR - Error executing SQL file ep_j_ep_del_ac.sql: 404 Not found: Table hca-hin-dev-cur-parallon:edwpsu_staging.stg_ep_del was not found in location US
+
+Location: US
+Job ID: dd826bc1-7e46-4fe6-a8fb-e3f6ba7edd1f
+
+2023-11-06 13:22:50,998 - INFO - SQL file ep_j_ep_junc_remittance_additional_payee_ac.sql executed successfully.
+2023-11-06 13:22:51,970 - INFO - SQL file ep_j_ep_junc_remittance_delete_ac.sql executed successfully.
+2023-11-06 13:22:52,754 - INFO - SQL file ep_j_ep_junc_remittance_other_claim_related_info_ac.sql executed successfully.
+2023-11-06 13:22:53,522 - INFO - SQL file ep_j_ep_junc_remittance_provider_serv_ac.sql executed successfully.
+2023-11-06 13:22:54,289 - INFO - SQL file ep_j_ep_junc_remittance_secn_rendering_prov_ac.sql executed successfully.
+2023-11-06 13:22:55,108 - INFO - SQL file ep_j_ep_junc_remittance_secn_rendering_prov_service_ac.sql executed successfully.
+2023-11-06 13:22:55,396 - ERROR - Error executing SQL file ep_j_ep_plb_ac.sql: 404 Not found: Table hca-hin-dev-cur-parallon:edwpsu_staging.stg_ep_plb was not found in location US
+
+Location: US
+Job ID: f9a244f3-5fc1-4aae-af91-7aff62bae0b3
+
+2023-11-06 13:22:55,650 - ERROR - Error executing SQL file ep_j_ep_pmt_ac.sql: 404 Not found: Table hca-hin-dev-cur-parallon:edwpsu_staging.stg_ep_pmt was not found in location US
+
+Location: US
+Job ID: e8932af0-bf71-4b17-9215-c7d3c0863e18
+
+2023-11-06 13:22:56,537 - INFO - SQL file ep_j_ep_ref_provider_service_ac.sql executed successfully.
+2023-11-06 13:22:57,214 - INFO - SQL file ep_j_ep_ref_remittance_additional_payee_ac.sql executed successfully.
+2023-11-06 13:22:58,303 - INFO - SQL file ep_j_ep_ref_remittance_cob_carrier_ac.sql executed successfully.
+2023-11-06 13:22:59,099 - INFO - SQL file ep_j_ep_ref_remittance_corrected_priority_payor_ac.sql executed successfully.
+2023-11-06 13:22:59,883 - INFO - SQL file ep_j_ep_ref_remittance_other_claim_related_info_ac.sql executed successfully.
+2023-11-06 13:23:00,604 - INFO - SQL file ep_j_ep_ref_remittance_oth_subscriber_info_ac.sql executed successfully.
+2023-11-06 13:23:01,470 - INFO - SQL file ep_j_ep_ref_remittance_payee_ac.sql executed successfully.
+2023-11-06 13:23:02,166 - INFO - SQL file ep_j_ep_ref_remittance_payor_ac.sql executed successfully.
+2023-11-06 13:23:02,987 - INFO - SQL file ep_j_ep_ref_remittance_rendering_provider_ac.sql executed successfully.
+2023-11-06 13:23:03,822 - INFO - SQL file ep_j_ep_ref_remittance_subscriber_info_ac.sql executed successfully.
+2023-11-06 13:23:04,538 - INFO - SQL file ep_j_ep_ref_secn_remittance_rendering_provider_ac.sql executed successfully.
+2023-11-06 13:23:05,414 - INFO - SQL file ep_j_ep_ref_secn_remittance_rendering_provider_service_ac.sql executed successfully.
+2023-11-06 13:23:06,388 - INFO - SQL file ep_j_ep_remittancepayment_ac.sql executed successfully.
+2023-11-06 13:23:07,612 - INFO - SQL file ep_j_ep_remittance_claim_ac.sql executed successfully.
+2023-11-06 13:23:09,832 - INFO - SQL file ep_j_ep_remittance_claim_carc_ac.sql executed successfully.
+2023-11-06 13:23:10,757 - INFO - SQL file ep_j_ep_remittance_payment_ac.sql executed successfully.
+2023-11-06 13:23:11,682 - INFO - SQL file ep_j_ep_remittance_service_ac.sql executed successfully.
+2023-11-06 13:23:12,592 - INFO - SQL file ep_j_ep_remittance_service_carc_ac.sql executed successfully.
+2023-11-06 13:23:13,279 - INFO - SQL file ep_j_ep_remittance_service_hcpcs_modifier_ac.sql executed successfully.
+2023-11-06 13:23:14,552 - INFO - SQL file ep_j_ep_remittance_service_rarc_ac.sql executed successfully.
+2023-11-06 13:23:14,779 - ERROR - Error executing SQL file ep_j_ep_scc_ac.sql: 404 Not found: Table hca-hin-dev-cur-parallon:edwpsu_staging.stg_ep_scc was not found in location US
+
+Location: US
+Job ID: 613d5a93-e8e5-4934-bca6-e0d50027ed45
+
+2023-11-06 13:23:15,040 - ERROR - Error executing SQL file ep_j_ep_src_ac.sql: 404 Not found: Table hca-hin-dev-cur-parallon:edwpsu_staging.stg_ep_src was not found in location US
+
+Location: US
+Job ID: 0f1e0d73-8988-42fb-9571-ffb58448c9e4
+
+2023-11-06 13:23:15,703 - INFO - SQL file ep_j_ep_stg_remittance_claim_carc_ac.sql executed successfully.
+2023-11-06 13:23:16,756 - INFO - SQL file ep_j_ep_stg_remittance_service_carc_ac.sql executed successfully.
+2023-11-06 13:23:17,398 - INFO - SQL file ep_j_ep_stg_remittance_service_rarc_ac.sql executed successfully.
+2023-11-06 13:23:17,685 - ERROR - Error executing SQL file ep_j_ep_svc_ac.sql: 404 Not found: Table hca-hin-dev-cur-parallon:edwpsu_staging.stg_ep_svc was not found in location US
+
+Location: US
+Job ID: 14f00df4-ded8-4f02-883f-cf5a39f31629
+
+2023-11-06 13:23:18,554 - INFO - SQL file ep_j_remittance_claim_ac.sql executed successfully.
+2023-11-06 13:23:19,339 - INFO - SQL file ep_j_remittance_plb_adj_ac.sql executed successfully.
+2023-11-06 13:23:20,099 - INFO - SQL file ep_j_remittance_service_ac.sql executed successfully.
+2023-11-06 13:23:20,830 - INFO - SQL file ep_j_stg_remittance_plb_adj_ac.sql executed successfully.
+2023-11-06 13:23:21,595 - INFO - SQL file hps_j_stg_hps_pat_payment_link_dtl_prm.sql executed successfully.
+2023-11-06 13:23:22,569 - INFO - SQL file pa_j_ada_patient_level_detail_prm.sql executed successfully.
+2023-11-06 13:23:23,398 - INFO - SQL file pa_j_pf_ref_ada_facility_metric_prm.sql executed successfully.
+2023-11-06 13:23:24,135 - INFO - SQL file pa_j_pf_rpt_ar_ada_detail_prm.sql executed successfully.
+2023-11-06 13:23:25,575 - INFO - SQL file pc_j_pf_dim_reason_code_prm.sql executed successfully.
+2023-11-06 13:23:25,992 - ERROR - Error executing SQL file pc_j_pf_fact_disc_beg_bal_prm.sql: 400 Column 1 contains an aggregation function, which is not allowed in GROUP BY at [24:10]
+
+Location: US
+Job ID: cb99f20e-6dfd-4184-a91a-f2f97a511948
+
+2023-11-06 13:23:26,252 - ERROR - Error executing SQL file pc_j_pf_fact_disc_costyear_prm.sql: 404 Not found: Table hca-hin-dev-cur-parallon:edwpbs_staging.eis_dcrp_unit_cost_year_dim was not found in location US
+
+Location: US
+Job ID: 7597dbf1-4678-46d1-838a-89acf25bfa00
+
+2023-11-06 13:23:27,385 - INFO - SQL file pc_j_pf_fact_disc_open_prm.sql executed successfully.
+2023-11-06 13:23:30,126 - INFO - SQL file pc_j_pf_fact_disc_oth_amt_prm.sql executed successfully.
+2023-11-06 13:23:33,590 - INFO - SQL file pc_j_pf_fact_disc_ratevar_prm.sql executed successfully.
+2023-11-06 13:23:35,109 - INFO - SQL file pc_j_pf_fact_disc_rsld_cm_prm.sql executed successfully.
+2023-11-06 13:23:36,364 - INFO - SQL file pc_j_pf_fact_disc_rsld_pm_prm.sql executed successfully.
+2023-11-06 13:31:02,069 - INFO - =========execution_results================
+2023-11-06 13:31:04,881 - INFO - =========execution_results================
+2023-11-09 00:58:30,783 - ERROR - Error executing SQL file ar_j_pf_fact_patient_cm_prm.sql: 404 Not found: Table hca-hin-dev-cur-parallon:auth_base_views.fact_rcom_ar_patient_level was not found in location US
+
+Location: US
+Job ID: 7c122bdc-878a-4c00-831a-760fbaf1e05f
+
+2023-11-09 00:58:32,228 - INFO - SQL file ar_j_pf_fact_patient_level_legacyar_prm.sql executed successfully.
+2023-11-09 00:58:32,565 - ERROR - Error executing SQL file ar_j_pf_fact_patient_ltchg_prm.sql: 404 Not found: Table hca-hin-dev-cur-parallon:auth_base_views.fact_rcom_ar_patient_level was not found in location US
+
+Location: US
+Job ID: 743ce7cc-00d9-4241-bcfd-95693c2d7746
+
+2023-11-09 00:58:32,919 - ERROR - Error executing SQL file ar_j_pf_fact_pat_dchrg_cnt_prm.sql: 404 Not found: Table hca-hin-dev-cur-parallon:auth_base_views.fact_rcom_ar_patient_level was not found in location US
+
+Location: US
+Job ID: a7c5e229-880c-4171-b9b2-f901f0b0a210
+
+2023-11-09 00:59:34,260 - INFO - SQL file ar_j_pf_fact_pat_dwoff_amt_prm.sql executed successfully.
+2023-11-09 00:59:37,108 - INFO - SQL file ar_j_pf_fact_pat_unbil_bus_prm.sql executed successfully.
+2023-11-09 00:59:39,862 - INFO - SQL file ar_j_pf_fact_pat_unbil_med_prm.sql executed successfully.
+2023-11-09 01:00:06,835 - INFO - SQL file ar_j_pf_fact_pat_upfrntcol_prm.sql executed successfully.
+2023-11-09 01:00:08,559 - INFO - SQL file ar_pbs_j_pf_fact_patient_cm_prm.sql executed successfully.
+2023-11-09 01:00:10,376 - INFO - SQL file ar_pbs_j_pf_fact_patient_level_legacyar_prm.sql executed successfully.
+2023-11-09 01:00:11,004 - ERROR - Error executing SQL file ar_pbs_j_pf_fact_patient_ltchg_prm.sql: 400 Function not found: ERROR_UNIMPLEMENTED at [15:11]
+
+Location: US
+Job ID: 87200633-78d6-4c4d-b690-965ad57929de
+
+2023-11-09 01:00:11,720 - ERROR - Error executing SQL file ar_pbs_j_pf_fact_pat_dchrg_cnt_prm.sql: 403 Access Denied: Table hca-hin-curated-mirroring-td:edwpf_staging.pass_current: User does not have permission to query table hca-hin-curated-mirroring-td:edwpf_staging.pass_current, or perhaps it does not exist in location US.
+
+Location: US
+Job ID: 4320c9bd-940c-4978-bc70-9278e611abfb
+
+2023-11-09 01:00:35,437 - INFO - SQL file ar_pbs_j_pf_fact_pat_dwoff_amt_prm.sql executed successfully.
+2023-11-09 01:00:35,744 - ERROR - Error executing SQL file ar_pbs_j_pf_fact_pat_fc_level_prm.sql: 404 Not found: Table hca-hin-dev-cur-parallon:auth_base_views.revstats_department was not found in location US
+
+Location: US
+Job ID: 9fd2ada3-1243-463a-9896-5980e86f5c02
+
+2023-11-09 01:00:38,211 - INFO - SQL file ar_pbs_j_pf_fact_pat_unbil_bus_prm.sql executed successfully.
+2023-11-09 01:00:41,085 - INFO - SQL file ar_pbs_j_pf_fact_pat_unbil_med_prm.sql executed successfully.
+2023-11-09 01:01:05,633 - INFO - SQL file ar_pbs_j_pf_fact_pat_upfrntcol_prm.sql executed successfully.
+2023-11-09 01:01:06,478 - INFO - SQL file crcb_j_payment_compliance_credit_inventory_bal_prm.sql executed successfully.
+2023-11-09 01:01:07,335 - INFO - SQL file crcb_j_payment_compliance_credit_inventory_rfnd_prm.sql executed successfully.
+2023-11-09 01:01:08,159 - INFO - SQL file crcb_j_payment_compliance_credit_refund_prm.sql executed successfully.
+2023-11-09 01:01:08,994 - INFO - SQL file crcb_j_pf_fact_pars_cdtbal_prm.sql executed successfully.
+2023-11-09 01:01:09,819 - INFO - SQL file crcb_j_pf_fact_pars_cdtrfd_prm.sql executed successfully.
+2023-11-09 01:01:10,981 - INFO - SQL file edwdim_j_pf_dim_organization_prm.sql executed successfully.
+2023-11-09 01:01:12,102 - INFO - SQL file ep_j_ep_junc_remittance_additional_payee_ac.sql executed successfully.
+2023-11-09 01:01:51,665 - INFO - SQL file ep_j_ep_junc_remittance_delete_ac.sql executed successfully.
+2023-11-09 01:01:52,656 - INFO - SQL file ep_j_ep_junc_remittance_other_claim_related_info_ac.sql executed successfully.
+2023-11-09 01:01:53,921 - INFO - SQL file ep_j_ep_junc_remittance_provider_serv_ac.sql executed successfully.
+2023-11-09 01:01:54,922 - INFO - SQL file ep_j_ep_junc_remittance_secn_rendering_prov_ac.sql executed successfully.
+2023-11-09 01:01:55,890 - INFO - SQL file ep_j_ep_junc_remittance_secn_rendering_prov_service_ac.sql executed successfully.
+2023-11-09 01:01:56,704 - INFO - SQL file ep_j_ep_ref_provider_service_ac.sql executed successfully.
+2023-11-09 01:01:57,600 - INFO - SQL file ep_j_ep_ref_remittance_additional_payee_ac.sql executed successfully.
+2023-11-09 01:01:58,786 - INFO - SQL file ep_j_ep_ref_remittance_cob_carrier_ac.sql executed successfully.
+2023-11-09 01:01:59,890 - INFO - SQL file ep_j_ep_ref_remittance_corrected_priority_payor_ac.sql executed successfully.
+2023-11-09 01:02:00,955 - INFO - SQL file ep_j_ep_ref_remittance_other_claim_related_info_ac.sql executed successfully.
+2023-11-09 01:02:02,111 - INFO - SQL file ep_j_ep_ref_remittance_oth_subscriber_info_ac.sql executed successfully.
+2023-11-09 01:02:03,315 - INFO - SQL file ep_j_ep_ref_remittance_payee_ac.sql executed successfully.
+2023-11-09 01:02:04,497 - INFO - SQL file ep_j_ep_ref_remittance_payor_ac.sql executed successfully.
+2023-11-09 01:02:05,658 - INFO - SQL file ep_j_ep_ref_remittance_rendering_provider_ac.sql executed successfully.
+2023-11-09 01:02:06,980 - INFO - SQL file ep_j_ep_ref_remittance_subscriber_info_ac.sql executed successfully.
+2023-11-09 01:02:08,026 - INFO - SQL file ep_j_ep_ref_secn_remittance_rendering_provider_ac.sql executed successfully.
+2023-11-09 01:02:09,221 - INFO - SQL file ep_j_ep_ref_secn_remittance_rendering_provider_service_ac.sql executed successfully.
+2023-11-09 01:02:11,119 - INFO - SQL file ep_j_ep_remittance_claim_ac.sql executed successfully.
+2023-11-09 01:02:12,967 - INFO - SQL file ep_j_ep_remittance_claim_carc_ac.sql executed successfully.
+2023-11-09 01:02:14,015 - INFO - SQL file ep_j_ep_remittance_payment_ac.sql executed successfully.
+2023-11-09 01:02:22,611 - INFO - SQL file ep_j_ep_remittance_service_carc_ac.sql executed successfully.
+2023-11-09 01:02:23,487 - INFO - SQL file ep_j_ep_remittance_service_hcpcs_modifier_ac.sql executed successfully.
+2023-11-09 01:02:24,375 - INFO - SQL file ep_j_ep_remittance_service_rarc_ac.sql executed successfully.
+2023-11-09 01:02:25,249 - INFO - SQL file ep_j_remittance_plb_adj_ac.sql executed successfully.
+2023-11-09 01:02:26,276 - INFO - SQL file ep_j_remittance_service_ac.sql executed successfully.
+2023-11-09 01:02:27,000 - ERROR - Error executing SQL file pa_j_ada_patient_level_detail_prm.sql: 400 Aggregate function SUM not allowed in UNNEST at [459:38]
+
+Location: US
+Job ID: 8cf2e47b-53cc-4ae4-968c-6cc2544556ab
+
+2023-11-09 01:02:27,642 - ERROR - Error executing SQL file pa_j_pf_rpt_ar_ada_detail_prm.sql: 400 Aggregate function SUM not allowed in UNNEST at [446:41]
+
+Location: US
+Job ID: 3e923be3-e76c-4504-9baf-06ab3c695b65
+
+2023-11-09 01:02:29,094 - INFO - SQL file pc_j_pf_fact_disc_costyear_prm.sql executed successfully.
+2023-11-09 01:03:10,915 - INFO - SQL file pc_j_pf_fact_disc_open_prm.sql executed successfully.
+2023-11-09 01:03:11,282 - ERROR - Error executing SQL file pc_j_pf_fact_disc_ratevar_prm.sql: 404 Not found: Table hca-hin-dev-cur-parallon:auth_base_views.facility_reimbursement_log was not found in location US
+
+Location: US
+Job ID: 14d2a9e5-8ef9-42b3-b233-2ca9c5f60ce6
+
+2023-11-09 01:04:06,368 - INFO - SQL file pc_j_pf_fact_disc_rsld_cm_prm.sql executed successfully.
+2023-11-09 01:05:01,332 - INFO - SQL file pc_j_pf_fact_disc_rsld_pm_prm.sql executed successfully.
+2023-11-09 01:05:01,654 - ERROR - Error executing SQL file ar_j_pf_fact_patient_cm_prm.sql: 404 Not found: Table hca-hin-dev-cur-parallon:auth_base_views.fact_rcom_ar_patient_lvl_cm was not found in location US
+
+Location: US
+Job ID: 8568d6d6-ba75-4c00-821d-a8fa9fc81e97
+
+2023-11-09 01:05:01,976 - ERROR - Error executing SQL file ar_j_pf_fact_patient_level_legacyar_prm.sql: 404 Not found: Table hca-hin-dev-cur-parallon:auth_base_views.fact_rcom_ar_patient_level was not found in location US
+
+Location: US
+Job ID: e84c3cc0-b7b8-45cd-97c2-3296f04a46c9
+
+2023-11-09 01:05:02,327 - ERROR - Error executing SQL file ar_j_pf_fact_patient_level_prm.sql: 404 Not found: Table hca-hin-dev-cur-parallon:auth_base_views.fact_rcom_ar_patient_level was not found in location US
+
+Location: US
+Job ID: ce7d9e94-6bf0-4eb8-9298-d5e29ad3c567
+
+2023-11-09 01:05:02,615 - ERROR - Error executing SQL file ar_j_pf_fact_patient_ltchg_prm.sql: 404 Not found: Table hca-hin-dev-cur-parallon:auth_base_views.fact_rcom_ar_patient_level was not found in location US
+
+Location: US
+Job ID: bcd664aa-4ef8-4c35-9562-3ac10ae78509
+
+2023-11-09 01:05:02,962 - ERROR - Error executing SQL file ar_j_pf_fact_pat_dchrg_cnt_prm.sql: 404 Not found: Table hca-hin-dev-cur-parallon:auth_base_views.fact_rcom_ar_patient_level was not found in location US
+
+Location: US
+Job ID: 6f514d71-5c11-473b-bff2-6eb302d82699
+
+2023-11-09 01:05:04,265 - INFO - SQL file ar_j_pf_fact_pat_dwoff_amt_prm.sql executed successfully.
+2023-11-09 01:05:04,565 - ERROR - Error executing SQL file ar_j_pf_fact_pat_unbil_bus_prm.sql: 404 Not found: Table hca-hin-dev-cur-parallon:auth_base_views.fact_rcom_ar_patient_level was not found in location US
+
+Location: US
+Job ID: 907ffe6f-c4dc-437f-bf31-fa918e07eb07
+
+2023-11-09 01:05:04,892 - ERROR - Error executing SQL file ar_j_pf_fact_pat_unbil_med_prm.sql: 404 Not found: Table hca-hin-dev-cur-parallon:auth_base_views.fact_rcom_ar_patient_level was not found in location US
+
+Location: US
+Job ID: 059d4362-0b29-47c7-b9f4-49f42a30c12b
+
+2023-11-09 01:05:05,882 - INFO - SQL file ar_j_pf_fact_pat_upfrntcol_prm.sql executed successfully.
+2023-11-09 01:05:06,226 - ERROR - Error executing SQL file ar_j_pf_fact_pat_w_off_amt_prm.sql: 404 Not found: Table hca-hin-dev-cur-parallon:auth_base_views.fact_rcom_ar_patient_level was not found in location US
+
+Location: US
+Job ID: 28de9613-94dd-4837-8174-efab3f59c016
+
+2023-11-09 01:05:06,555 - ERROR - Error executing SQL file ar_pbs_j_pf_fact_patient_cm_prm.sql: 404 Not found: Table hca-hin-dev-cur-parallon:auth_base_views.fact_rcom_ar_patient_lvl_cm was not found in location US
+
+Location: US
+Job ID: ee04d679-d513-4b9e-a398-f7595837e637
+
+2023-11-09 01:05:07,926 - INFO - SQL file ar_pbs_j_pf_fact_patient_level_legacyar_prm.sql executed successfully.
+2023-11-09 01:05:09,716 - INFO - SQL file ar_pbs_j_pf_fact_patient_level_prm.sql executed successfully.
+2023-11-09 01:05:10,738 - INFO - SQL file ar_pbs_j_pf_fact_patient_ltchg_prm.sql executed successfully.
+2023-11-09 01:05:11,773 - INFO - SQL file ar_pbs_j_pf_fact_pat_dchrg_cnt_prm.sql executed successfully.
+2023-11-09 01:05:12,775 - INFO - SQL file ar_pbs_j_pf_fact_pat_dwoff_amt_prm.sql executed successfully.
+2023-11-09 01:05:13,700 - INFO - SQL file ar_pbs_j_pf_fact_pat_fc_level_prm.sql executed successfully.
+2023-11-09 01:05:14,810 - INFO - SQL file ar_pbs_j_pf_fact_pat_unbil_bus_prm.sql executed successfully.
+2023-11-09 01:05:16,174 - INFO - SQL file ar_pbs_j_pf_fact_pat_unbil_med_prm.sql executed successfully.
+2023-11-09 01:05:17,161 - INFO - SQL file ar_pbs_j_pf_fact_pat_upfrntcol_prm.sql executed successfully.
+2023-11-09 01:05:18,202 - INFO - SQL file ar_pbs_j_pf_fact_pat_w_off_amt_prm.sql executed successfully.
+2023-11-09 01:05:19,179 - INFO - SQL file ar_pbs_j_stg_pf_pass_current_prm.sql executed successfully.
+2023-11-09 01:05:20,170 - INFO - SQL file bud_j_dim_account_ac.sql executed successfully.
+2023-11-09 01:05:21,221 - INFO - SQL file bud_j_dim_bdgt_organization_ac.sql executed successfully.
+2023-11-09 01:05:22,110 - INFO - SQL file bud_j_dim_bdgt_scenario_ac.sql executed successfully.
+2023-11-09 01:05:22,984 - INFO - SQL file bud_j_dim_bdgt_time_ac.sql executed successfully.
+2023-11-09 01:05:23,836 - INFO - SQL file bud_j_dim_bdgt_value_ac.sql executed successfully.
+2023-11-09 01:05:24,624 - INFO - SQL file bud_j_dim_bdgt_year_ac.sql executed successfully.
+2023-11-09 01:05:25,325 - INFO - SQL file bud_j_dim_department_ac.sql executed successfully.
+2023-11-09 01:05:26,161 - INFO - SQL file bud_j_dim_employee_ac.sql executed successfully.
+2023-11-09 01:05:26,974 - INFO - SQL file bud_j_fact_ssd_budget_ac.sql executed successfully.
+2023-11-09 01:05:27,808 - INFO - SQL file crcb_j_payment_compliance_credit_inventory_bal_prm.sql executed successfully.
+2023-11-09 01:05:28,645 - INFO - SQL file crcb_j_payment_compliance_credit_inventory_rfnd_prm.sql executed successfully.
+2023-11-09 01:05:28,977 - ERROR - Error executing SQL file crcb_j_payment_compliance_credit_refund_prm.sql: 404 Not found: Table hca-hin-dev-cur-parallon:edwpbs.payment_compliance_credit_refund was not found in location US
+
+Location: US
+Job ID: 01da3328-6397-40fb-9ab7-1d9258b00c4d
+
+2023-11-09 01:05:29,843 - INFO - SQL file crcb_j_pf_fact_pars_cdtbal_prm.sql executed successfully.
+2023-11-09 01:05:30,667 - INFO - SQL file crcb_j_pf_fact_pars_cdtrfd_prm.sql executed successfully.
+2023-11-09 01:05:31,508 - INFO - SQL file crcb_j_stg_payment_compliance_credit_inventory_bal_prm.sql executed successfully.
+2023-11-09 01:05:32,476 - INFO - SQL file crcb_j_stg_payment_compliance_credit_inventory_rfnd_prm.sql executed successfully.
+2023-11-09 01:05:33,357 - INFO - SQL file crcb_j_stg_pc_cr_refund_dly_prm.sql executed successfully.
+2023-11-09 01:05:34,153 - INFO - SQL file crcb_j_stg_rcom_pars_cb_prm.sql executed successfully.
+2023-11-09 01:05:34,990 - INFO - SQL file crcb_j_stg_rcom_pars_cr_prm.sql executed successfully.
+2023-11-09 01:05:35,958 - INFO - SQL file edwdim_j_pf_dim_organization_prm.sql executed successfully.
+2023-11-09 01:05:36,254 - ERROR - Error executing SQL file ep_j_epcarc_ac.sql: 404 Not found: Table hca-hin-dev-cur-parallon:edwpsu_staging.epcarc was not found in location US
+
+Location: US
+Job ID: 1948916c-13d5-4286-aedf-5a0251dc7e0c
+
+2023-11-09 01:05:36,584 - ERROR - Error executing SQL file ep_j_ephcpcs_ac.sql: 404 Not found: Table hca-hin-dev-cur-parallon:edwpsu_staging.ephcpcs was not found in location US
+
+Location: US
+Job ID: 4180676d-72fd-4a4e-adc0-dc4c43576ce0
+
+2023-11-09 01:05:36,892 - ERROR - Error executing SQL file ep_j_epizcarc_ac.sql: 404 Not found: Table hca-hin-dev-cur-parallon:edwpsu_staging.epizcarc was not found in location US
+
+Location: US
+Job ID: 08dfee76-1a17-440b-a2ac-68bc98b39244
+
+2023-11-09 01:05:37,411 - ERROR - Error executing SQL file ep_j_epizrarc_ac.sql: 404 Not found: Table hca-hin-dev-cur-parallon:edwpsu_staging.epizrarc was not found in location US
+
+Location: US
+Job ID: cad8ec06-4049-411d-b925-8f01669ff96b
+
+2023-11-09 01:05:37,733 - ERROR - Error executing SQL file ep_j_eppayermaster_ac.sql: 404 Not found: Table hca-hin-dev-cur-parallon:edwpsu_staging.eppayermaster was not found in location US
+
+Location: US
+Job ID: 224a77d1-aef0-47d9-8336-cfe693cbd696
+
+2023-11-09 01:05:38,001 - ERROR - Error executing SQL file ep_j_epplb_ac.sql: 404 Not found: Table hca-hin-dev-cur-parallon:edwpsu_staging.epplb was not found in location US
+
+Location: US
+Job ID: 6d478cc3-1520-4008-bbbe-bae989415ec5
+
+2023-11-09 01:05:38,256 - ERROR - Error executing SQL file ep_j_epsplitfac_ac.sql: 404 Not found: Table hca-hin-dev-cur-parallon:edwpsu_staging.epsplitfac was not found in location US
+
+Location: US
+Job ID: e7ac43a2-5213-41f4-97a9-d743e596eda2
+
+2023-11-09 01:05:38,559 - ERROR - Error executing SQL file ep_j_epsplitpayer_ac.sql: 404 Not found: Table hca-hin-dev-cur-parallon:edwpsu_staging.epsplitpayer was not found in location US
+
+Location: US
+Job ID: 687e49fd-3992-4e3f-af6c-9ab69d913e78
+
+2023-11-09 01:05:38,968 - ERROR - Error executing SQL file ep_j_epsplitrcvd_ac.sql: 404 Not found: Table hca-hin-dev-cur-parallon:edwpsu_staging.epsplitrcvd was not found in location US
+
+Location: US
+Job ID: 082075b0-0988-41c3-bf2d-9f630628fd2b
+
+2023-11-09 01:05:39,258 - ERROR - Error executing SQL file ep_j_epsplit_ac.sql: 404 Not found: Table hca-hin-dev-cur-parallon:edwpsu_staging.epsplit was not found in location US
+
+Location: US
+Job ID: db382125-2d22-4212-a23e-2d7242308734
+
+2023-11-09 01:05:39,595 - ERROR - Error executing SQL file ep_j_ep_ccc_ac.sql: 404 Not found: Table hca-hin-dev-cur-parallon:edwpsu_staging.stg_ep_ccc was not found in location US
+
+Location: US
+Job ID: 0dac0aa2-2be3-4e81-87a4-73be813818cf
+
+2023-11-09 01:05:39,894 - ERROR - Error executing SQL file ep_j_ep_clm_ac.sql: 404 Not found: Table hca-hin-dev-cur-parallon:edwpsu_staging.stg_ep_clm was not found in location US
+
+Location: US
+Job ID: 586b1d57-763a-4d38-a571-7d5fef1816a5
+
+2023-11-09 01:05:40,163 - ERROR - Error executing SQL file ep_j_ep_del_ac.sql: 404 Not found: Table hca-hin-dev-cur-parallon:edwpsu_staging.stg_ep_del was not found in location US
+
+Location: US
+Job ID: bb02f68b-bee7-49ca-8d62-eedc54693d6a
+
+2023-11-09 01:05:40,975 - INFO - SQL file ep_j_ep_junc_remittance_additional_payee_ac.sql executed successfully.
+2023-11-09 01:05:41,832 - INFO - SQL file ep_j_ep_junc_remittance_delete_ac.sql executed successfully.
+2023-11-09 01:05:42,637 - INFO - SQL file ep_j_ep_junc_remittance_other_claim_related_info_ac.sql executed successfully.
+2023-11-09 01:05:43,469 - INFO - SQL file ep_j_ep_junc_remittance_provider_serv_ac.sql executed successfully.
+2023-11-09 01:05:44,299 - INFO - SQL file ep_j_ep_junc_remittance_secn_rendering_prov_ac.sql executed successfully.
+2023-11-09 01:05:45,239 - INFO - SQL file ep_j_ep_junc_remittance_secn_rendering_prov_service_ac.sql executed successfully.
+2023-11-09 01:05:45,529 - ERROR - Error executing SQL file ep_j_ep_plb_ac.sql: 404 Not found: Table hca-hin-dev-cur-parallon:edwpsu_staging.stg_ep_plb was not found in location US
+
+Location: US
+Job ID: 3a8aac83-effc-4245-b900-8d1d0e96acd8
+
+2023-11-09 01:05:45,814 - ERROR - Error executing SQL file ep_j_ep_pmt_ac.sql: 404 Not found: Table hca-hin-dev-cur-parallon:edwpsu_staging.stg_ep_pmt was not found in location US
+
+Location: US
+Job ID: f31a2e46-7b9c-471e-bfeb-a9d2b4bc3247
+
+2023-11-09 01:05:46,667 - INFO - SQL file ep_j_ep_ref_provider_service_ac.sql executed successfully.
+2023-11-09 01:05:47,487 - INFO - SQL file ep_j_ep_ref_remittance_additional_payee_ac.sql executed successfully.
+2023-11-09 01:05:48,244 - INFO - SQL file ep_j_ep_ref_remittance_cob_carrier_ac.sql executed successfully.
+2023-11-09 01:05:49,027 - INFO - SQL file ep_j_ep_ref_remittance_corrected_priority_payor_ac.sql executed successfully.
+2023-11-09 01:05:49,730 - INFO - SQL file ep_j_ep_ref_remittance_other_claim_related_info_ac.sql executed successfully.
+2023-11-09 01:05:50,540 - INFO - SQL file ep_j_ep_ref_remittance_oth_subscriber_info_ac.sql executed successfully.
+2023-11-09 01:05:51,363 - INFO - SQL file ep_j_ep_ref_remittance_payee_ac.sql executed successfully.
+2023-11-09 01:05:52,176 - INFO - SQL file ep_j_ep_ref_remittance_payor_ac.sql executed successfully.
+2023-11-09 01:05:53,103 - INFO - SQL file ep_j_ep_ref_remittance_rendering_provider_ac.sql executed successfully.
+2023-11-09 01:05:53,866 - INFO - SQL file ep_j_ep_ref_remittance_subscriber_info_ac.sql executed successfully.
+2023-11-09 01:05:54,679 - INFO - SQL file ep_j_ep_ref_secn_remittance_rendering_provider_ac.sql executed successfully.
+2023-11-09 01:05:55,543 - INFO - SQL file ep_j_ep_ref_secn_remittance_rendering_provider_service_ac.sql executed successfully.
+2023-11-09 01:05:56,433 - INFO - SQL file ep_j_ep_remittancepayment_ac.sql executed successfully.
+2023-11-09 01:05:57,312 - INFO - SQL file ep_j_ep_remittance_claim_ac.sql executed successfully.
+2023-11-09 01:05:59,535 - INFO - SQL file ep_j_ep_remittance_claim_carc_ac.sql executed successfully.
+2023-11-09 01:06:00,277 - INFO - SQL file ep_j_ep_remittance_payment_ac.sql executed successfully.
+2023-11-09 01:06:01,160 - INFO - SQL file ep_j_ep_remittance_service_ac.sql executed successfully.
+2023-11-09 01:06:02,111 - INFO - SQL file ep_j_ep_remittance_service_carc_ac.sql executed successfully.
+2023-11-09 01:06:02,920 - INFO - SQL file ep_j_ep_remittance_service_hcpcs_modifier_ac.sql executed successfully.
+2023-11-09 01:06:04,414 - INFO - SQL file ep_j_ep_remittance_service_rarc_ac.sql executed successfully.
+2023-11-09 01:06:04,742 - ERROR - Error executing SQL file ep_j_ep_scc_ac.sql: 404 Not found: Table hca-hin-dev-cur-parallon:edwpsu_staging.stg_ep_scc was not found in location US
+
+Location: US
+Job ID: 4024005b-30be-4ce8-b13a-f42c32f9dccd
+
+2023-11-09 01:06:05,161 - ERROR - Error executing SQL file ep_j_ep_src_ac.sql: 404 Not found: Table hca-hin-dev-cur-parallon:edwpsu_staging.stg_ep_src was not found in location US
+
+Location: US
+Job ID: dc0e57a3-d9c8-4210-86b5-1ce1d0742f2c
+
+2023-11-09 01:06:05,943 - INFO - SQL file ep_j_ep_stg_remittance_claim_carc_ac.sql executed successfully.
+2023-11-09 01:06:06,776 - INFO - SQL file ep_j_ep_stg_remittance_service_carc_ac.sql executed successfully.
+2023-11-09 01:06:07,545 - INFO - SQL file ep_j_ep_stg_remittance_service_rarc_ac.sql executed successfully.
+2023-11-09 01:06:07,849 - ERROR - Error executing SQL file ep_j_ep_svc_ac.sql: 404 Not found: Table hca-hin-dev-cur-parallon:edwpsu_staging.stg_ep_svc was not found in location US
+
+Location: US
+Job ID: 48a8e302-6a2e-4299-a93f-844055f5c842
+
+2023-11-09 01:06:08,715 - INFO - SQL file ep_j_remittance_claim_ac.sql executed successfully.
+2023-11-09 01:06:09,514 - INFO - SQL file ep_j_remittance_plb_adj_ac.sql executed successfully.
+2023-11-09 01:06:10,541 - INFO - SQL file ep_j_remittance_service_ac.sql executed successfully.
+2023-11-09 01:06:11,452 - INFO - SQL file ep_j_stg_remittance_plb_adj_ac.sql executed successfully.
+2023-11-09 01:06:12,213 - INFO - SQL file hps_j_stg_hps_pat_payment_link_dtl_prm.sql executed successfully.
+2023-11-09 01:06:13,089 - INFO - SQL file pa_j_ada_patient_level_detail_prm.sql executed successfully.
+2023-11-09 01:06:13,970 - INFO - SQL file pa_j_pf_ref_ada_facility_metric_prm.sql executed successfully.
+2023-11-09 01:06:15,002 - INFO - SQL file pa_j_pf_rpt_ar_ada_detail_prm.sql executed successfully.
+2023-11-09 01:06:15,852 - INFO - SQL file pc_j_pf_dim_reason_code_prm.sql executed successfully.
+2023-11-09 01:06:16,297 - ERROR - Error executing SQL file pc_j_pf_fact_disc_beg_bal_prm.sql: 400 Column 1 contains an aggregation function, which is not allowed in GROUP BY at [24:10]
+
+Location: US
+Job ID: f364fc82-a836-4b6b-980c-a1a5f3a4bb4f
+
+2023-11-09 01:06:16,607 - ERROR - Error executing SQL file pc_j_pf_fact_disc_costyear_prm.sql: 404 Not found: Table hca-hin-dev-cur-parallon:edwpbs_staging.eis_dcrp_unit_cost_year_dim was not found in location US
+
+Location: US
+Job ID: 5d19f931-efe6-4c4a-ab30-937f6242a113
+
+2023-11-09 01:06:17,970 - INFO - SQL file pc_j_pf_fact_disc_open_prm.sql executed successfully.
+2023-11-09 01:06:19,684 - INFO - SQL file pc_j_pf_fact_disc_oth_amt_prm.sql executed successfully.
+2023-11-09 01:06:21,790 - INFO - SQL file pc_j_pf_fact_disc_ratevar_prm.sql executed successfully.
+2023-11-09 01:06:22,879 - INFO - SQL file pc_j_pf_fact_disc_rsld_cm_prm.sql executed successfully.
+2023-11-09 01:06:24,071 - INFO - SQL file pc_j_pf_fact_disc_rsld_pm_prm.sql executed successfully.
+2023-11-09 01:46:07,232 - INFO - SQL file j_mhb_alerting_audit_detail_prm.sql executed successfully.
+2023-11-09 01:46:09,951 - INFO - SQL file j_mhb_broadcast_message_detail_prm.sql executed successfully.
+2023-11-09 01:46:10,887 - INFO - SQL file j_mhb_broadcast_message_prm.sql executed successfully.
+2023-11-09 01:46:49,524 - INFO - SQL file j_mhb_care_attachment_prm.sql executed successfully.
+2023-11-09 01:47:52,324 - INFO - SQL file j_mhb_care_detachment_prm.sql executed successfully.
+2023-11-09 01:47:53,874 - INFO - SQL file j_mhb_dynamic_role_attachment_prm.sql executed successfully.
+2023-11-09 01:47:55,472 - INFO - SQL file j_mhb_dynamic_role_detachment_prm.sql executed successfully.
+2023-11-09 01:48:40,799 - INFO - SQL file j_mhb_group_chat_message_prm.sql executed successfully.
+2023-11-09 01:49:20,954 - INFO - SQL file j_mhb_inter_application_inbound_prm.sql executed successfully.
+2023-11-09 01:49:49,638 - INFO - SQL file j_mhb_inter_application_outbound_prm.sql executed successfully.
+2023-11-09 01:49:50,504 - INFO - SQL file j_mhb_lab_order_audit_detail_prm.sql executed successfully.
+2023-11-09 01:49:52,974 - INFO - SQL file j_mhb_message_prm.sql executed successfully.
+2023-11-09 01:49:53,831 - INFO - SQL file j_mhb_patient_vital_audits_prm.sql executed successfully.
+2023-11-09 01:49:55,057 - INFO - SQL file j_mhb_phone_call_audit_detail_prm.sql executed successfully.
+2023-11-09 01:49:56,085 - INFO - SQL file j_mhb_phone_prm.sql executed successfully.
+2023-11-09 01:49:57,183 - INFO - SQL file j_mhb_ref_mhb_action_type_prm.sql executed successfully.
+2023-11-09 01:49:58,131 - INFO - SQL file j_mhb_ref_mhb_alert_type_prm.sql executed successfully.
+2023-11-09 01:49:59,558 - INFO - SQL file j_mhb_ref_mhb_dynamic_role_prm.sql executed successfully.
+2023-11-09 01:50:00,694 - INFO - SQL file j_mhb_ref_mhb_login_type_prm.sql executed successfully.
+2023-11-09 01:50:01,660 - INFO - SQL file j_mhb_ref_mhb_message_delivery_priority_prm.sql executed successfully.
+2023-11-09 01:50:02,669 - INFO - SQL file j_mhb_ref_mhb_unit_prm.sql executed successfully.
+2023-11-09 01:50:03,721 - INFO - SQL file j_mhb_ref_mhb_user_action_type_prm.sql executed successfully.
+2023-11-09 01:50:04,849 - INFO - SQL file j_mhb_ref_mhb_user_group_prm.sql executed successfully.
+2023-11-09 01:50:05,863 - INFO - SQL file j_mhb_ref_mhb_user_role_prm.sql executed successfully.
+2023-11-09 01:50:06,756 - INFO - SQL file j_mhb_ref_mhb_wctp_destination_name_prm.sql executed successfully.
+2023-11-09 01:50:07,732 - INFO - SQL file j_mhb_ref_mhb_wctp_source_name_prm.sql executed successfully.
+2023-11-09 01:50:08,775 - INFO - SQL file j_mhb_ref_mhb_wctp_source_type_prm.sql executed successfully.
+2023-11-09 01:50:09,712 - INFO - SQL file j_mhb_user_prm.sql executed successfully.
+2023-11-09 01:50:11,135 - INFO - SQL file j_mhb_wctp_inbound_message_prm.sql executed successfully.
+2023-11-09 01:50:12,602 - INFO - SQL file j_mhb_wctp_outbound_message_prm.sql executed successfully.
+2023-11-09 01:50:13,433 - INFO - SQL file j_mhb_alerting_audit_detail_prm.sql executed successfully.
+2023-11-09 01:50:14,254 - INFO - SQL file j_mhb_broadcast_message_detail_prm.sql executed successfully.
+2023-11-09 01:50:15,088 - INFO - SQL file j_mhb_broadcast_message_prm.sql executed successfully.
+2023-11-09 01:50:15,942 - INFO - SQL file j_mhb_care_attachment_prm.sql executed successfully.
+2023-11-09 01:50:16,748 - INFO - SQL file j_mhb_care_detachment_prm.sql executed successfully.
+2023-11-09 01:50:17,513 - INFO - SQL file j_mhb_dynamic_role_attachment_prm.sql executed successfully.
+2023-11-09 01:50:18,368 - INFO - SQL file j_mhb_dynamic_role_detachment_prm.sql executed successfully.
+2023-11-09 01:50:19,177 - INFO - SQL file j_mhb_group_chat_message_prm.sql executed successfully.
+2023-11-09 01:50:19,940 - INFO - SQL file j_mhb_inter_application_inbound_prm.sql executed successfully.
+2023-11-09 01:50:20,729 - INFO - SQL file j_mhb_inter_application_outbound_prm.sql executed successfully.
+2023-11-09 01:50:21,473 - INFO - SQL file j_mhb_lab_order_audit_detail_prm.sql executed successfully.
+2023-11-09 01:50:22,160 - INFO - SQL file j_mhb_message_prm.sql executed successfully.
+2023-11-09 01:50:22,910 - INFO - SQL file j_mhb_patient_vital_audits_prm.sql executed successfully.
+2023-11-09 01:50:23,686 - INFO - SQL file j_mhb_phone_call_audit_detail_prm.sql executed successfully.
+2023-11-09 01:50:24,429 - INFO - SQL file j_mhb_phone_prm.sql executed successfully.
+2023-11-09 01:50:25,302 - INFO - SQL file j_mhb_ref_mhb_action_type_prm.sql executed successfully.
+2023-11-09 01:50:26,009 - INFO - SQL file j_mhb_ref_mhb_alert_type_prm.sql executed successfully.
+2023-11-09 01:50:26,791 - INFO - SQL file j_mhb_ref_mhb_dynamic_role_prm.sql executed successfully.
+2023-11-09 01:50:27,646 - INFO - SQL file j_mhb_ref_mhb_login_type_prm.sql executed successfully.
+2023-11-09 01:50:28,356 - INFO - SQL file j_mhb_ref_mhb_message_delivery_priority_prm.sql executed successfully.
+2023-11-09 01:50:29,351 - INFO - SQL file j_mhb_ref_mhb_unit_prm.sql executed successfully.
+2023-11-09 01:50:30,126 - INFO - SQL file j_mhb_ref_mhb_user_action_type_prm.sql executed successfully.
+2023-11-09 01:50:30,930 - INFO - SQL file j_mhb_ref_mhb_user_group_prm.sql executed successfully.
+2023-11-09 01:50:31,718 - INFO - SQL file j_mhb_ref_mhb_user_role_prm.sql executed successfully.
+2023-11-09 01:50:32,510 - INFO - SQL file j_mhb_ref_mhb_wctp_destination_name_prm.sql executed successfully.
+2023-11-09 01:50:33,312 - INFO - SQL file j_mhb_ref_mhb_wctp_source_name_prm.sql executed successfully.
+2023-11-09 01:50:34,090 - INFO - SQL file j_mhb_ref_mhb_wctp_source_type_prm.sql executed successfully.
+2023-11-09 01:50:34,781 - INFO - SQL file j_mhb_user_prm.sql executed successfully.
+2023-11-09 01:50:35,876 - INFO - SQL file j_mhb_vwunits_stgload_prm.sql executed successfully.
+2023-11-09 01:50:36,784 - INFO - SQL file j_mhb_vw_broadcast_messages_stgload_prm.sql executed successfully.
+2023-11-09 01:50:37,525 - INFO - SQL file j_mhb_vw_dynamic_care_attachment_stgload_prm.sql executed successfully.
+2023-11-09 01:50:38,462 - INFO - SQL file j_mhb_vw_dynamic_care_detachment_stgload_prm.sql executed successfully.
+2023-11-09 01:50:39,154 - INFO - SQL file j_mhb_vw_dynamic_role_attachment_stgload_prm.sql executed successfully.
+2023-11-09 01:50:40,320 - INFO - SQL file j_mhb_vw_dynamic_role_detachment_stgload_prm.sql executed successfully.
+2023-11-09 01:50:41,192 - INFO - SQL file j_mhb_vw_group_chat_messages_stgload_prm.sql executed successfully.
+2023-11-09 01:50:41,984 - INFO - SQL file j_mhb_vw_inter_application_inbound_stgload_prm.sql executed successfully.
+2023-11-09 01:50:42,776 - INFO - SQL file j_mhb_vw_inter_application_outbound_stgload_prm.sql executed successfully.
+2023-11-09 01:50:43,598 - INFO - SQL file j_mhb_vw_lab_order_audits_stgload_prm.sql executed successfully.
+2023-11-09 01:50:44,428 - INFO - SQL file j_mhb_vw_patient_alert_tracker_stgload_prm.sql executed successfully.
+2023-11-09 01:50:45,380 - INFO - SQL file j_mhb_vw_patient_vital_audits_stg_load_prm.sql executed successfully.
+2023-11-09 01:50:46,145 - INFO - SQL file j_mhb_vw_phone_stgload_prm.sql executed successfully.
+2023-11-09 01:50:46,969 - INFO - SQL file j_mhb_vw_photo_save_audits_stgload_prm.sql executed successfully.
+2023-11-09 01:50:47,760 - INFO - SQL file j_mhb_vw_photo_view_audits_stg_load_prm.sql executed successfully.
+2023-11-09 01:50:48,854 - INFO - SQL file j_mhb_vw_text_messages_stgload_prm.sql executed successfully.
+2023-11-09 01:50:49,733 - INFO - SQL file j_mhb_vw_user_groups_stgload_prm.sql executed successfully.
+2023-11-09 01:50:50,590 - INFO - SQL file j_mhb_vw_user_login_stgload_prm.sql executed successfully.
+2023-11-09 01:50:51,390 - INFO - SQL file j_mhb_vw_user_phonecalls_stg_load_prm.sql executed successfully.
+2023-11-09 01:50:52,344 - INFO - SQL file j_mhb_vw_user_stgload_prm.sql executed successfully.
+2023-11-09 01:50:53,220 - INFO - SQL file j_mhb_vw_wctp_inbound_messages_stgload_prm.sql executed successfully.
+2023-11-09 01:50:54,011 - INFO - SQL file j_mhb_vw_wctp_outbound_messages_stgload_prm.sql executed successfully.
+2023-11-09 01:50:54,911 - INFO - SQL file j_mhb_wctp_inbound_message_prm.sql executed successfully.
+2023-11-09 01:50:55,798 - INFO - SQL file j_mhb_wctp_outbound_message_prm.sql executed successfully.
+2023-11-09 05:12:08,858 - INFO - SQL file j_mhb_alerting_audit_detail_prm.sql executed successfully.
+2023-11-09 05:12:09,940 - INFO - SQL file j_mhb_broadcast_message_detail_prm.sql executed successfully.
+2023-11-09 05:12:10,732 - INFO - SQL file j_mhb_broadcast_message_prm.sql executed successfully.
+2023-11-09 05:13:12,186 - INFO - SQL file j_mhb_care_attachment_prm.sql executed successfully.
+2023-11-09 05:13:49,326 - INFO - SQL file j_mhb_care_detachment_prm.sql executed successfully.
+2023-11-09 05:13:51,019 - INFO - SQL file j_mhb_dynamic_role_attachment_prm.sql executed successfully.
+2023-11-09 05:13:52,504 - INFO - SQL file j_mhb_dynamic_role_detachment_prm.sql executed successfully.
+2023-11-09 05:14:31,447 - INFO - SQL file j_mhb_group_chat_message_prm.sql executed successfully.
+2023-11-09 05:15:03,496 - INFO - SQL file j_mhb_inter_application_inbound_prm.sql executed successfully.
+2023-11-09 05:15:38,971 - INFO - SQL file j_mhb_inter_application_outbound_prm.sql executed successfully.
+2023-11-09 05:15:40,002 - INFO - SQL file j_mhb_lab_order_audit_detail_prm.sql executed successfully.
+2023-11-09 05:15:45,410 - INFO - SQL file j_mhb_message_prm.sql executed successfully.
+2023-11-09 05:15:46,379 - INFO - SQL file j_mhb_patient_vital_audits_prm.sql executed successfully.
+2023-11-09 05:15:47,880 - INFO - SQL file j_mhb_phone_call_audit_detail_prm.sql executed successfully.
+2023-11-09 05:15:50,238 - INFO - SQL file j_mhb_phone_prm.sql executed successfully.
+2023-11-09 05:15:51,427 - INFO - SQL file j_mhb_ref_mhb_action_type_prm.sql executed successfully.
+2023-11-09 05:15:54,241 - INFO - SQL file j_mhb_ref_mhb_alert_type_prm.sql executed successfully.
+2023-11-09 05:15:55,490 - INFO - SQL file j_mhb_ref_mhb_dynamic_role_prm.sql executed successfully.
+2023-11-09 05:15:56,755 - INFO - SQL file j_mhb_ref_mhb_login_type_prm.sql executed successfully.
+2023-11-09 05:15:57,975 - INFO - SQL file j_mhb_ref_mhb_message_delivery_priority_prm.sql executed successfully.
+2023-11-09 05:15:59,069 - INFO - SQL file j_mhb_ref_mhb_unit_prm.sql executed successfully.
+2023-11-09 05:16:00,412 - INFO - SQL file j_mhb_ref_mhb_user_action_type_prm.sql executed successfully.
+2023-11-09 05:16:01,553 - INFO - SQL file j_mhb_ref_mhb_user_group_prm.sql executed successfully.
+2023-11-09 05:16:02,913 - INFO - SQL file j_mhb_ref_mhb_user_role_prm.sql executed successfully.
+2023-11-09 05:16:04,038 - INFO - SQL file j_mhb_ref_mhb_wctp_destination_name_prm.sql executed successfully.
+2023-11-09 05:16:05,316 - INFO - SQL file j_mhb_ref_mhb_wctp_source_name_prm.sql executed successfully.
+2023-11-09 05:16:06,492 - INFO - SQL file j_mhb_ref_mhb_wctp_source_type_prm.sql executed successfully.
+2023-11-09 05:16:07,462 - INFO - SQL file j_mhb_user_prm.sql executed successfully.
+2023-11-09 05:16:09,113 - INFO - SQL file j_mhb_wctp_inbound_message_prm.sql executed successfully.
+2023-11-09 05:16:10,671 - INFO - SQL file j_mhb_wctp_outbound_message_prm.sql executed successfully.
+2023-11-09 05:16:11,555 - INFO - SQL file j_mhb_alerting_audit_detail_prm.sql executed successfully.
+2023-11-09 05:16:12,321 - INFO - SQL file j_mhb_broadcast_message_detail_prm.sql executed successfully.
+2023-11-09 05:16:13,293 - INFO - SQL file j_mhb_broadcast_message_prm.sql executed successfully.
+2023-11-09 05:16:14,040 - INFO - SQL file j_mhb_care_attachment_prm.sql executed successfully.
+2023-11-09 05:16:14,806 - INFO - SQL file j_mhb_care_detachment_prm.sql executed successfully.
+2023-11-09 05:16:15,806 - INFO - SQL file j_mhb_dynamic_role_attachment_prm.sql executed successfully.
+2023-11-09 05:16:16,806 - INFO - SQL file j_mhb_dynamic_role_detachment_prm.sql executed successfully.
+2023-11-09 05:16:17,743 - INFO - SQL file j_mhb_group_chat_message_prm.sql executed successfully.
+2023-11-09 05:16:18,577 - INFO - SQL file j_mhb_inter_application_inbound_prm.sql executed successfully.
+2023-11-09 05:16:19,627 - INFO - SQL file j_mhb_inter_application_outbound_prm.sql executed successfully.
+2023-11-09 05:16:20,557 - INFO - SQL file j_mhb_lab_order_audit_detail_prm.sql executed successfully.
+2023-11-09 05:16:21,385 - INFO - SQL file j_mhb_message_prm.sql executed successfully.
+2023-11-09 05:16:22,448 - INFO - SQL file j_mhb_patient_vital_audits_prm.sql executed successfully.
+2023-11-09 05:16:23,291 - INFO - SQL file j_mhb_phone_call_audit_detail_prm.sql executed successfully.
+2023-11-09 05:16:24,057 - INFO - SQL file j_mhb_phone_prm.sql executed successfully.
+2023-11-09 05:16:24,839 - INFO - SQL file j_mhb_ref_mhb_action_type_prm.sql executed successfully.
+2023-11-09 05:16:25,573 - INFO - SQL file j_mhb_ref_mhb_alert_type_prm.sql executed successfully.
+2023-11-09 05:16:26,433 - INFO - SQL file j_mhb_ref_mhb_dynamic_role_prm.sql executed successfully.
+2023-11-09 05:16:27,199 - INFO - SQL file j_mhb_ref_mhb_login_type_prm.sql executed successfully.
+2023-11-09 05:16:28,143 - INFO - SQL file j_mhb_ref_mhb_message_delivery_priority_prm.sql executed successfully.
+2023-11-09 05:16:28,886 - INFO - SQL file j_mhb_ref_mhb_unit_prm.sql executed successfully.
+2023-11-09 05:16:29,839 - INFO - SQL file j_mhb_ref_mhb_user_action_type_prm.sql executed successfully.
+2023-11-09 05:16:30,933 - INFO - SQL file j_mhb_ref_mhb_user_group_prm.sql executed successfully.
+2023-11-09 05:16:31,684 - INFO - SQL file j_mhb_ref_mhb_user_role_prm.sql executed successfully.
+2023-11-09 05:16:32,559 - INFO - SQL file j_mhb_ref_mhb_wctp_destination_name_prm.sql executed successfully.
+2023-11-09 05:16:33,262 - INFO - SQL file j_mhb_ref_mhb_wctp_source_name_prm.sql executed successfully.
+2023-11-09 05:16:34,012 - INFO - SQL file j_mhb_ref_mhb_wctp_source_type_prm.sql executed successfully.
+2023-11-09 05:16:34,793 - INFO - SQL file j_mhb_user_prm.sql executed successfully.
+2023-11-09 05:16:35,731 - INFO - SQL file j_mhb_vwunits_stgload_prm.sql executed successfully.
+2023-11-09 05:16:36,624 - INFO - SQL file j_mhb_vw_broadcast_messages_stgload_prm.sql executed successfully.
+2023-11-09 05:16:37,575 - INFO - SQL file j_mhb_vw_dynamic_care_attachment_stgload_prm.sql executed successfully.
+2023-11-09 05:16:38,450 - INFO - SQL file j_mhb_vw_dynamic_care_detachment_stgload_prm.sql executed successfully.
+2023-11-09 05:16:39,201 - INFO - SQL file j_mhb_vw_dynamic_role_attachment_stgload_prm.sql executed successfully.
+2023-11-09 05:16:39,997 - INFO - SQL file j_mhb_vw_dynamic_role_detachment_stgload_prm.sql executed successfully.
+2023-11-09 05:16:41,045 - INFO - SQL file j_mhb_vw_group_chat_messages_stgload_prm.sql executed successfully.
+2023-11-09 05:16:41,795 - INFO - SQL file j_mhb_vw_inter_application_inbound_stgload_prm.sql executed successfully.
+2023-11-09 05:16:42,629 - INFO - SQL file j_mhb_vw_inter_application_outbound_stgload_prm.sql executed successfully.
+2023-11-09 05:16:43,478 - INFO - SQL file j_mhb_vw_lab_order_audits_stgload_prm.sql executed successfully.
+2023-11-09 05:16:44,279 - INFO - SQL file j_mhb_vw_patient_alert_tracker_stgload_prm.sql executed successfully.
+2023-11-09 05:16:45,171 - INFO - SQL file j_mhb_vw_patient_vital_audits_stg_load_prm.sql executed successfully.
+2023-11-09 05:16:46,077 - INFO - SQL file j_mhb_vw_phone_stgload_prm.sql executed successfully.
+2023-11-09 05:16:46,936 - INFO - SQL file j_mhb_vw_photo_save_audits_stgload_prm.sql executed successfully.
+2023-11-09 05:16:47,827 - INFO - SQL file j_mhb_vw_photo_view_audits_stg_load_prm.sql executed successfully.
+2023-11-09 05:16:48,983 - INFO - SQL file j_mhb_vw_text_messages_stgload_prm.sql executed successfully.
+2023-11-09 05:16:49,821 - INFO - SQL file j_mhb_vw_user_groups_stgload_prm.sql executed successfully.
+2023-11-09 05:16:50,718 - INFO - SQL file j_mhb_vw_user_login_stgload_prm.sql executed successfully.
+2023-11-09 05:16:51,687 - INFO - SQL file j_mhb_vw_user_phonecalls_stg_load_prm.sql executed successfully.
+2023-11-09 05:16:52,510 - INFO - SQL file j_mhb_vw_user_stgload_prm.sql executed successfully.
+2023-11-09 05:16:53,281 - INFO - SQL file j_mhb_vw_wctp_inbound_messages_stgload_prm.sql executed successfully.
+2023-11-09 05:16:54,047 - INFO - SQL file j_mhb_vw_wctp_outbound_messages_stgload_prm.sql executed successfully.
+2023-11-09 05:16:54,844 - INFO - SQL file j_mhb_wctp_inbound_message_prm.sql executed successfully.
+2023-11-09 05:16:55,891 - INFO - SQL file j_mhb_wctp_outbound_message_prm.sql executed successfully.

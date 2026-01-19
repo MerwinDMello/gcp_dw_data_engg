@@ -1,0 +1,103 @@
+{
+  "name_map": [
+  {
+    "source": {
+      "type": "SCHEMA",
+      "database": "hca-hin-dev-cur-hr",
+      "schema": "edwhr"
+    },
+    "target": {
+      "database": "hca-hin-dev-cur-hr",
+      "schema": "edwhr_copy"
+    }
+  }, 
+  {
+    "source": {
+      "type": "SCHEMA",
+      "database": "hca-hin-dev-cur-hr",
+      "schema": "edwhr_staging"
+    },
+    "target": {
+      "database": "hca-hin-dev-cur-hr",
+      "schema": "edwhr_staging_copy"
+    }
+  },
+  {
+    "source": {
+      "type": "SCHEMA",
+      "database": "hca-hin-dev-cur-hr",
+      "schema": "$ncr_stg_schema"
+    },
+    "target": {
+      "database": "hca-hin-dev-cur-hr",
+      "schema": "edwhr_staging_copy"
+    }
+  },
+  {
+    "source": {
+      "type": "SCHEMA",
+      "database": "hca-hin-dev-cur-hr",
+      "schema": "$ncr_tgt_schema"
+    },
+    "target": {
+      "database": "hca-hin-dev-cur-hr",
+      "schema": "edwhr_copy"
+    }
+  },
+  {
+    "source": {
+      "type": "SCHEMA",
+      "database": "hca-hin-dev-cur-hr",
+      "schema": "edwhr_base_views"
+    },
+    "target": {
+      "database": "hca-hin-dev-cur-hr",
+      "schema": "edwhr_base_views_copy"
+    }
+  },
+  {
+    "source": {
+      "type": "SCHEMA",
+      "database": "hca-hin-dev-cur-hr",
+      "schema": "edwfs_base_views"
+    },
+    "target": {
+      "database": "hca-hin-dev-cur-hr",
+      "schema": "edwfs_base_views_copy"
+    }
+  },
+  {
+    "source": {
+      "type": "SCHEMA",
+      "database": "hca-hin-dev-cur-hr",
+      "schema": "edwfs"
+    },
+    "target": {
+      "database": "hca-hin-dev-cur-hr",
+      "schema": "edwfs_copy"
+    }
+  },
+  {
+    "source": {
+      "type": "SCHEMA",
+      "database": "hca-hin-dev-cur-hr",
+      "schema": "edw_pub_views"
+    },
+    "target": {
+      "database": "hca-hin-dev-cur-hr",
+      "schema": "edw_pub_views_copy"
+    }
+  },
+  {
+    "source": {
+      "type": "SCHEMA",
+      "database": "hca-hin-dev-cur-hr",
+      "schema": "edwhr_views"
+    },
+    "target": {
+      "database": "hca-hin-dev-cur-hr",
+      "schema": "edwhr_views_copy"
+    }
+  }
+  ]
+}

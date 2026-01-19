@@ -1,0 +1,6 @@
+export AC_EXP_SQL_STATEMENT="SELECT 'J_Fact_SSD_Budget' + ',' + CAST(COUNT(*) AS VARCHAR(20)) + ',' as SOURCE_STRING from  fact_ssd_budget"
+
+export JOBNAME='J_Fact_SSD_Budget'
+export AC_EXP_TOLERANCE_PERCENT=0
+export AC_EXP_TOLERANCE_AMT=0
+export AC_ACT_SQL_STATEMENT="SELECT 'J_Fact_SSD_Budget' || ',' || CAST(Count(*) AS VARCHAR(20)) || ',' as SOURCE_STRING FROM Edwpbs_Staging.Fact_SSD_Budget"

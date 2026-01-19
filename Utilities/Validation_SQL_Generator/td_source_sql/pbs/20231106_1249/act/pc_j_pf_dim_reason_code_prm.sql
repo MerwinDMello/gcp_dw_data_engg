@@ -1,0 +1,1 @@
+SELECT 'PCMEI280'||','|| coalesce(trim(CAST(COUNT(Reason_Code_Sid) as varchar(20))),'0')||','as Source_String FROM EDWPBS.EIS_Reason_Code_Dim 

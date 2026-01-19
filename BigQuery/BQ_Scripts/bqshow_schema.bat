@@ -1,0 +1,1 @@
+bq show --schema --format=json edwpi_staging.fs_rolepermission > Schema\fs_rolepermission.json

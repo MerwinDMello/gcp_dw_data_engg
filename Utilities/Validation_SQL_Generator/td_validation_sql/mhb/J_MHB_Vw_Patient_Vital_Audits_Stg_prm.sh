@@ -1,0 +1,45 @@
+set -x
+
+export View_Name=VWPATIENTVITALAUDITS
+export AC_EXP_TOLERANCE_PERCENT=0
+export AC_EXP_TOLERANCE_AMT=0
+JOBNAME1=${Job_Name}_${DBname}
+export JOBNAME=`echo $JOBNAME1|cut -c1-100`
+export SQL_IMOBILE_DB='SQL_IMOBILE'
+
+######## EXPECTED ########
+
+export AC_EXP_SQL_STATEMENT="SELECT '${Job_Name}'+'_'+'${DBname}'+ ',' + CAST(COUNT(*) AS VARCHAR(20)) + ',' AS SOURCE_STRING
+FROM (
+SELECT
+TRAIL_ID,
+UNIT_ID,
+UNITNAME,
+UNITCODE,
+HOSPITAL,
+FACILITYCODE,
+USER_ID,
+USER_NAME,
+USER_FULL_NAME,
+USER_ROLE,
+PATIENT_ID,
+PATIENT_NAME,
+PATIENT_MRN,
+PATIENT_VISITNUMBER,
+PATIENT_FACILITYCODE,
+PATIENT_VITAL_DATETIME,
+'$DBname' AS DATABASE_NAME
+FROM 
+$DBname.DBO.VWPATIENTVITALAUDITS
+WHERE 
+(LASTTIMESTAMP > '${From_Date}' AND LASTTIMESTAMP <= '${To_Date}') OR (INFERREDUPDATE = 1)
+)A"
+
+######## ACTUAL ########
+
+export TARGET_DIR=/etl/ST/EDWCI/SrcFiles
+export AC_ACT_INPUT_FILE='J_MHB_Vw_Patient_Vital_Audits_Stg_'${DBname}'.txt' 
+export P_ACT_Delimiter='|' 
+export P_ACT_Control_Total_Field='1,'
+export P_ACT_Number_of_Fields='20'
+export P_ACT_Control_Total_Type='1,'

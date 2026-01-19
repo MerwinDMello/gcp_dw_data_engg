@@ -1,0 +1,2 @@
+SELECT 'PBMPA100-10'||','||CAST (SUM(ADA_Pct) AS varchar(20)) ||','||CAST (SUM(Secondary_Pct) AS varchar(20))||',' 
+	as source_string FROM Edwpbs_base_views.Ref_ADA_Facility_Metric WHERE	Eff_To_Date = '9999-12-31' AND unit_num NOT IN ('27102','00631','00460','00472' ) 

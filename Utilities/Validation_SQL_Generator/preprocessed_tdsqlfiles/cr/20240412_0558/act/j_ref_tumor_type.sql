@@ -1,0 +1,3 @@
+SELECT CONCAT(COUNT(*)) AS SOURCE_STRING
+FROM EDWCR.Ref_Tumor_Type
+WHERE Source_System_Code='N'

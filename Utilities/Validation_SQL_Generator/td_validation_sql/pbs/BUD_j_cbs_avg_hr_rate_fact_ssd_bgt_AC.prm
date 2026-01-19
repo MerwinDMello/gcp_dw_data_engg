@@ -1,0 +1,5 @@
+export AC_EXP_SQL_STATEMENT="SELECT 'CBS_AVG_HR_RATE_FACT_SSD_BGT' + ',' + CAST(Count(*) AS VARCHAR(20)) + ',' + CAST(SUM(LEN(RTE.Scenario_Sid)) AS VARCHAR(20)) + ',' + CAST(SUM(RTE.Amount) AS VARCHAR(20)) + ',' as SOURCE_STRING FROM dbo.vw_Avg_Hrly_Rate_Fact_SSD_Budget RTE"
+export JOBNAME='CBS_AVG_HR_RATE_FACT_SSD_BGT'
+export AC_EXP_TOLERANCE_PERCENT=0
+export AC_EXP_TOLERANCE_AMT=0
+export AC_ACT_SQL_STATEMENT="SELECT 'CBS_AVG_HR_RATE_FACT_SSD_BGT' + ',' + CAST(Count(*) AS VARCHAR(20)) + ',' + CAST(SUM(LEN(SCN.Scenario_Sid)) AS VARCHAR(20)) + ',' + CAST(SUM(FCT.Amount) AS VARCHAR(20)) + ',' as SOURCE_STRING FROM (SELECT FCT.Scenario, FCT.Amount FROM dbo.vw_Fact_SSD_Budget_Member_Names FCT WHERE FCT.Scenario IN ('Actual') AND FCT.Account IN ('Hourly_Rate')) FCT INNER JOIN dbo.Dim_Scenario_SSD_Budget SCN ON FCT.Scenario = SCN.Scenario_Name_Child"

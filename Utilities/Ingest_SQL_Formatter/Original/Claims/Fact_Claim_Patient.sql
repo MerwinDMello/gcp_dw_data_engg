@@ -1,0 +1,20 @@
+SELECT
+Claim_ID,
+Patient_Addr1,
+Patient_Addr2,
+Patient_City,
+Patient_DOB,
+Patient_First_Name,
+Patient_Last_Name,
+Patient_Sex as Patient_Sex_Cd,
+Patient_St,
+Patient_Zip as Patient_Zip_Cd,
+Resp_Party_Addr1,
+Resp_Party_Addr2,
+Resp_Party_City,
+Resp_Party_Name,
+Resp_Party_St,
+Resp_Party_Zip as Resp_Party_Zip_Cd,
+NULL as DW_Last_Update_Date_Time,
+NULL as Source_System_Code
+FROM ClaimsConnectDB.dbo.Fact_Claim_Patient WITH (nolock);

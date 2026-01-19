@@ -1,0 +1,16 @@
+{
+    "lob"                   :   "HR",
+    "domain_abbr"           :   "HRG",
+    "domain_syn_names"      :   ["hr","hrg"],
+    "project_id"            :   "hca-hin-dev-cur-hr",
+    "monitoring_dataset"    :   "edwhr_ac",
+    "authviews_dataset"     :   "auth_base_views",
+    "audit_dataset"         :   "edwhr_ac",
+
+    "yaml_template_path"    :   "YAML_Templates",
+    "jinja_extension"       :   ".j2",
+    "sql_extension"         :   ".sql",
+    "output_path_folder"    :   "LOB",
+    "parameterized_folder"  :   "Parameterized",
+    "qualified_folder"      :   "Qualified"
+}

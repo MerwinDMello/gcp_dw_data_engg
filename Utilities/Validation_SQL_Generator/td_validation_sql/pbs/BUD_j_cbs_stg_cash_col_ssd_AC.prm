@@ -1,0 +1,49 @@
+export AC_EXP_SQL_STATEMENT="SELECT 'CBS_STG_CASH_COL_SSD'  || ','  || CAST(COUNT(*) as VARCHAR(20)) || ','  ||  CAST(SUM(A.LengthOrgChild) as VARCHAR(20)) || ','  || CAST(SUM(A.LengthScenario) as VARCHAR(20)) || ','  as SOURCE_STRING
+FROM
+(
+	SELECT SUM(LENGTH(ae.Org_Name_Child)) as LengthOrgChild, SUM(LENGTH(aa.Scenario_Member)) as LengthScenario
+	FROM
+    EDWPF_BASE_VIEWS.EIS_Scenario_Dim aa   
+  , EDWPF_BASE_VIEWS.EIS_Patient_Type_Dim ab  
+  , EDWPF_RCM_VIEWS.Fact_AR_Combined_Eis ac  
+  , EDWPF_BASE_VIEWS.EIS_Patient_Fin_Class_Dim ad  
+  , EDWPF_Base_Views.Dim_Organization ae
+  , EDWPF_BASE_VIEWS.EIS_Date_Dim af  
+  , EDWFS_Base_Views.Fact_Facility ag
+WHERE
+
+   ac.Scenario_Sid = aa.Scenario_Sid
+   AND ac.Patient_Type_Sid = ab.Patient_Type_Sid
+   AND ac.Patient_Financial_Class_Sid = ad.Patient_Financial_Class_Sid
+   AND ac.Unit_Num_Sid = ae.Org_Sid
+   AND ac.Date_Sid = af.TIME_ID 
+   AND af.CURRENT_MTH  = 'y'
+   AND aa.Scenario_Member = 'Actual'
+   AND ae.Org_Sid = ag.Unit_Num
+   AND ag.PAS_Status = 'M'
+   
+   /* Select the fiirst occurrence of the org member */
+   AND ae.Org_Sid = (SELECT MIN(os.org_sid) FROM EDWPF_Base_Views.Dim_Organization os
+                                                                                                            WHERE os.COID = ae.COID
+                                                                                                            AND os.Org_Hier_Name = 'AR Cash Hierarchy')
+   
+   /* Select from the CASH hierarchy */
+   AND ae.Org_Hier_name = 'AR Cash Hierarchy'
+   
+   
+   /* For testing of Redmond */
+   --AND  'Z' || ag.PAS_Coid || '_C' || ae.COID = 'Z08591_C31052'
+   
+    GROUP BY
+    ag.Pas_Coid
+  ,  ae.COID
+  , aa.Scenario_Member 
+  , af.TIME_MEMBER
+
+/* or Group by 1,2,3,4 */
+  HAVING SUM(COALESCE(ac.Cash_Receipt,0.000)) <> 0
+) A"
+export JOBNAME='CBS_STG_CASH_COL_SSD'
+export AC_EXP_TOLERANCE_PERCENT=0
+export AC_EXP_TOLERANCE_AMT=0
+export AC_ACT_SQL_STATEMENT="SELECT 'CBS_STG_CASH_COL_SSD' + ',' + CAST(Count(*) AS VARCHAR(20)) + ',' + CAST(SUM(LEN(ACT.Organization)) AS VARCHAR(20)) + ',' + CAST(SUM(LEN(ACT.Scenario)) AS VARCHAR(20)) + ',' as SOURCE_STRING FROM dbo.Stg_ANR ACT"

@@ -1,0 +1,11 @@
+echo "Creating ETL Job Run Entry"
+
+bteq << EOF >> /dev/null
+
+.SET ERROROUT STDOUT
+.RUN FILE $LOGONDIR/HDW_AC
+INSERT INTO $NCR_AC_VIEW.etl_job_run VALUES ('$Job_Name',CURRENT_TIMESTAMP(0),NULL,NULL,NULL);
+.LOGOFF
+.QUIT
+
+EOF

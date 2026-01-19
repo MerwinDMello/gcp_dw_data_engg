@@ -1,0 +1,2 @@
+SELECT CONCAT(count(*)) AS SOURCE_STRING
+FROM EDWCR.Ref_Pathway_Var_Reason

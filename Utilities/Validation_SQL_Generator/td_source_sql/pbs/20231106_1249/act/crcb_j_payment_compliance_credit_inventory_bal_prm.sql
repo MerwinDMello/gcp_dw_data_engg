@@ -1,0 +1,2 @@
+SELECT 'PBDCR002-40' || ',' || cast(zeroifnull(Count(*)) as varchar(20)) || ','  || cast(zeroifnull(SUM(Refund_Amt)) as varchar(20)) || ','  || cast(zeroifnull(SUM(Total_Account_Balance_Amt)) as varchar(20)) || ',' AS SOURCE_STRING
+FROM edwpbs.Payment_Compliance_Credit_Inventory CBD where Reporting_Date = current_date and Credit_Balance_Refund_Ind = 'B';

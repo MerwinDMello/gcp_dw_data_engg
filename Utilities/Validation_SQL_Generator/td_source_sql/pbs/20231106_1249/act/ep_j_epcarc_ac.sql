@@ -1,0 +1,1 @@
+SELECT 'J_EPCarc' || ',' || CAST(Count(*) AS VARCHAR(20)) || ',' as SOURCE_STRING FROM EDWPSU_Staging.EPCarc

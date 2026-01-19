@@ -1,0 +1,2 @@
+SELECT CONCAT(COUNT(*)) AS SOURCE_STRING
+FROM EDWCR_Staging.stg_DimResource

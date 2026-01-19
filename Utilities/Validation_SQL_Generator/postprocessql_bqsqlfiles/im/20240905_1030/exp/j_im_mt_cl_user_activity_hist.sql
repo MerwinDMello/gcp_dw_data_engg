@@ -1,0 +1,11 @@
+-- Translation time: 2024-09-05T15:31:41.992Z
+-- Translation job ID: 2a0106aa-7f86-44a1-bb13-2e1417e5dce4
+-- Source: gs://eim-comp-cs-datamig-dev-0002/im_bulk_conversion_validation/20240905_1030/input/exp/j_im_mt_cl_user_activity_hist.sql
+-- Translated from: Teradata
+-- Translated to: BigQuery
+
+SELECT format('%20d', coalesce(count(*), 0)) AS source_string
+FROM
+  (SELECT DISTINCT mt_cl_user_activity.network_mnemonic_cs,
+                   mt_cl_user_activity.mt_user_mnemonic_cs
+   FROM `hca-hin-dev-cur-comp`.edwim_staging.mt_cl_user_activity) AS a

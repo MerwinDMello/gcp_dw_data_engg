@@ -1,0 +1,5 @@
+export AC_EXP_SQL_STATEMENT="SELECT 'CBS_DIM_ORGANIZATION_SSD_BGT' + ',' + CAST(Count(*) AS VARCHAR(20)) + ',' + CAST(SUM(LEN(ORG.Organization_Name_Child)) AS VARCHAR(20)) + ',' + CAST(SUM(ORG.Member_Solve_Order_Num) AS VARCHAR(20)) + ',' as SOURCE_STRING FROM dbo.Stg_Organization ORG"
+export JOBNAME='CBS_DIM_ORGANIZATION_SSD_BGT'
+export AC_EXP_TOLERANCE_PERCENT=0
+export AC_EXP_TOLERANCE_AMT=0
+export AC_ACT_SQL_STATEMENT="SELECT 'CBS_DIM_ORGANIZATION_SSD_BGT' + ',' + CAST(Count(*) AS VARCHAR(20)) + ',' + CAST(SUM(LEN(ORG.Organization_Name_Child)) AS VARCHAR(20)) + ',' + CAST(SUM(ORG.Member_Solve_Order_Num) AS VARCHAR(20)) + ',' as SOURCE_STRING FROM dbo.Dim_Organization_SSD_Budget ORG"

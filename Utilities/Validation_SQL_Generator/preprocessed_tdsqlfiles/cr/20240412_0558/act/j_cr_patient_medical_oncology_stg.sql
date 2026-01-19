@@ -1,0 +1,2 @@
+SELECT CONCAT(count(*)) AS SOURCE_STRING
+FROM EDWCR_STAGING.CR_Patient_Medical_Oncology_STG

@@ -1,0 +1,1 @@
+select 'J_EP_Junc_Remittance_Provider_Serv' || ',' || CAST(COUNT(*) AS VARCHAR(20)) || ',' as Source_String from EDWPBS.JUNC_REMITTANCE_PROVIDER_SERV

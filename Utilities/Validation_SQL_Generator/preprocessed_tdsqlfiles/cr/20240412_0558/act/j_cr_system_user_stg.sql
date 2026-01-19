@@ -1,0 +1,2 @@
+SELECT CONCAT(count(*)) AS SOURCE_STRING
+FROM EDWCR_Staging.CR_System_User_Stg

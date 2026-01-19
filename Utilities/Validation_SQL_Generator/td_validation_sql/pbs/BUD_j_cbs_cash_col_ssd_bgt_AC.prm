@@ -1,0 +1,13 @@
+export AC_EXP_SQL_STATEMENT="SELECT 'CBS_CASH_COL_SSD_BGT'  + ','  + CAST(COALESCE(Count(*), 0) AS VARCHAR(20))  + ','  +
+	CAST(COALESCE(SUM(LEN(STG.Organization)), 0) AS VARCHAR(20))  + ','  + 
+	CAST(COALESCE(SUM(LEN(STG.Department)), 0) AS VARCHAR(20))  + ',' as SOURCE_STRING
+FROM vw_STG_ANR STG"
+export JOBNAME='CBS_CASH_COL_SSD_BGT'
+export AC_EXP_TOLERANCE_PERCENT=0
+export AC_EXP_TOLERANCE_AMT=0
+export AC_ACT_SQL_STATEMENT="SELECT 'CBS_CASH_COL_SSD_BGT' + ',' + 
+	CAST(COALESCE(Count(*), 0) AS VARCHAR(20)) + ',' + 
+	CAST(COALESCE(SUM(LEN(FCT.Organization)), 0) AS VARCHAR(20)) + ',' + 
+	CAST(COALESCE(SUM(LEN(FCT.Department)), 0) AS VARCHAR(20)) + ',' as SOURCE_STRING 
+	FROM dbo.vw_Fact_SSD_Budget_Member_Names FCT
+	WHERE ACCOUNT = 'Type_1_Cash_Collections' and SCENARIO = 'Actual'"

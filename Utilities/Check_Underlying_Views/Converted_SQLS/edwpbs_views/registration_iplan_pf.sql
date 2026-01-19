@@ -1,0 +1,72 @@
+-- Translation time: 2023-09-22T18:46:04.447603Z
+-- Translation job ID: ba460d1f-d301-46b6-9c47-810d266c2894
+-- Source: internal_metastore/db_hca-hin-dev-cur-parallon/schema_edwpbs_views/registration_iplan_pf.memory
+-- Translated from: Teradata
+-- Translated to: BigQuery
+
+CREATE VIEW IF NOT EXISTS `hca-hin-dev-cur-parallon`.edwpbs_views.registration_iplan_pf AS SELECT
+    ROUND(ri.patient_dw_id, 0, 'ROUND_HALF_EVEN') AS patient_dw_id,
+    ROUND(ri.payor_dw_id, 0, 'ROUND_HALF_EVEN') AS payor_dw_id,
+    ri.iplan_insurance_order_num,
+    ri.payor_name,
+    ri.payor_mail_to_name,
+    ri.coid,
+    ri.company_code,
+    ri.iplan_id,
+    ri.eff_from_date,
+    ri.eff_to_date,
+    ROUND(ri.pat_acct_num, 0, 'ROUND_HALF_EVEN') AS pat_acct_num,
+    ri.person_role_code,
+    ri.pat_relationship_to_ins_code,
+    ri.policy_num,
+    ri.group_name,
+    ri.group_num,
+    ri.hic_claim_num,
+    ri.signed_pat_rel_on_file_ind,
+    ri.signed_assn_benf_on_file_ind,
+    ri.treatment_authorization_num,
+    ri.verification_date,
+    ri.precertification_date,
+    ri.recertification_day_count,
+    ri.edit_code,
+    ri.dependent_maximum_age_num,
+    ri.student_max_age_num,
+    ROUND(ri.deductible_amt, 3, 'ROUND_HALF_EVEN') AS deductible_amt,
+    ROUND(ri.coinsurance_amt, 3, 'ROUND_HALF_EVEN') AS coinsurance_amt,
+    ri.source_system_code,
+    ri.dw_load_date,
+    ri.dw_change_date,
+    ri.health_plan_patient_id,
+    ri.health_plan_id,
+    ri.auto_post_ind,
+    ROUND(ri.gross_reimbursement_amt, 3, 'ROUND_HALF_EVEN') AS gross_reimbursement_amt,
+    ri.gross_reimbursement_date,
+    ROUND(ri.expected_contractual_amt, 3, 'ROUND_HALF_EVEN') AS expected_contractual_amt,
+    ri.expected_contractual_date,
+    ri.coins_amt_source_ind,
+    ROUND(ri.calc_coins_amt, 3, 'ROUND_HALF_EVEN') AS calc_coins_amt,
+    ri.calc_coins_amt_source_ind,
+    ri.calc_coins_date,
+    ROUND(ri.gross_reimbursement_var_amt, 3, 'ROUND_HALF_EVEN') AS gross_reimbursement_var_amt,
+    ri.gross_reimbursement_var_date,
+    ROUND(ri.partb_professional_fee_amt, 3, 'ROUND_HALF_EVEN') AS partb_professional_fee_amt,
+    ROUND(ri.blood_deductible_amt, 3, 'ROUND_HALF_EVEN') AS blood_deductible_amt,
+    ri.outpatient_pps_flag_tricare,
+    ri.outpatient_pps_flag,
+    ri.irf_flag,
+    ri.snf_flag,
+    ri.psych_flag,
+    ri.log_format_ind,
+    ROUND(ri.non_covered_charge_amt, 3, 'ROUND_HALF_EVEN') AS non_covered_charge_amt,
+    ROUND(ri.copay_amt, 3, 'ROUND_HALF_EVEN') AS copay_amt,
+    ROUND(ri.auto_post_amt, 3, 'ROUND_HALF_EVEN') AS auto_post_amt,
+    ri.major_payor_group_id,
+    ri.ub04_pat_relation_to_ins_code,
+    ri.medicare_inpatient_outlier_ind,
+    ri.precertification_ind,
+    ri.icn
+  FROM
+    `hca-hin-dev-cur-parallon`.edwpbs_base_views.registration_iplan_pf AS ri
+    INNER JOIN `hca-hin-dev-cur-parallon`.edwpf_base_views.secref_facility AS sf ON upper(ri.coid) = upper(sf.co_id)
+     AND sf.user_id = session_user()
+;

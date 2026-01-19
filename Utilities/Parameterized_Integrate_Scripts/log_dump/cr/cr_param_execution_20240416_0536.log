@@ -1,0 +1,79 @@
+2024-04-16 06:12:37,527 - INFO - SQL file cancer_patient_id_abstraction.sql executed successfully.
+2024-04-16 06:12:48,505 - INFO - SQL file cancer_patient_id_abstraction_detail.sql executed successfully.
+2024-04-16 06:12:53,726 - INFO - SQL file cancer_patient_id_input_driver.sql executed successfully.
+2024-04-16 06:12:59,234 - INFO - SQL file cancer_patient_id_output_driver.sql executed successfully.
+2024-04-16 06:12:59,811 - INFO - SQL file cn_cdm_encounter.sql executed successfully.
+2024-04-16 06:13:08,503 - INFO - SQL file cn_patient.sql executed successfully.
+2024-04-16 06:13:22,808 - INFO - SQL file cn_patient_address.sql executed successfully.
+2024-04-16 06:13:36,157 - INFO - SQL file cn_patient_biopsy.sql executed successfully.
+2024-04-16 06:13:49,165 - INFO - SQL file cn_patient_brca_screening_assessment.sql executed successfully.
+2024-04-16 06:13:56,199 - INFO - SQL file cn_patient_clinical_trial.sql executed successfully.
+2024-04-16 06:14:03,593 - INFO - SQL file cn_patient_complication.sql executed successfully.
+2024-04-16 06:14:13,417 - INFO - SQL file cn_patient_consultation.sql executed successfully.
+2024-04-16 06:14:28,968 - INFO - SQL file cn_patient_contact.sql executed successfully.
+2024-04-16 06:14:52,708 - INFO - SQL file cn_patient_contact_detail.sql executed successfully.
+2024-04-16 06:15:06,371 - INFO - SQL file cn_patient_core_adherence.sql executed successfully.
+2024-04-16 06:15:16,235 - INFO - SQL file cn_patient_diagnosis.sql executed successfully.
+2024-04-16 06:15:30,463 - INFO - SQL file cn_patient_family_history.sql executed successfully.
+2024-04-16 06:15:40,322 - INFO - SQL file cn_patient_genetics_testing.sql executed successfully.
+2024-04-16 06:15:47,753 - INFO - SQL file cn_patient_heme.sql executed successfully.
+2024-04-16 06:15:53,445 - INFO - SQL file cn_patient_heme_clinical_trial.sql executed successfully.
+2024-04-16 06:15:58,934 - INFO - SQL file cn_patient_heme_diagnosis.sql executed successfully.
+2024-04-16 06:16:07,263 - INFO - SQL file cn_patient_heme_disease_assess.sql executed successfully.
+2024-04-16 06:16:13,226 - INFO - SQL file cn_patient_heme_functional_assess.sql executed successfully.
+2024-04-16 06:16:20,573 - INFO - SQL file cn_patient_heme_risk_factor.sql executed successfully.
+2024-04-16 06:16:26,418 - INFO - SQL file cn_patient_heme_transplant.sql executed successfully.
+2024-04-16 06:16:38,074 - INFO - SQL file cn_patient_imaging.sql executed successfully.
+2024-04-16 06:16:44,744 - INFO - SQL file cn_patient_lab_result.sql executed successfully.
+2024-04-16 06:16:56,206 - INFO - SQL file cn_patient_medical_oncology.sql executed successfully.
+2024-04-16 06:17:02,509 - INFO - SQL file cn_patient_mltp_disp_meeting.sql executed successfully.
+2024-04-16 06:17:06,662 - INFO - SQL file cn_patient_outcome_timeliness_core.sql executed successfully.
+2024-04-16 06:17:11,261 - INFO - SQL file cn_patient_outcome_timeliness_stg.sql executed successfully.
+2024-04-16 06:17:32,220 - INFO - SQL file cn_patient_pathology_result.sql executed successfully.
+2024-04-16 06:17:55,012 - INFO - SQL file cn_patient_phone_num.sql executed successfully.
+2024-04-16 06:18:00,890 - INFO - SQL file cn_patient_procedure.sql executed successfully.
+2024-04-16 06:18:19,189 - INFO - SQL file cn_patient_procedure_pathology_result.sql executed successfully.
+2024-04-16 06:18:26,644 - INFO - SQL file cn_patient_radiation_oncology.sql executed successfully.
+2024-04-16 06:18:40,714 - INFO - SQL file cn_patient_staging.sql executed successfully.
+2024-04-16 06:19:11,357 - INFO - SQL file cn_patient_surgery.sql executed successfully.
+2024-04-16 06:19:20,063 - INFO - SQL file cn_patient_surgery_recon.sql executed successfully.
+2024-04-16 06:19:26,104 - INFO - SQL file cn_patient_surv_plan_task.sql executed successfully.
+2024-04-16 06:19:31,587 - INFO - SQL file cn_patient_test_result.sql executed successfully.
+2024-04-16 06:19:40,209 - INFO - SQL file cn_patient_timeline.sql executed successfully.
+2024-04-16 06:19:48,545 - INFO - SQL file cn_patient_tumor.sql executed successfully.
+2024-04-16 06:19:56,454 - INFO - SQL file cn_person.sql executed successfully.
+2024-04-16 06:20:04,608 - INFO - SQL file cn_physician_detail_core.sql executed successfully.
+2024-04-16 06:20:11,191 - INFO - SQL file cn_physician_detail_wrk.sql executed successfully.
+2024-04-16 06:20:14,567 - INFO - SQL file cn_physician_role.sql executed successfully.
+2024-04-16 06:20:38,274 - INFO - SQL file cn_reg_cancer_patient_detail.sql executed successfully.
+2024-04-16 06:21:20,112 - INFO - SQL file cn_reg_cancer_patient_driver.sql executed successfully.
+2024-04-16 06:21:34,474 - INFO - SQL file cn_reg_cancer_patient_tumor_driver.sql executed successfully.
+2024-04-16 06:21:46,709 - INFO - SQL file cn_reg_cancer_patient_tumor_staging.sql executed successfully.
+2024-04-16 06:21:56,749 - INFO - SQL file cn_reg_cancer_tumor_driver.sql executed successfully.
+2024-04-16 06:22:03,660 - INFO - SQL file cr_patient_address_core.sql executed successfully.
+2024-04-16 06:22:11,569 - INFO - SQL file cr_patient_address_wrk.sql executed successfully.
+2024-04-16 06:22:15,700 - INFO - SQL file cr_patient_contact_core.sql executed successfully.
+2024-04-16 06:22:24,265 - INFO - SQL file cr_patient_contact_wrk.sql executed successfully.
+2024-04-16 06:22:28,307 - INFO - SQL file cr_patient_core.sql executed successfully.
+2024-04-16 06:22:29,971 - ERROR - Error executing SQL file cr_patient_date_driver.sql: 400 Script terminated with return code: 1 Query error: No matching signature for function RTRIM for argument types: DATE. Supported signatures: RTRIM(STRING, [STRING]); RTRIM(BYTES, BYTES) at [63:22] at [236:26]
+
+Location: US
+Job ID: 694e04e5-60f8-4c55-abf7-21502581ea7f
+
+2024-04-16 06:22:37,878 - INFO - SQL file cr_patient_diagnosis_detail.sql executed successfully.
+2024-04-16 06:22:54,121 - INFO - SQL file cr_patient_history.sql executed successfully.
+2024-04-16 06:23:05,226 - INFO - SQL file cr_patient_insurance.sql executed successfully.
+2024-04-16 06:23:09,416 - INFO - SQL file cr_patient_medical_oncology_core.sql executed successfully.
+2024-04-16 06:23:16,463 - INFO - SQL file cr_patient_medical_oncology_wrk.sql executed successfully.
+2024-04-16 06:23:28,897 - INFO - SQL file cr_patient_phone_num.sql executed successfully.
+2024-04-16 06:23:33,564 - INFO - SQL file cr_patient_radiation_oncology_core.sql executed successfully.
+2024-04-16 06:23:39,898 - INFO - SQL file cr_patient_radiation_oncology_wrk.sql executed successfully.
+2024-04-16 06:24:20,557 - INFO - SQL file cr_patient_staging.sql executed successfully.
+2024-04-16 06:24:24,784 - INFO - SQL file cr_patient_treatment_core.sql executed successfully.
+2024-04-16 06:24:44,495 - INFO - SQL file cr_patient_treatment_wrk.sql executed successfully.
+2024-04-16 06:37:06,065 - INFO - =========execution_results================
+2024-04-16 06:37:06,065 - INFO - Total SQL files executed: 69
+2024-04-16 06:37:06,065 - INFO - SQL files executed successfully: 68
+2024-04-16 06:37:06,065 - INFO - SQL files failed with errors: 1
+2024-04-16 06:37:06,066 - INFO -  --SQL files with Missing db objects: 0
+2024-04-16 06:37:06,066 - INFO -  --SQL files with Dup Data Issues: 0

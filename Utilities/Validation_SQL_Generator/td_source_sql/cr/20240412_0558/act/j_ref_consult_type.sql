@@ -1,0 +1,1 @@
+select 'J_REF_CONSULT_TYPE' || ',' || CAST(COUNT(*) AS VARCHAR(20)) || ',' AS SOURCE_STRING from EDWCR.Ref_Consult_Type

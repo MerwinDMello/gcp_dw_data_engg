@@ -1,0 +1,1 @@
+Select 'PBMPC300' ||',' || cast(A.Row_Count as varchar(20)) ||',' as Source_String from (Select count(*) as Row_Count From Edwpf_Base_Views.Dim_Organization DOrg Left outer join Edwfs_Base_Views.Facility FAC on FAC.Unit_Num = DOrg.Org_Sid Where substr(DOrg.Org_Name_Child,1,1) = 'Z' AND Dorg.Org_Hier_Name like 'AR Org Hier%') A

@@ -1,0 +1,2 @@
+select 'J_CN_PATIENT_HEME_DISEASE_ASSESS_DETAIL' || ',' || CAST(COUNT(*) AS VARCHAR(20)) || ',' 
+AS SOURCE_STRING from EDWCR_BASE_VIEWS.CN_Patient_Heme_Disease_Assess_Detail

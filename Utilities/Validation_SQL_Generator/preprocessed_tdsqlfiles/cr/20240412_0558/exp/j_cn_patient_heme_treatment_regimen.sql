@@ -1,0 +1,2 @@
+SELECT CONCAT(count(*)) AS SOURCE_STRING
+FROM EDWCR_STAGING.Patient_Heme_Treatment_Regimen_STG

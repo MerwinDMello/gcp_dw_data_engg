@@ -1,0 +1,1 @@
+select 'J_REF_TUMOR_TYPE' || ',' || CAST(COUNT(*) AS VARCHAR(20)) || ',' AS SOURCE_STRING from EDWCR.Ref_Tumor_Type where Source_System_Code='N'

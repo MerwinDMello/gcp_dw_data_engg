@@ -1,0 +1,147 @@
+#  @@START DMEXPRESS_EXPORTED_VARIABLES
+
+export AC_EXP_TOLERANCE_PERCENT=0
+export AC_EXP_TOLERANCE_AMT=0
+export JOBNAME='J_EP_Junc_Remittance_Secn_Rendering_Prov'
+
+
+export AC_EXP_SQL_STATEMENT="SELECT 'J_EP_Junc_Remittance_Secn_Rendering_Prov' || ',' || CAST(COUNT(*) AS VARCHAR(20)) || ',' as Source_String from
+(
+SEL 
+Claim_GUID,
+Payment_Guid,
+Secn_Rendering_Provider_Id_Line_Num,
+Remittance_Secn_Rendering_Provider_SID,
+--RRAP.Remittance_Secn_Rendering_Provider_SID AS Remittance_Secn_Rendering_Provider_SID ,  
+'E' AS Source_System_Code ,           
+Current_Timestamp(0) AS DW_Last_Update_Date_Time 
+FROM
+(
+SEL
+Claim_GUID,
+ Payment_Guid,
+Rndrng_Prvdr_Ref_Idn_Qul_1_Cod AS Secn_Rendering_Provider_Id_Qlfr_Code,
+Rendering_Provder_Secndary_Id1 AS Secn_Rendering_Provider_Id 
+, 1 AS Secn_Rendering_Provider_Id_Line_Num
+FROM  EDWPBS_Staging.remittance_claim
+WHERE Coalesce(Rndrng_Prvdr_Ref_Idn_Qul_1_Cod,'') <> '' OR Coalesce(Rendering_Provder_Secndary_Id1 ,'') <> '' 
+
+UNION
+
+SEL
+Claim_GUID,
+ Payment_Guid,
+Rndrng_Prvdr_Ref_Idn_Qul_2_Cod AS Secn_Rendering_Provider_Id_Qlfr_Code,
+Rendering_Provder_Secndary_Id2 AS Secn_Rendering_Provider_Id
+, 2 AS Secn_Rendering_Provider_Id_Line_Num
+FROM  EDWPBS_Staging.remittance_claim
+WHERE Coalesce(Rndrng_Prvdr_Ref_Idn_Qul_2_Cod,'') <> '' OR Coalesce(Rendering_Provder_Secndary_Id2 ,'') <> '' 
+
+ 
+UNION
+
+SEL
+Claim_GUID,
+ Payment_Guid,
+Rndrng_Prvdr_Ref_Idn_Qul_3_Cod AS Secn_Rendering_Provider_Id_Qlfr_Code,
+Rendering_Provder_Secndary_Id3 AS Secn_Rendering_Provider_Id
+, 3 AS Secn_Rendering_Provider_Id_Line_Num
+FROM  EDWPBS_Staging.remittance_claim
+WHERE Coalesce(Rndrng_Prvdr_Ref_Idn_Qul_3_Cod,'') <> '' OR Coalesce(Rendering_Provder_Secndary_Id3 ,'') <> '' 
+
+ 
+UNION
+
+SEL
+Claim_GUID,
+ Payment_Guid,
+Rndrng_Prvdr_Ref_Idn_Qul_4_Cod AS Secn_Rendering_Provider_Id_Qlfr_Code,
+Rendering_Provder_Secndary_Id4 AS Secn_Rendering_Provider_Id
+, 4 AS Secn_Rendering_Provider_Id_Line_Num
+FROM  EDWPBS_Staging.remittance_claim
+WHERE Coalesce(Rndrng_Prvdr_Ref_Idn_Qul_4_Cod,'') <> '' OR Coalesce(Rendering_Provder_Secndary_Id4 ,'') <> '' 
+
+ 
+UNION
+
+SEL
+Claim_GUID,
+ Payment_Guid,
+Rndrng_Prvdr_Ref_Idn_Qul_5_Cod AS Secn_Rendering_Provider_Id_Qlfr_Code,
+Rendering_Provder_Secndary_Id5 AS Secn_Rendering_Provider_Id
+, 5 AS Secn_Rendering_Provider_Id_Line_Num
+FROM  EDWPBS_Staging.remittance_claim
+WHERE Coalesce(Rndrng_Prvdr_Ref_Idn_Qul_5_Cod,'') <> '' OR Coalesce(Rendering_Provder_Secndary_Id5 ,'') <> '' 
+
+ 
+UNION
+
+SEL
+Claim_GUID,
+ Payment_Guid,
+Rndrng_Prvdr_Ref_Idn_Qul_6_Cod AS Secn_Rendering_Provider_Id_Qlfr_Code,
+Rendering_Provder_Secndary_Id6 AS Secn_Rendering_Provider_Id
+, 6 AS Secn_Rendering_Provider_Id_Line_Num
+FROM  EDWPBS_Staging.remittance_claim
+WHERE Coalesce(Rndrng_Prvdr_Ref_Idn_Qul_6_Cod,'') <> '' OR Coalesce(Rendering_Provder_Secndary_Id6 ,'') <> '' 
+
+ 
+UNION
+
+SEL
+Claim_GUID,
+ Payment_Guid,
+Rndrng_Prvdr_Ref_Idn_Qul_7_Cod AS Secn_Rendering_Provider_Id_Qlfr_Code,
+Rendering_Provder_Secndary_Id7 AS Secn_Rendering_Provider_Id
+, 7 AS Secn_Rendering_Provider_Id_Line_Num
+FROM  EDWPBS_Staging.remittance_claim
+WHERE Coalesce(Rndrng_Prvdr_Ref_Idn_Qul_7_Cod,'') <> '' OR Coalesce(Rendering_Provder_Secndary_Id7 ,'') <> '' 
+
+ 
+UNION
+
+SEL
+ Claim_GUID,
+ Payment_Guid,
+Rndrng_Prvdr_Ref_Idn_Qul_8_Cod AS Secn_Rendering_Provider_Id_Qlfr_Code,
+Rendering_Provder_Secndary_Id8 AS Secn_Rendering_Provider_Id
+, 8 AS Secn_Rendering_Provider_Id_Line_Num
+FROM  EDWPBS_Staging.remittance_claim
+WHERE Coalesce(Rndrng_Prvdr_Ref_Idn_Qul_8_Cod,'') <> '' OR Coalesce(Rendering_Provder_Secndary_Id8 ,'') <> '' 
+
+ 
+UNION
+
+SEL
+Claim_GUID,
+ Payment_Guid,
+Rndrng_Prvdr_Ref_Idn_Qul_9_Cod AS Secn_Rendering_Provider_Id_Qlfr_Code,
+Rendering_Provder_Secndary_Id9 AS Secn_Rendering_Provider_Id
+, 9 AS Secn_Rendering_Provider_Id_Line_Num
+FROM  EDWPBS_Staging.remittance_claim
+WHERE Coalesce(Rndrng_Prvdr_Ref_Idn_Qul_9_Cod,'') <> '' OR Coalesce(Rendering_Provder_Secndary_Id9 ,'') <> '' 
+
+ 
+UNION
+
+SEL
+Claim_GUID,
+ Payment_Guid,
+Rndrng_Prvdr_Rf_Idn_Qul_10_Cod AS Secn_Rendering_Provider_Id_Qlfr_Code,
+Rendering_Provdr_Secndary_Id10 AS Secn_Rendering_Provider_Id
+, 10 AS Secn_Rendering_Provider_Id_Line_Num
+FROM  EDWPBS_Staging.remittance_claim
+WHERE Coalesce(Rndrng_Prvdr_Rf_Idn_Qul_10_Cod,'') <> '' OR Coalesce(Rendering_Provdr_Secndary_Id10 ,'') <> '' 
+
+ ) F 
+ LEFT OUTER  JOIN EDWPBS.Ref_Secn_Remittance_Rendering_Provider RRAP ON 
+F.Secn_Rendering_Provider_Id =RRAP.Secn_Rendering_Provider_Id AND
+F.Secn_Rendering_Provider_Id_Qlfr_Code=RRAP.Secn_Rendering_Provider_Id_Qlfr_Code
+
+) a ;
+"
+
+export AC_ACT_SQL_STATEMENT="select 'J_EP_Junc_Remittance_Secn_Rendering_Prov' || ',' || CAST(COUNT(*) AS VARCHAR(20)) || ',' as Source_String from EDWPBS.Junc_Remittance_Secn_Rendering_Prov where DW_Last_Update_Date_Time(date) = current_date"
+
+#  @@END DMEXPRESS_EXPORTED_VARIABLES
+#  End of Exported variables section

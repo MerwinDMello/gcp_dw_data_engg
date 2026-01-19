@@ -1,0 +1,2 @@
+select 'J_CN_CANCER_PAT_ID_OUTPUT_DRIVER'||','|| cast(count(*) as varchar(20))||',' as SOURCE_STRING 
+FROM EDWCR.CANCER_PATIENT_ID_OUTPUT_DRIVER

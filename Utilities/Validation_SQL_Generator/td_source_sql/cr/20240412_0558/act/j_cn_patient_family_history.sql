@@ -1,0 +1,2 @@
+Select 'J_CN_PATIENT_FAMILY_HISTORY'||','|| cast(count(*) as varchar(20))||',' as SOURCE_STRING from Edwcr_Base_Views.CN_PATIENT_FAMILY_HISTORY
+where DW_LAST_UPDATE_DATE_TIME >= (Select max(Job_Start_Date_time) from edwcr_dmx_ac_base_views.ETL_JOB_RUN where Job_Name='J_CN_PATIENT_FAMILY_HISTORY');

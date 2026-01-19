@@ -1,0 +1,2495 @@
+2024-04-10 01:05:16,207 - INFO - Connected (version 2.0, client OpenSSH_8.1)
+2024-04-10 01:05:17,941 - INFO - Auth banner: b'\nBy proceeding further, I accept the following:\n\nYou are about to access an HCA-Information Technology & Services, Inc. (IT&S)\ncomputer system. This system is to be used only by authorized users of IT&S, its\ncustomers and affiliates. As a user of this system, you have no expectation of\nprivacy rights or ownership in anything you may create, store, send or receive\non this system. By proceeding, your use of this system 1) constitutes your\nagreement that IT&S and/or your company may consent to law enforcement officials\nand agencies accessing information regarding your use of this network, 2)\nconstitutes your consent to monitoring, retrieval, and disclosure of any\ninformation within this system for all purposes deemed appropriate by IT&S,\nincluding enforcement of rules concerning unacceptable uses of this system, and\n3) constitutes your agreement to comply with all privacy, security and other\npolicies and procedures of IT&S and your company. If you have any questions\nabout what constitutes an acceptable use by you, please consult the written\npolicies provided by IT&S and your company.\n\n\n'
+2024-04-10 01:05:17,947 - INFO - Authentication (publickey) failed.
+2024-04-10 01:05:20,060 - INFO - Authentication (password) successful!
+2024-04-10 01:05:20,948 - INFO - [chan 0] Opened sftp connection (server version 3)
+2024-04-10 01:07:16,030 - INFO - Connected (version 2.0, client OpenSSH_8.1)
+2024-04-10 01:07:17,109 - INFO - Auth banner: b'\nBy proceeding further, I accept the following:\n\nYou are about to access an HCA-Information Technology & Services, Inc. (IT&S)\ncomputer system. This system is to be used only by authorized users of IT&S, its\ncustomers and affiliates. As a user of this system, you have no expectation of\nprivacy rights or ownership in anything you may create, store, send or receive\non this system. By proceeding, your use of this system 1) constitutes your\nagreement that IT&S and/or your company may consent to law enforcement officials\nand agencies accessing information regarding your use of this network, 2)\nconstitutes your consent to monitoring, retrieval, and disclosure of any\ninformation within this system for all purposes deemed appropriate by IT&S,\nincluding enforcement of rules concerning unacceptable uses of this system, and\n3) constitutes your agreement to comply with all privacy, security and other\npolicies and procedures of IT&S and your company. If you have any questions\nabout what constitutes an acceptable use by you, please consult the written\npolicies provided by IT&S and your company.\n\n\n'
+2024-04-10 01:07:17,109 - INFO - Authentication (publickey) failed.
+2024-04-10 01:07:19,385 - INFO - Authentication (password) successful!
+2024-04-10 01:07:20,312 - INFO - [chan 0] Opened sftp connection (server version 3)
+2024-04-10 01:15:47,083 - INFO - SQL file j_cn_cancer_pat_id_input_driver_prm.sql executed successfully.
+2024-04-10 01:15:48,722 - INFO - SQL file j_cn_cancer_pat_id_output_driver_prm.sql executed successfully.
+2024-04-10 01:15:49,767 - INFO - SQL file j_cn_navque_patient_tumor_driver_prm.sql executed successfully.
+2024-04-10 01:15:51,422 - INFO - SQL file j_cn_patient_biopsy_prm.sql executed successfully.
+2024-04-10 01:15:52,491 - INFO - SQL file j_cn_patient_complication_prm.sql executed successfully.
+2024-04-10 01:15:52,871 - ERROR - Error executing SQL file j_cn_patient_consultation_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 12caf1c4-36c6-4ad2-9ea6-47409ed8a2e4
+
+2024-04-10 01:15:55,222 - INFO - SQL file j_cn_patient_family_history_prm.sql executed successfully.
+2024-04-10 01:15:56,228 - INFO - SQL file j_cn_patient_heme_diagnosis_prm.sql executed successfully.
+2024-04-10 01:15:56,963 - INFO - SQL file j_cn_patient_heme_disease_assess_detail_prm.sql executed successfully.
+2024-04-10 01:15:58,138 - INFO - SQL file j_cn_patient_heme_disease_assess_prm.sql executed successfully.
+2024-04-10 01:15:59,156 - INFO - SQL file j_cn_patient_heme_functional_assess_prm.sql executed successfully.
+2024-04-10 01:16:00,722 - INFO - SQL file j_cn_patient_heme_prm.sql executed successfully.
+2024-04-10 01:16:01,669 - INFO - SQL file j_cn_patient_heme_risk_factor_prm.sql executed successfully.
+2024-04-10 01:16:02,742 - INFO - SQL file j_cn_patient_heme_transplant_prm.sql executed successfully.
+2024-04-10 01:16:03,616 - INFO - SQL file j_cn_patient_heme_treatment_regimen_prm.sql executed successfully.
+2024-04-10 01:16:05,731 - INFO - SQL file j_cn_patient_imaging_prm.sql executed successfully.
+2024-04-10 01:16:07,560 - INFO - SQL file j_cn_patient_medical_oncology_prm.sql executed successfully.
+2024-04-10 01:16:07,961 - ERROR - Error executing SQL file j_cn_patient_procedure_pathology_result_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac_base_views was not found in location US
+
+Location: US
+Job ID: 353116a5-7151-476f-b880-0eae173fce46
+
+2024-04-10 01:16:09,001 - INFO - SQL file j_cn_patient_procedure_prm.sql executed successfully.
+2024-04-10 01:16:09,304 - ERROR - Error executing SQL file j_cn_patient_staging_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac_base_views was not found in location US
+
+Location: US
+Job ID: fcfbc068-3d8c-45c2-a386-8c0a430173c6
+
+2024-04-10 01:16:10,706 - INFO - SQL file j_cn_person_prm.sql executed successfully.
+2024-04-10 01:16:13,016 - INFO - SQL file j_cn_reg_cancer_patient_detail_prm.sql executed successfully.
+2024-04-10 01:16:30,723 - INFO - SQL file j_cn_reg_cancer_patient_driver_prm.sql executed successfully.
+2024-04-10 01:16:49,471 - INFO - SQL file j_cn_reg_cancer_patient_tumor_driver_prm.sql executed successfully.
+2024-04-10 01:16:52,172 - INFO - SQL file j_cn_reg_cancer_patient_tumor_staging_prm.sql executed successfully.
+2024-04-10 01:16:52,848 - INFO - SQL file j_cr_patient_address_prm.sql executed successfully.
+2024-04-10 01:16:53,824 - INFO - SQL file j_cr_patient_contact_prm.sql executed successfully.
+2024-04-10 01:16:56,995 - INFO - SQL file j_cr_patient_date_driver_prm.sql executed successfully.
+2024-04-10 01:16:57,771 - INFO - SQL file j_cr_patient_phone_num_prm.sql executed successfully.
+2024-04-10 01:16:58,545 - INFO - SQL file j_cr_patient_prm.sql executed successfully.
+2024-04-10 01:16:59,252 - INFO - SQL file j_cr_patient_radiation_oncology_prm.sql executed successfully.
+2024-04-10 01:17:00,035 - INFO - SQL file j_cr_patient_staging_prm.sql executed successfully.
+2024-04-10 01:17:00,983 - INFO - SQL file j_cr_patient_treatment_prm.sql executed successfully.
+2024-04-10 01:17:01,880 - INFO - SQL file j_cr_ref_disease_assess_source_prm.sql executed successfully.
+2024-04-10 01:17:02,988 - INFO - SQL file j_cr_ref_housing_type_prm.sql executed successfully.
+2024-04-10 01:17:03,592 - INFO - SQL file j_cr_ref_pathway_var_reason_prm.sql executed successfully.
+2024-04-10 01:17:04,211 - INFO - SQL file j_cr_ref_regimen_prm.sql executed successfully.
+2024-04-10 01:17:05,082 - INFO - SQL file j_cr_ref_sample_type_prm.sql executed successfully.
+2024-04-10 01:17:05,424 - ERROR - Error executing SQL file j_cr_ref_test_type_core_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 387f9b98-dc23-4cd3-af2c-e30da9be85b0
+
+2024-04-10 01:17:06,358 - INFO - SQL file j_cr_ref_transplant_type_prm.sql executed successfully.
+2024-04-10 01:17:07,156 - INFO - SQL file j_cr_ref_treatment_phase_prm.sql executed successfully.
+2024-04-10 01:17:08,161 - INFO - SQL file j_cr_ro_fact_cancer_patient_financial_prm.sql executed successfully.
+2024-04-10 01:17:08,881 - INFO - SQL file j_cr_ro_fact_rad_onc_activity_billing_prm.sql executed successfully.
+2024-04-10 01:17:09,307 - ERROR - Error executing SQL file j_cr_ro_fact_rad_onc_course_diagnosis_prm.sql: 400 Function not found: td_sysfnlib.decode at [17:29]
+
+Location: US
+Job ID: 0d71ea3a-4bb9-4eee-9ecc-b4ba8dd26afc
+
+2024-04-10 01:17:10,299 - INFO - SQL file j_cr_ro_fact_rad_onc_patient_diagnosis_prm.sql executed successfully.
+2024-04-10 01:17:10,998 - INFO - SQL file j_cr_ro_fact_rad_onc_patient_prm.sql executed successfully.
+2024-04-10 01:17:11,805 - INFO - SQL file j_cr_ro_fact_rad_onc_patient_toxicity_prm.sql executed successfully.
+2024-04-10 01:17:12,780 - INFO - SQL file j_cr_ro_fact_rad_onc_treatment_history_prm.sql executed successfully.
+2024-04-10 01:17:15,258 - INFO - SQL file j_cr_ro_rad_onc_activity_transaction_prm.sql executed successfully.
+2024-04-10 01:17:16,176 - INFO - SQL file j_cr_ro_rad_onc_actvt_priority_prm.sql executed successfully.
+2024-04-10 01:17:16,970 - INFO - SQL file j_cr_ro_rad_onc_patient_contact_prm.sql executed successfully.
+2024-04-10 01:17:17,661 - INFO - SQL file j_cr_ro_rad_onc_patient_history_prm.sql executed successfully.
+2024-04-10 01:17:18,479 - INFO - SQL file j_cr_ro_rad_onc_patient_physician_prm.sql executed successfully.
+2024-04-10 01:17:19,198 - INFO - SQL file j_cr_ro_rad_onc_plan_purpose_prm.sql executed successfully.
+2024-04-10 01:17:20,835 - INFO - SQL file j_cr_ro_rad_onc_procedure_code_prm.sql executed successfully.
+2024-04-10 01:17:21,460 - INFO - SQL file j_cr_ro_ref_rad_onc_activity_prm.sql executed successfully.
+2024-04-10 01:17:22,269 - INFO - SQL file j_cr_ro_ref_rad_onc_address_prm.sql executed successfully.
+2024-04-10 01:17:22,720 - ERROR - Error executing SQL file j_cr_ro_ref_rad_onc_diagnosis_code_prm.sql: 400 Function not found: td_sysfnlib.decode at [14:29]
+
+Location: US
+Job ID: baebec1a-5d11-45e8-985b-5b1df18ac47a
+
+2024-04-10 01:17:23,507 - INFO - SQL file j_cr_ro_ref_rad_onc_hospital_prm.sql executed successfully.
+2024-04-10 01:17:24,373 - INFO - SQL file j_cr_ro_ref_rad_onc_location_prm.sql executed successfully.
+2024-04-10 01:17:25,141 - INFO - SQL file j_cr_ro_ref_rad_onc_lookup_prm.sql executed successfully.
+2024-04-10 01:17:25,913 - INFO - SQL file j_cr_ro_ref_rad_onc_patient_prm.sql executed successfully.
+2024-04-10 01:17:26,641 - INFO - SQL file j_cr_ro_ref_rad_onc_phone_prm.sql executed successfully.
+2024-04-10 01:17:27,264 - INFO - SQL file j_cr_ro_ref_rad_onc_physician_prm.sql executed successfully.
+2024-04-10 01:17:27,951 - INFO - SQL file j_cr_ro_ref_rad_onc_site_prm.sql executed successfully.
+2024-04-10 01:17:28,679 - INFO - SQL file j_cr_ro_ref_rad_onc_toxicity_component_prm.sql executed successfully.
+2024-04-10 01:17:29,508 - INFO - SQL file j_cr_system_productivity_log_prm.sql executed successfully.
+2024-04-10 01:17:31,625 - INFO - SQL file j_navque_history_prm.sql executed successfully.
+2024-04-10 01:17:31,980 - ERROR - Error executing SQL file j_ref_breast_cancer_type_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 8fdcb2c0-7414-4746-b8a8-f27835707caf
+
+2024-04-10 01:17:32,837 - INFO - SQL file j_ref_contact_method_prm.sql executed successfully.
+2024-04-10 01:17:33,174 - ERROR - Error executing SQL file j_ref_contact_person_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 8ae34264-ac09-4556-90b9-3166dc37137f
+
+2024-04-10 01:17:33,645 - ERROR - Error executing SQL file j_ref_contact_purpose_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: d1d46f6f-eed6-46d2-8ac7-1bcc74e0ecdb
+
+2024-04-10 01:17:33,943 - ERROR - Error executing SQL file j_ref_diagnosis_detail_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: cef725fb-71af-4d30-a143-dec96b6fb3ed
+
+2024-04-10 01:17:34,790 - INFO - SQL file j_ref_facility_prm.sql executed successfully.
+2024-04-10 01:17:35,109 - ERROR - Error executing SQL file j_ref_imaging_mode_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 518f4be9-650f-49c3-8a3f-7dd3a434b181
+
+2024-04-10 01:17:35,507 - ERROR - Error executing SQL file j_ref_lung_lobe_location_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: ff8978d5-fdf5-49fd-b6bd-c31dc4e00ced
+
+2024-04-10 01:17:35,839 - ERROR - Error executing SQL file j_ref_physician_specialty_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: e5902fed-2707-4dc9-ac15-614983243bca
+
+2024-04-10 01:17:36,224 - ERROR - Error executing SQL file j_ref_procedure_type_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 43d50bce-2ab0-4041-bd0d-f2e2dc7e46ce
+
+2024-04-10 01:17:36,826 - INFO - SQL file j_ref_rad_onc_treatment_type_prm.sql executed successfully.
+2024-04-10 01:17:37,270 - ERROR - Error executing SQL file j_ref_result_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: ef3f9359-0af7-425b-887c-b0413960f8f6
+
+2024-04-10 01:17:38,097 - INFO - SQL file j_ref_side_prm.sql executed successfully.
+2024-04-10 01:17:38,405 - ERROR - Error executing SQL file j_ref_site_location_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 067e0503-dff3-4a42-b192-72eef8ebad16
+
+2024-04-10 01:17:38,814 - ERROR - Error executing SQL file j_ref_status_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 7244f857-924c-44b7-bc0e-b40e1f56d766
+
+2024-04-10 01:17:39,144 - ERROR - Error executing SQL file j_ref_therapy_type_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 1cfe724f-61d2-4c83-89db-533da7274b28
+
+2024-04-10 01:17:39,855 - INFO - SQL file j_cn_cancer_pat_id_input_driver_prm.sql executed successfully.
+2024-04-10 01:17:40,627 - INFO - SQL file j_cn_cancer_pat_id_output_driver_prm.sql executed successfully.
+2024-04-10 01:17:41,061 - ERROR - Error executing SQL file j_cn_navque_patient_tumor_driver_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 0602a6bd-7f9d-42df-b5e8-21a851c61be2
+
+2024-04-10 01:17:41,500 - ERROR - Error executing SQL file j_cn_patient_address_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 7991ba49-ef5e-4670-82d9-6cd36aa4b06b
+
+2024-04-10 01:17:42,219 - INFO - SQL file j_cn_patient_address_stg_prm.sql executed successfully.
+2024-04-10 01:17:42,638 - ERROR - Error executing SQL file j_cn_patient_biopsy_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac_base_views was not found in location US
+
+Location: US
+Job ID: 7afd8073-b8ac-4ded-9768-86c34d5f40ba
+
+2024-04-10 01:17:43,425 - INFO - SQL file j_cn_patient_biopsy_stg_prm.sql executed successfully.
+2024-04-10 01:17:43,844 - ERROR - Error executing SQL file j_cn_patient_brca_screening_assessment_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: e90e4a56-1164-4e63-9c80-0723e919c1ca
+
+2024-04-10 01:17:44,605 - INFO - SQL file j_cn_patient_brca_screening_assessment_stg_prm.sql executed successfully.
+2024-04-10 01:17:44,883 - ERROR - Error executing SQL file j_cn_patient_clinical_trial_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac_base_views was not found in location US
+
+Location: US
+Job ID: a480c422-262c-415d-a98a-e192aafa63f2
+
+2024-04-10 01:17:45,642 - INFO - SQL file j_cn_patient_clinical_trial_stg_prm.sql executed successfully.
+2024-04-10 01:17:45,973 - ERROR - Error executing SQL file j_cn_patient_complication_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac_base_views was not found in location US
+
+Location: US
+Job ID: 6dd7ab04-5ad6-490d-9af9-4fd35b70495c
+
+2024-04-10 01:17:46,591 - INFO - SQL file j_cn_patient_complication_stg_prm.sql executed successfully.
+2024-04-10 01:17:46,990 - ERROR - Error executing SQL file j_cn_patient_consultation_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 5fd8601b-25b5-483e-a29c-ada6679b6746
+
+2024-04-10 01:17:47,667 - INFO - SQL file j_cn_patient_consultation_stg_prm.sql executed successfully.
+2024-04-10 01:17:47,975 - ERROR - Error executing SQL file j_cn_patient_contact_detail_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: ec6744b5-691f-441f-b73e-143059611a34
+
+2024-04-10 01:17:48,614 - INFO - SQL file j_cn_patient_contact_detail_stg_prm.sql executed successfully.
+2024-04-10 01:17:49,082 - ERROR - Error executing SQL file j_cn_patient_contact_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 52c5f3c0-42b5-4b4c-bcf0-f03cdcc42e0d
+
+2024-04-10 01:17:49,842 - INFO - SQL file j_cn_patient_contact_stg_prm.sql executed successfully.
+2024-04-10 01:17:50,120 - ERROR - Error executing SQL file j_cn_patient_core_adherence_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: dc87f9bb-f50f-4502-b072-acb4435bcce5
+
+2024-04-10 01:17:51,372 - INFO - SQL file j_cn_patient_core_adherence_stg_prm.sql executed successfully.
+2024-04-10 01:17:52,161 - ERROR - Error executing SQL file j_cn_patient_diagnosis_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac_base_views was not found in location US
+
+Location: US
+Job ID: d43bb133-7fdc-4f87-aaf7-8f0a1c19bc9f
+
+2024-04-10 01:17:53,569 - INFO - SQL file j_cn_patient_diagnosis_stg_prm.sql executed successfully.
+2024-04-10 01:17:54,008 - ERROR - Error executing SQL file j_cn_patient_family_history_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac_base_views was not found in location US
+
+Location: US
+Job ID: 4d6f6bf8-ca67-4cab-a433-1d99c8713751
+
+2024-04-10 01:17:54,929 - INFO - SQL file j_cn_patient_family_history_stg_prm.sql executed successfully.
+2024-04-10 01:17:55,551 - ERROR - Error executing SQL file j_cn_patient_genetics_testing_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac_base_views was not found in location US
+
+Location: US
+Job ID: e079b39d-5d8c-497d-97ef-8bda9e128158
+
+2024-04-10 01:17:56,352 - INFO - SQL file j_cn_patient_genetics_testing_stg_prm.sql executed successfully.
+2024-04-10 01:17:56,758 - ERROR - Error executing SQL file j_cn_patient_heme_diagnosis_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: e17bc598-07a1-4e9a-9095-0b869b6b07df
+
+2024-04-10 01:17:57,720 - INFO - SQL file j_cn_patient_heme_diagnosis_stg_prm.sql executed successfully.
+2024-04-10 01:17:58,362 - INFO - SQL file j_cn_patient_heme_disease_assess_detail_prm.sql executed successfully.
+2024-04-10 01:17:58,684 - ERROR - Error executing SQL file j_cn_patient_heme_disease_assess_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac_base_views was not found in location US
+
+Location: US
+Job ID: b2f3d756-8b05-47a2-bfbf-c9f2053fa4f0
+
+2024-04-10 01:17:59,173 - ERROR - Error executing SQL file j_cn_patient_heme_functional_assess_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac_base_views was not found in location US
+
+Location: US
+Job ID: ebad3fe2-8888-4d66-a4d2-b7ad4b3462e1
+
+2024-04-10 01:17:59,688 - ERROR - Error executing SQL file j_cn_patient_heme_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 9999ecc1-3f7e-421e-8968-957782e8a852
+
+2024-04-10 01:17:59,970 - ERROR - Error executing SQL file j_cn_patient_heme_risk_factor_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: ee97c706-2a5e-4dc4-96f1-45b2b8d7a8d2
+
+2024-04-10 01:18:00,606 - INFO - SQL file j_cn_patient_heme_risk_factor_stg_prm.sql executed successfully.
+2024-04-10 01:18:00,970 - ERROR - Error executing SQL file j_cn_patient_heme_transplant_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 00f9394c-ecf9-4544-b56a-c34d3bd56760
+
+2024-04-10 01:18:01,618 - INFO - SQL file j_cn_patient_heme_transplant_stg_prm.sql executed successfully.
+2024-04-10 01:18:02,379 - INFO - SQL file j_cn_patient_heme_treatment_regimen_prm.sql executed successfully.
+2024-04-10 01:18:02,690 - ERROR - Error executing SQL file j_cn_patient_imaging_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac_base_views was not found in location US
+
+Location: US
+Job ID: 51fed974-9b9f-481b-829f-ad76c5c9862c
+
+2024-04-10 01:18:03,472 - INFO - SQL file j_cn_patient_imaging_stg_prm.sql executed successfully.
+2024-04-10 01:18:03,972 - ERROR - Error executing SQL file j_cn_patient_lab_result_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 05e10399-4f9c-49c2-add0-70365a2f6aa0
+
+2024-04-10 01:18:04,788 - INFO - SQL file j_cn_patient_lab_result_stg_prm.sql executed successfully.
+2024-04-10 01:18:05,140 - ERROR - Error executing SQL file j_cn_patient_medical_oncology_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac_base_views was not found in location US
+
+Location: US
+Job ID: 5a4a1f00-c373-4f12-83ca-b62297ce323f
+
+2024-04-10 01:18:05,998 - INFO - SQL file j_cn_patient_medical_oncology_stg_prm.sql executed successfully.
+2024-04-10 01:18:06,419 - ERROR - Error executing SQL file j_cn_patient_mltp_disp_meeting_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 59e6c3cd-ad23-4b6d-bf20-be600c2f9185
+
+2024-04-10 01:18:07,239 - INFO - SQL file j_cn_patient_mltp_disp_meeting_stg_prm.sql executed successfully.
+2024-04-10 01:18:07,700 - ERROR - Error executing SQL file j_cn_patient_pathology_result_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 348f3e96-c1f6-4c0a-b57b-a684d4952b37
+
+2024-04-10 01:18:08,303 - INFO - SQL file j_cn_patient_pathology_result_stg_prm.sql executed successfully.
+2024-04-10 01:18:08,700 - ERROR - Error executing SQL file j_cn_patient_phone_num_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac_base_views was not found in location US
+
+Location: US
+Job ID: ffa355b7-2451-4865-acdc-c091f21160df
+
+2024-04-10 01:18:09,551 - INFO - SQL file j_cn_patient_phone_num_stg_prm.sql executed successfully.
+2024-04-10 01:18:09,866 - ERROR - Error executing SQL file j_cn_patient_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac_base_views was not found in location US
+
+Location: US
+Job ID: 6c8c8c10-8495-497d-b7d5-44b85e9b3299
+
+2024-04-10 01:18:10,170 - ERROR - Error executing SQL file j_cn_patient_procedure_pathology_result_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac_base_views was not found in location US
+
+Location: US
+Job ID: 8f2b500b-0d59-4c4d-8206-abb66f6f35f9
+
+2024-04-10 01:18:10,831 - INFO - SQL file j_cn_patient_procedure_pathology_result_stg_prm.sql executed successfully.
+2024-04-10 01:18:11,221 - ERROR - Error executing SQL file j_cn_patient_procedure_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 74790691-4ae7-4527-b656-b8021b7dae3a
+
+2024-04-10 01:18:11,866 - INFO - SQL file j_cn_patient_procedure_stg_prm.sql executed successfully.
+2024-04-10 01:18:12,301 - ERROR - Error executing SQL file j_cn_patient_radiation_oncology_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 4a43e908-cacc-4553-9d05-2a084b0b849f
+
+2024-04-10 01:18:13,136 - INFO - SQL file j_cn_patient_radiation_oncology_stg_prm.sql executed successfully.
+2024-04-10 01:18:13,419 - ERROR - Error executing SQL file j_cn_patient_staging_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac_base_views was not found in location US
+
+Location: US
+Job ID: 0224fb1b-2176-4d24-b2cb-dcf17a75e917
+
+2024-04-10 01:18:14,138 - INFO - SQL file j_cn_patient_staging_stg_prm.sql executed successfully.
+2024-04-10 01:18:14,890 - INFO - SQL file j_cn_patient_stg_prm.sql executed successfully.
+2024-04-10 01:18:15,191 - ERROR - Error executing SQL file j_cn_patient_surgery_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 5762ba81-7d7b-45a4-9bde-5f524f9b5926
+
+2024-04-10 01:18:15,472 - ERROR - Error executing SQL file j_cn_patient_surgery_recon_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 36459520-182d-498a-aa4a-f5bde3566c7f
+
+2024-04-10 01:18:16,139 - INFO - SQL file j_cn_patient_surgery_recon_stg_prm.sql executed successfully.
+2024-04-10 01:18:16,996 - INFO - SQL file j_cn_patient_surgery_stg_prm.sql executed successfully.
+2024-04-10 01:18:17,347 - ERROR - Error executing SQL file j_cn_patient_surv_plan_task_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 51c5b1ab-b99d-4546-8264-ec18ee9014be
+
+2024-04-10 01:18:17,848 - INFO - SQL file j_cn_patient_surv_plan_task_stg_prm.sql executed successfully.
+2024-04-10 01:18:18,142 - ERROR - Error executing SQL file j_cn_patient_test_result_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: b2aa410c-c002-4dce-a501-2ee74a5fe287
+
+2024-04-10 01:18:19,155 - INFO - SQL file j_cn_patient_test_result_stg_prm.sql executed successfully.
+2024-04-10 01:18:19,495 - ERROR - Error executing SQL file j_cn_patient_timeline_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 198b33af-6fb2-47d8-a9c8-6dfc51628449
+
+2024-04-10 01:18:20,138 - INFO - SQL file j_cn_patient_timeline_stg_prm.sql executed successfully.
+2024-04-10 01:18:20,413 - ERROR - Error executing SQL file j_cn_patient_tumor_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac_base_views was not found in location US
+
+Location: US
+Job ID: 4c5643f6-10f8-4000-a891-4bda49afdcd0
+
+2024-04-10 01:18:20,987 - INFO - SQL file j_cn_patient_tumor_stg_prm.sql executed successfully.
+2024-04-10 01:18:21,654 - INFO - SQL file j_cn_pat_heme_disease_assess_stg_prm.sql executed successfully.
+2024-04-10 01:18:22,214 - ERROR - Error executing SQL file j_cn_person_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac_base_views was not found in location US
+
+Location: US
+Job ID: 75172377-04ee-401d-b7c0-866a7afb0bff
+
+2024-04-10 01:18:22,991 - INFO - SQL file j_cn_person_stg_prm.sql executed successfully.
+2024-04-10 01:18:23,269 - ERROR - Error executing SQL file j_cn_physician_detail_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac_base_views was not found in location US
+
+Location: US
+Job ID: 72d1c7e9-2408-408b-b0fd-79639f9a1b1a
+
+2024-04-10 01:18:23,891 - INFO - SQL file j_cn_physician_detail_stg_prm.sql executed successfully.
+2024-04-10 01:18:24,253 - ERROR - Error executing SQL file j_cn_physician_role_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac_base_views was not found in location US
+
+Location: US
+Job ID: 09b6527a-9b2a-4dbd-b515-79940727bf32
+
+2024-04-10 01:18:24,972 - INFO - SQL file j_cn_physician_role_stg_prm.sql executed successfully.
+2024-04-10 01:18:25,727 - INFO - SQL file j_cn_reg_cancer_patient_detail_prm.sql executed successfully.
+2024-04-10 01:18:26,576 - INFO - SQL file j_cn_reg_cancer_patient_driver_prm.sql executed successfully.
+2024-04-10 01:18:27,229 - INFO - SQL file j_cn_reg_cancer_patient_tumor_driver_prm.sql executed successfully.
+2024-04-10 01:18:28,376 - INFO - SQL file j_cn_reg_cancer_patient_tumor_staging_prm.sql executed successfully.
+2024-04-10 01:18:29,044 - INFO - SQL file j_cn_reg_cancer_tumor_driver_prm.sql executed successfully.
+2024-04-10 01:18:29,631 - INFO - SQL file j_cr_patient_address_prm.sql executed successfully.
+2024-04-10 01:18:30,442 - INFO - SQL file j_cr_patient_address_stg_prm.sql executed successfully.
+2024-04-10 01:18:31,083 - INFO - SQL file j_cr_patient_contact_prm.sql executed successfully.
+2024-04-10 01:18:31,863 - INFO - SQL file j_cr_patient_contact_stg_prm.sql executed successfully.
+2024-04-10 01:18:32,410 - INFO - SQL file j_cr_patient_date_driver_prm.sql executed successfully.
+2024-04-10 01:18:33,061 - INFO - SQL file j_cr_patient_diagnosis_detail_prm.sql executed successfully.
+2024-04-10 01:18:33,902 - INFO - SQL file j_cr_patient_diagnosis_detail_stg_prm.sql executed successfully.
+2024-04-10 01:18:34,465 - INFO - SQL file j_cr_patient_history_prm.sql executed successfully.
+2024-04-10 01:18:35,200 - INFO - SQL file j_cr_patient_history_stg_prm.sql executed successfully.
+2024-04-10 01:18:35,934 - INFO - SQL file j_cr_patient_insurance_prm.sql executed successfully.
+2024-04-10 01:18:36,630 - INFO - SQL file j_cr_patient_insurance_stg_prm.sql executed successfully.
+2024-04-10 01:18:37,288 - INFO - SQL file j_cr_patient_medical_oncology_prm.sql executed successfully.
+2024-04-10 01:18:37,992 - INFO - SQL file j_cr_patient_medical_oncology_stg_prm.sql executed successfully.
+2024-04-10 01:18:38,680 - INFO - SQL file j_cr_patient_phone_num_prm.sql executed successfully.
+2024-04-10 01:18:40,963 - INFO - SQL file j_cr_patient_phone_num_stg_prm.sql executed successfully.
+2024-04-10 01:18:42,036 - INFO - SQL file j_cr_patient_prm.sql executed successfully.
+2024-04-10 01:18:42,914 - INFO - SQL file j_cr_patient_radiation_oncology_prm.sql executed successfully.
+2024-04-10 01:18:43,707 - INFO - SQL file j_cr_patient_radiation_oncology_stg_prm.sql executed successfully.
+2024-04-10 01:18:44,446 - INFO - SQL file j_cr_patient_staging_prm.sql executed successfully.
+2024-04-10 01:18:45,567 - INFO - SQL file j_cr_patient_staging_stg_prm.sql executed successfully.
+2024-04-10 01:18:46,493 - INFO - SQL file j_cr_patient_stg_prm.sql executed successfully.
+2024-04-10 01:18:47,859 - INFO - SQL file j_cr_patient_treatment_prm.sql executed successfully.
+2024-04-10 01:18:49,059 - INFO - SQL file j_cr_patient_treatment_stg_prm.sql executed successfully.
+2024-04-10 01:18:49,736 - INFO - SQL file j_cr_patient_tumor_pathology_result_prm.sql executed successfully.
+2024-04-10 01:18:50,343 - INFO - SQL file j_cr_patient_tumor_pathology_result_stg_prm.sql executed successfully.
+2024-04-10 01:18:51,064 - INFO - SQL file j_cr_patient_tumor_prm.sql executed successfully.
+2024-04-10 01:18:51,685 - INFO - SQL file j_cr_patient_tumor_stg_prm.sql executed successfully.
+2024-04-10 01:18:53,579 - INFO - SQL file j_cr_pat_heme_treatment_regimen_stg_prm.sql executed successfully.
+2024-04-10 01:18:53,936 - ERROR - Error executing SQL file j_cr_rad_onc_patient_course_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac_base_views was not found in location US
+
+Location: US
+Job ID: aaa53f8e-1028-4cce-8d26-2e73737f8568
+
+2024-04-10 01:18:54,237 - ERROR - Error executing SQL file j_cr_rad_onc_patient_plan_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 9034e94b-baea-4b8f-bf66-8baf7eddc565
+
+2024-04-10 01:18:54,538 - ERROR - Error executing SQL file j_cr_ref_disease_assess_source_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac_base_views was not found in location US
+
+Location: US
+Job ID: a8b7f9a9-d6cc-44e3-82c4-03a8d19cb74e
+
+2024-04-10 01:18:54,931 - ERROR - Error executing SQL file j_cr_ref_housing_type_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 440e2bc2-5f8c-4224-8cfc-c931091f6eba
+
+2024-04-10 01:18:55,760 - INFO - SQL file j_cr_ref_pathway_var_reason_prm.sql executed successfully.
+2024-04-10 01:18:56,452 - INFO - SQL file j_cr_ref_regimen_prm.sql executed successfully.
+2024-04-10 01:18:56,842 - ERROR - Error executing SQL file j_cr_ref_sample_type_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 1e65ebb2-11c3-4b0d-9852-faaa5b8eb21e
+
+2024-04-10 01:18:57,254 - ERROR - Error executing SQL file j_cr_ref_test_type_core_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 295f3d57-e0ed-4709-a31c-5e5c1f531ad8
+
+2024-04-10 01:18:58,033 - INFO - SQL file j_cr_ref_test_type_prm.sql executed successfully.
+2024-04-10 01:18:58,420 - ERROR - Error executing SQL file j_cr_ref_transplant_type_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: c02803b1-c61b-459a-84e8-7f9d142062f5
+
+2024-04-10 01:18:58,975 - INFO - SQL file j_cr_ref_treatment_phase_prm.sql executed successfully.
+2024-04-10 01:18:59,542 - ERROR - Error executing SQL file j_cr_ref_treatment_type_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 1b4ce776-ad4b-46b1-8222-7f9bf368f95b
+
+2024-04-10 01:19:00,320 - INFO - SQL file j_cr_ref_treatment_type_stg_prm.sql executed successfully.
+2024-04-10 01:19:01,113 - INFO - SQL file j_cr_ro_dimactivitytransaction_stg_prm.sql executed successfully.
+2024-04-10 01:19:01,742 - INFO - SQL file j_cr_ro_dimactivity_stg_prm.sql executed successfully.
+2024-04-10 01:19:02,954 - INFO - SQL file j_cr_ro_dimaddon_stg_prm.sql executed successfully.
+2024-04-10 01:19:03,701 - INFO - SQL file j_cr_ro_dimcelltype_stg_prm.sql executed successfully.
+2024-04-10 01:19:04,566 - INFO - SQL file j_cr_ro_dimcourse_stg_prm.sql executed successfully.
+2024-04-10 01:19:05,386 - INFO - SQL file j_cr_ro_dimdiagnosiscode_stg_prm.sql executed successfully.
+2024-04-10 01:19:06,200 - INFO - SQL file j_cr_ro_dimdoctor_stg_prm.sql executed successfully.
+2024-04-10 01:19:07,143 - INFO - SQL file j_cr_ro_dimdrug_stg_prm.sql executed successfully.
+2024-04-10 01:19:08,172 - INFO - SQL file j_cr_ro_dimdxsite_stg_prm.sql executed successfully.
+2024-04-10 01:19:08,817 - INFO - SQL file j_cr_ro_dimenergy_stg_prm.sql executed successfully.
+2024-04-10 01:19:09,586 - INFO - SQL file j_cr_ro_dimfield_stg_prm.sql executed successfully.
+2024-04-10 01:19:10,222 - INFO - SQL file j_cr_ro_dimhospitaldepartment_stg_prm.sql executed successfully.
+2024-04-10 01:19:10,871 - INFO - SQL file j_cr_ro_dimicdosite_stg_prm.sql executed successfully.
+2024-04-10 01:19:11,467 - INFO - SQL file j_cr_ro_diminstitutelocation_stg_prm.sql executed successfully.
+2024-04-10 01:19:12,403 - INFO - SQL file j_cr_ro_dimlocation_stg_prm.sql executed successfully.
+2024-04-10 01:19:14,550 - INFO - SQL file j_cr_ro_dimlookup_stg_prm.sql executed successfully.
+2024-04-10 01:19:15,538 - INFO - SQL file j_cr_ro_dimmachine_stg_prm.sql executed successfully.
+2024-04-10 01:19:16,968 - INFO - SQL file j_cr_ro_dimpatientdoctor_stg_prm.sql executed successfully.
+2024-04-10 01:19:17,506 - INFO - SQL file j_cr_ro_dimpatient_stg_prm.sql executed successfully.
+2024-04-10 01:19:19,351 - INFO - SQL file j_cr_ro_dimplan_stg_prm.sql executed successfully.
+2024-04-10 01:19:20,015 - INFO - SQL file j_cr_ro_dimprocedurecode_stg_prm.sql executed successfully.
+2024-04-10 01:19:21,259 - INFO - SQL file j_cr_ro_dimresource_stg_prm.sql executed successfully.
+2024-04-10 01:19:23,636 - INFO - SQL file j_cr_ro_dimtoxgrdcriteria_stg_prm.sql executed successfully.
+2024-04-10 01:19:25,084 - INFO - SQL file j_cr_ro_dimtreatmenttransaction_stg_prm.sql executed successfully.
+2024-04-10 01:19:27,130 - INFO - SQL file j_cr_ro_dimuser_stg_prm.sql executed successfully.
+2024-04-10 01:19:28,008 - INFO - SQL file j_cr_ro_factactivitybilling_stg_prm.sql executed successfully.
+2024-04-10 01:19:29,069 - INFO - SQL file j_cr_ro_factcoursediagnosis_stg_prm.sql executed successfully.
+2024-04-10 01:19:29,813 - INFO - SQL file j_cr_ro_factpatientdiagnosis_stg_prm.sql executed successfully.
+2024-04-10 01:19:30,660 - INFO - SQL file j_cr_ro_factpatienttoxicity_stg_prm.sql executed successfully.
+2024-04-10 01:19:31,284 - INFO - SQL file j_cr_ro_factpatient_stg_prm.sql executed successfully.
+2024-04-10 01:19:31,932 - INFO - SQL file j_cr_ro_facttreatmenthist_stg_prm.sql executed successfully.
+2024-04-10 01:19:32,338 - ERROR - Error executing SQL file j_cr_ro_fact_cancer_patient_financial_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 9419d314-f995-4f68-94e4-e2d506c19300
+
+2024-04-10 01:19:32,620 - ERROR - Error executing SQL file j_cr_ro_fact_rad_onc_activity_billing_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 35acf2a0-095f-49ec-b07c-f7eec2334624
+
+2024-04-10 01:19:32,943 - ERROR - Error executing SQL file j_cr_ro_fact_rad_onc_course_diagnosis_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: c187cb7c-7adb-4b16-b54c-654df82ac669
+
+2024-04-10 01:19:33,340 - ERROR - Error executing SQL file j_cr_ro_fact_rad_onc_patient_diagnosis_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 8c1a67f9-fb49-4140-a407-923d41f4d772
+
+2024-04-10 01:19:33,655 - ERROR - Error executing SQL file j_cr_ro_fact_rad_onc_patient_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 511d4338-1b8a-4507-a961-e2543a60f76a
+
+2024-04-10 01:19:34,014 - ERROR - Error executing SQL file j_cr_ro_fact_rad_onc_patient_toxicity_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 35358529-0a94-413e-9829-9c21ce164ad7
+
+2024-04-10 01:19:34,370 - ERROR - Error executing SQL file j_cr_ro_fact_rad_onc_treatment_history_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 9f0d4fa6-8a71-4d7b-843f-18abc1fddca3
+
+2024-04-10 01:19:34,813 - ERROR - Error executing SQL file j_cr_ro_rad_onc_activity_transaction_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 070873a5-976d-4f89-af5f-c20f61e32897
+
+2024-04-10 01:19:35,206 - ERROR - Error executing SQL file j_cr_ro_rad_onc_actvt_priority_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 753f779b-b41d-4b94-a327-93e84a1bc425
+
+2024-04-10 01:19:35,586 - ERROR - Error executing SQL file j_cr_ro_rad_onc_patient_contact_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 38e6505f-523e-4818-9ad6-f5b6cef3967f
+
+2024-04-10 01:19:35,887 - ERROR - Error executing SQL file j_cr_ro_rad_onc_patient_history_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: b7b608e2-9f95-4426-80a1-036c50d053ae
+
+2024-04-10 01:19:36,206 - ERROR - Error executing SQL file j_cr_ro_rad_onc_patient_physician_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 47f832c6-8e23-4cd8-aea4-984d0eb92635
+
+2024-04-10 01:19:36,550 - ERROR - Error executing SQL file j_cr_ro_rad_onc_plan_purpose_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: e0552c58-7a1a-42e6-9dff-480e87662030
+
+2024-04-10 01:19:37,001 - ERROR - Error executing SQL file j_cr_ro_rad_onc_procedure_code_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 7e93a005-855d-4f1a-8b82-a95c10181521
+
+2024-04-10 01:19:37,456 - ERROR - Error executing SQL file j_cr_ro_ref_rad_onc_activity_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 2cd450a1-fba6-4062-ae2f-9e7a1c6718bc
+
+2024-04-10 01:19:37,846 - ERROR - Error executing SQL file j_cr_ro_ref_rad_onc_address_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: c54ec5cc-819c-4312-a96c-9937045e9163
+
+2024-04-10 01:19:38,166 - ERROR - Error executing SQL file j_cr_ro_ref_rad_onc_diagnosis_code_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 2a9fdbd5-39e9-46a4-99a3-d23040a605bf
+
+2024-04-10 01:19:38,521 - ERROR - Error executing SQL file j_cr_ro_ref_rad_onc_hospital_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 1e2f22f4-1997-4b46-9983-f96d32f6e42a
+
+2024-04-10 01:19:38,802 - ERROR - Error executing SQL file j_cr_ro_ref_rad_onc_location_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 186a2b57-39c7-464b-87fe-d9a6fd8f70c0
+
+2024-04-10 01:19:39,052 - ERROR - Error executing SQL file j_cr_ro_ref_rad_onc_lookup_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: b0b1265a-c5ac-4faa-960c-9659671fc1fb
+
+2024-04-10 01:19:39,353 - ERROR - Error executing SQL file j_cr_ro_ref_rad_onc_patient_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: d04a70c7-0583-45e6-bcdc-7914dc2abb0c
+
+2024-04-10 01:19:39,560 - ERROR - Error executing SQL file j_cr_ro_ref_rad_onc_phone_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 2422de43-2cce-43f7-9ea7-7bd1c5859a6d
+
+2024-04-10 01:19:39,917 - ERROR - Error executing SQL file j_cr_ro_ref_rad_onc_physician_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: a03779f8-b68c-4cfc-a105-72504e58f3fd
+
+2024-04-10 01:19:40,270 - ERROR - Error executing SQL file j_cr_ro_ref_rad_onc_site_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: a35fc141-e2f1-440b-81f1-af9648cd9119
+
+2024-04-10 01:19:40,657 - ERROR - Error executing SQL file j_cr_ro_ref_rad_onc_toxicity_component_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 089b84f6-ef24-47e3-8f8b-beaf5325aa4b
+
+2024-04-10 01:19:41,698 - INFO - SQL file j_cr_ro_sc_activityclassifications_prm.sql executed successfully.
+2024-04-10 01:19:42,728 - INFO - SQL file j_cr_ro_sc_factfacility_stg_prm.sql executed successfully.
+2024-04-10 01:19:43,470 - INFO - SQL file j_cr_ro_sc_modalities_stg_prm.sql executed successfully.
+2024-04-10 01:19:44,120 - INFO - SQL file j_cr_system_productivity_log_prm.sql executed successfully.
+2024-04-10 01:19:45,062 - INFO - SQL file j_cr_system_productivity_log_stg_prm.sql executed successfully.
+2024-04-10 01:19:46,105 - INFO - SQL file j_cr_system_user_prm.sql executed successfully.
+2024-04-10 01:19:46,774 - INFO - SQL file j_cr_system_user_stg_prm.sql executed successfully.
+2024-04-10 01:19:47,152 - ERROR - Error executing SQL file j_mt_ref_ajcc_stage_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 03152f93-975b-465a-a662-75f656f67ca6
+
+2024-04-10 01:19:47,659 - ERROR - Error executing SQL file j_mt_ref_hospital_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 3c8675ab-7f8a-43db-82a1-b4029a8407f2
+
+2024-04-10 01:19:48,444 - INFO - SQL file j_mt_ref_hospital_stg_prm.sql executed successfully.
+2024-04-10 01:19:48,761 - ERROR - Error executing SQL file j_mt_ref_lookup_code_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 53290a0d-4a3d-40f9-9896-91414f4b4861
+
+2024-04-10 01:19:49,477 - INFO - SQL file j_mt_ref_lookup_code_stg_prm.sql executed successfully.
+2024-04-10 01:19:49,740 - ERROR - Error executing SQL file j_mt_ref_nat_serv_center_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 478d5970-b8f0-4771-9efc-365142f25d7e
+
+2024-04-10 01:19:50,442 - INFO - SQL file j_mt_ref_nat_serv_center_stg_prm.sql executed successfully.
+2024-04-10 01:19:50,690 - ERROR - Error executing SQL file j_mt_ref_treatment_type_grp_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 86fdd4a4-afaa-4bc0-8f77-168922904fc3
+
+2024-04-10 01:19:51,441 - INFO - SQL file j_mt_ref_treatment_type_grp_stg_prm.sql executed successfully.
+2024-04-10 01:19:51,661 - ERROR - Error executing SQL file j_navque_history_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 0ceff751-9231-469b-99a0-a6300c118c52
+
+2024-04-10 01:19:52,310 - INFO - SQL file j_navque_history_stg_prm.sql executed successfully.
+2024-04-10 01:19:53,019 - INFO - SQL file j_opol_ref_holiday_calendar_prm.sql executed successfully.
+2024-04-10 01:19:53,665 - INFO - SQL file j_ref_biopsy_result_prm.sql executed successfully.
+2024-04-10 01:19:54,433 - INFO - SQL file j_ref_biopsy_type_prm.sql executed successfully.
+2024-04-10 01:19:54,721 - ERROR - Error executing SQL file j_ref_breast_cancer_type_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: d4443c9b-e43f-430a-867e-06ed6250504c
+
+2024-04-10 01:19:55,488 - INFO - SQL file j_ref_breast_cancer_type_stg_prm.sql executed successfully.
+2024-04-10 01:19:56,161 - INFO - SQL file j_ref_consult_type_prm.sql executed successfully.
+2024-04-10 01:19:56,540 - ERROR - Error executing SQL file j_ref_contact_method_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: f46076b6-9cd2-469f-91ad-b93603b125a8
+
+2024-04-10 01:19:57,101 - INFO - SQL file j_ref_contact_method_stg_prm.sql executed successfully.
+2024-04-10 01:19:57,372 - ERROR - Error executing SQL file j_ref_contact_person_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: c1602d4b-32e1-46be-a54a-db77ecf0088f
+
+2024-04-10 01:19:58,058 - INFO - SQL file j_ref_contact_person_stg_prm.sql executed successfully.
+2024-04-10 01:19:58,497 - ERROR - Error executing SQL file j_ref_contact_purpose_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: fa473c7f-07fe-4586-83af-cfd22138974c
+
+2024-04-10 01:19:59,524 - INFO - SQL file j_ref_contact_purpose_stg_prm.sql executed successfully.
+2024-04-10 01:20:01,215 - INFO - SQL file j_ref_core_record_type_prm.sql executed successfully.
+2024-04-10 01:20:01,529 - ERROR - Error executing SQL file j_ref_diagnosis_detail_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: bf1ef175-8237-4d49-aba8-5494a10863c4
+
+2024-04-10 01:20:02,309 - INFO - SQL file j_ref_diagnosis_detail_stg_prm.sql executed successfully.
+2024-04-10 01:20:02,963 - INFO - SQL file j_ref_diagnosis_navigation_prm.sql executed successfully.
+2024-04-10 01:20:04,176 - INFO - SQL file j_ref_diagnosis_result_prm.sql executed successfully.
+2024-04-10 01:20:04,506 - ERROR - Error executing SQL file j_ref_facility_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 4813b582-9cda-4bd6-be87-18e8f8da5c9b
+
+2024-04-10 01:20:05,138 - INFO - SQL file j_ref_facility_stg_prm.sql executed successfully.
+2024-04-10 01:20:05,543 - ERROR - Error executing SQL file j_ref_imaging_mode_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: fbb17caa-16df-42f3-82c0-91041ecb460d
+
+2024-04-10 01:20:06,407 - INFO - SQL file j_ref_imaging_mode_stg_prm.sql executed successfully.
+2024-04-10 01:20:07,258 - INFO - SQL file j_ref_imaging_type_prm.sql executed successfully.
+2024-04-10 01:20:07,914 - INFO - SQL file j_ref_lab_type_prm.sql executed successfully.
+2024-04-10 01:20:08,192 - ERROR - Error executing SQL file j_ref_lung_lobe_location_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 542000b3-61d5-4147-a8fd-347403925a52
+
+2024-04-10 01:20:08,704 - INFO - SQL file j_ref_lung_lobe_location_stg_prm.sql executed successfully.
+2024-04-10 01:20:09,481 - INFO - SQL file j_ref_navigation_measure_prm.sql executed successfully.
+2024-04-10 01:20:10,547 - INFO - SQL file j_ref_navigator_prm.sql executed successfully.
+2024-04-10 01:20:10,893 - ERROR - Error executing SQL file j_ref_navque_action_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: c5fda83a-ad91-481b-a03d-ddf0ca663306
+
+2024-04-10 01:20:11,168 - ERROR - Error executing SQL file j_ref_navque_reason_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 4158ce1e-8ce5-42e5-9bf7-a54dd3d548b2
+
+2024-04-10 01:20:11,423 - ERROR - Error executing SQL file j_ref_physician_specialty_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 5cc5b26f-75db-489e-8d2a-50554aef0989
+
+2024-04-10 01:20:12,110 - INFO - SQL file j_ref_physician_specialty_stg_prm.sql executed successfully.
+2024-04-10 01:20:12,529 - ERROR - Error executing SQL file j_ref_procedure_type_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 7522e964-b520-4edb-ba38-c8d1747a3a09
+
+2024-04-10 01:20:13,472 - INFO - SQL file j_ref_procedure_type_stg_prm.sql executed successfully.
+2024-04-10 01:20:13,923 - ERROR - Error executing SQL file j_ref_rad_onc_treatment_type_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 78b9c22d-0a01-4b50-ab57-3c62bcf56039
+
+2024-04-10 01:20:14,491 - INFO - SQL file j_ref_referring_physician_prm.sql executed successfully.
+2024-04-10 01:20:14,821 - ERROR - Error executing SQL file j_ref_result_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 4a362230-74c5-4f45-bd95-ca5c9f3a6d14
+
+2024-04-10 01:20:15,447 - INFO - SQL file j_ref_result_stg_prm.sql executed successfully.
+2024-04-10 01:20:15,869 - ERROR - Error executing SQL file j_ref_side_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 22f8fd84-ea5f-4276-8eea-8b962cf0dea5
+
+2024-04-10 01:20:16,928 - INFO - SQL file j_ref_side_stg_prm.sql executed successfully.
+2024-04-10 01:20:17,249 - ERROR - Error executing SQL file j_ref_site_location_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: c7fc7972-3dbb-4591-a517-73f16e10af0e
+
+2024-04-10 01:20:17,931 - INFO - SQL file j_ref_site_location_stg_prm.sql executed successfully.
+2024-04-10 01:20:18,250 - ERROR - Error executing SQL file j_ref_status_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 26e97350-cd20-4d79-a83b-a57a05dd779f
+
+2024-04-10 01:20:19,071 - INFO - SQL file j_ref_status_stg_prm.sql executed successfully.
+2024-04-10 01:20:19,647 - INFO - SQL file j_ref_surgery_type_prm.sql executed successfully.
+2024-04-10 01:20:19,960 - ERROR - Error executing SQL file j_ref_therapy_type_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 693a235e-03bb-4804-8043-62d5cc86f115
+
+2024-04-10 01:20:20,867 - INFO - SQL file j_ref_therapy_type_stg_prm.sql executed successfully.
+2024-04-10 01:20:21,614 - INFO - SQL file j_ref_treatment_type_prm.sql executed successfully.
+2024-04-10 01:20:22,268 - INFO - SQL file j_ref_tumor_type_prm.sql executed successfully.
+2024-04-10 01:20:22,389 - INFO - =========execution_results================
+2024-04-10 01:20:22,390 - INFO - Total SQL files executed: 331
+2024-04-10 01:20:22,390 - INFO - SQL files executed successfully: 217
+2024-04-10 01:20:22,390 - INFO - SQL files failed with errors: 114
+2024-04-10 01:20:22,390 - INFO -  --SQL files with Missing db objects: 112
+2024-04-10 01:20:22,390 - INFO -  --SQL files with Dup Data Issues: 0
+2024-04-10 01:27:33,019 - INFO - Connected (version 2.0, client OpenSSH_8.1)
+2024-04-10 01:27:33,989 - INFO - Auth banner: b'\nBy proceeding further, I accept the following:\n\nYou are about to access an HCA-Information Technology & Services, Inc. (IT&S)\ncomputer system. This system is to be used only by authorized users of IT&S, its\ncustomers and affiliates. As a user of this system, you have no expectation of\nprivacy rights or ownership in anything you may create, store, send or receive\non this system. By proceeding, your use of this system 1) constitutes your\nagreement that IT&S and/or your company may consent to law enforcement officials\nand agencies accessing information regarding your use of this network, 2)\nconstitutes your consent to monitoring, retrieval, and disclosure of any\ninformation within this system for all purposes deemed appropriate by IT&S,\nincluding enforcement of rules concerning unacceptable uses of this system, and\n3) constitutes your agreement to comply with all privacy, security and other\npolicies and procedures of IT&S and your company. If you have any questions\nabout what constitutes an acceptable use by you, please consult the written\npolicies provided by IT&S and your company.\n\n\n'
+2024-04-10 01:27:33,990 - INFO - Authentication (publickey) failed.
+2024-04-10 01:27:35,067 - INFO - Authentication (password) successful!
+2024-04-10 01:27:35,627 - INFO - [chan 0] Opened sftp connection (server version 3)
+2024-04-10 04:34:52,763 - INFO - SQL file j_cn_cancer_pat_id_input_driver_prm.sql executed successfully.
+2024-04-10 04:34:54,545 - INFO - SQL file j_cn_cancer_pat_id_output_driver_prm.sql executed successfully.
+2024-04-10 04:34:55,698 - INFO - SQL file j_cn_navque_patient_tumor_driver_prm.sql executed successfully.
+2024-04-10 04:34:56,048 - ERROR - Error executing SQL file j_cn_patient_address_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 51708d06-3fc6-4a63-9659-b0182acef57b
+
+2024-04-10 04:34:57,620 - INFO - SQL file j_cn_patient_biopsy_prm.sql executed successfully.
+2024-04-10 04:34:58,666 - INFO - SQL file j_cn_patient_brca_screening_assessment_prm.sql executed successfully.
+2024-04-10 04:34:59,628 - INFO - SQL file j_cn_patient_clinical_trial_prm.sql executed successfully.
+2024-04-10 04:35:00,982 - INFO - SQL file j_cn_patient_complication_prm.sql executed successfully.
+2024-04-10 04:35:01,394 - ERROR - Error executing SQL file j_cn_patient_consultation_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 3154299d-6498-44e6-9517-a15701928ebc
+
+2024-04-10 04:35:04,239 - INFO - SQL file j_cn_patient_contact_detail_prm.sql executed successfully.
+2024-04-10 04:35:04,684 - ERROR - Error executing SQL file j_cn_patient_contact_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: b4f127f8-0c4a-4b7a-8d14-dd669ed5d98d
+
+2024-04-10 04:35:07,549 - INFO - SQL file j_cn_patient_core_adherence_prm.sql executed successfully.
+2024-04-10 04:35:09,509 - INFO - SQL file j_cn_patient_diagnosis_prm.sql executed successfully.
+2024-04-10 04:35:12,436 - INFO - SQL file j_cn_patient_family_history_prm.sql executed successfully.
+2024-04-10 04:35:13,537 - INFO - SQL file j_cn_patient_genetics_testing_prm.sql executed successfully.
+2024-04-10 04:35:15,096 - INFO - SQL file j_cn_patient_heme_diagnosis_prm.sql executed successfully.
+2024-04-10 04:35:15,823 - INFO - SQL file j_cn_patient_heme_disease_assess_detail_prm.sql executed successfully.
+2024-04-10 04:35:17,073 - INFO - SQL file j_cn_patient_heme_disease_assess_prm.sql executed successfully.
+2024-04-10 04:35:17,961 - INFO - SQL file j_cn_patient_heme_functional_assess_prm.sql executed successfully.
+2024-04-10 04:35:19,118 - INFO - SQL file j_cn_patient_heme_prm.sql executed successfully.
+2024-04-10 04:35:20,101 - INFO - SQL file j_cn_patient_heme_risk_factor_prm.sql executed successfully.
+2024-04-10 04:35:21,121 - INFO - SQL file j_cn_patient_heme_transplant_prm.sql executed successfully.
+2024-04-10 04:35:21,794 - INFO - SQL file j_cn_patient_heme_treatment_regimen_prm.sql executed successfully.
+2024-04-10 04:35:24,553 - INFO - SQL file j_cn_patient_imaging_prm.sql executed successfully.
+2024-04-10 04:35:25,517 - INFO - SQL file j_cn_patient_lab_result_prm.sql executed successfully.
+2024-04-10 04:35:26,925 - INFO - SQL file j_cn_patient_medical_oncology_prm.sql executed successfully.
+2024-04-10 04:35:28,006 - INFO - SQL file j_cn_patient_mltp_disp_meeting_prm.sql executed successfully.
+2024-04-10 04:35:31,148 - INFO - SQL file j_cn_patient_pathology_result_prm.sql executed successfully.
+2024-04-10 04:35:31,566 - ERROR - Error executing SQL file j_cn_patient_phone_num_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac_base_views was not found in location US
+
+Location: US
+Job ID: 6e9f081b-b357-4101-a8db-f501c9cdab68
+
+2024-04-10 04:35:31,794 - ERROR - Error executing SQL file j_cn_patient_prm.sql: 400 Invalid dataset ID "$edw_pub_views". Dataset IDs must be alphanumeric (plus underscores and dashes) and must be at most 1024 characters long.
+
+Location: US
+Job ID: 2401aca4-9941-4ec8-b0b8-abfbb079f199
+
+2024-04-10 04:35:32,213 - ERROR - Error executing SQL file j_cn_patient_procedure_pathology_result_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac_base_views was not found in location US
+
+Location: US
+Job ID: 61f0a308-b4c0-4f18-9b45-d7b22598c79d
+
+2024-04-10 04:35:33,477 - INFO - SQL file j_cn_patient_procedure_prm.sql executed successfully.
+2024-04-10 04:35:34,640 - INFO - SQL file j_cn_patient_radiation_oncology_prm.sql executed successfully.
+2024-04-10 04:35:35,060 - ERROR - Error executing SQL file j_cn_patient_staging_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac_base_views was not found in location US
+
+Location: US
+Job ID: 3376eed8-3a23-4ef4-a481-e87f4bf588a8
+
+2024-04-10 04:35:36,858 - INFO - SQL file j_cn_patient_surgery_prm.sql executed successfully.
+2024-04-10 04:35:37,984 - INFO - SQL file j_cn_patient_surgery_recon_prm.sql executed successfully.
+2024-04-10 04:35:39,190 - INFO - SQL file j_cn_patient_surv_plan_task_prm.sql executed successfully.
+2024-04-10 04:35:40,155 - INFO - SQL file j_cn_patient_test_result_prm.sql executed successfully.
+2024-04-10 04:35:41,685 - INFO - SQL file j_cn_patient_timeline_prm.sql executed successfully.
+2024-04-10 04:35:43,774 - INFO - SQL file j_cn_patient_tumor_prm.sql executed successfully.
+2024-04-10 04:35:45,122 - INFO - SQL file j_cn_person_prm.sql executed successfully.
+2024-04-10 04:35:46,032 - INFO - SQL file j_cn_physician_detail_prm.sql executed successfully.
+2024-04-10 04:35:47,424 - INFO - SQL file j_cn_physician_role_prm.sql executed successfully.
+2024-04-10 04:35:49,781 - INFO - SQL file j_cn_reg_cancer_patient_detail_prm.sql executed successfully.
+2024-04-10 04:36:20,619 - INFO - SQL file j_cn_reg_cancer_patient_driver_prm.sql executed successfully.
+2024-04-10 04:36:32,275 - INFO - SQL file j_cn_reg_cancer_patient_tumor_driver_prm.sql executed successfully.
+2024-04-10 04:36:35,165 - INFO - SQL file j_cn_reg_cancer_patient_tumor_staging_prm.sql executed successfully.
+2024-04-10 04:36:35,908 - INFO - SQL file j_cr_patient_address_prm.sql executed successfully.
+2024-04-10 04:36:36,623 - INFO - SQL file j_cr_patient_contact_prm.sql executed successfully.
+2024-04-10 04:36:41,940 - INFO - SQL file j_cr_patient_date_driver_prm.sql executed successfully.
+2024-04-10 04:36:42,672 - INFO - SQL file j_cr_patient_diagnosis_detail_prm.sql executed successfully.
+2024-04-10 04:36:43,419 - INFO - SQL file j_cr_patient_history_prm.sql executed successfully.
+2024-04-10 04:36:44,098 - INFO - SQL file j_cr_patient_insurance_prm.sql executed successfully.
+2024-04-10 04:36:44,835 - INFO - SQL file j_cr_patient_medical_oncology_prm.sql executed successfully.
+2024-04-10 04:36:45,419 - INFO - SQL file j_cr_patient_phone_num_prm.sql executed successfully.
+2024-04-10 04:36:46,041 - INFO - SQL file j_cr_patient_prm.sql executed successfully.
+2024-04-10 04:36:46,822 - INFO - SQL file j_cr_patient_radiation_oncology_prm.sql executed successfully.
+2024-04-10 04:36:47,519 - INFO - SQL file j_cr_patient_staging_prm.sql executed successfully.
+2024-04-10 04:36:48,222 - INFO - SQL file j_cr_patient_treatment_prm.sql executed successfully.
+2024-04-10 04:36:48,912 - INFO - SQL file j_cr_patient_tumor_pathology_result_prm.sql executed successfully.
+2024-04-10 04:36:49,612 - INFO - SQL file j_cr_patient_tumor_prm.sql executed successfully.
+2024-04-10 04:36:50,434 - INFO - SQL file j_cr_rad_onc_patient_course_prm.sql executed successfully.
+2024-04-10 04:36:52,339 - INFO - SQL file j_cr_rad_onc_patient_plan_prm.sql executed successfully.
+2024-04-10 04:36:53,234 - INFO - SQL file j_cr_ref_disease_assess_source_prm.sql executed successfully.
+2024-04-10 04:36:54,426 - INFO - SQL file j_cr_ref_housing_type_prm.sql executed successfully.
+2024-04-10 04:36:55,008 - INFO - SQL file j_cr_ref_pathway_var_reason_prm.sql executed successfully.
+2024-04-10 04:36:55,758 - INFO - SQL file j_cr_ref_regimen_prm.sql executed successfully.
+2024-04-10 04:36:56,730 - INFO - SQL file j_cr_ref_sample_type_prm.sql executed successfully.
+2024-04-10 04:36:57,134 - ERROR - Error executing SQL file j_cr_ref_test_type_core_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: b6362be6-39fc-4f56-85fd-a64be46b7e58
+
+2024-04-10 04:36:57,964 - INFO - SQL file j_cr_ref_transplant_type_prm.sql executed successfully.
+2024-04-10 04:36:58,542 - INFO - SQL file j_cr_ref_treatment_phase_prm.sql executed successfully.
+2024-04-10 04:36:59,169 - INFO - SQL file j_cr_ref_treatment_type_prm.sql executed successfully.
+2024-04-10 04:37:00,207 - INFO - SQL file j_cr_ro_fact_cancer_patient_financial_prm.sql executed successfully.
+2024-04-10 04:37:00,922 - INFO - SQL file j_cr_ro_fact_rad_onc_activity_billing_prm.sql executed successfully.
+2024-04-10 04:37:01,351 - ERROR - Error executing SQL file j_cr_ro_fact_rad_onc_course_diagnosis_prm.sql: 400 Function not found: td_sysfnlib.decode at [17:29]
+
+Location: US
+Job ID: d26f60b7-04b4-4284-bcd7-81c96cfe58fc
+
+2024-04-10 04:37:02,242 - INFO - SQL file j_cr_ro_fact_rad_onc_patient_diagnosis_prm.sql executed successfully.
+2024-04-10 04:37:02,882 - INFO - SQL file j_cr_ro_fact_rad_onc_patient_prm.sql executed successfully.
+2024-04-10 04:37:03,640 - INFO - SQL file j_cr_ro_fact_rad_onc_patient_toxicity_prm.sql executed successfully.
+2024-04-10 04:37:04,489 - INFO - SQL file j_cr_ro_fact_rad_onc_treatment_history_prm.sql executed successfully.
+2024-04-10 04:37:07,136 - INFO - SQL file j_cr_ro_rad_onc_activity_transaction_prm.sql executed successfully.
+2024-04-10 04:37:08,078 - INFO - SQL file j_cr_ro_rad_onc_actvt_priority_prm.sql executed successfully.
+2024-04-10 04:37:08,745 - INFO - SQL file j_cr_ro_rad_onc_patient_contact_prm.sql executed successfully.
+2024-04-10 04:37:09,390 - INFO - SQL file j_cr_ro_rad_onc_patient_history_prm.sql executed successfully.
+2024-04-10 04:37:09,979 - INFO - SQL file j_cr_ro_rad_onc_patient_physician_prm.sql executed successfully.
+2024-04-10 04:37:10,705 - INFO - SQL file j_cr_ro_rad_onc_plan_purpose_prm.sql executed successfully.
+2024-04-10 04:37:12,639 - INFO - SQL file j_cr_ro_rad_onc_procedure_code_prm.sql executed successfully.
+2024-04-10 04:37:13,305 - INFO - SQL file j_cr_ro_ref_rad_onc_activity_prm.sql executed successfully.
+2024-04-10 04:37:13,940 - INFO - SQL file j_cr_ro_ref_rad_onc_address_prm.sql executed successfully.
+2024-04-10 04:37:14,283 - ERROR - Error executing SQL file j_cr_ro_ref_rad_onc_diagnosis_code_prm.sql: 400 Function not found: td_sysfnlib.decode at [14:29]
+
+Location: US
+Job ID: 968c6dfa-20e3-47c0-b8c2-cb8a5937ca36
+
+2024-04-10 04:37:15,110 - INFO - SQL file j_cr_ro_ref_rad_onc_hospital_prm.sql executed successfully.
+2024-04-10 04:37:15,886 - INFO - SQL file j_cr_ro_ref_rad_onc_location_prm.sql executed successfully.
+2024-04-10 04:37:16,722 - INFO - SQL file j_cr_ro_ref_rad_onc_lookup_prm.sql executed successfully.
+2024-04-10 04:37:17,363 - INFO - SQL file j_cr_ro_ref_rad_onc_patient_prm.sql executed successfully.
+2024-04-10 04:37:17,887 - INFO - SQL file j_cr_ro_ref_rad_onc_phone_prm.sql executed successfully.
+2024-04-10 04:37:20,861 - INFO - SQL file j_cr_ro_ref_rad_onc_physician_prm.sql executed successfully.
+2024-04-10 04:37:21,444 - INFO - SQL file j_cr_ro_ref_rad_onc_site_prm.sql executed successfully.
+2024-04-10 04:37:22,149 - INFO - SQL file j_cr_ro_ref_rad_onc_toxicity_component_prm.sql executed successfully.
+2024-04-10 04:37:23,097 - INFO - SQL file j_cr_system_productivity_log_prm.sql executed successfully.
+2024-04-10 04:37:23,759 - INFO - SQL file j_cr_system_user_prm.sql executed successfully.
+2024-04-10 04:37:25,778 - INFO - SQL file j_mt_ref_ajcc_stage_prm.sql executed successfully.
+2024-04-10 04:37:26,537 - INFO - SQL file j_mt_ref_hospital_prm.sql executed successfully.
+2024-04-10 04:37:27,465 - INFO - SQL file j_mt_ref_lookup_code_prm.sql executed successfully.
+2024-04-10 04:37:28,332 - INFO - SQL file j_mt_ref_nat_serv_center_prm.sql executed successfully.
+2024-04-10 04:37:29,993 - INFO - SQL file j_mt_ref_treatment_type_grp_prm.sql executed successfully.
+2024-04-10 04:37:33,043 - INFO - SQL file j_navque_history_prm.sql executed successfully.
+2024-04-10 04:37:33,396 - ERROR - Error executing SQL file j_ref_breast_cancer_type_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: a9a8285d-f99d-49da-bebf-77b5978d94be
+
+2024-04-10 04:37:34,979 - INFO - SQL file j_ref_contact_method_prm.sql executed successfully.
+2024-04-10 04:37:35,452 - ERROR - Error executing SQL file j_ref_contact_person_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 947498bb-b562-4d7b-93b3-8be47aedfbc5
+
+2024-04-10 04:37:35,906 - ERROR - Error executing SQL file j_ref_contact_purpose_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 9d6cb141-806a-40c9-8d7d-e91d40845473
+
+2024-04-10 04:37:36,354 - ERROR - Error executing SQL file j_ref_diagnosis_detail_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 1cc67d4e-eb10-41de-8217-0840331a8b9c
+
+2024-04-10 04:37:38,117 - INFO - SQL file j_ref_facility_prm.sql executed successfully.
+2024-04-10 04:37:38,501 - ERROR - Error executing SQL file j_ref_imaging_mode_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 17141728-344f-4f6f-8b30-32da255f0282
+
+2024-04-10 04:37:38,815 - ERROR - Error executing SQL file j_ref_lung_lobe_location_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: e96945db-b9ad-45ce-a6ea-d1856930c9e4
+
+2024-04-10 04:37:39,199 - ERROR - Error executing SQL file j_ref_physician_specialty_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 63775d1b-eb82-4bd7-8523-f3ce9f0fc81b
+
+2024-04-10 04:37:39,494 - ERROR - Error executing SQL file j_ref_procedure_type_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: b96aec6b-668e-4037-9bae-0ad99a4b7a8f
+
+2024-04-10 04:37:40,214 - INFO - SQL file j_ref_rad_onc_treatment_type_prm.sql executed successfully.
+2024-04-10 04:37:40,608 - ERROR - Error executing SQL file j_ref_result_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: f8996eee-2ad9-45df-86fe-88fb8fc34d0c
+
+2024-04-10 04:37:41,312 - INFO - SQL file j_ref_side_prm.sql executed successfully.
+2024-04-10 04:37:41,616 - ERROR - Error executing SQL file j_ref_site_location_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: c9c1e44d-4f54-4c08-9264-ed6705fa074c
+
+2024-04-10 04:37:41,884 - ERROR - Error executing SQL file j_ref_status_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: d9f58dae-f2ef-46d2-b916-6fd872d7ac16
+
+2024-04-10 04:37:42,255 - ERROR - Error executing SQL file j_ref_therapy_type_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: a486af6e-812d-4a2c-9419-43c110d4afdd
+
+2024-04-10 04:37:43,040 - INFO - SQL file j_cn_cancer_pat_id_input_driver_prm.sql executed successfully.
+2024-04-10 04:37:43,719 - INFO - SQL file j_cn_cancer_pat_id_output_driver_prm.sql executed successfully.
+2024-04-10 04:37:44,093 - ERROR - Error executing SQL file j_cn_navque_patient_tumor_driver_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 98eca644-30f0-4d8a-8dc3-24b0a6e51ddf
+
+2024-04-10 04:37:44,414 - ERROR - Error executing SQL file j_cn_patient_address_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: a7e9850b-41fa-4d4b-bfc0-37ebbed575f9
+
+2024-04-10 04:37:45,310 - INFO - SQL file j_cn_patient_address_stg_prm.sql executed successfully.
+2024-04-10 04:37:45,677 - ERROR - Error executing SQL file j_cn_patient_biopsy_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac_base_views was not found in location US
+
+Location: US
+Job ID: cf65f5ed-d732-496c-99d6-5e37ba4cc6e0
+
+2024-04-10 04:37:46,321 - INFO - SQL file j_cn_patient_biopsy_stg_prm.sql executed successfully.
+2024-04-10 04:37:46,680 - ERROR - Error executing SQL file j_cn_patient_brca_screening_assessment_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: d031fa7e-c41e-4c1a-b60a-4b6c9bc9f820
+
+2024-04-10 04:37:47,223 - INFO - SQL file j_cn_patient_brca_screening_assessment_stg_prm.sql executed successfully.
+2024-04-10 04:37:47,607 - ERROR - Error executing SQL file j_cn_patient_clinical_trial_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac_base_views was not found in location US
+
+Location: US
+Job ID: 3bac53b6-03df-4988-a088-548114a08a79
+
+2024-04-10 04:37:48,227 - INFO - SQL file j_cn_patient_clinical_trial_stg_prm.sql executed successfully.
+2024-04-10 04:37:48,615 - ERROR - Error executing SQL file j_cn_patient_complication_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac_base_views was not found in location US
+
+Location: US
+Job ID: e7c148b4-0056-4703-8d65-cf62d784782e
+
+2024-04-10 04:37:49,101 - INFO - SQL file j_cn_patient_complication_stg_prm.sql executed successfully.
+2024-04-10 04:37:49,517 - ERROR - Error executing SQL file j_cn_patient_consultation_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 6b7d4f2c-b6c6-436c-abfa-adaceb8369e6
+
+2024-04-10 04:37:50,137 - INFO - SQL file j_cn_patient_consultation_stg_prm.sql executed successfully.
+2024-04-10 04:37:50,460 - ERROR - Error executing SQL file j_cn_patient_contact_detail_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: c7c60225-1f23-40a6-950f-442f82cdbcb8
+
+2024-04-10 04:37:51,196 - INFO - SQL file j_cn_patient_contact_detail_stg_prm.sql executed successfully.
+2024-04-10 04:37:51,515 - ERROR - Error executing SQL file j_cn_patient_contact_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 96dc6842-d14e-498b-9d5b-e27319bb1915
+
+2024-04-10 04:37:52,181 - INFO - SQL file j_cn_patient_contact_stg_prm.sql executed successfully.
+2024-04-10 04:37:52,471 - ERROR - Error executing SQL file j_cn_patient_core_adherence_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 2b886843-aaf7-4ce3-8ec1-abaf97c75088
+
+2024-04-10 04:37:53,248 - INFO - SQL file j_cn_patient_core_adherence_stg_prm.sql executed successfully.
+2024-04-10 04:37:53,596 - ERROR - Error executing SQL file j_cn_patient_diagnosis_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac_base_views was not found in location US
+
+Location: US
+Job ID: 968fc5e7-26e0-4620-a832-367260f88795
+
+2024-04-10 04:37:54,421 - INFO - SQL file j_cn_patient_diagnosis_stg_prm.sql executed successfully.
+2024-04-10 04:37:54,701 - ERROR - Error executing SQL file j_cn_patient_family_history_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac_base_views was not found in location US
+
+Location: US
+Job ID: 64a3ec18-8623-4e07-803a-371b6e758029
+
+2024-04-10 04:37:55,545 - INFO - SQL file j_cn_patient_family_history_stg_prm.sql executed successfully.
+2024-04-10 04:37:55,921 - ERROR - Error executing SQL file j_cn_patient_genetics_testing_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac_base_views was not found in location US
+
+Location: US
+Job ID: 4fbc0ef8-b155-48cf-9bf6-5bb1138d60e2
+
+2024-04-10 04:37:56,594 - INFO - SQL file j_cn_patient_genetics_testing_stg_prm.sql executed successfully.
+2024-04-10 04:37:57,104 - ERROR - Error executing SQL file j_cn_patient_heme_diagnosis_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 6c12c519-7abc-4f65-ab6c-18c09a372e78
+
+2024-04-10 04:37:58,015 - INFO - SQL file j_cn_patient_heme_diagnosis_stg_prm.sql executed successfully.
+2024-04-10 04:37:58,938 - INFO - SQL file j_cn_patient_heme_disease_assess_detail_prm.sql executed successfully.
+2024-04-10 04:37:59,320 - ERROR - Error executing SQL file j_cn_patient_heme_disease_assess_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac_base_views was not found in location US
+
+Location: US
+Job ID: 0968edfc-b28c-4aaa-b41b-1c771772f19d
+
+2024-04-10 04:37:59,741 - ERROR - Error executing SQL file j_cn_patient_heme_functional_assess_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac_base_views was not found in location US
+
+Location: US
+Job ID: 2ae8d155-7f4a-439f-9506-e4e699294c6e
+
+2024-04-10 04:38:00,156 - ERROR - Error executing SQL file j_cn_patient_heme_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 357782ed-7373-4e29-a1af-9197668ae97d
+
+2024-04-10 04:38:00,513 - ERROR - Error executing SQL file j_cn_patient_heme_risk_factor_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: fe8f59b7-9163-4571-b0ed-00406009e139
+
+2024-04-10 04:38:01,099 - INFO - SQL file j_cn_patient_heme_risk_factor_stg_prm.sql executed successfully.
+2024-04-10 04:38:01,408 - ERROR - Error executing SQL file j_cn_patient_heme_transplant_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: a81eb5d3-7463-4fa4-93cf-dd7ee3bd49f3
+
+2024-04-10 04:38:02,100 - INFO - SQL file j_cn_patient_heme_transplant_stg_prm.sql executed successfully.
+2024-04-10 04:38:02,795 - INFO - SQL file j_cn_patient_heme_treatment_regimen_prm.sql executed successfully.
+2024-04-10 04:38:03,166 - ERROR - Error executing SQL file j_cn_patient_imaging_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac_base_views was not found in location US
+
+Location: US
+Job ID: faf6a272-2941-45af-8d97-86eb7b8aa7a4
+
+2024-04-10 04:38:03,725 - INFO - SQL file j_cn_patient_imaging_stg_prm.sql executed successfully.
+2024-04-10 04:38:04,007 - ERROR - Error executing SQL file j_cn_patient_lab_result_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 62450625-8d54-4dad-b0ab-a1e97b265831
+
+2024-04-10 04:38:04,744 - INFO - SQL file j_cn_patient_lab_result_stg_prm.sql executed successfully.
+2024-04-10 04:38:05,195 - ERROR - Error executing SQL file j_cn_patient_medical_oncology_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac_base_views was not found in location US
+
+Location: US
+Job ID: 3658c9b2-56da-4880-b767-1303f1bb1a64
+
+2024-04-10 04:38:05,867 - INFO - SQL file j_cn_patient_medical_oncology_stg_prm.sql executed successfully.
+2024-04-10 04:38:06,257 - ERROR - Error executing SQL file j_cn_patient_mltp_disp_meeting_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: d1b95f48-243c-4f5c-9bde-2238d78878c9
+
+2024-04-10 04:38:06,997 - INFO - SQL file j_cn_patient_mltp_disp_meeting_stg_prm.sql executed successfully.
+2024-04-10 04:38:07,407 - ERROR - Error executing SQL file j_cn_patient_pathology_result_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: bea0fc4a-af18-4a72-88f5-cc910ffbe37a
+
+2024-04-10 04:38:08,383 - INFO - SQL file j_cn_patient_pathology_result_stg_prm.sql executed successfully.
+2024-04-10 04:38:08,736 - ERROR - Error executing SQL file j_cn_patient_phone_num_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac_base_views was not found in location US
+
+Location: US
+Job ID: 103b4544-cd6c-44e0-89ba-d3a29bdd1147
+
+2024-04-10 04:38:09,434 - INFO - SQL file j_cn_patient_phone_num_stg_prm.sql executed successfully.
+2024-04-10 04:38:09,822 - ERROR - Error executing SQL file j_cn_patient_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac_base_views was not found in location US
+
+Location: US
+Job ID: cb6cd183-b4b8-4622-9b15-0a69cdcde604
+
+2024-04-10 04:38:10,065 - ERROR - Error executing SQL file j_cn_patient_procedure_pathology_result_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac_base_views was not found in location US
+
+Location: US
+Job ID: 37fda8ab-b39f-4b22-98a0-8503efe3708a
+
+2024-04-10 04:38:10,776 - INFO - SQL file j_cn_patient_procedure_pathology_result_stg_prm.sql executed successfully.
+2024-04-10 04:38:11,088 - ERROR - Error executing SQL file j_cn_patient_procedure_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 84add148-5dcb-4067-9afe-0c5b97a1b75e
+
+2024-04-10 04:38:11,828 - INFO - SQL file j_cn_patient_procedure_stg_prm.sql executed successfully.
+2024-04-10 04:38:12,144 - ERROR - Error executing SQL file j_cn_patient_radiation_oncology_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 90255a0f-e304-4246-9979-c9aa77bc1dae
+
+2024-04-10 04:38:12,963 - INFO - SQL file j_cn_patient_radiation_oncology_stg_prm.sql executed successfully.
+2024-04-10 04:38:13,261 - ERROR - Error executing SQL file j_cn_patient_staging_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac_base_views was not found in location US
+
+Location: US
+Job ID: b3a2f641-31d2-4655-8759-3255f8d4b1bb
+
+2024-04-10 04:38:13,982 - INFO - SQL file j_cn_patient_staging_stg_prm.sql executed successfully.
+2024-04-10 04:38:14,613 - INFO - SQL file j_cn_patient_stg_prm.sql executed successfully.
+2024-04-10 04:38:14,986 - ERROR - Error executing SQL file j_cn_patient_surgery_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 82aad09b-f4e3-45b7-910b-adea5f5beab6
+
+2024-04-10 04:38:15,312 - ERROR - Error executing SQL file j_cn_patient_surgery_recon_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: be869ec1-dc78-47db-be81-b6d9ff152da4
+
+2024-04-10 04:38:16,072 - INFO - SQL file j_cn_patient_surgery_recon_stg_prm.sql executed successfully.
+2024-04-10 04:38:16,791 - INFO - SQL file j_cn_patient_surgery_stg_prm.sql executed successfully.
+2024-04-10 04:38:17,080 - ERROR - Error executing SQL file j_cn_patient_surv_plan_task_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 8261b003-8f6a-4d1b-b6db-81dd576de0d9
+
+2024-04-10 04:38:17,874 - INFO - SQL file j_cn_patient_surv_plan_task_stg_prm.sql executed successfully.
+2024-04-10 04:38:18,139 - ERROR - Error executing SQL file j_cn_patient_test_result_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: fe3d32c9-5ad4-4eef-a1c9-409f491ed61c
+
+2024-04-10 04:38:18,720 - INFO - SQL file j_cn_patient_test_result_stg_prm.sql executed successfully.
+2024-04-10 04:38:19,088 - ERROR - Error executing SQL file j_cn_patient_timeline_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 55a643f4-28f3-4f73-80d0-92b523751bfd
+
+2024-04-10 04:38:20,055 - INFO - SQL file j_cn_patient_timeline_stg_prm.sql executed successfully.
+2024-04-10 04:38:20,268 - ERROR - Error executing SQL file j_cn_patient_tumor_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac_base_views was not found in location US
+
+Location: US
+Job ID: 49d1f725-13e9-4ae8-b106-e04f69362f8e
+
+2024-04-10 04:38:20,955 - INFO - SQL file j_cn_patient_tumor_stg_prm.sql executed successfully.
+2024-04-10 04:38:21,966 - INFO - SQL file j_cn_pat_heme_disease_assess_stg_prm.sql executed successfully.
+2024-04-10 04:38:22,199 - ERROR - Error executing SQL file j_cn_person_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac_base_views was not found in location US
+
+Location: US
+Job ID: 0a02fe70-0374-4750-b4e2-0cbb9f3ac006
+
+2024-04-10 04:38:22,933 - INFO - SQL file j_cn_person_stg_prm.sql executed successfully.
+2024-04-10 04:38:23,277 - ERROR - Error executing SQL file j_cn_physician_detail_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac_base_views was not found in location US
+
+Location: US
+Job ID: fcc06dd7-1ca8-44ac-81c7-73628c06025c
+
+2024-04-10 04:38:24,035 - INFO - SQL file j_cn_physician_detail_stg_prm.sql executed successfully.
+2024-04-10 04:38:24,314 - ERROR - Error executing SQL file j_cn_physician_role_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac_base_views was not found in location US
+
+Location: US
+Job ID: ec176084-42c7-4692-8e11-5f99d1d46b47
+
+2024-04-10 04:38:24,973 - INFO - SQL file j_cn_physician_role_stg_prm.sql executed successfully.
+2024-04-10 04:38:25,697 - INFO - SQL file j_cn_reg_cancer_patient_detail_prm.sql executed successfully.
+2024-04-10 04:38:26,358 - INFO - SQL file j_cn_reg_cancer_patient_driver_prm.sql executed successfully.
+2024-04-10 04:38:27,074 - INFO - SQL file j_cn_reg_cancer_patient_tumor_driver_prm.sql executed successfully.
+2024-04-10 04:38:27,667 - INFO - SQL file j_cn_reg_cancer_patient_tumor_staging_prm.sql executed successfully.
+2024-04-10 04:38:28,324 - INFO - SQL file j_cn_reg_cancer_tumor_driver_prm.sql executed successfully.
+2024-04-10 04:38:28,946 - INFO - SQL file j_cr_patient_address_prm.sql executed successfully.
+2024-04-10 04:38:29,601 - INFO - SQL file j_cr_patient_address_stg_prm.sql executed successfully.
+2024-04-10 04:38:30,309 - INFO - SQL file j_cr_patient_contact_prm.sql executed successfully.
+2024-04-10 04:38:31,035 - INFO - SQL file j_cr_patient_contact_stg_prm.sql executed successfully.
+2024-04-10 04:38:31,748 - INFO - SQL file j_cr_patient_date_driver_prm.sql executed successfully.
+2024-04-10 04:38:32,420 - INFO - SQL file j_cr_patient_diagnosis_detail_prm.sql executed successfully.
+2024-04-10 04:38:33,239 - INFO - SQL file j_cr_patient_diagnosis_detail_stg_prm.sql executed successfully.
+2024-04-10 04:38:33,868 - INFO - SQL file j_cr_patient_history_prm.sql executed successfully.
+2024-04-10 04:38:34,470 - INFO - SQL file j_cr_patient_history_stg_prm.sql executed successfully.
+2024-04-10 04:38:35,224 - INFO - SQL file j_cr_patient_insurance_prm.sql executed successfully.
+2024-04-10 04:38:35,776 - INFO - SQL file j_cr_patient_insurance_stg_prm.sql executed successfully.
+2024-04-10 04:38:36,351 - INFO - SQL file j_cr_patient_medical_oncology_prm.sql executed successfully.
+2024-04-10 04:38:36,994 - INFO - SQL file j_cr_patient_medical_oncology_stg_prm.sql executed successfully.
+2024-04-10 04:38:37,668 - INFO - SQL file j_cr_patient_phone_num_prm.sql executed successfully.
+2024-04-10 04:38:38,364 - INFO - SQL file j_cr_patient_phone_num_stg_prm.sql executed successfully.
+2024-04-10 04:38:39,065 - INFO - SQL file j_cr_patient_prm.sql executed successfully.
+2024-04-10 04:38:39,592 - INFO - SQL file j_cr_patient_radiation_oncology_prm.sql executed successfully.
+2024-04-10 04:38:40,205 - INFO - SQL file j_cr_patient_radiation_oncology_stg_prm.sql executed successfully.
+2024-04-10 04:38:40,797 - INFO - SQL file j_cr_patient_staging_prm.sql executed successfully.
+2024-04-10 04:38:41,479 - INFO - SQL file j_cr_patient_staging_stg_prm.sql executed successfully.
+2024-04-10 04:38:42,289 - INFO - SQL file j_cr_patient_stg_prm.sql executed successfully.
+2024-04-10 04:38:42,947 - INFO - SQL file j_cr_patient_treatment_prm.sql executed successfully.
+2024-04-10 04:38:43,624 - INFO - SQL file j_cr_patient_treatment_stg_prm.sql executed successfully.
+2024-04-10 04:38:44,339 - INFO - SQL file j_cr_patient_tumor_pathology_result_prm.sql executed successfully.
+2024-04-10 04:38:44,970 - INFO - SQL file j_cr_patient_tumor_pathology_result_stg_prm.sql executed successfully.
+2024-04-10 04:38:45,557 - INFO - SQL file j_cr_patient_tumor_prm.sql executed successfully.
+2024-04-10 04:38:46,216 - INFO - SQL file j_cr_patient_tumor_stg_prm.sql executed successfully.
+2024-04-10 04:38:46,804 - INFO - SQL file j_cr_pat_heme_treatment_regimen_stg_prm.sql executed successfully.
+2024-04-10 04:38:47,062 - ERROR - Error executing SQL file j_cr_rad_onc_patient_course_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac_base_views was not found in location US
+
+Location: US
+Job ID: ed8b544b-d129-4193-9323-2a786292cc29
+
+2024-04-10 04:38:47,463 - ERROR - Error executing SQL file j_cr_rad_onc_patient_plan_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: d4f35cc8-2f6c-4395-bfa8-9e3dbb4a3eff
+
+2024-04-10 04:38:47,853 - ERROR - Error executing SQL file j_cr_ref_disease_assess_source_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac_base_views was not found in location US
+
+Location: US
+Job ID: 3ad6530e-c74f-4ba9-aa7c-94c69a29a8a4
+
+2024-04-10 04:38:48,206 - ERROR - Error executing SQL file j_cr_ref_housing_type_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 93b30e3e-f1bf-466a-afdf-3600823a3ba0
+
+2024-04-10 04:38:48,881 - INFO - SQL file j_cr_ref_pathway_var_reason_prm.sql executed successfully.
+2024-04-10 04:38:49,475 - INFO - SQL file j_cr_ref_regimen_prm.sql executed successfully.
+2024-04-10 04:38:49,733 - ERROR - Error executing SQL file j_cr_ref_sample_type_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 3a63ce1d-5b15-417e-b8e8-6548c8229a5b
+
+2024-04-10 04:38:50,142 - ERROR - Error executing SQL file j_cr_ref_test_type_core_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: c403924b-405f-4e1c-b310-23cebd3130c2
+
+2024-04-10 04:38:50,733 - INFO - SQL file j_cr_ref_test_type_prm.sql executed successfully.
+2024-04-10 04:38:50,978 - ERROR - Error executing SQL file j_cr_ref_transplant_type_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: af59fa15-c00e-47dc-966f-a41cb09d78c2
+
+2024-04-10 04:38:51,590 - INFO - SQL file j_cr_ref_treatment_phase_prm.sql executed successfully.
+2024-04-10 04:38:51,893 - ERROR - Error executing SQL file j_cr_ref_treatment_type_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: fb92c630-5517-40fd-9fba-a8873a091000
+
+2024-04-10 04:38:52,493 - INFO - SQL file j_cr_ref_treatment_type_stg_prm.sql executed successfully.
+2024-04-10 04:38:53,122 - INFO - SQL file j_cr_ro_dimactivitytransaction_stg_prm.sql executed successfully.
+2024-04-10 04:38:53,685 - INFO - SQL file j_cr_ro_dimactivity_stg_prm.sql executed successfully.
+2024-04-10 04:38:54,249 - INFO - SQL file j_cr_ro_dimaddon_stg_prm.sql executed successfully.
+2024-04-10 04:38:54,857 - INFO - SQL file j_cr_ro_dimcelltype_stg_prm.sql executed successfully.
+2024-04-10 04:38:55,530 - INFO - SQL file j_cr_ro_dimcourse_stg_prm.sql executed successfully.
+2024-04-10 04:38:56,172 - INFO - SQL file j_cr_ro_dimdiagnosiscode_stg_prm.sql executed successfully.
+2024-04-10 04:38:56,805 - INFO - SQL file j_cr_ro_dimdoctor_stg_prm.sql executed successfully.
+2024-04-10 04:38:57,481 - INFO - SQL file j_cr_ro_dimdrug_stg_prm.sql executed successfully.
+2024-04-10 04:38:58,292 - INFO - SQL file j_cr_ro_dimdxsite_stg_prm.sql executed successfully.
+2024-04-10 04:38:58,974 - INFO - SQL file j_cr_ro_dimenergy_stg_prm.sql executed successfully.
+2024-04-10 04:38:59,556 - INFO - SQL file j_cr_ro_dimfield_stg_prm.sql executed successfully.
+2024-04-10 04:39:00,119 - INFO - SQL file j_cr_ro_dimhospitaldepartment_stg_prm.sql executed successfully.
+2024-04-10 04:39:00,780 - INFO - SQL file j_cr_ro_dimicdosite_stg_prm.sql executed successfully.
+2024-04-10 04:39:01,438 - INFO - SQL file j_cr_ro_diminstitutelocation_stg_prm.sql executed successfully.
+2024-04-10 04:39:02,064 - INFO - SQL file j_cr_ro_dimlocation_stg_prm.sql executed successfully.
+2024-04-10 04:39:02,673 - INFO - SQL file j_cr_ro_dimlookup_stg_prm.sql executed successfully.
+2024-04-10 04:39:03,241 - INFO - SQL file j_cr_ro_dimmachine_stg_prm.sql executed successfully.
+2024-04-10 04:39:03,946 - INFO - SQL file j_cr_ro_dimpatientdoctor_stg_prm.sql executed successfully.
+2024-04-10 04:39:04,542 - INFO - SQL file j_cr_ro_dimpatient_stg_prm.sql executed successfully.
+2024-04-10 04:39:05,183 - INFO - SQL file j_cr_ro_dimplan_stg_prm.sql executed successfully.
+2024-04-10 04:39:05,838 - INFO - SQL file j_cr_ro_dimprocedurecode_stg_prm.sql executed successfully.
+2024-04-10 04:39:06,319 - INFO - SQL file j_cr_ro_dimresource_stg_prm.sql executed successfully.
+2024-04-10 04:39:07,077 - INFO - SQL file j_cr_ro_dimtoxgrdcriteria_stg_prm.sql executed successfully.
+2024-04-10 04:39:07,776 - INFO - SQL file j_cr_ro_dimtreatmenttransaction_stg_prm.sql executed successfully.
+2024-04-10 04:39:08,424 - INFO - SQL file j_cr_ro_dimuser_stg_prm.sql executed successfully.
+2024-04-10 04:39:09,054 - INFO - SQL file j_cr_ro_factactivitybilling_stg_prm.sql executed successfully.
+2024-04-10 04:39:09,559 - INFO - SQL file j_cr_ro_factcoursediagnosis_stg_prm.sql executed successfully.
+2024-04-10 04:39:10,051 - INFO - SQL file j_cr_ro_factpatientdiagnosis_stg_prm.sql executed successfully.
+2024-04-10 04:39:10,756 - INFO - SQL file j_cr_ro_factpatienttoxicity_stg_prm.sql executed successfully.
+2024-04-10 04:39:11,410 - INFO - SQL file j_cr_ro_factpatient_stg_prm.sql executed successfully.
+2024-04-10 04:39:11,939 - INFO - SQL file j_cr_ro_facttreatmenthist_stg_prm.sql executed successfully.
+2024-04-10 04:39:12,313 - ERROR - Error executing SQL file j_cr_ro_fact_cancer_patient_financial_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 59ccb9fa-7569-45b4-b81d-a95d30c6f6e2
+
+2024-04-10 04:39:12,725 - ERROR - Error executing SQL file j_cr_ro_fact_rad_onc_activity_billing_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: b576411c-b72c-408b-84a8-98aa64a7d8ce
+
+2024-04-10 04:39:13,080 - ERROR - Error executing SQL file j_cr_ro_fact_rad_onc_course_diagnosis_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: f6ead605-7902-4dfd-bff1-85fc12b45380
+
+2024-04-10 04:39:13,480 - ERROR - Error executing SQL file j_cr_ro_fact_rad_onc_patient_diagnosis_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: c950b560-0e70-44d4-8f7c-0df8d7735d97
+
+2024-04-10 04:39:13,852 - ERROR - Error executing SQL file j_cr_ro_fact_rad_onc_patient_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: b75fd705-0052-4eec-b6ba-f2ee3fbafc75
+
+2024-04-10 04:39:14,094 - ERROR - Error executing SQL file j_cr_ro_fact_rad_onc_patient_toxicity_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 177df51d-b524-425c-84d0-879c85117e96
+
+2024-04-10 04:39:14,373 - ERROR - Error executing SQL file j_cr_ro_fact_rad_onc_treatment_history_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 7e364d6d-2094-44f3-81ad-4d1864e509df
+
+2024-04-10 04:39:14,752 - ERROR - Error executing SQL file j_cr_ro_rad_onc_activity_transaction_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 9cf5a87a-2f7a-407f-9190-4df13f3f9231
+
+2024-04-10 04:39:15,120 - ERROR - Error executing SQL file j_cr_ro_rad_onc_actvt_priority_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 14bdbaa1-e9a7-4ab9-9a08-33f1fd709302
+
+2024-04-10 04:39:15,427 - ERROR - Error executing SQL file j_cr_ro_rad_onc_patient_contact_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 97b10fed-865e-47ae-b3bd-388ef29eb4bb
+
+2024-04-10 04:39:15,732 - ERROR - Error executing SQL file j_cr_ro_rad_onc_patient_history_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 4edbf6de-3d88-4e1c-91eb-922f37504ca9
+
+2024-04-10 04:39:16,063 - ERROR - Error executing SQL file j_cr_ro_rad_onc_patient_physician_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: d5d31b59-2d2b-46ba-82b2-0727250bf2a1
+
+2024-04-10 04:39:16,333 - ERROR - Error executing SQL file j_cr_ro_rad_onc_plan_purpose_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 7109aa8d-03bd-491f-99d8-beabd43202b0
+
+2024-04-10 04:39:16,662 - ERROR - Error executing SQL file j_cr_ro_rad_onc_procedure_code_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: c9ba9d50-cf38-498b-9afb-899b80727cb5
+
+2024-04-10 04:39:17,024 - ERROR - Error executing SQL file j_cr_ro_ref_rad_onc_activity_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 31e65762-82f5-4eb1-940c-a8b2c7f4f3be
+
+2024-04-10 04:39:17,298 - ERROR - Error executing SQL file j_cr_ro_ref_rad_onc_address_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: a560f3c0-e837-4754-a1df-0e27ff9adf64
+
+2024-04-10 04:39:17,661 - ERROR - Error executing SQL file j_cr_ro_ref_rad_onc_diagnosis_code_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 08c09204-e217-4356-b714-a3a652090537
+
+2024-04-10 04:39:18,056 - ERROR - Error executing SQL file j_cr_ro_ref_rad_onc_hospital_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 3026c6f8-20d6-426e-b130-68469c54e908
+
+2024-04-10 04:39:18,306 - ERROR - Error executing SQL file j_cr_ro_ref_rad_onc_location_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 0aa59f3e-5ae3-4b25-9719-2c3d2f020b03
+
+2024-04-10 04:39:18,606 - ERROR - Error executing SQL file j_cr_ro_ref_rad_onc_lookup_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: b6be4a38-e502-4c49-aaa9-108c9848efbd
+
+2024-04-10 04:39:18,905 - ERROR - Error executing SQL file j_cr_ro_ref_rad_onc_patient_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 78bd01a1-1250-464a-8b06-edd988d820c5
+
+2024-04-10 04:39:19,116 - ERROR - Error executing SQL file j_cr_ro_ref_rad_onc_phone_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: d6603618-0c44-45ee-b639-ae117105cf51
+
+2024-04-10 04:39:19,436 - ERROR - Error executing SQL file j_cr_ro_ref_rad_onc_physician_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: f1fc0b7c-1d58-49c4-966e-44732f912426
+
+2024-04-10 04:39:19,851 - ERROR - Error executing SQL file j_cr_ro_ref_rad_onc_site_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 821e1703-d2a9-4a1b-8d0b-fdc6f5c62e32
+
+2024-04-10 04:39:20,283 - ERROR - Error executing SQL file j_cr_ro_ref_rad_onc_toxicity_component_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 499b0970-4c0a-4f1c-8a4a-4ffac1d6ec41
+
+2024-04-10 04:39:20,847 - INFO - SQL file j_cr_ro_sc_activityclassifications_prm.sql executed successfully.
+2024-04-10 04:39:21,438 - INFO - SQL file j_cr_ro_sc_factfacility_stg_prm.sql executed successfully.
+2024-04-10 04:39:21,925 - INFO - SQL file j_cr_ro_sc_modalities_stg_prm.sql executed successfully.
+2024-04-10 04:39:22,559 - INFO - SQL file j_cr_system_productivity_log_prm.sql executed successfully.
+2024-04-10 04:39:23,147 - INFO - SQL file j_cr_system_productivity_log_stg_prm.sql executed successfully.
+2024-04-10 04:39:23,732 - INFO - SQL file j_cr_system_user_prm.sql executed successfully.
+2024-04-10 04:39:24,401 - INFO - SQL file j_cr_system_user_stg_prm.sql executed successfully.
+2024-04-10 04:39:24,673 - ERROR - Error executing SQL file j_mt_ref_ajcc_stage_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 35c87b4e-c645-4f1f-b292-229508d764f7
+
+2024-04-10 04:39:25,117 - ERROR - Error executing SQL file j_mt_ref_hospital_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: f686ff96-cfe5-4e82-a0a7-b1f98dc2633c
+
+2024-04-10 04:39:25,709 - INFO - SQL file j_mt_ref_hospital_stg_prm.sql executed successfully.
+2024-04-10 04:39:26,124 - ERROR - Error executing SQL file j_mt_ref_lookup_code_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 972b86b7-ddee-4ade-87ce-6adc1407e1eb
+
+2024-04-10 04:39:26,623 - INFO - SQL file j_mt_ref_lookup_code_stg_prm.sql executed successfully.
+2024-04-10 04:39:27,293 - INFO - SQL file j_mt_ref_lookup_name_prm.sql executed successfully.
+2024-04-10 04:39:27,557 - ERROR - Error executing SQL file j_mt_ref_nat_serv_center_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 8a15db84-8aba-42ea-87f0-d5fe644cc5c8
+
+2024-04-10 04:39:28,119 - INFO - SQL file j_mt_ref_nat_serv_center_stg_prm.sql executed successfully.
+2024-04-10 04:39:28,393 - ERROR - Error executing SQL file j_mt_ref_treatment_type_grp_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 72218227-0c22-49b2-b054-34e72c4448eb
+
+2024-04-10 04:39:28,914 - INFO - SQL file j_mt_ref_treatment_type_grp_stg_prm.sql executed successfully.
+2024-04-10 04:39:29,293 - ERROR - Error executing SQL file j_navque_history_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: b87a6bf5-c498-4c4b-913a-db4bbca60929
+
+2024-04-10 04:39:29,909 - INFO - SQL file j_navque_history_stg_prm.sql executed successfully.
+2024-04-10 04:39:30,502 - INFO - SQL file j_opol_ref_holiday_calendar_prm.sql executed successfully.
+2024-04-10 04:39:31,081 - INFO - SQL file j_ref_biopsy_result_prm.sql executed successfully.
+2024-04-10 04:39:31,661 - INFO - SQL file j_ref_biopsy_type_prm.sql executed successfully.
+2024-04-10 04:39:31,955 - ERROR - Error executing SQL file j_ref_breast_cancer_type_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 180c70ae-0cd1-4f55-9f2b-1ce858072c47
+
+2024-04-10 04:39:32,511 - INFO - SQL file j_ref_breast_cancer_type_stg_prm.sql executed successfully.
+2024-04-10 04:39:33,107 - INFO - SQL file j_ref_consult_type_prm.sql executed successfully.
+2024-04-10 04:39:33,321 - ERROR - Error executing SQL file j_ref_contact_method_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 55463ab0-3acf-405a-b3ad-a9aac38923db
+
+2024-04-10 04:39:34,175 - INFO - SQL file j_ref_contact_method_stg_prm.sql executed successfully.
+2024-04-10 04:39:34,574 - ERROR - Error executing SQL file j_ref_contact_person_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: c2a7507b-39fa-4a0c-b2ae-3525782e189d
+
+2024-04-10 04:39:35,235 - INFO - SQL file j_ref_contact_person_stg_prm.sql executed successfully.
+2024-04-10 04:39:35,561 - ERROR - Error executing SQL file j_ref_contact_purpose_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 35851c85-c367-41ef-b3b5-89198a55aff1
+
+2024-04-10 04:39:36,389 - INFO - SQL file j_ref_contact_purpose_stg_prm.sql executed successfully.
+2024-04-10 04:39:37,026 - INFO - SQL file j_ref_core_record_type_prm.sql executed successfully.
+2024-04-10 04:39:37,328 - ERROR - Error executing SQL file j_ref_diagnosis_detail_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: bae5a190-044a-418d-9805-eafeb1394ca8
+
+2024-04-10 04:39:37,800 - INFO - SQL file j_ref_diagnosis_detail_stg_prm.sql executed successfully.
+2024-04-10 04:39:38,427 - INFO - SQL file j_ref_diagnosis_navigation_prm.sql executed successfully.
+2024-04-10 04:39:38,977 - INFO - SQL file j_ref_diagnosis_result_prm.sql executed successfully.
+2024-04-10 04:39:39,265 - ERROR - Error executing SQL file j_ref_facility_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: fdc015a3-3676-441f-a834-75fb4e35b0ce
+
+2024-04-10 04:39:39,939 - INFO - SQL file j_ref_facility_stg_prm.sql executed successfully.
+2024-04-10 04:39:40,295 - ERROR - Error executing SQL file j_ref_imaging_mode_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 6d1b6692-1ee4-421c-a650-60d9713f931d
+
+2024-04-10 04:39:40,877 - INFO - SQL file j_ref_imaging_mode_stg_prm.sql executed successfully.
+2024-04-10 04:39:41,465 - INFO - SQL file j_ref_imaging_type_prm.sql executed successfully.
+2024-04-10 04:39:42,042 - INFO - SQL file j_ref_lab_type_prm.sql executed successfully.
+2024-04-10 04:39:42,333 - ERROR - Error executing SQL file j_ref_lung_lobe_location_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: fe00190a-5c30-4649-903a-247bed6209e3
+
+2024-04-10 04:39:42,899 - INFO - SQL file j_ref_lung_lobe_location_stg_prm.sql executed successfully.
+2024-04-10 04:39:43,443 - INFO - SQL file j_ref_navigation_measure_prm.sql executed successfully.
+2024-04-10 04:39:44,032 - INFO - SQL file j_ref_navigator_prm.sql executed successfully.
+2024-04-10 04:39:44,302 - ERROR - Error executing SQL file j_ref_navque_action_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 13da2dab-708b-44ea-a3f4-8be8dfc3d81a
+
+2024-04-10 04:39:44,550 - ERROR - Error executing SQL file j_ref_navque_reason_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 077d25ce-1fc2-4c5c-9b40-3c2efd4d5068
+
+2024-04-10 04:39:44,824 - ERROR - Error executing SQL file j_ref_physician_specialty_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: b2c4100f-f1ae-492f-8a52-4322030e4aef
+
+2024-04-10 04:39:45,479 - INFO - SQL file j_ref_physician_specialty_stg_prm.sql executed successfully.
+2024-04-10 04:39:45,824 - ERROR - Error executing SQL file j_ref_procedure_type_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 524021d5-1814-49d1-b799-91480d483784
+
+2024-04-10 04:39:46,436 - INFO - SQL file j_ref_procedure_type_stg_prm.sql executed successfully.
+2024-04-10 04:39:46,728 - ERROR - Error executing SQL file j_ref_rad_onc_treatment_type_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: df32c255-d58a-493c-b841-295da0765324
+
+2024-04-10 04:39:47,214 - INFO - SQL file j_ref_referring_physician_prm.sql executed successfully.
+2024-04-10 04:39:47,527 - ERROR - Error executing SQL file j_ref_result_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 533343eb-66fb-4411-89b4-800ebf141766
+
+2024-04-10 04:39:48,255 - INFO - SQL file j_ref_result_stg_prm.sql executed successfully.
+2024-04-10 04:39:48,556 - ERROR - Error executing SQL file j_ref_side_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 6fb5408e-ec2e-4a43-92a2-82b7d1f45383
+
+2024-04-10 04:39:49,148 - INFO - SQL file j_ref_side_stg_prm.sql executed successfully.
+2024-04-10 04:39:49,473 - ERROR - Error executing SQL file j_ref_site_location_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: a33708a3-aa2d-460d-949a-fc5efa2a0792
+
+2024-04-10 04:39:50,060 - INFO - SQL file j_ref_site_location_stg_prm.sql executed successfully.
+2024-04-10 04:39:50,308 - ERROR - Error executing SQL file j_ref_status_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 5f61a001-cd0d-4743-8327-f1f6f727528c
+
+2024-04-10 04:39:50,847 - INFO - SQL file j_ref_status_stg_prm.sql executed successfully.
+2024-04-10 04:39:51,452 - INFO - SQL file j_ref_surgery_type_prm.sql executed successfully.
+2024-04-10 04:39:51,742 - ERROR - Error executing SQL file j_ref_therapy_type_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: ff0fa924-f958-4631-be1b-a45aa9406d3a
+
+2024-04-10 04:39:52,342 - INFO - SQL file j_ref_therapy_type_stg_prm.sql executed successfully.
+2024-04-10 04:39:52,894 - INFO - SQL file j_ref_treatment_type_prm.sql executed successfully.
+2024-04-10 04:39:53,472 - INFO - SQL file j_ref_tumor_type_prm.sql executed successfully.
+2024-04-10 07:42:42,954 - INFO - SQL file j_cn_reg_cancer_tumor_driver_prm.sql executed successfully.
+2024-04-10 07:42:43,748 - INFO - SQL file j_cn_reg_cancer_tumor_driver_prm.sql executed successfully.
+2024-04-10 09:14:43,503 - INFO - SQL file j_cn_cancer_pat_id_input_driver_prm.sql executed successfully.
+2024-04-10 09:14:45,300 - INFO - SQL file j_cn_cancer_pat_id_output_driver_prm.sql executed successfully.
+2024-04-10 09:14:46,314 - INFO - SQL file j_cn_navque_patient_tumor_driver_prm.sql executed successfully.
+2024-04-10 09:14:46,815 - ERROR - Error executing SQL file j_cn_patient_address_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 31017e50-ba5c-42c2-b477-6a664856f7d1
+
+2024-04-10 09:14:48,051 - INFO - SQL file j_cn_patient_biopsy_prm.sql executed successfully.
+2024-04-10 09:14:49,104 - INFO - SQL file j_cn_patient_brca_screening_assessment_prm.sql executed successfully.
+2024-04-10 09:14:50,045 - INFO - SQL file j_cn_patient_clinical_trial_prm.sql executed successfully.
+2024-04-10 09:14:51,330 - INFO - SQL file j_cn_patient_complication_prm.sql executed successfully.
+2024-04-10 09:14:51,758 - ERROR - Error executing SQL file j_cn_patient_consultation_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 44971171-34c5-4763-aa66-25349a20ead6
+
+2024-04-10 09:14:54,451 - INFO - SQL file j_cn_patient_contact_detail_prm.sql executed successfully.
+2024-04-10 09:14:54,861 - ERROR - Error executing SQL file j_cn_patient_contact_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: ced68fcf-ace5-41fe-b78f-66f7b87422cc
+
+2024-04-10 09:14:57,769 - INFO - SQL file j_cn_patient_core_adherence_prm.sql executed successfully.
+2024-04-10 09:14:59,361 - INFO - SQL file j_cn_patient_diagnosis_prm.sql executed successfully.
+2024-04-10 09:15:02,593 - INFO - SQL file j_cn_patient_family_history_prm.sql executed successfully.
+2024-04-10 09:15:03,629 - INFO - SQL file j_cn_patient_genetics_testing_prm.sql executed successfully.
+2024-04-10 09:15:04,614 - INFO - SQL file j_cn_patient_heme_diagnosis_prm.sql executed successfully.
+2024-04-10 09:15:05,423 - INFO - SQL file j_cn_patient_heme_disease_assess_detail_prm.sql executed successfully.
+2024-04-10 09:15:06,670 - INFO - SQL file j_cn_patient_heme_disease_assess_prm.sql executed successfully.
+2024-04-10 09:15:09,173 - INFO - SQL file j_cn_patient_heme_functional_assess_prm.sql executed successfully.
+2024-04-10 09:15:10,203 - INFO - SQL file j_cn_patient_heme_prm.sql executed successfully.
+2024-04-10 09:15:11,324 - INFO - SQL file j_cn_patient_heme_risk_factor_prm.sql executed successfully.
+2024-04-10 09:15:12,390 - INFO - SQL file j_cn_patient_heme_transplant_prm.sql executed successfully.
+2024-04-10 09:15:13,142 - INFO - SQL file j_cn_patient_heme_treatment_regimen_prm.sql executed successfully.
+2024-04-10 09:15:14,862 - INFO - SQL file j_cn_patient_imaging_prm.sql executed successfully.
+2024-04-10 09:15:15,912 - INFO - SQL file j_cn_patient_lab_result_prm.sql executed successfully.
+2024-04-10 09:15:17,121 - INFO - SQL file j_cn_patient_medical_oncology_prm.sql executed successfully.
+2024-04-10 09:15:18,185 - INFO - SQL file j_cn_patient_mltp_disp_meeting_prm.sql executed successfully.
+2024-04-10 09:15:19,186 - INFO - SQL file j_cn_patient_pathology_result_prm.sql executed successfully.
+2024-04-10 09:15:19,575 - ERROR - Error executing SQL file j_cn_patient_phone_num_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac_base_views was not found in location US
+
+Location: US
+Job ID: 5a60283d-2a3b-46ec-ab45-001ccdbe0f90
+
+2024-04-10 09:15:19,890 - ERROR - Error executing SQL file j_cn_patient_prm.sql: 400 Invalid dataset ID "$edw_pub_views". Dataset IDs must be alphanumeric (plus underscores and dashes) and must be at most 1024 characters long.
+
+Location: US
+Job ID: 3c575313-8da9-4212-9112-cfadea28339c
+
+2024-04-10 09:15:20,585 - ERROR - Error executing SQL file j_cn_patient_procedure_pathology_result_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac_base_views was not found in location US
+
+Location: US
+Job ID: 9027561e-f51a-4b07-845a-f3dcbb68149b
+
+2024-04-10 09:15:21,645 - INFO - SQL file j_cn_patient_procedure_prm.sql executed successfully.
+2024-04-10 09:15:22,850 - INFO - SQL file j_cn_patient_radiation_oncology_prm.sql executed successfully.
+2024-04-10 09:15:23,309 - ERROR - Error executing SQL file j_cn_patient_staging_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac_base_views was not found in location US
+
+Location: US
+Job ID: d3e88467-2048-4e7e-a701-aba8b28ac9a8
+
+2024-04-10 09:15:24,514 - INFO - SQL file j_cn_patient_surgery_prm.sql executed successfully.
+2024-04-10 09:15:25,590 - INFO - SQL file j_cn_patient_surgery_recon_prm.sql executed successfully.
+2024-04-10 09:15:26,835 - INFO - SQL file j_cn_patient_surv_plan_task_prm.sql executed successfully.
+2024-04-10 09:15:27,830 - INFO - SQL file j_cn_patient_test_result_prm.sql executed successfully.
+2024-04-10 09:15:28,865 - INFO - SQL file j_cn_patient_timeline_prm.sql executed successfully.
+2024-04-10 09:15:30,190 - INFO - SQL file j_cn_patient_tumor_prm.sql executed successfully.
+2024-04-10 09:15:31,475 - INFO - SQL file j_cn_person_prm.sql executed successfully.
+2024-04-10 09:15:32,480 - INFO - SQL file j_cn_physician_detail_prm.sql executed successfully.
+2024-04-10 09:15:33,660 - INFO - SQL file j_cn_physician_role_prm.sql executed successfully.
+2024-04-10 09:15:36,241 - INFO - SQL file j_cn_reg_cancer_patient_detail_prm.sql executed successfully.
+2024-04-10 09:16:08,518 - INFO - SQL file j_cn_reg_cancer_patient_driver_prm.sql executed successfully.
+2024-04-10 09:16:23,912 - INFO - SQL file j_cn_reg_cancer_patient_tumor_driver_prm.sql executed successfully.
+2024-04-10 09:16:27,256 - INFO - SQL file j_cn_reg_cancer_patient_tumor_staging_prm.sql executed successfully.
+2024-04-10 09:16:30,086 - INFO - SQL file j_cn_reg_cancer_tumor_driver_prm.sql executed successfully.
+2024-04-10 09:16:30,991 - INFO - SQL file j_cr_patient_address_prm.sql executed successfully.
+2024-04-10 09:16:31,810 - INFO - SQL file j_cr_patient_contact_prm.sql executed successfully.
+2024-04-10 09:16:35,589 - INFO - SQL file j_cr_patient_date_driver_prm.sql executed successfully.
+2024-04-10 09:16:36,283 - INFO - SQL file j_cr_patient_diagnosis_detail_prm.sql executed successfully.
+2024-04-10 09:16:37,048 - INFO - SQL file j_cr_patient_history_prm.sql executed successfully.
+2024-04-10 09:16:37,792 - INFO - SQL file j_cr_patient_insurance_prm.sql executed successfully.
+2024-04-10 09:16:38,548 - INFO - SQL file j_cr_patient_medical_oncology_prm.sql executed successfully.
+2024-04-10 09:16:39,262 - INFO - SQL file j_cr_patient_phone_num_prm.sql executed successfully.
+2024-04-10 09:16:39,993 - INFO - SQL file j_cr_patient_prm.sql executed successfully.
+2024-04-10 09:16:40,695 - INFO - SQL file j_cr_patient_radiation_oncology_prm.sql executed successfully.
+2024-04-10 09:16:41,514 - INFO - SQL file j_cr_patient_staging_prm.sql executed successfully.
+2024-04-10 09:16:42,320 - INFO - SQL file j_cr_patient_treatment_prm.sql executed successfully.
+2024-04-10 09:16:43,317 - INFO - SQL file j_cr_patient_tumor_pathology_result_prm.sql executed successfully.
+2024-04-10 09:16:46,536 - INFO - SQL file j_cr_patient_tumor_prm.sql executed successfully.
+2024-04-10 09:16:48,924 - INFO - SQL file j_cr_rad_onc_patient_course_prm.sql executed successfully.
+2024-04-10 09:16:51,058 - INFO - SQL file j_cr_rad_onc_patient_plan_prm.sql executed successfully.
+2024-04-10 09:16:52,350 - INFO - SQL file j_cr_ref_disease_assess_source_prm.sql executed successfully.
+2024-04-10 09:16:53,821 - INFO - SQL file j_cr_ref_housing_type_prm.sql executed successfully.
+2024-04-10 09:16:54,754 - INFO - SQL file j_cr_ref_pathway_var_reason_prm.sql executed successfully.
+2024-04-10 09:16:55,449 - INFO - SQL file j_cr_ref_regimen_prm.sql executed successfully.
+2024-04-10 09:16:56,400 - INFO - SQL file j_cr_ref_sample_type_prm.sql executed successfully.
+2024-04-10 09:16:56,762 - ERROR - Error executing SQL file j_cr_ref_test_type_core_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 2629b372-66fc-41cd-9da7-0a87aa4c6475
+
+2024-04-10 09:16:57,920 - INFO - SQL file j_cr_ref_transplant_type_prm.sql executed successfully.
+2024-04-10 09:16:58,671 - INFO - SQL file j_cr_ref_treatment_phase_prm.sql executed successfully.
+2024-04-10 09:16:59,391 - INFO - SQL file j_cr_ref_treatment_type_prm.sql executed successfully.
+2024-04-10 09:17:01,872 - INFO - SQL file j_cr_ro_fact_cancer_patient_financial_prm.sql executed successfully.
+2024-04-10 09:17:03,438 - INFO - SQL file j_cr_ro_fact_rad_onc_activity_billing_prm.sql executed successfully.
+2024-04-10 09:17:03,882 - ERROR - Error executing SQL file j_cr_ro_fact_rad_onc_course_diagnosis_prm.sql: 400 Function not found: td_sysfnlib.decode at [17:29]
+
+Location: US
+Job ID: fe30f16f-8be9-46e0-a102-4284118e39ea
+
+2024-04-10 09:17:05,275 - INFO - SQL file j_cr_ro_fact_rad_onc_patient_diagnosis_prm.sql executed successfully.
+2024-04-10 09:17:05,976 - INFO - SQL file j_cr_ro_fact_rad_onc_patient_prm.sql executed successfully.
+2024-04-10 09:17:07,360 - INFO - SQL file j_cr_ro_fact_rad_onc_patient_toxicity_prm.sql executed successfully.
+2024-04-10 09:17:09,712 - INFO - SQL file j_cr_ro_fact_rad_onc_treatment_history_prm.sql executed successfully.
+2024-04-10 09:17:10,522 - INFO - SQL file j_cr_ro_rad_onc_activity_transaction_prm.sql executed successfully.
+2024-04-10 09:17:11,175 - INFO - SQL file j_cr_ro_rad_onc_actvt_priority_prm.sql executed successfully.
+2024-04-10 09:17:11,876 - INFO - SQL file j_cr_ro_rad_onc_patient_contact_prm.sql executed successfully.
+2024-04-10 09:17:12,528 - INFO - SQL file j_cr_ro_rad_onc_patient_history_prm.sql executed successfully.
+2024-04-10 09:17:13,124 - INFO - SQL file j_cr_ro_rad_onc_patient_physician_prm.sql executed successfully.
+2024-04-10 09:17:13,821 - INFO - SQL file j_cr_ro_rad_onc_plan_purpose_prm.sql executed successfully.
+2024-04-10 09:17:15,659 - INFO - SQL file j_cr_ro_rad_onc_procedure_code_prm.sql executed successfully.
+2024-04-10 09:17:16,334 - INFO - SQL file j_cr_ro_ref_rad_onc_activity_prm.sql executed successfully.
+2024-04-10 09:17:16,952 - INFO - SQL file j_cr_ro_ref_rad_onc_address_prm.sql executed successfully.
+2024-04-10 09:17:17,339 - ERROR - Error executing SQL file j_cr_ro_ref_rad_onc_diagnosis_code_prm.sql: 400 Function not found: td_sysfnlib.decode at [14:29]
+
+Location: US
+Job ID: e0b8bcd7-61c5-4656-8132-647fb2483ac0
+
+2024-04-10 09:17:18,087 - INFO - SQL file j_cr_ro_ref_rad_onc_hospital_prm.sql executed successfully.
+2024-04-10 09:17:18,700 - INFO - SQL file j_cr_ro_ref_rad_onc_location_prm.sql executed successfully.
+2024-04-10 09:17:19,505 - INFO - SQL file j_cr_ro_ref_rad_onc_lookup_prm.sql executed successfully.
+2024-04-10 09:17:20,138 - INFO - SQL file j_cr_ro_ref_rad_onc_patient_prm.sql executed successfully.
+2024-04-10 09:17:20,880 - INFO - SQL file j_cr_ro_ref_rad_onc_phone_prm.sql executed successfully.
+2024-04-10 09:17:21,850 - INFO - SQL file j_cr_ro_ref_rad_onc_physician_prm.sql executed successfully.
+2024-04-10 09:17:22,658 - INFO - SQL file j_cr_ro_ref_rad_onc_site_prm.sql executed successfully.
+2024-04-10 09:17:23,827 - INFO - SQL file j_cr_ro_ref_rad_onc_toxicity_component_prm.sql executed successfully.
+2024-04-10 09:17:24,444 - INFO - SQL file j_cr_system_productivity_log_prm.sql executed successfully.
+2024-04-10 09:17:25,156 - INFO - SQL file j_cr_system_user_prm.sql executed successfully.
+2024-04-10 09:17:25,870 - INFO - SQL file j_mt_ref_ajcc_stage_prm.sql executed successfully.
+2024-04-10 09:17:26,574 - INFO - SQL file j_mt_ref_hospital_prm.sql executed successfully.
+2024-04-10 09:17:27,270 - INFO - SQL file j_mt_ref_lookup_code_prm.sql executed successfully.
+2024-04-10 09:17:28,019 - INFO - SQL file j_mt_ref_nat_serv_center_prm.sql executed successfully.
+2024-04-10 09:17:28,673 - INFO - SQL file j_mt_ref_treatment_type_grp_prm.sql executed successfully.
+2024-04-10 09:17:30,277 - INFO - SQL file j_navque_history_prm.sql executed successfully.
+2024-04-10 09:17:30,604 - ERROR - Error executing SQL file j_ref_breast_cancer_type_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 13a405b2-9883-46dd-8efc-c5b5f7ddd9c7
+
+2024-04-10 09:17:31,559 - INFO - SQL file j_ref_contact_method_prm.sql executed successfully.
+2024-04-10 09:17:31,970 - ERROR - Error executing SQL file j_ref_contact_person_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 5d98c248-6065-457e-ad0f-865e8e958f05
+
+2024-04-10 09:17:32,298 - ERROR - Error executing SQL file j_ref_contact_purpose_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 6827f624-468d-49f4-94d2-719b7b10426c
+
+2024-04-10 09:17:32,660 - ERROR - Error executing SQL file j_ref_diagnosis_detail_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 1d1a52e2-adb9-48b5-b471-f3ac7a32e8db
+
+2024-04-10 09:17:33,720 - INFO - SQL file j_ref_facility_prm.sql executed successfully.
+2024-04-10 09:17:34,074 - ERROR - Error executing SQL file j_ref_imaging_mode_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 1fbbc0de-c447-428a-8083-e7fe81294973
+
+2024-04-10 09:17:34,496 - ERROR - Error executing SQL file j_ref_lung_lobe_location_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: d4e82c6e-c064-4984-9664-4c8635c5f627
+
+2024-04-10 09:17:34,967 - ERROR - Error executing SQL file j_ref_physician_specialty_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 7567e39f-c113-4147-963f-e59301e48105
+
+2024-04-10 09:17:35,369 - ERROR - Error executing SQL file j_ref_procedure_type_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 60a4a4da-56f3-44c6-b453-1f742d10da97
+
+2024-04-10 09:17:36,063 - INFO - SQL file j_ref_rad_onc_treatment_type_prm.sql executed successfully.
+2024-04-10 09:17:36,418 - ERROR - Error executing SQL file j_ref_result_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 8abb71af-db9b-400d-b4c8-780097ccb7b0
+
+2024-04-10 09:17:37,446 - INFO - SQL file j_ref_side_prm.sql executed successfully.
+2024-04-10 09:17:37,901 - ERROR - Error executing SQL file j_ref_site_location_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 7fe24ad2-9125-46e5-b62c-9ebf0c437431
+
+2024-04-10 09:17:38,181 - ERROR - Error executing SQL file j_ref_status_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: e57d952f-9819-4928-84eb-414a67b8ec6a
+
+2024-04-10 09:17:38,610 - ERROR - Error executing SQL file j_ref_therapy_type_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 4beb71ae-2820-486e-93e8-09f5e06a7431
+
+2024-04-10 09:17:39,364 - INFO - SQL file j_cn_cancer_pat_id_input_driver_prm.sql executed successfully.
+2024-04-10 09:17:40,100 - INFO - SQL file j_cn_cancer_pat_id_output_driver_prm.sql executed successfully.
+2024-04-10 09:17:40,591 - ERROR - Error executing SQL file j_cn_navque_patient_tumor_driver_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 9d55988a-dda6-4076-af85-24a210f75586
+
+2024-04-10 09:17:40,946 - ERROR - Error executing SQL file j_cn_patient_address_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 4a0d4ea0-1415-483b-ad7c-9d2ec393af4f
+
+2024-04-10 09:17:41,674 - INFO - SQL file j_cn_patient_address_stg_prm.sql executed successfully.
+2024-04-10 09:17:42,148 - ERROR - Error executing SQL file j_cn_patient_biopsy_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac_base_views was not found in location US
+
+Location: US
+Job ID: ba044d3c-816b-45bc-806e-44b50cb3ab7d
+
+2024-04-10 09:17:42,975 - INFO - SQL file j_cn_patient_biopsy_stg_prm.sql executed successfully.
+2024-04-10 09:17:43,638 - ERROR - Error executing SQL file j_cn_patient_brca_screening_assessment_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: b1b78068-1cce-4efb-ab05-93509d8b6bf7
+
+2024-04-10 09:17:44,361 - INFO - SQL file j_cn_patient_brca_screening_assessment_stg_prm.sql executed successfully.
+2024-04-10 09:17:44,796 - ERROR - Error executing SQL file j_cn_patient_clinical_trial_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac_base_views was not found in location US
+
+Location: US
+Job ID: a798818a-ceac-485a-85aa-5c551509cd11
+
+2024-04-10 09:17:45,565 - INFO - SQL file j_cn_patient_clinical_trial_stg_prm.sql executed successfully.
+2024-04-10 09:17:45,868 - ERROR - Error executing SQL file j_cn_patient_complication_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac_base_views was not found in location US
+
+Location: US
+Job ID: 9b894b6f-9e66-4212-873c-059527aafb0d
+
+2024-04-10 09:17:46,568 - INFO - SQL file j_cn_patient_complication_stg_prm.sql executed successfully.
+2024-04-10 09:17:46,820 - ERROR - Error executing SQL file j_cn_patient_consultation_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 7c3e98e0-d509-41aa-9396-fa5f41a363f5
+
+2024-04-10 09:17:47,714 - INFO - SQL file j_cn_patient_consultation_stg_prm.sql executed successfully.
+2024-04-10 09:17:48,162 - ERROR - Error executing SQL file j_cn_patient_contact_detail_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: ae2f03d9-0049-4b71-86c2-1dc3988c6ea9
+
+2024-04-10 09:17:48,789 - INFO - SQL file j_cn_patient_contact_detail_stg_prm.sql executed successfully.
+2024-04-10 09:17:49,174 - ERROR - Error executing SQL file j_cn_patient_contact_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 34ac5d81-4eb0-45f0-870c-adbd7e9aafb5
+
+2024-04-10 09:17:50,246 - INFO - SQL file j_cn_patient_contact_stg_prm.sql executed successfully.
+2024-04-10 09:17:50,552 - ERROR - Error executing SQL file j_cn_patient_core_adherence_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 538c89ed-eb9a-4fdf-800c-bb4f864df52b
+
+2024-04-10 09:17:51,301 - INFO - SQL file j_cn_patient_core_adherence_stg_prm.sql executed successfully.
+2024-04-10 09:17:51,654 - ERROR - Error executing SQL file j_cn_patient_diagnosis_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac_base_views was not found in location US
+
+Location: US
+Job ID: e199acb8-d78f-4bd4-8f44-3e8a5efada34
+
+2024-04-10 09:17:52,638 - INFO - SQL file j_cn_patient_diagnosis_stg_prm.sql executed successfully.
+2024-04-10 09:17:52,934 - ERROR - Error executing SQL file j_cn_patient_family_history_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac_base_views was not found in location US
+
+Location: US
+Job ID: d776a8a4-3906-4b5d-9bf1-177b8bc3d0cd
+
+2024-04-10 09:17:53,777 - INFO - SQL file j_cn_patient_family_history_stg_prm.sql executed successfully.
+2024-04-10 09:17:54,123 - ERROR - Error executing SQL file j_cn_patient_genetics_testing_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac_base_views was not found in location US
+
+Location: US
+Job ID: 82cc3a7e-4a82-4e93-8007-3e4b9621beee
+
+2024-04-10 09:17:54,874 - INFO - SQL file j_cn_patient_genetics_testing_stg_prm.sql executed successfully.
+2024-04-10 09:17:55,224 - ERROR - Error executing SQL file j_cn_patient_heme_diagnosis_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: c4a34602-b59a-4285-a960-a772c96cb2fe
+
+2024-04-10 09:17:56,445 - INFO - SQL file j_cn_patient_heme_diagnosis_stg_prm.sql executed successfully.
+2024-04-10 09:17:57,349 - INFO - SQL file j_cn_patient_heme_disease_assess_detail_prm.sql executed successfully.
+2024-04-10 09:17:57,852 - ERROR - Error executing SQL file j_cn_patient_heme_disease_assess_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac_base_views was not found in location US
+
+Location: US
+Job ID: a231aa2c-73fe-4800-9abe-be8064d8304d
+
+2024-04-10 09:17:58,258 - ERROR - Error executing SQL file j_cn_patient_heme_functional_assess_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac_base_views was not found in location US
+
+Location: US
+Job ID: b487a9d4-153b-42af-9b21-12aefea52604
+
+2024-04-10 09:17:58,494 - ERROR - Error executing SQL file j_cn_patient_heme_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 98e6a1cb-d59c-47ad-a181-64973efaf198
+
+2024-04-10 09:17:58,811 - ERROR - Error executing SQL file j_cn_patient_heme_risk_factor_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 1197a3c1-b714-4910-98bb-6b0da9dd4eac
+
+2024-04-10 09:17:59,690 - INFO - SQL file j_cn_patient_heme_risk_factor_stg_prm.sql executed successfully.
+2024-04-10 09:18:00,087 - ERROR - Error executing SQL file j_cn_patient_heme_transplant_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 1463806b-23ed-41b7-a36b-cc2be0eb620c
+
+2024-04-10 09:18:00,764 - INFO - SQL file j_cn_patient_heme_transplant_stg_prm.sql executed successfully.
+2024-04-10 09:18:01,359 - INFO - SQL file j_cn_patient_heme_treatment_regimen_prm.sql executed successfully.
+2024-04-10 09:18:01,660 - ERROR - Error executing SQL file j_cn_patient_imaging_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac_base_views was not found in location US
+
+Location: US
+Job ID: 77712b50-8344-4ff9-be43-e270fa661c25
+
+2024-04-10 09:18:02,392 - INFO - SQL file j_cn_patient_imaging_stg_prm.sql executed successfully.
+2024-04-10 09:18:02,784 - ERROR - Error executing SQL file j_cn_patient_lab_result_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: bfd409f6-2e7e-4b17-839c-33442b10ff6b
+
+2024-04-10 09:18:03,440 - INFO - SQL file j_cn_patient_lab_result_stg_prm.sql executed successfully.
+2024-04-10 09:18:03,757 - ERROR - Error executing SQL file j_cn_patient_medical_oncology_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac_base_views was not found in location US
+
+Location: US
+Job ID: fe1acfb4-d647-4d62-8f33-062d41c000a9
+
+2024-04-10 09:18:04,525 - INFO - SQL file j_cn_patient_medical_oncology_stg_prm.sql executed successfully.
+2024-04-10 09:18:04,863 - ERROR - Error executing SQL file j_cn_patient_mltp_disp_meeting_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 9ec25265-a083-4940-8b48-5cefdb82b38e
+
+2024-04-10 09:18:05,649 - INFO - SQL file j_cn_patient_mltp_disp_meeting_stg_prm.sql executed successfully.
+2024-04-10 09:18:05,929 - ERROR - Error executing SQL file j_cn_patient_pathology_result_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: ffff374e-2cb0-44b0-bb7b-d42f5c4d1a0f
+
+2024-04-10 09:18:06,678 - INFO - SQL file j_cn_patient_pathology_result_stg_prm.sql executed successfully.
+2024-04-10 09:18:07,021 - ERROR - Error executing SQL file j_cn_patient_phone_num_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac_base_views was not found in location US
+
+Location: US
+Job ID: acfd3ba2-7779-4978-bfb7-bc1ed726f6d8
+
+2024-04-10 09:18:07,685 - INFO - SQL file j_cn_patient_phone_num_stg_prm.sql executed successfully.
+2024-04-10 09:18:08,000 - ERROR - Error executing SQL file j_cn_patient_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac_base_views was not found in location US
+
+Location: US
+Job ID: 97242a59-71ef-48ca-80c3-a4d5673616e1
+
+2024-04-10 09:18:08,406 - ERROR - Error executing SQL file j_cn_patient_procedure_pathology_result_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac_base_views was not found in location US
+
+Location: US
+Job ID: 35f1747d-74da-4033-9cea-498ca69843ec
+
+2024-04-10 09:18:09,656 - INFO - SQL file j_cn_patient_procedure_pathology_result_stg_prm.sql executed successfully.
+2024-04-10 09:18:10,048 - ERROR - Error executing SQL file j_cn_patient_procedure_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 44696cb7-0d17-4438-a48f-a20e512c4590
+
+2024-04-10 09:18:10,654 - INFO - SQL file j_cn_patient_procedure_stg_prm.sql executed successfully.
+2024-04-10 09:18:10,967 - ERROR - Error executing SQL file j_cn_patient_radiation_oncology_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: abe0652b-9737-407c-8d66-405c6c3a20de
+
+2024-04-10 09:18:11,581 - INFO - SQL file j_cn_patient_radiation_oncology_stg_prm.sql executed successfully.
+2024-04-10 09:18:11,835 - ERROR - Error executing SQL file j_cn_patient_staging_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac_base_views was not found in location US
+
+Location: US
+Job ID: a33dcfc6-b4b9-41d7-86c8-067621745d35
+
+2024-04-10 09:18:12,514 - INFO - SQL file j_cn_patient_staging_stg_prm.sql executed successfully.
+2024-04-10 09:18:13,286 - INFO - SQL file j_cn_patient_stg_prm.sql executed successfully.
+2024-04-10 09:18:13,641 - ERROR - Error executing SQL file j_cn_patient_surgery_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 07fafe8b-7ed3-48f0-8d06-c651b95be03f
+
+2024-04-10 09:18:14,093 - ERROR - Error executing SQL file j_cn_patient_surgery_recon_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: a1b4974f-11e3-417b-9f77-c33c192c1234
+
+2024-04-10 09:18:14,827 - INFO - SQL file j_cn_patient_surgery_recon_stg_prm.sql executed successfully.
+2024-04-10 09:18:15,464 - INFO - SQL file j_cn_patient_surgery_stg_prm.sql executed successfully.
+2024-04-10 09:18:15,708 - ERROR - Error executing SQL file j_cn_patient_surv_plan_task_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: de319687-5656-43e1-9d65-16ceab1b90e4
+
+2024-04-10 09:18:16,418 - INFO - SQL file j_cn_patient_surv_plan_task_stg_prm.sql executed successfully.
+2024-04-10 09:18:16,665 - ERROR - Error executing SQL file j_cn_patient_test_result_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 96289448-c6e8-46a9-a32f-9269f62cc8e0
+
+2024-04-10 09:18:17,228 - INFO - SQL file j_cn_patient_test_result_stg_prm.sql executed successfully.
+2024-04-10 09:18:17,661 - ERROR - Error executing SQL file j_cn_patient_timeline_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 32effcc8-63ca-4faa-bc21-4ace07d4e380
+
+2024-04-10 09:18:18,433 - INFO - SQL file j_cn_patient_timeline_stg_prm.sql executed successfully.
+2024-04-10 09:18:18,779 - ERROR - Error executing SQL file j_cn_patient_tumor_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac_base_views was not found in location US
+
+Location: US
+Job ID: 0e6fb5c5-8de7-44c8-b48b-5f57677d77bc
+
+2024-04-10 09:18:19,648 - INFO - SQL file j_cn_patient_tumor_stg_prm.sql executed successfully.
+2024-04-10 09:18:20,255 - INFO - SQL file j_cn_pat_heme_disease_assess_stg_prm.sql executed successfully.
+2024-04-10 09:18:20,551 - ERROR - Error executing SQL file j_cn_person_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac_base_views was not found in location US
+
+Location: US
+Job ID: e19e86fb-c1e5-41c1-8788-cf98b0099844
+
+2024-04-10 09:18:21,165 - INFO - SQL file j_cn_person_stg_prm.sql executed successfully.
+2024-04-10 09:18:21,544 - ERROR - Error executing SQL file j_cn_physician_detail_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac_base_views was not found in location US
+
+Location: US
+Job ID: 648b5638-2b38-46ef-8bad-2db23141a44b
+
+2024-04-10 09:18:22,304 - INFO - SQL file j_cn_physician_detail_stg_prm.sql executed successfully.
+2024-04-10 09:18:22,576 - ERROR - Error executing SQL file j_cn_physician_role_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac_base_views was not found in location US
+
+Location: US
+Job ID: c7dbf193-06b3-4086-8c6b-12271a1dd8aa
+
+2024-04-10 09:18:23,300 - INFO - SQL file j_cn_physician_role_stg_prm.sql executed successfully.
+2024-04-10 09:18:24,029 - INFO - SQL file j_cn_reg_cancer_patient_detail_prm.sql executed successfully.
+2024-04-10 09:18:24,790 - INFO - SQL file j_cn_reg_cancer_patient_driver_prm.sql executed successfully.
+2024-04-10 09:18:25,530 - INFO - SQL file j_cn_reg_cancer_patient_tumor_driver_prm.sql executed successfully.
+2024-04-10 09:18:26,243 - INFO - SQL file j_cn_reg_cancer_patient_tumor_staging_prm.sql executed successfully.
+2024-04-10 09:18:26,789 - INFO - SQL file j_cn_reg_cancer_tumor_driver_prm.sql executed successfully.
+2024-04-10 09:18:27,399 - INFO - SQL file j_cr_patient_address_prm.sql executed successfully.
+2024-04-10 09:18:28,233 - INFO - SQL file j_cr_patient_address_stg_prm.sql executed successfully.
+2024-04-10 09:18:29,020 - INFO - SQL file j_cr_patient_contact_prm.sql executed successfully.
+2024-04-10 09:18:29,894 - INFO - SQL file j_cr_patient_contact_stg_prm.sql executed successfully.
+2024-04-10 09:18:30,487 - INFO - SQL file j_cr_patient_date_driver_prm.sql executed successfully.
+2024-04-10 09:18:31,151 - INFO - SQL file j_cr_patient_diagnosis_detail_prm.sql executed successfully.
+2024-04-10 09:18:32,019 - INFO - SQL file j_cr_patient_diagnosis_detail_stg_prm.sql executed successfully.
+2024-04-10 09:18:32,659 - INFO - SQL file j_cr_patient_history_prm.sql executed successfully.
+2024-04-10 09:18:33,359 - INFO - SQL file j_cr_patient_history_stg_prm.sql executed successfully.
+2024-04-10 09:18:34,021 - INFO - SQL file j_cr_patient_insurance_prm.sql executed successfully.
+2024-04-10 09:18:34,667 - INFO - SQL file j_cr_patient_insurance_stg_prm.sql executed successfully.
+2024-04-10 09:18:35,284 - INFO - SQL file j_cr_patient_medical_oncology_prm.sql executed successfully.
+2024-04-10 09:18:35,956 - INFO - SQL file j_cr_patient_medical_oncology_stg_prm.sql executed successfully.
+2024-04-10 09:18:36,694 - INFO - SQL file j_cr_patient_phone_num_prm.sql executed successfully.
+2024-04-10 09:18:37,294 - INFO - SQL file j_cr_patient_phone_num_stg_prm.sql executed successfully.
+2024-04-10 09:18:37,917 - INFO - SQL file j_cr_patient_prm.sql executed successfully.
+2024-04-10 09:18:38,615 - INFO - SQL file j_cr_patient_radiation_oncology_prm.sql executed successfully.
+2024-04-10 09:18:39,242 - INFO - SQL file j_cr_patient_radiation_oncology_stg_prm.sql executed successfully.
+2024-04-10 09:18:40,044 - INFO - SQL file j_cr_patient_staging_prm.sql executed successfully.
+2024-04-10 09:18:40,716 - INFO - SQL file j_cr_patient_staging_stg_prm.sql executed successfully.
+2024-04-10 09:18:41,431 - INFO - SQL file j_cr_patient_stg_prm.sql executed successfully.
+2024-04-10 09:18:42,185 - INFO - SQL file j_cr_patient_treatment_prm.sql executed successfully.
+2024-04-10 09:18:42,911 - INFO - SQL file j_cr_patient_treatment_stg_prm.sql executed successfully.
+2024-04-10 09:18:43,684 - INFO - SQL file j_cr_patient_tumor_pathology_result_prm.sql executed successfully.
+2024-04-10 09:18:44,353 - INFO - SQL file j_cr_patient_tumor_pathology_result_stg_prm.sql executed successfully.
+2024-04-10 09:18:44,975 - INFO - SQL file j_cr_patient_tumor_prm.sql executed successfully.
+2024-04-10 09:18:45,589 - INFO - SQL file j_cr_patient_tumor_stg_prm.sql executed successfully.
+2024-04-10 09:18:46,168 - INFO - SQL file j_cr_pat_heme_treatment_regimen_stg_prm.sql executed successfully.
+2024-04-10 09:18:46,619 - ERROR - Error executing SQL file j_cr_rad_onc_patient_course_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac_base_views was not found in location US
+
+Location: US
+Job ID: ff13aaea-525f-470b-bb06-57b88c7c62cf
+
+2024-04-10 09:18:46,880 - ERROR - Error executing SQL file j_cr_rad_onc_patient_plan_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 554a2698-53f6-4717-bc02-a6e8cb3fe793
+
+2024-04-10 09:18:47,167 - ERROR - Error executing SQL file j_cr_ref_disease_assess_source_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac_base_views was not found in location US
+
+Location: US
+Job ID: 3823e592-3706-4408-b204-541fe019aceb
+
+2024-04-10 09:18:47,575 - ERROR - Error executing SQL file j_cr_ref_housing_type_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 3e01661a-ef73-4c48-b3b1-2945838044c4
+
+2024-04-10 09:18:48,245 - INFO - SQL file j_cr_ref_pathway_var_reason_prm.sql executed successfully.
+2024-04-10 09:18:48,928 - INFO - SQL file j_cr_ref_regimen_prm.sql executed successfully.
+2024-04-10 09:18:49,221 - ERROR - Error executing SQL file j_cr_ref_sample_type_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 15c29821-1320-470a-a47d-32b522a26706
+
+2024-04-10 09:18:49,545 - ERROR - Error executing SQL file j_cr_ref_test_type_core_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 5840ed68-735e-4373-951c-ddbc118b1465
+
+2024-04-10 09:18:50,218 - INFO - SQL file j_cr_ref_test_type_prm.sql executed successfully.
+2024-04-10 09:18:50,549 - ERROR - Error executing SQL file j_cr_ref_transplant_type_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: aa862338-678c-409a-8e6b-3c89f850bbd8
+
+2024-04-10 09:18:51,293 - INFO - SQL file j_cr_ref_treatment_phase_prm.sql executed successfully.
+2024-04-10 09:18:51,706 - ERROR - Error executing SQL file j_cr_ref_treatment_type_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 3491708c-1386-46fa-b36d-6122457086a8
+
+2024-04-10 09:18:52,467 - INFO - SQL file j_cr_ref_treatment_type_stg_prm.sql executed successfully.
+2024-04-10 09:18:53,240 - INFO - SQL file j_cr_ro_dimactivitytransaction_stg_prm.sql executed successfully.
+2024-04-10 09:18:53,863 - INFO - SQL file j_cr_ro_dimactivity_stg_prm.sql executed successfully.
+2024-04-10 09:18:54,563 - INFO - SQL file j_cr_ro_dimaddon_stg_prm.sql executed successfully.
+2024-04-10 09:18:55,289 - INFO - SQL file j_cr_ro_dimcelltype_stg_prm.sql executed successfully.
+2024-04-10 09:18:55,972 - INFO - SQL file j_cr_ro_dimcourse_stg_prm.sql executed successfully.
+2024-04-10 09:18:56,612 - INFO - SQL file j_cr_ro_dimdiagnosiscode_stg_prm.sql executed successfully.
+2024-04-10 09:18:57,254 - INFO - SQL file j_cr_ro_dimdoctor_stg_prm.sql executed successfully.
+2024-04-10 09:18:58,055 - INFO - SQL file j_cr_ro_dimdrug_stg_prm.sql executed successfully.
+2024-04-10 09:19:01,460 - INFO - SQL file j_cr_ro_dimdxsite_stg_prm.sql executed successfully.
+2024-04-10 09:19:02,505 - INFO - SQL file j_cr_ro_dimenergy_stg_prm.sql executed successfully.
+2024-04-10 09:19:03,519 - INFO - SQL file j_cr_ro_dimfield_stg_prm.sql executed successfully.
+2024-04-10 09:19:04,575 - INFO - SQL file j_cr_ro_dimhospitaldepartment_stg_prm.sql executed successfully.
+2024-04-10 09:19:05,278 - INFO - SQL file j_cr_ro_dimicdosite_stg_prm.sql executed successfully.
+2024-04-10 09:19:05,956 - INFO - SQL file j_cr_ro_diminstitutelocation_stg_prm.sql executed successfully.
+2024-04-10 09:19:06,953 - INFO - SQL file j_cr_ro_dimlocation_stg_prm.sql executed successfully.
+2024-04-10 09:19:07,651 - INFO - SQL file j_cr_ro_dimlookup_stg_prm.sql executed successfully.
+2024-04-10 09:19:08,565 - INFO - SQL file j_cr_ro_dimmachine_stg_prm.sql executed successfully.
+2024-04-10 09:19:09,385 - INFO - SQL file j_cr_ro_dimpatientdoctor_stg_prm.sql executed successfully.
+2024-04-10 09:19:10,029 - INFO - SQL file j_cr_ro_dimpatient_stg_prm.sql executed successfully.
+2024-04-10 09:19:10,844 - INFO - SQL file j_cr_ro_dimplan_stg_prm.sql executed successfully.
+2024-04-10 09:19:11,540 - INFO - SQL file j_cr_ro_dimprocedurecode_stg_prm.sql executed successfully.
+2024-04-10 09:19:12,238 - INFO - SQL file j_cr_ro_dimresource_stg_prm.sql executed successfully.
+2024-04-10 09:19:12,958 - INFO - SQL file j_cr_ro_dimtoxgrdcriteria_stg_prm.sql executed successfully.
+2024-04-10 09:19:13,783 - INFO - SQL file j_cr_ro_dimtreatmenttransaction_stg_prm.sql executed successfully.
+2024-04-10 09:19:14,839 - INFO - SQL file j_cr_ro_dimuser_stg_prm.sql executed successfully.
+2024-04-10 09:19:16,024 - INFO - SQL file j_cr_ro_factactivitybilling_stg_prm.sql executed successfully.
+2024-04-10 09:19:16,675 - INFO - SQL file j_cr_ro_factcoursediagnosis_stg_prm.sql executed successfully.
+2024-04-10 09:19:17,424 - INFO - SQL file j_cr_ro_factpatientdiagnosis_stg_prm.sql executed successfully.
+2024-04-10 09:19:18,350 - INFO - SQL file j_cr_ro_factpatienttoxicity_stg_prm.sql executed successfully.
+2024-04-10 09:19:18,966 - INFO - SQL file j_cr_ro_factpatient_stg_prm.sql executed successfully.
+2024-04-10 09:19:19,583 - INFO - SQL file j_cr_ro_facttreatmenthist_stg_prm.sql executed successfully.
+2024-04-10 09:19:19,856 - ERROR - Error executing SQL file j_cr_ro_fact_cancer_patient_financial_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 638f702c-6ba3-4815-8a3f-65f7b1978890
+
+2024-04-10 09:19:20,170 - ERROR - Error executing SQL file j_cr_ro_fact_rad_onc_activity_billing_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 4ccba61b-0723-4611-b78a-ddc8efdb1889
+
+2024-04-10 09:19:20,537 - ERROR - Error executing SQL file j_cr_ro_fact_rad_onc_course_diagnosis_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 35b4fd86-9ddd-40c4-bc96-b9bc1571ffae
+
+2024-04-10 09:19:20,765 - ERROR - Error executing SQL file j_cr_ro_fact_rad_onc_patient_diagnosis_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 279bf6e8-2b41-4ac7-ace1-6738f7db104d
+
+2024-04-10 09:19:21,116 - ERROR - Error executing SQL file j_cr_ro_fact_rad_onc_patient_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: e8864182-6740-4364-a6a4-12f7be933446
+
+2024-04-10 09:19:21,481 - ERROR - Error executing SQL file j_cr_ro_fact_rad_onc_patient_toxicity_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 77a5d75d-66fa-4739-8ecb-182250183510
+
+2024-04-10 09:19:21,860 - ERROR - Error executing SQL file j_cr_ro_fact_rad_onc_treatment_history_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: d5593147-2e12-4443-a7b7-d2c5c0769f4e
+
+2024-04-10 09:19:22,135 - ERROR - Error executing SQL file j_cr_ro_rad_onc_activity_transaction_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: dbe214c3-d4d3-40a6-ba95-aae255956fbf
+
+2024-04-10 09:19:22,517 - ERROR - Error executing SQL file j_cr_ro_rad_onc_actvt_priority_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 62db92ff-c87c-4c67-b496-de32edc69784
+
+2024-04-10 09:19:23,137 - ERROR - Error executing SQL file j_cr_ro_rad_onc_patient_contact_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: e385ecef-d0d5-4c87-8c4e-4be9bbf57dc5
+
+2024-04-10 09:19:23,611 - ERROR - Error executing SQL file j_cr_ro_rad_onc_patient_history_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 832cb158-e535-464f-b66f-108206eab053
+
+2024-04-10 09:19:23,931 - ERROR - Error executing SQL file j_cr_ro_rad_onc_patient_physician_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 70148de4-65e6-4443-9bc4-2a795320561b
+
+2024-04-10 09:19:24,276 - ERROR - Error executing SQL file j_cr_ro_rad_onc_plan_purpose_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 28fe3d78-cdab-42b5-9844-c80d9eb7d2aa
+
+2024-04-10 09:19:24,573 - ERROR - Error executing SQL file j_cr_ro_rad_onc_procedure_code_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: d2d4155f-6603-4f02-98ae-7b1a886a614b
+
+2024-04-10 09:19:24,882 - ERROR - Error executing SQL file j_cr_ro_ref_rad_onc_activity_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: c2d5cf61-9655-452f-ae5e-cd1567122954
+
+2024-04-10 09:19:25,266 - ERROR - Error executing SQL file j_cr_ro_ref_rad_onc_address_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 078a2821-089c-4560-8909-f841dd99e0a8
+
+2024-04-10 09:19:25,619 - ERROR - Error executing SQL file j_cr_ro_ref_rad_onc_diagnosis_code_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 21ddda62-d94f-485b-9ed5-4490a988b7aa
+
+2024-04-10 09:19:25,914 - ERROR - Error executing SQL file j_cr_ro_ref_rad_onc_hospital_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: cffe68c2-f35a-4a6d-9d40-18282fe446fd
+
+2024-04-10 09:19:26,242 - ERROR - Error executing SQL file j_cr_ro_ref_rad_onc_location_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 3d902500-2c16-4ecc-9c95-67e11f7fa091
+
+2024-04-10 09:19:26,492 - ERROR - Error executing SQL file j_cr_ro_ref_rad_onc_lookup_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 4cc65c31-56bd-43ca-a6da-1eef657836ca
+
+2024-04-10 09:19:26,801 - ERROR - Error executing SQL file j_cr_ro_ref_rad_onc_patient_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: ef1c5717-e2ac-422e-b0db-1dee27594f1f
+
+2024-04-10 09:19:27,115 - ERROR - Error executing SQL file j_cr_ro_ref_rad_onc_phone_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: e1ecf26f-047b-4506-851f-c2a32c369c81
+
+2024-04-10 09:19:27,502 - ERROR - Error executing SQL file j_cr_ro_ref_rad_onc_physician_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 0dbc1eb7-f3f8-445e-b31a-60fdae078147
+
+2024-04-10 09:19:27,827 - ERROR - Error executing SQL file j_cr_ro_ref_rad_onc_site_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: a4d37c1a-e2ad-4975-b286-99e5bac3df2c
+
+2024-04-10 09:19:28,140 - ERROR - Error executing SQL file j_cr_ro_ref_rad_onc_toxicity_component_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 62fee0f7-c763-4f6c-9f90-791e9b4c6460
+
+2024-04-10 09:19:28,760 - INFO - SQL file j_cr_ro_sc_activityclassifications_prm.sql executed successfully.
+2024-04-10 09:19:29,360 - INFO - SQL file j_cr_ro_sc_factfacility_stg_prm.sql executed successfully.
+2024-04-10 09:19:30,041 - INFO - SQL file j_cr_ro_sc_modalities_stg_prm.sql executed successfully.
+2024-04-10 09:19:30,721 - INFO - SQL file j_cr_system_productivity_log_prm.sql executed successfully.
+2024-04-10 09:19:31,483 - INFO - SQL file j_cr_system_productivity_log_stg_prm.sql executed successfully.
+2024-04-10 09:19:32,033 - INFO - SQL file j_cr_system_user_prm.sql executed successfully.
+2024-04-10 09:19:32,635 - INFO - SQL file j_cr_system_user_stg_prm.sql executed successfully.
+2024-04-10 09:19:32,901 - ERROR - Error executing SQL file j_mt_ref_ajcc_stage_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 0c520274-f5d4-4610-bd76-f129fdff6fd6
+
+2024-04-10 09:19:33,241 - ERROR - Error executing SQL file j_mt_ref_hospital_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 367d7be7-36e9-4638-8360-e6c2897edc55
+
+2024-04-10 09:19:33,872 - INFO - SQL file j_mt_ref_hospital_stg_prm.sql executed successfully.
+2024-04-10 09:19:34,219 - ERROR - Error executing SQL file j_mt_ref_lookup_code_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: a53636d9-5ce5-4b5d-827f-9f9d7b845a35
+
+2024-04-10 09:19:34,765 - INFO - SQL file j_mt_ref_lookup_code_stg_prm.sql executed successfully.
+2024-04-10 09:19:35,456 - INFO - SQL file j_mt_ref_lookup_name_prm.sql executed successfully.
+2024-04-10 09:19:35,796 - ERROR - Error executing SQL file j_mt_ref_nat_serv_center_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 08af184a-179a-4987-92d3-9cb00af8a576
+
+2024-04-10 09:19:36,322 - INFO - SQL file j_mt_ref_nat_serv_center_stg_prm.sql executed successfully.
+2024-04-10 09:19:36,704 - ERROR - Error executing SQL file j_mt_ref_treatment_type_grp_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 6b8000da-e115-4f08-a1c6-6160d3052288
+
+2024-04-10 09:19:37,869 - INFO - SQL file j_mt_ref_treatment_type_grp_stg_prm.sql executed successfully.
+2024-04-10 09:19:38,154 - ERROR - Error executing SQL file j_navque_history_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 78bdfe6c-2065-4518-8e80-e5a3fd5b70fe
+
+2024-04-10 09:19:38,849 - INFO - SQL file j_navque_history_stg_prm.sql executed successfully.
+2024-04-10 09:19:39,669 - INFO - SQL file j_opol_ref_holiday_calendar_prm.sql executed successfully.
+2024-04-10 09:19:40,324 - INFO - SQL file j_ref_biopsy_result_prm.sql executed successfully.
+2024-04-10 09:19:40,920 - INFO - SQL file j_ref_biopsy_type_prm.sql executed successfully.
+2024-04-10 09:19:41,900 - ERROR - Error executing SQL file j_ref_breast_cancer_type_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 25160cc1-e031-411d-9547-91e6dd2ced33
+
+2024-04-10 09:19:42,447 - INFO - SQL file j_ref_breast_cancer_type_stg_prm.sql executed successfully.
+2024-04-10 09:19:43,256 - INFO - SQL file j_ref_consult_type_prm.sql executed successfully.
+2024-04-10 09:19:43,585 - ERROR - Error executing SQL file j_ref_contact_method_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 80406ead-b438-4d2c-9a51-ac99c8a33398
+
+2024-04-10 09:19:44,167 - INFO - SQL file j_ref_contact_method_stg_prm.sql executed successfully.
+2024-04-10 09:19:44,474 - ERROR - Error executing SQL file j_ref_contact_person_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 93d0e9f1-7ccd-4f33-80e9-3e56a6a02205
+
+2024-04-10 09:19:45,104 - INFO - SQL file j_ref_contact_person_stg_prm.sql executed successfully.
+2024-04-10 09:19:45,401 - ERROR - Error executing SQL file j_ref_contact_purpose_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 1e86d7c6-a067-4612-bd1d-eb8527bfd4d4
+
+2024-04-10 09:19:46,066 - INFO - SQL file j_ref_contact_purpose_stg_prm.sql executed successfully.
+2024-04-10 09:19:46,741 - INFO - SQL file j_ref_core_record_type_prm.sql executed successfully.
+2024-04-10 09:19:46,987 - ERROR - Error executing SQL file j_ref_diagnosis_detail_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: ca14b7bc-8620-4ca1-9acc-cd3782fbc407
+
+2024-04-10 09:19:47,702 - INFO - SQL file j_ref_diagnosis_detail_stg_prm.sql executed successfully.
+2024-04-10 09:19:48,364 - INFO - SQL file j_ref_diagnosis_navigation_prm.sql executed successfully.
+2024-04-10 09:19:49,031 - INFO - SQL file j_ref_diagnosis_result_prm.sql executed successfully.
+2024-04-10 09:19:49,311 - ERROR - Error executing SQL file j_ref_facility_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 0ca6773b-7573-4e3f-97d9-fa3d076739c7
+
+2024-04-10 09:19:49,954 - INFO - SQL file j_ref_facility_stg_prm.sql executed successfully.
+2024-04-10 09:19:50,214 - ERROR - Error executing SQL file j_ref_imaging_mode_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: f0255fb7-cc12-4da1-b98a-bf3dcfd00130
+
+2024-04-10 09:19:50,737 - INFO - SQL file j_ref_imaging_mode_stg_prm.sql executed successfully.
+2024-04-10 09:19:51,489 - INFO - SQL file j_ref_imaging_type_prm.sql executed successfully.
+2024-04-10 09:19:52,436 - INFO - SQL file j_ref_lab_type_prm.sql executed successfully.
+2024-04-10 09:19:52,769 - ERROR - Error executing SQL file j_ref_lung_lobe_location_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: e1869a63-a27f-4193-8218-124f783ae3e5
+
+2024-04-10 09:19:53,294 - INFO - SQL file j_ref_lung_lobe_location_stg_prm.sql executed successfully.
+2024-04-10 09:19:54,128 - INFO - SQL file j_ref_navigation_measure_prm.sql executed successfully.
+2024-04-10 09:19:54,819 - INFO - SQL file j_ref_navigator_prm.sql executed successfully.
+2024-04-10 09:19:55,127 - ERROR - Error executing SQL file j_ref_navque_action_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 386f3ed9-c530-477f-9dee-afe57e4b6326
+
+2024-04-10 09:19:55,480 - ERROR - Error executing SQL file j_ref_navque_reason_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 65cb34de-5d03-4895-92d1-5ba79da39cd4
+
+2024-04-10 09:19:55,776 - ERROR - Error executing SQL file j_ref_physician_specialty_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 04a0c03c-6133-4f56-97ec-18595328b373
+
+2024-04-10 09:19:56,428 - INFO - SQL file j_ref_physician_specialty_stg_prm.sql executed successfully.
+2024-04-10 09:19:56,807 - ERROR - Error executing SQL file j_ref_procedure_type_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 2c1403b5-4ca6-41f4-88ab-74dea52ae117
+
+2024-04-10 09:19:57,330 - INFO - SQL file j_ref_procedure_type_stg_prm.sql executed successfully.
+2024-04-10 09:19:57,679 - ERROR - Error executing SQL file j_ref_rad_onc_treatment_type_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 41dd8de3-40bb-4023-846f-27bf38b587da
+
+2024-04-10 09:19:58,366 - INFO - SQL file j_ref_referring_physician_prm.sql executed successfully.
+2024-04-10 09:19:58,720 - ERROR - Error executing SQL file j_ref_result_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: a6cc179d-c5f0-4957-b68c-c0cbf7fe6377
+
+2024-04-10 09:19:59,383 - INFO - SQL file j_ref_result_stg_prm.sql executed successfully.
+2024-04-10 09:19:59,619 - ERROR - Error executing SQL file j_ref_side_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: f4acb1db-7cb0-42c0-ba1c-0f6612832783
+
+2024-04-10 09:20:00,466 - INFO - SQL file j_ref_side_stg_prm.sql executed successfully.
+2024-04-10 09:20:00,704 - ERROR - Error executing SQL file j_ref_site_location_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 4aff30f5-c7fe-4f12-8f70-def39c071d48
+
+2024-04-10 09:20:01,454 - INFO - SQL file j_ref_site_location_stg_prm.sql executed successfully.
+2024-04-10 09:20:02,008 - ERROR - Error executing SQL file j_ref_status_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: f89f8eb5-4eca-4462-8ecf-1d7c74543e92
+
+2024-04-10 09:20:02,633 - INFO - SQL file j_ref_status_stg_prm.sql executed successfully.
+2024-04-10 09:20:03,308 - INFO - SQL file j_ref_surgery_type_prm.sql executed successfully.
+2024-04-10 09:20:03,780 - ERROR - Error executing SQL file j_ref_therapy_type_prm.sql: 404 Not found: Dataset hca-hin-dev-cur-ops:edwcr_dmx_ac was not found in location US
+
+Location: US
+Job ID: 35e559c2-9fbd-4594-841e-2bc50cb47983
+
+2024-04-10 09:20:04,424 - INFO - SQL file j_ref_therapy_type_stg_prm.sql executed successfully.
+2024-04-10 09:20:05,110 - INFO - SQL file j_ref_treatment_type_prm.sql executed successfully.
+2024-04-10 09:20:05,710 - INFO - SQL file j_ref_tumor_type_prm.sql executed successfully.
+2024-04-10 10:04:54,655 - WARNING - No project ID could be determined. Consider running `gcloud config set project` or setting the GOOGLE_CLOUD_PROJECT environment variable
+2024-04-10 10:21:42,710 - WARNING - No project ID could be determined. Consider running `gcloud config set project` or setting the GOOGLE_CLOUD_PROJECT environment variable

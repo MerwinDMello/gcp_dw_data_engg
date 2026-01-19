@@ -1,0 +1,1 @@
+Select 'PBMPC300' ||',' || cast(A.Row_Count as varchar(20)) ||',' as Source_String from (Select count(*) as Row_Count from Edwpbs_staging.EIS_Dcrp_Unit_Cost_Year_Dim) A

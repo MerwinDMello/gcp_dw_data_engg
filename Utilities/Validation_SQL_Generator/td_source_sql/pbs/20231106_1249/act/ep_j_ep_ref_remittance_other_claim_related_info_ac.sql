@@ -1,0 +1,1 @@
+select 'J_EP_Ref_Remittance_Other_Claim_Related_Info' || ',' || CAST(COUNT(*) AS VARCHAR(20)) || ',' as Source_String from EDWPBS.Ref_Remittance_Other_Claim_Related_Info where DW_Last_Update_Date_Time(date) = current_date

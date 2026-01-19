@@ -1,0 +1,138 @@
+CREATE OR REPLACE VIEW `{{ monitoring_dataset_param }}.composer_task_status`
+AS
+SELECT
+  '{{ domain_name }}' AS domain,
+  project_id,
+  CASE TRIM(LOWER(SPLIT(project_id,'-')[SAFE_OFFSET (2)]))
+    WHEN 'qa' THEN 'QA'
+    WHEN 'prod' THEN 'Prod'
+    WHEN 'dev' THEN 'Dev'
+  END AS project_id_presentable,
+  resource_type,
+  location,
+  CASE
+    WHEN TRIM(LOWER(location)) = 'us' THEN 'US'
+    WHEN TRIM(LOWER(location)) = 'global' THEN 'Global'
+    WHEN STARTS_WITH(TRIM(LOWER(location)), 'us-') 
+    THEN CONCAT('US - ',INITCAP(REGEXP_EXTRACT(location, r'^[a-zA-Z]+-([a-zA-Z]+).*$')))
+  ELSE
+  'No location specified'
+  END AS location_presentable,
+  user_id,
+  CASE
+      WHEN TRIM(LOWER(SPLIT(dag_name,'_')[OFFSET(1)])) IN ('ingest','integrate','outbound')
+      THEN 
+        CASE TRIM(LOWER(SPLIT(dag_name,'_')[OFFSET(2)]))
+          WHEN 'adhoc'
+          THEN 'misc'
+          WHEN 'with'
+          THEN 'misc'
+          WHEN 'test'
+          THEN 'misc'
+          WHEN 'integratepdoc'
+          THEN 'misc'
+          WHEN 'integrate'
+          THEN 'misc'
+          ELSE
+            TRIM(LOWER(SPLIT(dag_name,'_')[OFFSET(2)]))
+        END
+      ELSE 'misc'
+  END
+  AS source_system,
+  CASE
+      WHEN TRIM(LOWER(SPLIT(dag_name,'_')[OFFSET(1)])) IN ('ingest','integrate','outbound')
+      THEN TRIM(LOWER(SPLIT(dag_name,'_')[OFFSET(1)]))
+      ELSE 'misc'
+  END
+  AS load_type,
+  CASE
+    WHEN TRIM(LOWER(SPLIT(dag_name,'_')[OFFSET(1)])) IN ('ingest','integrate','outbound')
+    THEN 
+      CASE
+        WHEN ARRAY_REVERSE(SPLIT(TRIM(LOWER(dag_name)),'_'))[OFFSET(1)] IN ('daily','weekly','monthly','quarterly')
+        THEN ARRAY_REVERSE(SPLIT(TRIM(LOWER(dag_name)),'_'))[OFFSET(1)]
+        WHEN REGEXP_CONTAINS(TRIM(LOWER(dag_name)),r'^.*(adhoc|none_none).*$')
+        THEN
+          'adhoc'
+        WHEN REGEXP_CONTAINS(TRIM(LOWER(dag_name)),r'^.*(daily|weekly|monthly|quarterly).*$')
+        THEN
+          REGEXP_EXTRACT(TRIM(LOWER(dag_name)),r'^.*(daily|weekly|monthly|quarterly).*$')
+        ELSE
+          'misc'
+      END
+    ELSE 'misc'
+  END AS schedule,
+  dag_name,
+  task_name,
+  execution_date,  
+  CONCAT(dag_name, ':', task_name, ':', execution_date) AS job_id,
+  start_ts,
+  end_ts,
+  job_status,
+  task_ts,
+  DATETIME_DIFF(end_ts, start_ts, SECOND) AS task_runtime
+FROM
+(
+  SELECT
+    DISTINCT
+    project_id,
+    resource_type,
+    location,
+    user_id,
+    dag_name,
+    task_name,
+    execution_date,
+    MIN(start_ts) OVER (PARTITION BY project_id, resource_type, user_id, dag_name, task_name, execution_date ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) AS start_ts,
+    CASE job_status
+      WHEN 3
+      THEN end_ts 
+    END  
+    AS end_ts,
+    CASE job_status
+      WHEN 3 THEN 'Success'
+      WHEN 2 THEN 'Failed'
+      ELSE 'Running'
+      END
+    AS job_status,
+    CASE
+      WHEN MAX(job_status) OVER (PARTITION BY project_id, resource_type, user_id, dag_name, task_name, execution_date ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) IN (2,3) THEN False
+      ELSE True
+      END
+    AS job_is_only_running,
+    task_timestamp AS task_ts
+  FROM
+    (
+    SELECT
+      resource.labels.project_id AS project_id,
+      resource.type AS resource_type,
+      resource.labels.location AS location,
+      resource.labels.environment_name AS user_id,
+      labels.workflow AS dag_name,
+      labels.task_id AS task_name,
+      SAFE_CAST(SUBSTR(labels.execution_date,1,19) AS TIMESTAMP) AS execution_date,
+      CASE
+        WHEN textPayload LIKE '%Marking task as SUCCESS%' OR textPayload LIKE '%Marking task as SKIPPED%'
+        THEN 3
+        WHEN textPayload LIKE '%Marking task as FAILED%'
+        THEN 2
+        ELSE
+        1
+      END AS job_status,
+      DATETIME(CASE
+        WHEN textPayload LIKE '%Marking task as FAILED%' OR textPayload LIKE '%Marking task as SUCCESS%' OR textPayload LIKE '%Marking task as SKIPPED%'
+        THEN timestamp
+      END, "US/Central") AS task_timestamp,
+      DATETIME(timestamp, "US/Central") AS start_ts,
+      DATETIME(CASE
+            WHEN textPayload LIKE '%Marking task as SUCCESS%' OR textPayload LIKE '%Marking task as SKIPPED%' THEN timestamp
+          ELSE
+          NULL
+        END, "US/Central") AS end_ts
+    FROM
+      `{{ authviews_dataset_param }}.airflow_worker`
+    WHERE
+      labels.workflow NOT LIKE 'airflow_monitoring%'
+      AND ARRAY_LENGTH(SPLIT(labels.workflow ,'_')) > 1
+  )
+)
+WHERE (job_status IN ('Failed','Success') or (job_status = 'Running' AND job_is_only_running = True));

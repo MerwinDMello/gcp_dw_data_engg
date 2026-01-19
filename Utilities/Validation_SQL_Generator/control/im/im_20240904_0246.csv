@@ -1,0 +1,107 @@
+^j_im_activity_initialize^0^Source File Ingestion^Ignore All^^0
+^j_im_ad_account_archive^0^Source File Ingestion^Ignore All^^0
+J_IM_AD_Account^j_im_ad_account^0^Source Table Ingestion^Convert Target^^1
+J_IM_AD_Account_Supplemental^j_im_ad_account_supplemental^0^Source Table Ingestion^Convert Target^^1
+J_IM_AD_Group_User^j_im_ad_group_user^0^Source Table Ingestion^Ignore All^^0
+J_IM_AD_Member_Group_Hierarchy_Archive^j_im_ad_member_group_hierarchy_archive^0^Integration^Convert Target^^1
+J_IM_AD_Member_Group_Hierarchy^j_im_ad_member_group_hierarchy^0^Source Table Ingestion^Ignore All^^0
+J_IM_AD_Member_User^j_im_ad_member_user^0^Source Table Ingestion^Ignore All^^0
+^j_im_ad_person_activity_ins^0^Source File Ingestion^Ignore All^^0
+^j_im_ad_user_activity_archive^0^Source File Ingestion^Ignore All^^0
+^j_im_ad_user_activity_ins^0^Source File Ingestion^Ignore All^^0
+J_IM_BoardCert^j_im_boardcert^0^Source Table Ingestion^Convert Target^^1
+J_IM_Cactus_Provider_Archive^j_im_cactus_provider_archive^0^Integration^Create Template^^1
+J_IM_Cactus_Provider^j_im_cactus_provider^0^Integration^Create Template^hpf_instance_facility_xwalk^1
+J_IM_COVID19_Employee_Vaccine^j_im_covid19_employee_vaccine^0^Source Table Ingestion^Ignore All^^0
+^j_im_covid19_vaccine_person_sp^0^Source File Ingestion^Ignore All^^0
+^j_im_edw_macro_prod_load^0^Source File Ingestion^Ignore All^^0
+J_IM_EDW_Staff_PM_Users^j_im_edw_staff_pm_users^0^Source Table Ingestion^Convert Target^^1
+J_IM_EPCS_PROVIDER_STATUS_STG^j_im_epcs_provider_status_stg^0^Source File Ingestion^Convert Target^^1
+^j_im_epms_activity_ins^0^Source File Ingestion^Ignore All^^0
+^j_im_epms_person_activity_ins^0^Source File Ingestion^Ignore All^^0
+^j_im_epms_provider_ins^0^Source File Ingestion^Ignore All^^0
+J_IM_ESAF_Facility_Business_Unit^j_im_esaf_facility_business_unit^0^Integration^Convert Target^^1
+J_IM_ESAF_Provisioning_Event_Time_Archive^j_im_esaf_provisioning_event_time_archive^0^Integration^Create Template^^1
+J_IM_ESAF_Provisioning_Event_Time^j_im_esaf_provisioning_event_time^0^Integration^Convert Target^^1
+^j_im_fact_person_ins^0^Source File Ingestion^Ignore All^^0
+^j_im_hpf_account_archive^0^Source File Ingestion^Ignore All^^0
+^j_im_hpf_account^0^Source File Ingestion^Ignore All^^0
+J_IM_HPF_Instance_Facility_Xwalk^j_im_hpf_instance_facility_xwalk^0^Source Table Ingestion^Create Template^^1
+^j_im_hpf_person_activity_ins^0^Source File Ingestion^Ignore All^^0
+^j_im_hpf_user_activity_archive^0^Source File Ingestion^Ignore All^^0
+^j_im_hpf_user_activity_ins^0^Source File Ingestion^Ignore All^^0
+J_IM_Insurance^j_im_insurance^0^Source Table Ingestion^Convert Target^^1
+J_IM_Lawsn_ESAF_Employee^j_im_lawsn_esaf_employee^0^Source Table Ingestion^Convert Target^^1
+J_IM_Lawsn_ESAF_Job^j_im_lawsn_esaf_job^0^Source Table Ingestion^Convert Target^^1
+J_IM_Lawsn_ESAF_Personnel_Action^j_im_lawsn_esaf_personnel_action^0^Source Table Ingestion^Convert Target^^1
+J_IM_Lawsn_ESAF_Personnel_Employee^j_im_lawsn_esaf_personnel_employee^0^Source Table Ingestion^Convert Target^^1
+J_IM_Lawsn_ESAF_Personnel_Position^j_im_lawsn_esaf_personnel_position^0^Source Table Ingestion^Convert Target^^1
+J_IM_Lawsn_ESAF_Supervisor^j_im_lawsn_esaf_supervisor^0^Source Table Ingestion^Convert Target^^1
+J_IM_Lawsn_Person_Action_STG^j_im_lawsn_person_action_stg^0^Source Table Ingestion^Convert Target^^1
+J_IM_Lawsn_Person_Empl_Dates_STG^j_im_lawsn_person_empl_dates_stg^0^Source Table Ingestion^Convert Target^^1
+^j_im_lawsn_person_oracle^0^Source File Ingestion^Ignore All^^0
+J_IM_Lawsn_Person_STG^j_im_lawsn_person_stg^0^Source Table Ingestion^Convert Target^^1
+J_IM_Lawsn_Person_Supv_STG^j_im_lawsn_person_supv_stg^0^Source Table Ingestion^Convert Target^^1
+^j_im_lawson_person_archive^0^Source File Ingestion^Ignore All^^0
+J_IM_Lawson_Person_IDMart^j_im_lawson_person_idmart^0^Integration^Create Template^lawsn_esaf_employee^1
+^j_im_lawson_user_activity_archive^0^Source File Ingestion^Ignore All^^0
+J_IM_Lawson_User_Activity_Ins^j_im_lawson_user_activity_ins^0^Source File Ingestion^Ignore All^^0
+J_IM_LicenseData^j_im_licensedata^0^Source Table Ingestion^Convert Target^^1
+^j_im_mdstaffload^0^Source File Ingestion^Ignore All^^0
+J_IM_Meditech_Person_Activity_Ins^j_im_meditech_person_activity_ins^0^Integration^Create Template^^1
+J_IM_MEDITECH_USER_ACTIVITY_ARCHIVE^j_im_meditech_user_activity_archive^0^Integration^Create Template^^1
+J_IM_Meditech_User_Activity_Ins^j_im_meditech_user_activity_ins^0^Integration^Create Template^staff_pm_users^1
+J_IM_MEDITECH_User_Archive^j_im_meditech_user_archive^0^Integration^Create Template^^1
+J_IM_MEDITECH_USER^j_im_meditech_user^0^Integration^Create Template^^1
+J_IM_MT_CDM_USER_3_4^j_im_mt_cdm_user_3_4^0^Source Table Ingestion^Create Template^^1
+J_IM_MT_CDM_USER_COID^j_im_mt_cdm_user_coid^0^Source Table Ingestion^Create Template^^1
+J_IM_MT_CDM_USER_MNEM^j_im_mt_cdm_user_mnem^0^Source Table Ingestion^Create Template^^1
+J_IM_MT_CDM_USER^j_im_mt_cdm_user^0^Source Table Ingestion^Create Template^mt_cdm_user_3_4^1
+J_IM_MT_CL_HCP_CDM^j_im_mt_cl_hcp_cdm^0^Source Table Ingestion^Create Template^^1
+J_IM_MT_CL_HCP^j_im_mt_cl_hcp^0^Source Table Ingestion^Create Template^mt_cl_hcp_cdm^1
+J_IM_MT_CL_HCP_VC^j_im_mt_cl_hcp_vc^0^Source Table Ingestion^Create Template^^1
+J_IM_MT_CL_USER_ACTIVITY_HIST^j_im_mt_cl_user_activity_hist^0^Source Table Ingestion^Create Template^mt_cl_user_activity^1
+J_IM_MT_CL_USER_ACTIVITY^j_im_mt_cl_user_activity^0^Source Table Ingestion^Create Template^^1
+J_IM_MT_CL_USER_LAST_ACTIVITY^j_im_mt_cl_user_last_activity^0^Source Table Ingestion^Create Template^mt_cl_user_activity^1
+J_IM_MT_Instance_Facility_Xwalk^j_im_mt_instance_facility_xwalk^0^Source Table Ingestion^Create Template^^1
+J_IM_MT_REF_IM_DOMAIN^j_im_mt_ref_im_domain^0^Integration^Create Template^stg_ref_im_domain^1
+^j_im_npi_registry_provider_address^0^Source File Ingestion^Ignore All^^0
+^j_im_npi_registry_provider^0^Source File Ingestion^Ignore All^^0
+J_IM_OIG_Control_Phase_1^j_im_oig_control_phase_1^0^Source File Ingestion^Ignore All^^0
+J_IM_OIG_Employee_Phase_1^j_im_oig_employee_phase_1^0^Source File Ingestion^Ignore All^^0
+^j_im_oig_phase_2_stg^0^Source File Ingestion^Ignore All^^0
+^j_im_oig_phase_3_c^0^Source File Ingestion^Ignore All^^0
+^j_im_oig_phase_3_macros^0^Source File Ingestion^Ignore All^^0
+^j_im_oig_phase_3_p_nai^0^Source File Ingestion^Ignore All^^0
+^j_im_oig_phase_3_p^0^Source File Ingestion^Ignore All^^0
+^j_im_oig_phase_3_v_nai^0^Source File Ingestion^Ignore All^^0
+^j_im_oig_phase_3_v^0^Source File Ingestion^Ignore All^^0
+J_IM_OIG_Provider_Phase_1^j_im_oig_provider_phase_1^0^Source File Ingestion^Ignore All^^0
+J_IM_OIG_Vendor_Phase_1^j_im_oig_vendor_phase_1^0^Source File Ingestion^Ignore All^^0
+J_IM_PCP_Users^j_im_pcp_users^0^Source Table Ingestion^Convert Target^^1
+^j_im_person_activity_archive^0^Source File Ingestion^Ignore All^^0
+J_IM_PK_Instance_Facility_Xwalk^j_im_pk_instance_facility_xwalk^0^Source Table Ingestion^Create Template^^1
+^j_im_pk_person_activity_ins^0^Source File Ingestion^Ignore All^^0
+^j_im_pk_user_activity_archive_ins^0^Source File Ingestion^Ignore All^^0
+^j_im_pk_user_activity_ins^0^Source File Ingestion^Ignore All^^0
+J_IM_PK_User_Archive^j_im_pk_user_archive^0^Integration^Create Template^^1
+J_IM_PK_User^j_im_pk_user^0^Integration^Create Template^^1
+J_IM_Platform_Domain_Xwalk^j_im_platform_domain_xwalk^0^Integration^Create Template^hpf_instance_facility_xwalk^1
+J_IM_ProviderData^j_im_providerdata^0^Source Table Ingestion^Convert Target^^1
+^j_im_provider_stat_and_act_archive^0^Source File Ingestion^Ignore All^^0
+^j_im_pyxis_person_activity_ins^0^Source File Ingestion^Ignore All^^0
+^j_im_pyxis_user_activity_archive_ins^0^Source File Ingestion^Ignore All^^0
+^j_im_pyxis_user_activity_ins^0^Source File Ingestion^Ignore All^^0
+^j_im_pyxis_user_archive_ins^0^Source File Ingestion^Ignore All^^0
+^j_im_pyxis_user_ins^0^Source File Ingestion^Ignore All^^0
+J_IM_RCOPIA_PROVIDER_STATUS_STG^j_im_rcopia_provider_status_stg^0^Source File Ingestion^Convert Target^^1
+J_IM_Ref_AD_Employee_Type^j_im_ref_ad_employee_type^0^Integration^Convert Target^^1
+J_IM_Ref_AD_User_Title^j_im_ref_ad_user_title^0^Integration^Convert Target^^1
+^j_im_ref_cactus_mss_manager^0^Source File Ingestion^Ignore All^^0
+J_IM_Ref_Contract_Company^j_im_ref_contract_company^0^Integration^Convert Target^^1
+J_IM_Ref_IM_Domain_HPF^j_im_ref_im_domain_hpf^0^Integration^Convert Target^^1
+^j_im_ref_im_domain_lawson^0^Source File Ingestion^Ignore All^^0
+J_IM_Ref_IM_Domain_PK^j_im_ref_im_domain_pk^0^Integration^Create Template^^1
+J_IM_Ref_IM_Domain^j_im_ref_im_domain^0^Integration^Convert Target^^1
+J_IM_Ref_Job_Code^j_im_ref_job_code^0^Integration^Convert Target^^1
+J_IM_Ref_Job_Position^j_im_ref_job_position^0^Integration^Convert Target^^1

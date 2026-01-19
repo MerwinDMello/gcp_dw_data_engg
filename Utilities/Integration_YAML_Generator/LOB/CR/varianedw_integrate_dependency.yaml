@@ -1,0 +1,217 @@
+integrate:
+- source_system: varianedw
+  frequency: daily
+  dag_id_suffix: 1
+  start_date: pendulum.datetime(2024, 5, 6, tz=timezone)
+  schedule: None
+  type: sqlserver
+  done_file: None
+  trigger_dag_ids: []
+  dependency:
+  - table: ref_rad_onc_site
+    has_sensor: 'No'
+    sql:
+    - name: ref_rad_onc_site.sql
+    validation:
+    - name: j_cr_ro_ref_rad_onc_site.sql
+  - table: ref_rad_onc_lookup
+    has_sensor: 'No'
+    sql:
+    - name: ref_rad_onc_lookup.sql
+    validation:
+    - name: j_cr_ro_ref_rad_onc_lookup.sql
+  - table: rad_onc_address
+    has_sensor: 'No'
+    sql:
+    - name: ref_rad_onc_address.sql
+    validation:
+    - name: j_cr_ro_ref_rad_onc_address.sql
+  - table: ref_rad_onc_location
+    has_sensor: 'No'
+    sql:
+    - name: ref_rad_onc_location.sql
+    validation:
+    - name: j_cr_ro_ref_rad_onc_location.sql
+  - table: ref_rad_onc_hospital
+    has_sensor: 'No'
+    sql:
+    - name: ref_rad_onc_hospital.sql
+    validation:
+    - name: j_cr_ro_ref_rad_onc_hospital.sql
+  - table: rad_onc_patient
+    has_sensor: 'No'
+    sql:
+    - name: ref_rad_onc_patient.sql
+    validation:
+    - name: j_cr_ro_ref_rad_onc_patient.sql
+  - table: rad_onc_patient_contact
+    has_sensor: 'No'
+    sql:
+    - name: rad_onc_patient_contact.sql
+    validation:
+    - name: j_cr_ro_rad_onc_patient_contact.sql
+  - table: rad_onc_patient_course
+    has_sensor: 'No'
+    sql:
+    - name: cr_rad_onc_patient_course.sql
+    validation:
+    - name: j_cr_rad_onc_patient_course.sql
+  - table: ref_rad_onc_plan_purpose
+    has_sensor: 'No'
+    sql:
+    - name: ref_rad_onc_plan_purpose.sql
+    validation:
+    - name: j_cr_ro_ref_rad_onc_plan_purpose.sql
+  - table: rad_onc_patient_plan
+    has_sensor: 'No'
+    sql:
+    - name: cr_rad_onc_patient_plan.sql
+    validation:
+    - name: j_cr_rad_onc_patient_plan.sql
+  - table: rad_onc_physician
+    has_sensor: 'No'
+    sql:
+    - name: rad_onc_physician.sql
+    validation:
+    - name: j_cr_ro_ref_rad_onc_physician.sql
+  - table: rad_onc_junc_physician_address
+    has_sensor: 'No'
+    sql:
+    - name: rad_onc_junc_physician_address.sql
+    validation:
+    - name: NONE
+  - table: rad_onc_phone
+    has_sensor: 'No'
+    sql:
+    - name: rad_onc_phone.sql
+    validation:
+    - name: j_cr_ro_ref_rad_onc_phone.sql
+  - table: rad_onc_junc_physician_phone
+    has_sensor: 'No'
+    sql:
+    - name: rad_onc_junc_physician_phone.sql
+    validation:
+    - name: NONE
+  - table: rad_onc_junc_patient_phone
+    has_sensor: 'No'
+    sql:
+    - name: rad_onc_junc_patient_phone.sql
+    validation:
+    - name: NONE
+  - table: rad_onc_junc_patient_contact_phone
+    has_sensor: 'No'
+    sql:
+    - name: rad_onc_junc_patient_contact_phone.sql
+    validation:
+    - name: NONE
+  - table: rad_onc_patient_physician
+    has_sensor: 'No'
+    sql:
+    - name: rad_onc_patient_physician.sql
+    validation:
+    - name: j_cr_ro_rad_onc_patient_physician.sql
+  - table: ref_rad_onc_diagnosis_code
+    has_sensor: 'No'
+    sql:
+    - name: ref_rad_onc_diagnosis_code.sql
+    validation:
+    - name: j_cr_ro_ref_rad_onc_diagnosis_code.sql
+  - table: ref_rad_onc_treatment_type
+    has_sensor: 'No'
+    sql:
+    - name: j_ref_rad_onc_treatment_type.sql
+    validation:
+    - name: j_ref_rad_onc_treatment_type.sql
+  - table: ref_rad_onc_procedure_code
+    has_sensor: 'No'
+    sql:
+    - name: rad_onc_procedure_code.sql
+    validation:
+    - name: j_cr_ro_rad_onc_procedure_code.sql
+  - table: ref_rad_onc_activity
+    has_sensor: 'No'
+    sql:
+    - name: ref_rad_onc_activity.sql
+    validation:
+    - name: j_cr_ro_ref_rad_onc_activity.sql
+  - table: ref_rad_onc_activity_priority
+    has_sensor: 'No'
+    sql:
+    - name: ref_rad_onc_activity_priority.sql
+    validation:
+    - name: j_cr_ro_ref_rad_onc_activity_priority.sql
+  - table: rad_onc_activity_transaction
+    has_sensor: 'No'
+    sql:
+    - name: rad_onc_activity_transaction.sql
+    validation:
+    - name: j_cr_ro_rad_onc_activity_transaction.sql
+  - table: fact_rad_onc_activity_billing
+    has_sensor: 'No'
+    sql:
+    - name: fact_rad_onc_activity_billing.sql
+    validation:
+    - name: j_cr_ro_fact_rad_onc_activity_billing.sql
+  - table: fact_rad_onc_patient_diagnosis
+    has_sensor: 'No'
+    sql:
+    - name: fact_rad_onc_patient_diagnosis.sql
+    validation:
+    - name: j_cr_ro_fact_rad_onc_patient_diagnosis.sql
+  - table: fact_rad_onc_patient
+    has_sensor: 'No'
+    sql:
+    - name: fact_rad_onc_patient.sql
+    validation:
+    - name: j_cr_ro_fact_rad_onc_patient.sql
+  - table: fact_rad_onc_course_diagnosis
+    has_sensor: 'No'
+    sql:
+    - name: fact_rad_onc_course_diagnosis.sql
+    validation:
+    - name: j_cr_ro_fact_rad_onc_course_diagnosis.sql
+  - table: rad_onc_patient_history
+    has_sensor: 'No'
+    sql:
+    - name: rad_onc_patient_history.sql
+    validation:
+    - name: j_cr_ro_rad_onc_patient_history.sql
+  - table: fact_rad_onc_treatment_history
+    has_sensor: 'No'
+    sql:
+    - name: fact_rad_onc_treatment_history.sql
+    validation:
+    - name: j_cr_ro_fact_rad_onc_treatment_history.sql
+  - table: ref_rad_onc_toxicity_assessment_type
+    has_sensor: 'No'
+    sql:
+    - name: ref_rad_onc_toxicity_assessment_type.sql
+    validation:
+    - name: NONE
+  - table: ref_rad_onc_toxicity_component
+    has_sensor: 'No'
+    sql:
+    - name: ref_rad_onc_toxicity_component.sql
+    validation:
+    - name: j_cr_ro_ref_rad_onc_toxicity_component.sql
+  - table: fact_rad_onc_patient_toxicity
+    has_sensor: 'No'
+    sql:
+    - name: fact_rad_onc_patient_toxicity.sql
+    validation:
+    - name: j_cr_ro_fact_rad_onc_patient_toxicity.sql
+- source_system: varianedw
+  frequency: monthly
+  dag_id_suffix: 2
+  start_date: pendulum.datetime(2024, 5, 6, tz=timezone)
+  schedule: 0 5 14 * *
+  type: sqlserver
+  done_file: None
+  trigger_dag_ids: []
+  dependency:
+  - table: fact_cancer_patient_financial
+    has_sensor: 'No'
+    sql:
+    - name: fact_cancer_patient_financial.sql
+    validation:
+    - name: j_cr_ro_fact_cancer_patient_financial.sql

@@ -1,0 +1,24 @@
+project:
+  src-project-id: hca-hin-dev-cur-parallon
+  tgt-project-id: hca-hin-dev-cur-parallon
+  datasets:
+    -
+      src-dataset: edwpbs_base_views
+      tgt-dataset: edwpbs
+      tables:
+        -
+          name: collection_*
+          exclude-columns: [dw_last_update_date_time]
+          order-by: dw_last_update_date_time desc
+        -
+          name: contact_*
+          exclude-columns: [dw_last_update_date_time]
+          order-by: dw_last_update_date_time desc
+        -
+          name: ref_*
+          exclude-columns: [dw_last_update_date_time]
+          order-by: dw_last_update_date_time desc
+result:
+  dataset: edwpbs_ac
+  table: data_validation_result
+remarks: Tested by Merwin DMello on 2023-09-26 05:30

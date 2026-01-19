@@ -1,0 +1,1 @@
+select 'J_REF_NAVIGATION_MEASURE' || ',' || CAST(COUNT(*) AS VARCHAR(20)) || ',' AS SOURCE_STRING from EDWCR.Ref_Navigation_Measure

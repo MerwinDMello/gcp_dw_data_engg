@@ -1,0 +1,7 @@
+Dag_ID,Time,Frequency,Day_of_Month,Day_of_Week
+dag_ingest_navadhoc_sqlserver_daily_01,1,Daily,,
+dag_ingest_navadhoc_sqlserver_daily_03,2:00,Daily,,
+dag_ingest_varianedw_sqlserver_daily_01,5:15,Daily,,
+dag_integrate_varianedw_sqlserver_monthly_02,5:00,Monthly,14,
+dag_ingest_metriq_sqlserver_daily_01,1:00,Daily,,
+dag_ingest_metriq_sqlserver_daily_02,2:30,Daily,,

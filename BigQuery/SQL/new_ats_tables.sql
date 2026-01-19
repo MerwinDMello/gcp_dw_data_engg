@@ -1,0 +1,12 @@
+CREATE SNAPSHOT TABLE edwhr_staging_copy.ats_hcm_resourcetransition_stg_bkp_230105
+CLONE edwhr_staging_copy.ats_hcm_resourcetransition_stg;
+
+Select *
+FROM
+edwhr_staging_copy.ats_hcm_resourcetransition_stg_bkp_230105
+EXCEPT DISTINCT
+Select *
+FROM
+edwhr_staging_copy.ats_hcm_resourcetransition_stg;
+
+TRUNCATE TABLE edwhr_staging_copy.ats_hcm_resourcetransition_stg;

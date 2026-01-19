@@ -1,0 +1,7 @@
+SELECT
+expected_value, actual_value
+FROM
+{{ bq_audit_control_dataset_param }}.audit_control
+WHERE src_sys_nm = '{{ source_system_param }}'
+AND tgt_tbl_nm = '{{ table_name_param }}'
+AND DATE(audit_time) = CURRENT_DATE('US/Central');

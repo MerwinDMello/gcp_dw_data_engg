@@ -1,0 +1,9 @@
+type: experimental_object_rewriter
+global:
+  typeConvert:
+    timestamptz:
+      target: DATETIME
+      timezone: US/Central      
+    timestamp:
+      target: DATETIME
+      timezone: US/Central

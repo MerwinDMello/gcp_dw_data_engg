@@ -1,0 +1,11 @@
+ingest_sql_list:
+- ingest_sql_template_file_name: insert_audit_control.j2
+  execute_individual_file: True
+- ingest_sql_template_file_name: insert_excel_audit.j2
+  execute_individual_file: True
+- ingest_sql_template_file_name: insert_filenames.j2
+  execute_individual_file: True
+- ingest_sql_template_file_name: insert_folder_audit.j2
+  execute_individual_file: False
+- ingest_sql_template_file_name: insert_gl_reconciliation_error_log.j2
+  execute_individual_file: True

@@ -1,0 +1,1 @@
+SELECT actn_cd, cmpy, to_CHAR(CAST(eff_dt AS DATE), 'YYYY-MM-DD') AS eff_dt, empl, 'v_currtimestamp' AS dw_last_update_date_time FROM ( SELECT DISTINCT t1.actn_cd, t1.cmpy, t1.eff_dt, t1.empl FROM orafs.vw_esaf_personnel_action t1 UNION SELECT DISTINCT t2.actn_cd, t2.cmpy, t2.eff_dt, t2.empl FROM oracorp.vw_esaf_personnel_action t2 )

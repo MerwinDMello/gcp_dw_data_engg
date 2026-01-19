@@ -1,0 +1,4 @@
+file_patterns:
+  - file_pattern_python: ^CCLOG24MCRIP\_(?:[a-z]+_|)D\_\d+\.xlsx$
+    file_pattern_terminal: CCLOG24MCRIP_*D*.xlsx
+processing_groups: ['American']

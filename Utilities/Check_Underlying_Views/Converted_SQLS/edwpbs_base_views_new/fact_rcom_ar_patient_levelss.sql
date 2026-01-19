@@ -1,0 +1,63 @@
+-- Translation time: 2024-01-12T17:51:56.897679Z
+-- Translation job ID: daf02731-0647-4415-a27a-5b3d10f518dd
+-- Source: internal_metastore/db_hca-hin-dev-cur-parallon/schema_edwpbs_base_views/fact_rcom_ar_patient_levelss.memory
+-- Translated from: Teradata
+-- Translated to: BigQuery
+
+CREATE VIEW IF NOT EXISTS `hca-hin-dev-cur-parallon`.edwpbs_base_views.fact_rcom_ar_patient_levelss AS SELECT
+    fact_rcom_ar_patient_levelss.patient_sid,
+    fact_rcom_ar_patient_levelss.account_type_sid,
+    fact_rcom_ar_patient_levelss.account_status_sid,
+    fact_rcom_ar_patient_levelss.age_month_sid,
+    fact_rcom_ar_patient_levelss.patient_financial_class_sid,
+    fact_rcom_ar_patient_levelss.patient_type_sid,
+    fact_rcom_ar_patient_levelss.collection_agency_sid,
+    fact_rcom_ar_patient_levelss.payor_financial_class_sid,
+    fact_rcom_ar_patient_levelss.product_sid,
+    fact_rcom_ar_patient_levelss.contract_sid,
+    fact_rcom_ar_patient_levelss.scenario_sid,
+    fact_rcom_ar_patient_levelss.unit_num_sid,
+    fact_rcom_ar_patient_levelss.unit_num,
+    fact_rcom_ar_patient_levelss.source_sid,
+    fact_rcom_ar_patient_levelss.date_sid,
+    fact_rcom_ar_patient_levelss.payor_sid,
+    fact_rcom_ar_patient_levelss.dollar_strf_sid,
+    fact_rcom_ar_patient_levelss.same_store_sid,
+    fact_rcom_ar_patient_levelss.iplan_insurance_order_num,
+    fact_rcom_ar_patient_levelss.coid,
+    fact_rcom_ar_patient_levelss.company_code,
+    fact_rcom_ar_patient_levelss.denial_sid,
+    fact_rcom_ar_patient_levelss.appeal_code_sid,
+    fact_rcom_ar_patient_levelss.denial_date,
+    fact_rcom_ar_patient_levelss.denial_status_code,
+    fact_rcom_ar_patient_levelss.patient_account_cnt,
+    fact_rcom_ar_patient_levelss.liability_account_cnt,
+    fact_rcom_ar_patient_levelss.payor_sequence_sid,
+    fact_rcom_ar_patient_levelss.discharge_cnt,
+    fact_rcom_ar_patient_levelss.ar_patient_amt,
+    fact_rcom_ar_patient_levelss.ar_insurance_amt,
+    fact_rcom_ar_patient_levelss.write_off_amt,
+    fact_rcom_ar_patient_levelss.total_collect_amt,
+    fact_rcom_ar_patient_levelss.billed_patient_cnt,
+    fact_rcom_ar_patient_levelss.discharge_to_billing_day_cnt,
+    fact_rcom_ar_patient_levelss.gross_charge_amt,
+    fact_rcom_ar_patient_levelss.late_charge_credit_amt,
+    fact_rcom_ar_patient_levelss.late_charge_debit_amt,
+    fact_rcom_ar_patient_levelss.payor_prorated_liability_amt,
+    fact_rcom_ar_patient_levelss.payor_payment_amt,
+    fact_rcom_ar_patient_levelss.prorated_liability_sys_adj_amt,
+    fact_rcom_ar_patient_levelss.payor_adjustment_amt,
+    fact_rcom_ar_patient_levelss.payor_contractual_amt,
+    fact_rcom_ar_patient_levelss.payor_denial_amt,
+    fact_rcom_ar_patient_levelss.payor_denial_cnt,
+    fact_rcom_ar_patient_levelss.payor_expected_payment_amt,
+    fact_rcom_ar_patient_levelss.payor_discrepancy_ovr_pmt_amt,
+    fact_rcom_ar_patient_levelss.payor_discrepancy_undr_pmt_amt,
+    fact_rcom_ar_patient_levelss.payor_up_front_collection_amt,
+    fact_rcom_ar_patient_levelss.payor_bill_cnt,
+    fact_rcom_ar_patient_levelss.payor_rebill_cnt,
+    fact_rcom_ar_patient_levelss.unbilled_gross_bus_ofc_amt,
+    fact_rcom_ar_patient_levelss.unbilled_gross_med_rec_amt
+  FROM
+    `hca-hin-dev-cur-parallon`.edwpbs.fact_rcom_ar_patient_levelss
+;

@@ -1,0 +1,72 @@
+-- Translation time: 2024-01-12T17:51:56.897679Z
+-- Translation job ID: daf02731-0647-4415-a27a-5b3d10f518dd
+-- Source: internal_metastore/db_hca-hin-dev-cur-parallon/schema_edwpbs_views/registration_iplan_pf.memory
+-- Translated from: Teradata
+-- Translated to: BigQuery
+
+CREATE VIEW IF NOT EXISTS `hca-hin-dev-cur-parallon`.edwpbs_views.registration_iplan_pf AS SELECT
+    ri.patient_dw_id,
+    ri.payor_dw_id,
+    ri.iplan_insurance_order_num,
+    ri.payor_name,
+    ri.payor_mail_to_name,
+    ri.coid,
+    ri.company_code,
+    ri.iplan_id,
+    ri.eff_from_date,
+    ri.eff_to_date,
+    ri.pat_acct_num,
+    ri.person_role_code,
+    ri.pat_relationship_to_ins_code,
+    ri.policy_num,
+    ri.group_name,
+    ri.group_num,
+    ri.hic_claim_num,
+    ri.signed_pat_rel_on_file_ind,
+    ri.signed_assn_benf_on_file_ind,
+    ri.treatment_authorization_num,
+    ri.verification_date,
+    ri.precertification_date,
+    ri.recertification_day_count,
+    ri.edit_code,
+    ri.dependent_maximum_age_num,
+    ri.student_max_age_num,
+    ri.deductible_amt,
+    ri.coinsurance_amt,
+    ri.source_system_code,
+    ri.dw_load_date,
+    ri.dw_change_date,
+    ri.health_plan_patient_id,
+    ri.health_plan_id,
+    ri.auto_post_ind,
+    ri.gross_reimbursement_amt,
+    ri.gross_reimbursement_date,
+    ri.expected_contractual_amt,
+    ri.expected_contractual_date,
+    ri.coins_amt_source_ind,
+    ri.calc_coins_amt,
+    ri.calc_coins_amt_source_ind,
+    ri.calc_coins_date,
+    ri.gross_reimbursement_var_amt,
+    ri.gross_reimbursement_var_date,
+    ri.partb_professional_fee_amt,
+    ri.blood_deductible_amt,
+    ri.outpatient_pps_flag_tricare,
+    ri.outpatient_pps_flag,
+    ri.irf_flag,
+    ri.snf_flag,
+    ri.psych_flag,
+    ri.log_format_ind,
+    ri.non_covered_charge_amt,
+    ri.copay_amt,
+    ri.auto_post_amt,
+    ri.major_payor_group_id,
+    ri.ub04_pat_relation_to_ins_code,
+    ri.medicare_inpatient_outlier_ind,
+    ri.precertification_ind,
+    ri.icn
+  FROM
+    `hca-hin-dev-cur-parallon`.edwpbs_base_views.registration_iplan_pf AS ri
+    INNER JOIN `hca-hin-dev-cur-parallon`.edwpf_base_views.secref_facility AS sf ON ri.coid = sf.co_id
+     AND sf.user_id = session_user()
+;

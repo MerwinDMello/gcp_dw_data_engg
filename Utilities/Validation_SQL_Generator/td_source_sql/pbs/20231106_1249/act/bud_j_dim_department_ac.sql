@@ -1,0 +1,1 @@
+SELECT 'J_Dim_Department' || ',' || CAST(Count(*) AS VARCHAR(20)) || ',' as SOURCE_STRING FROM Edwpbs.Dim_Department

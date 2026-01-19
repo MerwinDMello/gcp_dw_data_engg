@@ -1,0 +1,1 @@
+bq load --source_format=CSV --skip_leading_rows=0 --replace edwhr_staging_copy.ats_resourcetransition_bct_stg TDDump\012123\ats_resourcetransition_bct_stg_012123.csv Schema\ats_resourcetransition_bct_stg.json

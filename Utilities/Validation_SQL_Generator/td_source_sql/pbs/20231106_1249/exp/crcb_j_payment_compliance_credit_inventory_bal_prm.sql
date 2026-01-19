@@ -1,0 +1,2 @@
+SELECT 'PBDCR002-40' || ',' || cast(zeroifnull(Count(*)) as varchar(20)) || ',' || cast(zeroifnull(SUM(Refund_Amt)) as varchar(20)) || ',' || cast(zeroifnull(SUM(Total_Acct_Bal_Amt)) as varchar(20)) ||',' AS SOURCE_STRING
+FROM EDWPBS_Staging.Stg_CR_Balance_Refund_Header Stg;

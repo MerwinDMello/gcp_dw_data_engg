@@ -1,0 +1,1 @@
+Powershell.exe -executionpolicy Unrestricted -File BQBackup.ps1

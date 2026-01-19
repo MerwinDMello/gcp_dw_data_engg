@@ -1,0 +1,70 @@
+-- Translation time: 2023-09-22T18:46:04.447603Z
+-- Translation job ID: ba460d1f-d301-46b6-9c47-810d266c2894
+-- Source: internal_metastore/db_hca-hin-dev-cur-parallon/schema_edwpbs_base_views/fact_rcom_ar_hospital_level.memory
+-- Translated from: Teradata
+-- Translated to: BigQuery
+
+CREATE OR REPLACE VIEW {{ params.param_pbs_base_views_dataset_name }}.fact_rcom_ar_hospital_level AS SELECT
+    a.unit_num_sid,
+    a.scenario_sid,
+    a.week_of_month_sid,
+    a.date_sid,
+    a.source_sid,
+    a.company_code,
+    a.coid,
+    ROUND(a.recoveries_wo_amt_cons65200, 3, 'ROUND_HALF_EVEN') AS recoveries_wo_amt_cons65200,
+    ROUND(a.credit_coll_svc_amt_cons83320, 3, 'ROUND_HALF_EVEN') AS credit_coll_svc_amt_cons83320,
+    ROUND(a.allow_govt_receivable_fs05300, 3, 'ROUND_HALF_EVEN') AS allow_govt_receivable_fs05300,
+    ROUND(a.allow_uncoll_amt_fs05350, 3, 'ROUND_HALF_EVEN') AS allow_uncoll_amt_fs05350,
+    ROUND(a.allow_uncoll_nonpat_amtfs05360, 3, 'ROUND_HALF_EVEN') AS allow_uncoll_nonpat_amtfs05360,
+    ROUND(a.ip_revenue_routine_amt_fs50100, 3, 'ROUND_HALF_EVEN') AS ip_revenue_routine_amt_fs50100,
+    ROUND(a.ip_rev_ancillary_amt_fs50200, 3, 'ROUND_HALF_EVEN') AS ip_rev_ancillary_amt_fs50200,
+    ROUND(a.op_ancillary_rev_amt_fs50400, 3, 'ROUND_HALF_EVEN') AS op_ancillary_rev_amt_fs50400,
+    ROUND(a.other_operating_income_fs50900, 3, 'ROUND_HALF_EVEN') AS other_operating_income_fs50900,
+    ROUND(a.mcare_cy_cont_ip_amt_fs60100, 3, 'ROUND_HALF_EVEN') AS mcare_cy_cont_ip_amt_fs60100,
+    ROUND(a.mcare_cy_cont_op_amt_fs60125, 3, 'ROUND_HALF_EVEN') AS mcare_cy_cont_op_amt_fs60125,
+    ROUND(a.prior_yr_cont_ip_amt_fs60150, 3, 'ROUND_HALF_EVEN') AS prior_yr_cont_ip_amt_fs60150,
+    ROUND(a.prior_yr_cont_op_amt_fs60175, 3, 'ROUND_HALF_EVEN') AS prior_yr_cont_op_amt_fs60175,
+    ROUND(a.mcaid_cy_cont_ip_amt_fs60200, 3, 'ROUND_HALF_EVEN') AS mcaid_cy_cont_ip_amt_fs60200,
+    ROUND(a.mcaid_cy_cont_op_amt_fs60225, 3, 'ROUND_HALF_EVEN') AS mcaid_cy_cont_op_amt_fs60225,
+    ROUND(a.champ_cy_cont_ip_amt_fs60300, 3, 'ROUND_HALF_EVEN') AS champ_cy_cont_ip_amt_fs60300,
+    ROUND(a.champ_cy_cont_op_amt_fs60325, 3, 'ROUND_HALF_EVEN') AS champ_cy_cont_op_amt_fs60325,
+    ROUND(a.bc_hmo_ppo_disc_ip_amt_fs60400, 3, 'ROUND_HALF_EVEN') AS bc_hmo_ppo_disc_ip_amt_fs60400,
+    ROUND(a.bc_hmo_ppo_disc_op_amt_fs60425, 3, 'ROUND_HALF_EVEN') AS bc_hmo_ppo_disc_op_amt_fs60425,
+    ROUND(a.mcare_mgd_care_ip_amt_fs60450, 3, 'ROUND_HALF_EVEN') AS mcare_mgd_care_ip_amt_fs60450,
+    ROUND(a.mcare_mgd_care_op_amt_fs60460, 3, 'ROUND_HALF_EVEN') AS mcare_mgd_care_op_amt_fs60460,
+    ROUND(a.mcaid_mgd_care_ip_amt_fs60475, 3, 'ROUND_HALF_EVEN') AS mcaid_mgd_care_ip_amt_fs60475,
+    ROUND(a.mcaid_mgd_care_op_amt_fs60480, 3, 'ROUND_HALF_EVEN') AS mcaid_mgd_care_op_amt_fs60480,
+    ROUND(a.charity_ip_amt_fs60500, 3, 'ROUND_HALF_EVEN') AS charity_ip_amt_fs60500,
+    ROUND(a.charity_op_amt_fs60525, 3, 'ROUND_HALF_EVEN') AS charity_op_amt_fs60525,
+    ROUND(a.other_deduction_ip_amt_fs60600, 3, 'ROUND_HALF_EVEN') AS other_deduction_ip_amt_fs60600,
+    ROUND(a.other_deduction_op_amt_fs60625, 3, 'ROUND_HALF_EVEN') AS other_deduction_op_amt_fs60625,
+    ROUND(a.salaries_fdept_620_amt_fs65050, 3, 'ROUND_HALF_EVEN') AS salaries_fdept_620_amt_fs65050,
+    ROUND(a.emp_ben_fdept_620_amt_fs65100, 3, 'ROUND_HALF_EVEN') AS emp_ben_fdept_620_amt_fs65100,
+    ROUND(a.bad_debt_amt_fs65500, 3, 'ROUND_HALF_EVEN') AS bad_debt_amt_fs65500,
+    ROUND(a.patient_receivable_amt_fs90000, 3, 'ROUND_HALF_EVEN') AS patient_receivable_amt_fs90000,
+    ROUND(a.reversal_for_05350_amt_fs90008, 3, 'ROUND_HALF_EVEN') AS reversal_for_05350_amt_fs90008,
+    ROUND(a.total_patient_rev_amt_fs90230, 3, 'ROUND_HALF_EVEN') AS total_patient_rev_amt_fs90230,
+    ROUND(a.curr_year_cont_amt_fs90245, 3, 'ROUND_HALF_EVEN') AS curr_year_cont_amt_fs90245,
+    ROUND(a.policy_adjustments_amt_fs90246, 3, 'ROUND_HALF_EVEN') AS policy_adjustments_amt_fs90246,
+    ROUND(a.tot_ar_cost_fdept620_gla501000, 3, 'ROUND_HALF_EVEN') AS tot_ar_cost_fdept620_gla501000,
+    ROUND(a.mcare_clrng_gla110101_110179, 3, 'ROUND_HALF_EVEN') AS mcare_clrng_gla110101_110179,
+    ROUND(a.mcare_clrng_gla110189_110197, 3, 'ROUND_HALF_EVEN') AS mcare_clrng_gla110189_110197,
+    ROUND(a.mcaid_clrng_gla110201_110279, 3, 'ROUND_HALF_EVEN') AS mcaid_clrng_gla110201_110279,
+    ROUND(a.mcaid_clrng_gla110286_110297, 3, 'ROUND_HALF_EVEN') AS mcaid_clrng_gla110286_110297,
+    ROUND(a.cash_receipt_amt, 3, 'ROUND_HALF_EVEN') AS cash_receipt_amt,
+    ROUND(a.credit_refund_amt, 3, 'ROUND_HALF_EVEN') AS credit_refund_amt,
+    a.reg_accuracy_reg_entry_cnt,
+    a.reg_accuracy_reg_changes_cnt,
+    ROUND(a.ins_gt_150_day_pct_amt, 5, 'ROUND_HALF_EVEN') AS ins_gt_150_day_pct_amt,
+    ROUND(a.ins_gt_90_day_pct_amt, 5, 'ROUND_HALF_EVEN') AS ins_gt_90_day_pct_amt,
+    ROUND(a.write_off_amt, 3, 'ROUND_HALF_EVEN') AS write_off_amt,
+    ROUND(a.unins_ip_gla508490_gla508499, 3, 'ROUND_HALF_EVEN') AS unins_ip_gla508490_gla508499,
+    ROUND(a.unins_op_gla508990_gla508999, 3, 'ROUND_HALF_EVEN') AS unins_op_gla508990_gla508999,
+    ROUND(a.health_exchange_ip_amt_fs60490, 3, 'ROUND_HALF_EVEN') AS health_exchange_ip_amt_fs60490,
+    ROUND(a.health_exchange_op_amt_fs60495, 3, 'ROUND_HALF_EVEN') AS health_exchange_op_amt_fs60495
+  FROM
+    {{ params.param_pbs_core_dataset_name }}.fact_rcom_ar_hospital_level AS a
+    INNER JOIN {{ params.param_pbs_core_dataset_name }}.parallon_client_detail AS b ON upper(a.coid) = upper(b.coid)
+     AND upper(format_date('%Y%m', date_add(b.go_live_date, interval 0 MONTH))) <= upper(format_date('%Y%m', date_add(current_date('US/Central'), interval -1 MONTH)))
+;

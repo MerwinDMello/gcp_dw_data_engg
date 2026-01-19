@@ -1,0 +1,5 @@
+export AC_EXP_SQL_STATEMENT="SELECT 'J_EP_STG_Remittance_Service_CARC' || ',' || CAST(Count(*) AS VARCHAR(20)) || ',' as SOURCE_STRING FROM EDWPSU_BASE_VIEWS.Remittance_Service_CARC where Audit_Date = (select max(cast(Audit_Date as date)) from EDWPSU_BASE_VIEWS.Remittance_Service_CARC)"
+export JOBNAME='J_EP_STG_Remittance_Service_CARC'
+export AC_EXP_TOLERANCE_PERCENT=0
+export AC_EXP_TOLERANCE_AMT=0
+export AC_ACT_SQL_STATEMENT="SELECT 'J_EP_STG_Remittance_Service_CARC' || ',' || CAST(Count(*) AS VARCHAR(20)) || ',' as SOURCE_STRING FROM Edwpbs_Staging.Remittance_Service_CARC"

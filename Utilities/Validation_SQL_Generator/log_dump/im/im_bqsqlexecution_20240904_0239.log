@@ -1,0 +1,366 @@
+2024-09-04 02:39:57,180 - INFO - Connected (version 2.0, client OpenSSH_8.1)
+2024-09-04 02:39:58,631 - INFO - Auth banner: b'\nBy proceeding further, I accept the following:\n\nYou are about to access an HCA-Information Technology & Services, Inc. (IT&S)\ncomputer system. This system is to be used only by authorized users of IT&S, its\ncustomers and affiliates. As a user of this system, you have no expectation of\nprivacy rights or ownership in anything you may create, store, send or receive\non this system. By proceeding, your use of this system 1) constitutes your\nagreement that IT&S and/or your company may consent to law enforcement officials\nand agencies accessing information regarding your use of this network, 2)\nconstitutes your consent to monitoring, retrieval, and disclosure of any\ninformation within this system for all purposes deemed appropriate by IT&S,\nincluding enforcement of rules concerning unacceptable uses of this system, and\n3) constitutes your agreement to comply with all privacy, security and other\npolicies and procedures of IT&S and your company. If you have any questions\nabout what constitutes an acceptable use by you, please consult the written\npolicies provided by IT&S and your company.\n\n\n'
+2024-09-04 02:39:58,641 - INFO - Authentication (publickey) failed.
+2024-09-04 02:39:58,904 - INFO - Authentication (password) successful!
+2024-09-04 02:39:59,117 - INFO - [chan 0] Opened sftp connection (server version 3)
+2024-09-04 02:44:39,514 - INFO - Connected (version 2.0, client OpenSSH_8.1)
+2024-09-04 02:44:40,104 - INFO - Auth banner: b'\nBy proceeding further, I accept the following:\n\nYou are about to access an HCA-Information Technology & Services, Inc. (IT&S)\ncomputer system. This system is to be used only by authorized users of IT&S, its\ncustomers and affiliates. As a user of this system, you have no expectation of\nprivacy rights or ownership in anything you may create, store, send or receive\non this system. By proceeding, your use of this system 1) constitutes your\nagreement that IT&S and/or your company may consent to law enforcement officials\nand agencies accessing information regarding your use of this network, 2)\nconstitutes your consent to monitoring, retrieval, and disclosure of any\ninformation within this system for all purposes deemed appropriate by IT&S,\nincluding enforcement of rules concerning unacceptable uses of this system, and\n3) constitutes your agreement to comply with all privacy, security and other\npolicies and procedures of IT&S and your company. If you have any questions\nabout what constitutes an acceptable use by you, please consult the written\npolicies provided by IT&S and your company.\n\n\n'
+2024-09-04 02:44:40,105 - INFO - Authentication (publickey) failed.
+2024-09-04 02:44:40,120 - INFO - Authentication (password) successful!
+2024-09-04 02:44:40,295 - INFO - [chan 0] Opened sftp connection (server version 3)
+2024-09-04 05:51:14,626 - INFO - SQL file j_im_cactus_provider.sql executed successfully.
+2024-09-04 05:51:16,148 - INFO - SQL file j_im_cactus_provider_archive.sql executed successfully.
+2024-09-04 05:51:17,418 - INFO - SQL file j_im_esaf_provisioning_event_time_archive.sql executed successfully.
+2024-09-04 05:51:17,697 - ERROR - Error executing SQL file j_im_hpf_instance_facility_xwalk.sql: 404 Not found: Table hca-hin-dev-cur-comp:edwim_base_views.deficiency_audit was not found in location US
+
+Location: US
+Job ID: cf2e8fff-ee70-4cd5-9430-a2b55f74ea0c
+
+2024-09-04 05:51:21,819 - INFO - SQL file j_im_lawson_person_idmart.sql executed successfully.
+2024-09-04 05:51:23,011 - INFO - SQL file j_im_meditech_person_activity_ins.sql executed successfully.
+2024-09-04 05:51:23,397 - ERROR - Error executing SQL file j_im_meditech_user.sql: 404 Not found: Dataset hca-hin-dev-cur-comp:edw_pub_views was not found in location US
+
+Location: US
+Job ID: 1e2a3423-f656-4e6d-a3c3-4a4e9f0f5680
+
+2024-09-04 05:51:24,285 - INFO - SQL file j_im_meditech_user_activity_archive.sql executed successfully.
+2024-09-04 05:51:27,676 - INFO - SQL file j_im_meditech_user_activity_ins.sql executed successfully.
+2024-09-04 05:51:32,111 - INFO - SQL file j_im_meditech_user_archive.sql executed successfully.
+2024-09-04 05:51:32,383 - ERROR - Error executing SQL file j_im_mt_cdm_user.sql: 404 Not found: Table hca-hin-dev-cur-comp:edwim_staging.mt_cdm_user_3_4 was not found in location US
+
+Location: US
+Job ID: b7ff4c81-b45d-40da-bacc-42a1685d8315
+
+2024-09-04 05:51:33,676 - INFO - SQL file j_im_mt_cdm_user_3_4.sql executed successfully.
+2024-09-04 05:51:33,955 - ERROR - Error executing SQL file j_im_mt_cdm_user_coid.sql: 404 Not found: Table hca-hin-dev-cur-comp:edwim_base_views.encnt_to_role was not found in location US
+
+Location: US
+Job ID: 300137bb-b7d6-46be-ae45-74a3fcc2a3b9
+
+2024-09-04 05:51:34,981 - INFO - SQL file j_im_mt_cdm_user_mnem.sql executed successfully.
+2024-09-04 05:51:35,242 - ERROR - Error executing SQL file j_im_mt_cl_hcp.sql: 404 Not found: Table hca-hin-dev-cur-comp:edwim_base_views.clinical_health_care_provider was not found in location US
+
+Location: US
+Job ID: 1c8ad385-3f47-4982-960b-11b590c087dd
+
+2024-09-04 05:51:35,475 - ERROR - Error executing SQL file j_im_mt_cl_hcp_cdm.sql: 404 Not found: Dataset hca-hin-dev-cur-comp:edwcdm_base_views was not found in location US
+
+Location: US
+Job ID: 1752c52b-69fe-4afa-af2d-72e4640b43e4
+
+2024-09-04 05:51:36,124 - ERROR - Error executing SQL file j_im_mt_cl_hcp_vc.sql: 404 Not found: Table hca-hin-dev-cur-comp:edwim_base_views.clinical_health_care_provider was not found in location US
+
+Location: US
+Job ID: a485d454-ae74-4c6e-98dc-071a048c4509
+
+2024-09-04 05:51:36,395 - ERROR - Error executing SQL file j_im_mt_cl_user_activity.sql: 404 Not found: Table hca-hin-dev-cur-comp:edwim_base_views.clinical_user_patient_audit was not found in location US
+
+Location: US
+Job ID: eed2c84f-82a0-4105-a478-e327af7f94c0
+
+2024-09-04 05:51:37,168 - INFO - SQL file j_im_mt_cl_user_activity_hist.sql executed successfully.
+2024-09-04 05:51:37,891 - INFO - SQL file j_im_mt_cl_user_last_activity.sql executed successfully.
+2024-09-04 05:51:38,157 - ERROR - Error executing SQL file j_im_mt_instance_facility_xwalk.sql: 404 Not found: Dataset hca-hin-dev-cur-comp:edw_pub_views was not found in location US
+
+Location: US
+Job ID: c73b0e56-c592-4597-b29d-5a1ef46b2c46
+
+2024-09-04 05:51:39,864 - INFO - SQL file j_im_mt_ref_im_domain.sql executed successfully.
+2024-09-04 05:51:40,114 - ERROR - Error executing SQL file j_im_pk_instance_facility_xwalk.sql: 404 Not found: Table hca-hin-dev-cur-comp:edwim_base_views.pk_encounter was not found in location US
+
+Location: US
+Job ID: 9b805479-01b4-456a-8ff3-43e51370b4d4
+
+2024-09-04 05:51:40,390 - ERROR - Error executing SQL file j_im_pk_user.sql: 404 Not found: Table hca-hin-dev-cur-comp:edwim_base_views.junc_pk_user_access_level was not found in location US
+
+Location: US
+Job ID: 132bffbe-3aa2-4da1-b072-01a8ae18ef8f
+
+2024-09-04 05:51:41,954 - INFO - SQL file j_im_pk_user_archive.sql executed successfully.
+2024-09-04 05:51:43,110 - INFO - SQL file j_im_platform_domain_xwalk.sql executed successfully.
+2024-09-04 05:51:43,369 - ERROR - Error executing SQL file j_im_ref_im_domain_pk.sql: 404 Not found: Table hca-hin-dev-cur-comp:edwim_base_views.ref_pk_data_base_instance was not found in location US
+
+Location: US
+Job ID: 1c1818c8-85af-44ee-9adc-380c0a8ae2e5
+
+2024-09-04 05:51:44,357 - INFO - SQL file j_im_ad_account.sql executed successfully.
+2024-09-04 05:51:45,072 - INFO - SQL file j_im_ad_account_supplemental.sql executed successfully.
+2024-09-04 05:51:52,722 - INFO - SQL file j_im_ad_member_group_hierarchy_archive.sql executed successfully.
+2024-09-04 05:51:53,305 - INFO - SQL file j_im_boardcert.sql executed successfully.
+2024-09-04 05:51:54,022 - INFO - SQL file j_im_cactus_provider.sql executed successfully.
+2024-09-04 05:52:01,483 - INFO - SQL file j_im_cactus_provider_archive.sql executed successfully.
+2024-09-04 05:52:02,117 - INFO - SQL file j_im_edw_staff_pm_users.sql executed successfully.
+2024-09-04 05:52:02,836 - INFO - SQL file j_im_epcs_provider_status_stg.sql executed successfully.
+2024-09-04 05:52:03,444 - INFO - SQL file j_im_esaf_facility_business_unit.sql executed successfully.
+2024-09-04 05:52:04,175 - INFO - SQL file j_im_esaf_provisioning_event_time.sql executed successfully.
+2024-09-04 05:52:10,154 - INFO - SQL file j_im_esaf_provisioning_event_time_archive.sql executed successfully.
+2024-09-04 05:52:10,733 - INFO - SQL file j_im_hpf_instance_facility_xwalk.sql executed successfully.
+2024-09-04 05:52:11,366 - INFO - SQL file j_im_insurance.sql executed successfully.
+2024-09-04 05:52:12,149 - INFO - SQL file j_im_lawsn_esaf_employee.sql executed successfully.
+2024-09-04 05:52:13,051 - INFO - SQL file j_im_lawsn_esaf_job.sql executed successfully.
+2024-09-04 05:52:13,843 - INFO - SQL file j_im_lawsn_esaf_personnel_action.sql executed successfully.
+2024-09-04 05:52:14,557 - INFO - SQL file j_im_lawsn_esaf_personnel_employee.sql executed successfully.
+2024-09-04 05:52:15,301 - INFO - SQL file j_im_lawsn_esaf_personnel_position.sql executed successfully.
+2024-09-04 05:52:15,884 - INFO - SQL file j_im_lawsn_esaf_supervisor.sql executed successfully.
+2024-09-04 05:52:16,530 - INFO - SQL file j_im_lawsn_person_action_stg.sql executed successfully.
+2024-09-04 05:52:17,061 - INFO - SQL file j_im_lawsn_person_empl_dates_stg.sql executed successfully.
+2024-09-04 05:52:17,623 - INFO - SQL file j_im_lawsn_person_stg.sql executed successfully.
+2024-09-04 05:52:18,164 - INFO - SQL file j_im_lawsn_person_supv_stg.sql executed successfully.
+2024-09-04 05:52:18,798 - INFO - SQL file j_im_lawson_person_idmart.sql executed successfully.
+2024-09-04 05:52:19,441 - INFO - SQL file j_im_licensedata.sql executed successfully.
+2024-09-04 05:52:20,035 - INFO - SQL file j_im_meditech_person_activity_ins.sql executed successfully.
+2024-09-04 05:52:20,789 - INFO - SQL file j_im_meditech_user.sql executed successfully.
+2024-09-04 05:52:29,587 - INFO - SQL file j_im_meditech_user_activity_archive.sql executed successfully.
+2024-09-04 05:52:30,312 - INFO - SQL file j_im_meditech_user_activity_ins.sql executed successfully.
+2024-09-04 05:52:35,399 - INFO - SQL file j_im_meditech_user_archive.sql executed successfully.
+2024-09-04 05:52:36,037 - INFO - SQL file j_im_mt_cdm_user.sql executed successfully.
+2024-09-04 05:52:36,269 - ERROR - Error executing SQL file j_im_mt_cdm_user_3_4.sql: 404 Not found: Table hca-hin-dev-cur-comp:edwim_staging.mt_cdm_user_3_4 was not found in location US
+
+Location: US
+Job ID: 686b40fc-2364-4a01-9a1e-35c460474ffa
+
+2024-09-04 05:52:39,597 - INFO - SQL file j_im_mt_cdm_user_coid.sql executed successfully.
+2024-09-04 05:52:40,274 - INFO - SQL file j_im_mt_cdm_user_mnem.sql executed successfully.
+2024-09-04 05:52:40,998 - INFO - SQL file j_im_mt_cl_hcp.sql executed successfully.
+2024-09-04 05:52:41,708 - INFO - SQL file j_im_mt_cl_hcp_cdm.sql executed successfully.
+2024-09-04 05:52:42,361 - INFO - SQL file j_im_mt_cl_hcp_vc.sql executed successfully.
+2024-09-04 05:52:42,913 - INFO - SQL file j_im_mt_cl_user_activity.sql executed successfully.
+2024-09-04 05:52:43,160 - ERROR - Error executing SQL file j_im_mt_cl_user_activity_hist.sql: 404 Not found: Dataset hca-hin-dev-cur-comp:edwim_dmx_ac was not found in location US
+
+Location: US
+Job ID: 0c6fb06e-49fc-466a-88e8-20abe29e6674
+
+2024-09-04 05:52:43,809 - INFO - SQL file j_im_mt_cl_user_last_activity.sql executed successfully.
+2024-09-04 05:52:44,392 - INFO - SQL file j_im_mt_instance_facility_xwalk.sql executed successfully.
+2024-09-04 05:52:44,932 - INFO - SQL file j_im_mt_ref_im_domain.sql executed successfully.
+2024-09-04 05:52:45,602 - INFO - SQL file j_im_pcp_users.sql executed successfully.
+2024-09-04 05:52:46,226 - INFO - SQL file j_im_pk_instance_facility_xwalk.sql executed successfully.
+2024-09-04 05:52:46,812 - INFO - SQL file j_im_pk_user.sql executed successfully.
+2024-09-04 05:52:50,044 - INFO - SQL file j_im_pk_user_archive.sql executed successfully.
+2024-09-04 05:52:50,666 - INFO - SQL file j_im_platform_domain_xwalk.sql executed successfully.
+2024-09-04 05:52:51,235 - INFO - SQL file j_im_providerdata.sql executed successfully.
+2024-09-04 05:52:51,870 - INFO - SQL file j_im_rcopia_provider_status_stg.sql executed successfully.
+2024-09-04 05:52:52,447 - INFO - SQL file j_im_ref_ad_employee_type.sql executed successfully.
+2024-09-04 05:52:53,033 - INFO - SQL file j_im_ref_ad_user_title.sql executed successfully.
+2024-09-04 05:52:53,656 - INFO - SQL file j_im_ref_contract_company.sql executed successfully.
+2024-09-04 05:52:54,272 - INFO - SQL file j_im_ref_im_domain.sql executed successfully.
+2024-09-04 05:52:54,890 - INFO - SQL file j_im_ref_im_domain_hpf.sql executed successfully.
+2024-09-04 05:52:55,708 - INFO - SQL file j_im_ref_im_domain_pk.sql executed successfully.
+2024-09-04 05:52:56,274 - INFO - SQL file j_im_ref_job_code.sql executed successfully.
+2024-09-04 05:52:56,967 - INFO - SQL file j_im_ref_job_position.sql executed successfully.
+2024-09-04 07:43:06,678 - INFO - SQL file j_im_cactus_provider.sql executed successfully.
+2024-09-04 07:43:07,504 - INFO - SQL file j_im_cactus_provider_archive.sql executed successfully.
+2024-09-04 07:43:08,394 - INFO - SQL file j_im_esaf_provisioning_event_time_archive.sql executed successfully.
+2024-09-04 07:43:08,801 - ERROR - Error executing SQL file j_im_hpf_instance_facility_xwalk.sql: 404 Not found: Table hca-hin-dev-cur-comp:edwim_base_views.document_work_flow_instance was not found in location US
+
+Location: US
+Job ID: 4b4e8489-2341-4615-88ca-c6baf471a10c
+
+2024-09-04 07:43:13,180 - INFO - SQL file j_im_lawson_person_idmart.sql executed successfully.
+2024-09-04 07:43:18,127 - INFO - SQL file j_im_meditech_person_activity_ins.sql executed successfully.
+2024-09-04 07:43:19,240 - ERROR - Error executing SQL file j_im_meditech_user.sql: 400 No matching signature for function RTRIM for argument types: DATETIME. Supported signatures: RTRIM(STRING, [STRING]); RTRIM(BYTES, BYTES) at [98:8]
+
+Location: US
+Job ID: dd22a211-97d4-440f-9a12-f03c254d0a05
+
+2024-09-04 07:43:20,141 - INFO - SQL file j_im_meditech_user_activity_archive.sql executed successfully.
+2024-09-04 07:43:22,242 - INFO - SQL file j_im_meditech_user_activity_ins.sql executed successfully.
+2024-09-04 07:43:23,320 - INFO - SQL file j_im_meditech_user_archive.sql executed successfully.
+2024-09-04 07:43:23,608 - ERROR - Error executing SQL file j_im_mt_cdm_user.sql: 404 Not found: Table hca-hin-dev-cur-comp:edwim_staging.mt_cdm_user_3_4 was not found in location US
+
+Location: US
+Job ID: 9c005c28-a6b3-4e6b-9321-091644a01dfd
+
+2024-09-04 07:43:24,949 - INFO - SQL file j_im_mt_cdm_user_3_4.sql executed successfully.
+2024-09-04 07:43:29,386 - INFO - SQL file j_im_mt_cdm_user_coid.sql executed successfully.
+2024-09-04 07:43:30,796 - INFO - SQL file j_im_mt_cdm_user_mnem.sql executed successfully.
+2024-09-04 07:43:33,451 - INFO - SQL file j_im_mt_cl_hcp.sql executed successfully.
+2024-09-04 07:43:40,799 - ERROR - Error executing SQL file j_im_mt_cl_hcp_cdm.sql: 400 Bad double value: ILLEGAL_NUMBER(Pending)
+
+Location: US
+Job ID: 81c805ee-75d2-4af9-8876-371778cad92c
+
+2024-09-04 07:43:44,697 - INFO - SQL file j_im_mt_cl_hcp_vc.sql executed successfully.
+2024-09-04 07:43:45,922 - INFO - SQL file j_im_mt_cl_user_activity.sql executed successfully.
+2024-09-04 07:43:46,647 - INFO - SQL file j_im_mt_cl_user_activity_hist.sql executed successfully.
+2024-09-04 07:43:47,474 - INFO - SQL file j_im_mt_cl_user_last_activity.sql executed successfully.
+2024-09-04 07:43:48,729 - INFO - SQL file j_im_mt_instance_facility_xwalk.sql executed successfully.
+2024-09-04 07:43:49,628 - INFO - SQL file j_im_mt_ref_im_domain.sql executed successfully.
+2024-09-04 07:43:52,686 - INFO - SQL file j_im_pk_instance_facility_xwalk.sql executed successfully.
+2024-09-04 07:43:53,050 - ERROR - Error executing SQL file j_im_pk_user.sql: 404 Not found: Table hca-hin-dev-cur-comp:edwim_base_views.pk_login_information was not found in location US
+
+Location: US
+Job ID: 6449da46-ff75-40db-9ad2-8c54c0ba74d3
+
+2024-09-04 07:43:54,480 - INFO - SQL file j_im_pk_user_archive.sql executed successfully.
+2024-09-04 07:43:56,019 - INFO - SQL file j_im_platform_domain_xwalk.sql executed successfully.
+2024-09-04 07:43:57,055 - INFO - SQL file j_im_ref_im_domain_pk.sql executed successfully.
+2024-09-04 07:43:57,766 - INFO - SQL file j_im_ad_account.sql executed successfully.
+2024-09-04 07:43:58,343 - INFO - SQL file j_im_ad_account_supplemental.sql executed successfully.
+2024-09-04 07:44:01,075 - INFO - SQL file j_im_ad_member_group_hierarchy_archive.sql executed successfully.
+2024-09-04 07:44:01,803 - INFO - SQL file j_im_boardcert.sql executed successfully.
+2024-09-04 07:44:02,493 - INFO - SQL file j_im_cactus_provider.sql executed successfully.
+2024-09-04 07:44:05,410 - INFO - SQL file j_im_cactus_provider_archive.sql executed successfully.
+2024-09-04 07:44:06,081 - INFO - SQL file j_im_edw_staff_pm_users.sql executed successfully.
+2024-09-04 07:44:06,738 - INFO - SQL file j_im_epcs_provider_status_stg.sql executed successfully.
+2024-09-04 07:44:07,883 - INFO - SQL file j_im_esaf_facility_business_unit.sql executed successfully.
+2024-09-04 07:44:08,944 - INFO - SQL file j_im_esaf_provisioning_event_time.sql executed successfully.
+2024-09-04 07:44:11,896 - INFO - SQL file j_im_esaf_provisioning_event_time_archive.sql executed successfully.
+2024-09-04 07:44:12,579 - INFO - SQL file j_im_hpf_instance_facility_xwalk.sql executed successfully.
+2024-09-04 07:44:13,099 - INFO - SQL file j_im_insurance.sql executed successfully.
+2024-09-04 07:44:13,646 - INFO - SQL file j_im_lawsn_esaf_employee.sql executed successfully.
+2024-09-04 07:44:14,232 - INFO - SQL file j_im_lawsn_esaf_job.sql executed successfully.
+2024-09-04 07:44:14,778 - INFO - SQL file j_im_lawsn_esaf_personnel_action.sql executed successfully.
+2024-09-04 07:44:15,333 - INFO - SQL file j_im_lawsn_esaf_personnel_employee.sql executed successfully.
+2024-09-04 07:44:16,038 - INFO - SQL file j_im_lawsn_esaf_personnel_position.sql executed successfully.
+2024-09-04 07:44:16,588 - INFO - SQL file j_im_lawsn_esaf_supervisor.sql executed successfully.
+2024-09-04 07:44:17,092 - INFO - SQL file j_im_lawsn_person_action_stg.sql executed successfully.
+2024-09-04 07:44:17,619 - INFO - SQL file j_im_lawsn_person_empl_dates_stg.sql executed successfully.
+2024-09-04 07:44:18,119 - INFO - SQL file j_im_lawsn_person_stg.sql executed successfully.
+2024-09-04 07:44:18,658 - INFO - SQL file j_im_lawsn_person_supv_stg.sql executed successfully.
+2024-09-04 07:44:19,340 - INFO - SQL file j_im_lawson_person_idmart.sql executed successfully.
+2024-09-04 07:44:19,874 - INFO - SQL file j_im_licensedata.sql executed successfully.
+2024-09-04 07:44:20,415 - INFO - SQL file j_im_meditech_person_activity_ins.sql executed successfully.
+2024-09-04 07:44:21,070 - INFO - SQL file j_im_meditech_user.sql executed successfully.
+2024-09-04 07:44:26,838 - INFO - SQL file j_im_meditech_user_activity_archive.sql executed successfully.
+2024-09-04 07:44:27,713 - INFO - SQL file j_im_meditech_user_activity_ins.sql executed successfully.
+2024-09-04 07:44:29,851 - INFO - SQL file j_im_meditech_user_archive.sql executed successfully.
+2024-09-04 07:44:30,529 - INFO - SQL file j_im_mt_cdm_user.sql executed successfully.
+2024-09-04 07:44:30,816 - ERROR - Error executing SQL file j_im_mt_cdm_user_3_4.sql: 404 Not found: Table hca-hin-dev-cur-comp:edwim_staging.mt_cdm_user_3_4 was not found in location US
+
+Location: US
+Job ID: 285712d2-7268-4b96-b023-52b83029c9de
+
+2024-09-04 07:44:31,372 - INFO - SQL file j_im_mt_cdm_user_coid.sql executed successfully.
+2024-09-04 07:44:31,893 - INFO - SQL file j_im_mt_cdm_user_mnem.sql executed successfully.
+2024-09-04 07:44:32,568 - INFO - SQL file j_im_mt_cl_hcp.sql executed successfully.
+2024-09-04 07:44:33,222 - INFO - SQL file j_im_mt_cl_hcp_cdm.sql executed successfully.
+2024-09-04 07:44:33,839 - INFO - SQL file j_im_mt_cl_hcp_vc.sql executed successfully.
+2024-09-04 07:44:34,470 - INFO - SQL file j_im_mt_cl_user_activity.sql executed successfully.
+2024-09-04 07:44:34,782 - ERROR - Error executing SQL file j_im_mt_cl_user_activity_hist.sql: 404 Not found: Dataset hca-hin-dev-cur-comp:edwim_dmx_ac was not found in location US
+
+Location: US
+Job ID: 8421b0dd-705e-4ca1-9226-30d03f1a952b
+
+2024-09-04 07:44:35,342 - INFO - SQL file j_im_mt_cl_user_last_activity.sql executed successfully.
+2024-09-04 07:44:35,980 - INFO - SQL file j_im_mt_instance_facility_xwalk.sql executed successfully.
+2024-09-04 07:44:36,873 - INFO - SQL file j_im_mt_ref_im_domain.sql executed successfully.
+2024-09-04 07:44:37,455 - INFO - SQL file j_im_pcp_users.sql executed successfully.
+2024-09-04 07:44:38,081 - INFO - SQL file j_im_pk_instance_facility_xwalk.sql executed successfully.
+2024-09-04 07:44:38,770 - INFO - SQL file j_im_pk_user.sql executed successfully.
+2024-09-04 07:44:41,458 - INFO - SQL file j_im_pk_user_archive.sql executed successfully.
+2024-09-04 07:44:42,550 - INFO - SQL file j_im_platform_domain_xwalk.sql executed successfully.
+2024-09-04 07:44:43,122 - INFO - SQL file j_im_providerdata.sql executed successfully.
+2024-09-04 07:44:43,625 - INFO - SQL file j_im_rcopia_provider_status_stg.sql executed successfully.
+2024-09-04 07:44:44,283 - INFO - SQL file j_im_ref_ad_employee_type.sql executed successfully.
+2024-09-04 07:44:45,026 - INFO - SQL file j_im_ref_ad_user_title.sql executed successfully.
+2024-09-04 07:44:45,764 - INFO - SQL file j_im_ref_contract_company.sql executed successfully.
+2024-09-04 07:44:46,469 - INFO - SQL file j_im_ref_im_domain.sql executed successfully.
+2024-09-04 07:44:47,120 - INFO - SQL file j_im_ref_im_domain_hpf.sql executed successfully.
+2024-09-04 07:44:47,806 - INFO - SQL file j_im_ref_im_domain_pk.sql executed successfully.
+2024-09-04 07:44:48,485 - INFO - SQL file j_im_ref_job_code.sql executed successfully.
+2024-09-04 07:44:49,070 - INFO - SQL file j_im_ref_job_position.sql executed successfully.
+2024-09-04 07:50:08,747 - INFO - SQL file j_im_cactus_provider.sql executed successfully.
+2024-09-04 07:50:09,340 - INFO - SQL file j_im_cactus_provider_archive.sql executed successfully.
+2024-09-04 07:50:09,945 - INFO - SQL file j_im_esaf_provisioning_event_time_archive.sql executed successfully.
+2024-09-04 07:50:11,305 - INFO - SQL file j_im_hpf_instance_facility_xwalk.sql executed successfully.
+2024-09-04 07:50:15,703 - INFO - SQL file j_im_lawson_person_idmart.sql executed successfully.
+2024-09-04 07:50:20,315 - INFO - SQL file j_im_meditech_person_activity_ins.sql executed successfully.
+2024-09-04 07:50:20,953 - ERROR - Error executing SQL file j_im_meditech_user.sql: 400 No matching signature for function RTRIM for argument types: DATETIME. Supported signatures: RTRIM(STRING, [STRING]); RTRIM(BYTES, BYTES) at [98:8]
+
+Location: US
+Job ID: 114a70b2-d25b-4190-b8d1-33220a1a9cf3
+
+2024-09-04 07:50:21,579 - INFO - SQL file j_im_meditech_user_activity_archive.sql executed successfully.
+2024-09-04 07:50:23,731 - INFO - SQL file j_im_meditech_user_activity_ins.sql executed successfully.
+2024-09-04 07:50:24,320 - INFO - SQL file j_im_meditech_user_archive.sql executed successfully.
+2024-09-04 07:50:24,582 - ERROR - Error executing SQL file j_im_mt_cdm_user.sql: 404 Not found: Table hca-hin-dev-cur-comp:edwim_staging.mt_cdm_user_3_4 was not found in location US
+
+Location: US
+Job ID: cbe0571e-6dbe-4f8d-8375-08b23fdaab83
+
+2024-09-04 07:50:25,949 - INFO - SQL file j_im_mt_cdm_user_3_4.sql executed successfully.
+2024-09-04 07:50:28,382 - INFO - SQL file j_im_mt_cdm_user_coid.sql executed successfully.
+2024-09-04 07:50:29,548 - INFO - SQL file j_im_mt_cdm_user_mnem.sql executed successfully.
+2024-09-04 07:50:32,463 - INFO - SQL file j_im_mt_cl_hcp.sql executed successfully.
+2024-09-04 07:50:36,193 - ERROR - Error executing SQL file j_im_mt_cl_hcp_cdm.sql: 400 Bad double value: ILLEGAL_NUMBER(Pending)
+
+Location: US
+Job ID: 1545c461-a89c-45b4-951f-60aa71388f92
+
+2024-09-04 07:50:38,349 - INFO - SQL file j_im_mt_cl_hcp_vc.sql executed successfully.
+2024-09-04 07:50:43,327 - INFO - SQL file j_im_mt_cl_user_activity.sql executed successfully.
+2024-09-04 07:50:43,870 - INFO - SQL file j_im_mt_cl_user_activity_hist.sql executed successfully.
+2024-09-04 07:50:44,546 - INFO - SQL file j_im_mt_cl_user_last_activity.sql executed successfully.
+2024-09-04 07:50:45,304 - INFO - SQL file j_im_mt_instance_facility_xwalk.sql executed successfully.
+2024-09-04 07:50:45,820 - INFO - SQL file j_im_mt_ref_im_domain.sql executed successfully.
+2024-09-04 07:50:46,562 - INFO - SQL file j_im_pk_instance_facility_xwalk.sql executed successfully.
+2024-09-04 07:50:49,630 - INFO - SQL file j_im_pk_user.sql executed successfully.
+2024-09-04 07:50:50,225 - INFO - SQL file j_im_pk_user_archive.sql executed successfully.
+2024-09-04 07:50:50,767 - INFO - SQL file j_im_platform_domain_xwalk.sql executed successfully.
+2024-09-04 07:50:51,428 - INFO - SQL file j_im_ref_im_domain_pk.sql executed successfully.
+2024-09-04 07:50:52,252 - INFO - SQL file j_im_ad_account.sql executed successfully.
+2024-09-04 07:50:52,742 - INFO - SQL file j_im_ad_account_supplemental.sql executed successfully.
+2024-09-04 07:50:55,644 - INFO - SQL file j_im_ad_member_group_hierarchy_archive.sql executed successfully.
+2024-09-04 07:50:56,128 - INFO - SQL file j_im_boardcert.sql executed successfully.
+2024-09-04 07:50:56,617 - INFO - SQL file j_im_cactus_provider.sql executed successfully.
+2024-09-04 07:50:59,526 - INFO - SQL file j_im_cactus_provider_archive.sql executed successfully.
+2024-09-04 07:51:00,044 - INFO - SQL file j_im_edw_staff_pm_users.sql executed successfully.
+2024-09-04 07:51:00,746 - INFO - SQL file j_im_epcs_provider_status_stg.sql executed successfully.
+2024-09-04 07:51:01,282 - INFO - SQL file j_im_esaf_facility_business_unit.sql executed successfully.
+2024-09-04 07:51:01,810 - INFO - SQL file j_im_esaf_provisioning_event_time.sql executed successfully.
+2024-09-04 07:51:04,617 - INFO - SQL file j_im_esaf_provisioning_event_time_archive.sql executed successfully.
+2024-09-04 07:51:05,146 - INFO - SQL file j_im_hpf_instance_facility_xwalk.sql executed successfully.
+2024-09-04 07:51:05,705 - INFO - SQL file j_im_insurance.sql executed successfully.
+2024-09-04 07:51:06,236 - INFO - SQL file j_im_lawsn_esaf_employee.sql executed successfully.
+2024-09-04 07:51:06,926 - INFO - SQL file j_im_lawsn_esaf_job.sql executed successfully.
+2024-09-04 07:51:07,340 - INFO - SQL file j_im_lawsn_esaf_personnel_action.sql executed successfully.
+2024-09-04 07:51:07,854 - INFO - SQL file j_im_lawsn_esaf_personnel_employee.sql executed successfully.
+2024-09-04 07:51:08,343 - INFO - SQL file j_im_lawsn_esaf_personnel_position.sql executed successfully.
+2024-09-04 07:51:08,812 - INFO - SQL file j_im_lawsn_esaf_supervisor.sql executed successfully.
+2024-09-04 07:51:09,342 - INFO - SQL file j_im_lawsn_person_action_stg.sql executed successfully.
+2024-09-04 07:51:09,875 - INFO - SQL file j_im_lawsn_person_empl_dates_stg.sql executed successfully.
+2024-09-04 07:51:10,438 - INFO - SQL file j_im_lawsn_person_stg.sql executed successfully.
+2024-09-04 07:51:10,962 - INFO - SQL file j_im_lawsn_person_supv_stg.sql executed successfully.
+2024-09-04 07:51:11,429 - INFO - SQL file j_im_lawson_person_idmart.sql executed successfully.
+2024-09-04 07:51:12,068 - INFO - SQL file j_im_licensedata.sql executed successfully.
+2024-09-04 07:51:12,507 - INFO - SQL file j_im_meditech_person_activity_ins.sql executed successfully.
+2024-09-04 07:51:13,016 - INFO - SQL file j_im_meditech_user.sql executed successfully.
+2024-09-04 07:51:18,389 - INFO - SQL file j_im_meditech_user_activity_archive.sql executed successfully.
+2024-09-04 07:51:18,912 - INFO - SQL file j_im_meditech_user_activity_ins.sql executed successfully.
+2024-09-04 07:51:24,356 - INFO - SQL file j_im_meditech_user_archive.sql executed successfully.
+2024-09-04 07:51:24,811 - INFO - SQL file j_im_mt_cdm_user.sql executed successfully.
+2024-09-04 07:51:25,098 - ERROR - Error executing SQL file j_im_mt_cdm_user_3_4.sql: 404 Not found: Table hca-hin-dev-cur-comp:edwim_staging.mt_cdm_user_3_4 was not found in location US
+
+Location: US
+Job ID: 7d4ff2d6-a4d7-417d-a960-da6abe424183
+
+2024-09-04 07:51:25,572 - INFO - SQL file j_im_mt_cdm_user_coid.sql executed successfully.
+2024-09-04 07:51:26,095 - INFO - SQL file j_im_mt_cdm_user_mnem.sql executed successfully.
+2024-09-04 07:51:26,574 - INFO - SQL file j_im_mt_cl_hcp.sql executed successfully.
+2024-09-04 07:51:27,097 - INFO - SQL file j_im_mt_cl_hcp_cdm.sql executed successfully.
+2024-09-04 07:51:27,623 - INFO - SQL file j_im_mt_cl_hcp_vc.sql executed successfully.
+2024-09-04 07:51:28,115 - INFO - SQL file j_im_mt_cl_user_activity.sql executed successfully.
+2024-09-04 07:51:28,319 - ERROR - Error executing SQL file j_im_mt_cl_user_activity_hist.sql: 404 Not found: Dataset hca-hin-dev-cur-comp:edwim_dmx_ac was not found in location US
+
+Location: US
+Job ID: 5c443f78-940a-4dbd-bd29-24eccf3129f8
+
+2024-09-04 07:51:28,788 - INFO - SQL file j_im_mt_cl_user_last_activity.sql executed successfully.
+2024-09-04 07:51:29,263 - INFO - SQL file j_im_mt_instance_facility_xwalk.sql executed successfully.
+2024-09-04 07:51:29,916 - INFO - SQL file j_im_mt_ref_im_domain.sql executed successfully.
+2024-09-04 07:51:30,358 - INFO - SQL file j_im_pcp_users.sql executed successfully.
+2024-09-04 07:51:30,865 - INFO - SQL file j_im_pk_instance_facility_xwalk.sql executed successfully.
+2024-09-04 07:51:31,333 - INFO - SQL file j_im_pk_user.sql executed successfully.
+2024-09-04 07:51:33,931 - INFO - SQL file j_im_pk_user_archive.sql executed successfully.
+2024-09-04 07:51:34,424 - INFO - SQL file j_im_platform_domain_xwalk.sql executed successfully.
+2024-09-04 07:51:34,945 - INFO - SQL file j_im_providerdata.sql executed successfully.
+2024-09-04 07:51:35,591 - INFO - SQL file j_im_rcopia_provider_status_stg.sql executed successfully.
+2024-09-04 07:51:36,079 - INFO - SQL file j_im_ref_ad_employee_type.sql executed successfully.
+2024-09-04 07:51:36,572 - INFO - SQL file j_im_ref_ad_user_title.sql executed successfully.
+2024-09-04 07:51:37,059 - INFO - SQL file j_im_ref_contract_company.sql executed successfully.
+2024-09-04 07:51:37,489 - INFO - SQL file j_im_ref_im_domain.sql executed successfully.
+2024-09-04 07:51:37,994 - INFO - SQL file j_im_ref_im_domain_hpf.sql executed successfully.
+2024-09-04 07:51:38,494 - INFO - SQL file j_im_ref_im_domain_pk.sql executed successfully.
+2024-09-04 07:51:39,334 - INFO - SQL file j_im_ref_job_code.sql executed successfully.
+2024-09-04 07:51:39,781 - INFO - SQL file j_im_ref_job_position.sql executed successfully.

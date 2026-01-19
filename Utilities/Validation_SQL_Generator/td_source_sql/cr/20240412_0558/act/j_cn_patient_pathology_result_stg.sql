@@ -1,0 +1,2 @@
+Select 'J_CN_PATIENT_PATHOLOGY_RESULT_STG'||','|| cast(count(*) as varchar(20))||',' as SOURCE_STRING 
+from edwcr_staging.CN_PATIENT_PATHOLOGY_RESULT_STG

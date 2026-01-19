@@ -1,0 +1,47 @@
+SELECT 'J_EP_Junc_Remittance_Additional_Payee' || ',' || CAST(COUNT(*) AS VARCHAR(20)) || ',' as Source_String from
+(
+SEL 
+Payment_Guid,
+Additional_Payee_Line_Num,
+RRAP.Remittance_Additional_Payee_SID AS Remittance_Additional_Payee_SID , -- Need to join with REF_REMITTANCE_ADDITIONAL_PAYEE for this sid column
+'E' AS Source_System_Code ,           
+Current_Timestamp(0) AS DW_Last_Update_Date_Time 
+FROM
+(
+SEL
+Payment_Guid,
+Additional_Payee1_Id AS Additional_Payee_Id ,
+Reference_Id_Qualifier1_Code AS Additional_Payee_Id_Qualifier_Code,
+1 AS Additional_Payee_Line_Num
+FROM  edwpbs_staging.remittance_payment
+WHERE    Coalesce(Reference_Id_Qualifier1_Code,'')  <> '' OR Coalesce(Additional_Payee1_Id,'') <> '' 
+UNION
+SEL
+Payment_Guid,
+Additional_Payee2_Id AS Additional_Payee_Id,
+Reference_Id_Qualifier2_Code AS Additional_Payee_Id_Qualifier_Code,
+2 AS Additional_Payee_Line_Num
+FROM  edwpbs_staging.remittance_payment
+WHERE    Coalesce(Reference_Id_Qualifier2_Code,'')  <> '' OR Coalesce(Additional_Payee2_Id,'') <> '' 
+UNION
+SEL
+Payment_Guid,
+Additional_Payee3_Id AS Additional_Payee_Id,
+Reference_Id_Qualifier3_Code   AS Additional_Payee_Id_Qualifier_Code, 
+3 AS Additional_Payee_Line_Num
+FROM  edwpbs_staging.remittance_payment
+WHERE    Coalesce(Reference_Id_Qualifier3_Code,'')  <> '' OR Coalesce(Additional_Payee3_Id,'') <> '' 
+UNION
+SEL
+Payment_Guid,
+Additional_Payee4_Id AS Additional_Payee_Id,
+Reference_Id_Qualifier4_Code AS Additional_Payee_Id_Qualifier_Code,
+4 AS Additional_Payee_Line_Num
+FROM  edwpbs_staging.remittance_payment
+WHERE    Coalesce(Reference_Id_Qualifier4_Code,'')  <> '' OR  Coalesce(Additional_Payee4_Id,'') <> '' 
+ 
+) F 
+LEFT OUTER  JOIN EDWPBS.REF_REMITTANCE_ADDITIONAL_PAYEE RRAP ON 
+F.Additional_Payee_Id =RRAP.Additional_Payee_Id AND
+F.Additional_Payee_Id_Qualifier_Code=RRAP.Additional_Payee_Id_Qualifier_Code
+)A

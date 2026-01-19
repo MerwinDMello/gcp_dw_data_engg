@@ -1,0 +1,10 @@
+export JOBNAME='CBS_STG_ESSBASE_SSD_BGT'
+export P_EXP_Delimiter='CHR(32)'
+export P_EXP_Control_Total_Field='1,'
+export P_EXP_Number_of_Fields='21'
+export P_EXP_Control_Total_Type='1,'
+export AC_EXP_INPUT_FILE='cbs_stg_essbase_ssd_bgt.txt'
+export JOBNAME='CBS_STG_ESSBASE_SSD_BGT'
+export AC_EXP_TOLERANCE_PERCENT=0
+export AC_EXP_TOLERANCE_AMT=0
+export AC_ACT_SQL_STATEMENT="SELECT 'CBS_STG_ESSBASE_SSD_BGT' + ',' + CAST(Count(*) AS VARCHAR(20)) + ',' as SOURCE_STRING FROM dbo.Stg_Essbase_Budget ESS"

@@ -1,0 +1,1 @@
+Select 'J_CN_PERSON_STG'||','|| cast(count(*) as varchar(20))||',' as SOURCE_STRING from edwcr_staging.CN_Person_STG

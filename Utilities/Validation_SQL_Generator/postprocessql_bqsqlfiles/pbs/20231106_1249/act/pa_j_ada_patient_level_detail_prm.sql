@@ -1,0 +1,12 @@
+-- Translation time: 2023-11-06T19:10:57.497752Z
+-- Translation job ID: 0a348d04-5c95-4dfe-94e8-9aaeb80a31a8
+-- Source: eim-parallon-cs-datamig-dev-0002/pbs_bulk_conversion_validation/20231106_1249/input/act/pa_j_ada_patient_level_detail_prm.sql
+-- Translated from: Teradata
+-- Translated to: BigQuery
+
+SELECT concat(coalesce(trim(CAST(sum(x.inhouse_charity_amt) AS STRING)), '0'), coalesce(trim(CAST(sum(x.insured_charity_amt) AS STRING)), '0'), coalesce(trim(CAST(sum(x.insured_self_pay_amt) AS STRING)), '0'), coalesce(trim(CAST(sum(x.uninsured_discount_amt) AS STRING)), '0'), coalesce(trim(CAST(sum(x.charity_discount_amt) AS STRING)), '0'), coalesce(trim(CAST(sum(x.patient_liab_prot_discount_amt) AS STRING)), '0'), coalesce(trim(CAST(sum(x.total_discount_amt) AS STRING)), '0'), coalesce(trim(CAST(sum(x.secn_agcy_unins_discount_amt) AS STRING)), '0'), coalesce(trim(CAST(sum(x.secn_agcy_charity_discount_amt) AS STRING)), '0'), coalesce(trim(CAST(sum(x.secn_agcy_pat_liab_prot_discount_amt) AS STRING)), '0'), coalesce(trim(CAST(sum(x.total_secn_agcy_discount_amt) AS STRING)), '0'), coalesce(trim(CAST(sum(x.non_secn_unins_disc_amt) AS STRING)), '0'), coalesce(trim(CAST(sum(x.non_secn_charity_discount_amt) AS STRING)), '0'), coalesce(trim(CAST(sum(x.non_secn_patient_liab_prot_discount_amt) AS STRING)), '0'), coalesce(trim(CAST(sum(x.total_non_secn_discount_amt) AS STRING)), '0'), coalesce(trim(CAST(sum(x.self_pay_ar_amt) AS STRING)), '0'), coalesce(trim(CAST(sum(x.secn_agcy_acct_bal_amt) AS STRING)), '0'), coalesce(trim(CAST(sum(x.non_secn_self_pay_ar_amt) AS STRING)), '0'), coalesce(trim(CAST(sum(x.gross_non_secn_self_pay_ar_amt) AS STRING)), '0'), coalesce(trim(CAST(sum(x.total_patient_due_amt) AS STRING)), '0'), coalesce(trim(CAST(sum(x.discharged_not_final_bill_self_pay_amt) AS STRING)), '0'), coalesce(trim(CAST(sum(x.inhouse_self_pay_amt) AS STRING)), '0'), coalesce(trim(CAST(sum(x.discharged_not_final_bill_charity_amt) AS STRING)), '0')) AS source_string
+FROM `hca-hin-dev-cur-parallon`.edwpbs.ada_patient_level_detail AS x
+WHERE x.month_id = CASE format_date('%Y%m', date_add(current_date('US/Central'), interval -1 MONTH))
+                       WHEN '' THEN 0.0
+                       ELSE CAST(format_date('%Y%m', date_add(current_date('US/Central'), interval -1 MONTH)) AS FLOAT64)
+                   END 

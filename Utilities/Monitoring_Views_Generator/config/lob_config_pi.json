@@ -1,0 +1,16 @@
+{
+    "lob"                   :   "PI",
+    "domain_abbr"           :   "OPS",
+    "domain_syn_names"      :   ["ops"],
+    "project_id"            :   "hca-hin-dev-cur-ops",
+    "monitoring_dataset"    :   "edwops_ac",
+    "authviews_dataset"     :   "auth_base_views",
+    "audit_dataset"         :   "edwpi_ac",
+
+    "yaml_template_path"    :   "YAML_Templates",
+    "jinja_extension"       :   ".j2",
+    "sql_extension"         :   ".sql",
+    "output_path_folder"    :   "LOB",
+    "parameterized_folder"  :   "Parameterized",
+    "qualified_folder"      :   "Qualified"
+}

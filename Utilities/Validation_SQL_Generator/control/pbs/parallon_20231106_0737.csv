@@ -1,0 +1,144 @@
+PBMAR250^AR_j_PF_Fact_Patient_CM_prm.sh^0^Source Table Ingestion^Create Template
+PBMAR100^AR_j_PF_Fact_Patient_Level_LegacyAR_prm.sh^0^Source Table Ingestion^Create Template
+PBMAR240^AR_j_PF_Fact_Patient_Level_prm.sh^0^Source Table Ingestion^Convert Target
+PBMAR390-20^AR_j_PF_Fact_Patient_LtChg_prm.sh^0^Source Table Ingestion^Create Template
+PBMAR390-60^AR_j_PF_Fact_Pat_DChrg_Cnt_prm.sh^0^Source Table Ingestion^Create Template
+PBMAR380^AR_j_PF_Fact_Pat_DWOff_Amt_prm.sh^0^Integration^Create Template
+PBMAR390-40^AR_j_PF_Fact_Pat_Unbil_Bus_prm.sh^0^Source Table Ingestion^Create Template
+PBMAR390-50^AR_j_PF_Fact_Pat_Unbil_Med_prm.sh^0^Integration^Create Template
+PBMAR900-010^AR_j_PF_Fact_Pat_UpFrntCol_prm.sh^0^Integration^Create Template
+PBMAR390-30^AR_j_PF_Fact_Pat_W_Off_Amt_prm.sh^0^Source Table Ingestion^Convert Target
+PBMAR250^AR_PBS_j_PF_Fact_Patient_CM_prm.sh^0^Source Table Ingestion^Create Template
+PBMAR100^AR_PBS_j_PF_Fact_Patient_Level_LegacyAR_prm.sh^0^Integration^Create Template
+PBMAR240^AR_PBS_j_PF_Fact_Patient_Level_prm.sh^0^Integration^Convert Target
+PBMAR900-20^AR_PBS_j_PF_Fact_Patient_LtChg_prm.sh^0^Integration^Create Template
+PBMAR900-60^AR_PBS_j_PF_Fact_Pat_DChrg_Cnt_prm.sh^0^Integration^Create Template
+PBMAR380^AR_PBS_j_PF_Fact_Pat_DWOff_Amt_prm.sh^0^Integration^Create Template
+PBMAR710^AR_PBS_j_PF_Fact_Pat_FC_Level_prm.sh^0^Integration^Create Template
+PBMAR900-40^AR_PBS_j_PF_Fact_Pat_Unbil_Bus_prm.sh^0^Integration^Create Template
+PBMAR900-50^AR_PBS_j_PF_Fact_Pat_Unbil_Med_prm.sh^0^Integration^Create Template
+PBMAR900-010^AR_PBS_j_PF_Fact_Pat_UpFrntCol_prm.sh^0^Integration^Create Template
+PBMAR900-30^AR_PBS_j_PF_Fact_Pat_W_Off_Amt_prm.sh^0^Integration^Convert Target
+PBMAR095^AR_PBS_j_Stg_PF_Pass_Current_prm.sh^0^Source Table Ingestion^Convert Target
+J_Account_Activity_Exclusion^BUD_J_Account_Activity_Exclusion_AC.prm^0^Source File Ingestion^Ignore All
+J_Axiom_Budget^BUD_J_Axiom_Budget_AC.prm^0^Source File Ingestion^Ignore All
+J_Axiom_Forecast^BUD_J_Axiom_Forecast_AC.prm^0^Source File Ingestion^Ignore All
+CBS_AVG_HR_RATE_FACT_SSD_BGT^BUD_j_cbs_avg_hr_rate_fact_ssd_bgt_AC.prm^0^Source Table Ingestion^Ignore All
+CBS_CASH_COL_SSD_BGT^BUD_j_cbs_cash_col_ssd_bgt_AC.prm^0^Source Table Ingestion^Ignore All
+CBS_DIM_DEPARTMENT_SSD_BGT^BUD_j_cbs_dim_department_ssd_bgt_AC.prm^0^Source Table Ingestion^Ignore All
+CBS_DIM_EMPLOYEE_SSD_BGT^BUD_j_cbs_dim_employee_ssd_bgt_AC.prm^0^Source Table Ingestion^Ignore All
+CBS_DIM_ORGANIZATION_SSD_BGT^BUD_j_cbs_dim_organization_ssd_bgt_AC.prm^0^Source Table Ingestion^Ignore All
+CBS_DIM_SCENARIO_SSD_BGT^BUD_j_cbs_dim_scenario_ssd_bgt_AC.prm^0^Source Table Ingestion^Ignore All
+CBS_DIM_VALUE_SSD_BGT^BUD_j_cbs_dim_value_ssd_bgt_AC.prm^0^Source Table Ingestion^Ignore All
+CBS_DIM_YEAR_SSD_BGT^BUD_j_cbs_dim_year_ssd_bgt_AC.prm^0^Source Table Ingestion^Ignore All
+CBS_ESSBASE_FACT_SSD_BGT^BUD_j_cbs_essbase_fact_ssd_bgt_AC.prm^0^Source Table Ingestion^Ignore All
+CBS_EXEMPTION_FACT_SSD_BGT^BUD_j_cbs_exemption_fact_ssd_bgt_AC.prm^0^Source Table Ingestion^Ignore All
+CBS_GL_SUMMARY_FACT_SSD_BGT^BUD_j_cbs_gl_summary_fact_ssd_bgt_AC.prm^0^Source Table Ingestion^Ignore All
+CBS_LAWSON_PD_FACT_SSD_BGT^BUD_j_cbs_lawson_pd_fact_ssd_bgt_AC.prm^0^Source Table Ingestion^Ignore All
+CBS_QMIRS_MANHRS_FACT_SSD_BGT^BUD_j_cbs_qmirs_manhrs_fact_ssd_bgt_AC.prm^0^Source Table Ingestion^Ignore All
+CBS_REF_DEPARTMENT_DESC_SSD^BUD_j_cbs_ref_department_desc_ssd_AC.prm^0^Source Table Ingestion^Ignore All
+CBS_STG_ACCOUNT_SSD^BUD_j_cbs_stg_account_ssd_AC.prm^0^Source Table Ingestion^Ignore All
+CBS_STG_CASH_COL_SSD^BUD_j_cbs_stg_cash_col_ssd_AC.prm^0^Source Table Ingestion^Ignore All
+CBS_STG_DEPARTMENT_SSD^BUD_j_cbs_stg_department_ssd_AC.prm^0^Source Table Ingestion^Ignore All
+CBS_STG_EMPLOYEE_SSD^BUD_j_cbs_stg_employee_ssd_AC.prm^0^Source Table Ingestion^Ignore All
+CBS_STG_ESSBASE_SSD_BGT^BUD_j_cbs_stg_essbase_ssd_bgt_AC.prm^0^Source File Ingestion^Ignore All
+CBS_STG_GL_SUMMARY_SSD^BUD_j_cbs_stg_gl_summary_ssd_AC.prm^0^Source Table Ingestion^Ignore All
+CBS_STG_LAWSON_PD_SSD^BUD_j_cbs_stg_lawson_pd_ssd_AC.prm^0^Source Table Ingestion^Ignore All
+CBS_STG_ORGANIZATION_SSD^BUD_j_cbs_stg_organization_ssd_AC.prm^0^Source File Ingestion^Ignore All
+CBS_STG_QMIRS_MANHRS_SSD^BUD_j_cbs_stg_qmirs_manhrs_ssd_AC.prm^0^Source Table Ingestion^Ignore All
+CBS_STG_SCENARIO_SSD^BUD_j_cbs_stg_scenario_ssd_AC.prm^0^Source File Ingestion^Ignore All
+CBS_STG_VOL_METRICS_SSD^BUD_j_cbs_stg_vol_metrics_ssd_AC.prm^0^Source File Ingestion^Ignore All
+CBS_VOL_METRICS_FACT_SSD_BGT^BUD_j_cbs_vol_metrics_fact_ssd_bgt_AC.prm^0^Source Table Ingestion^Ignore All
+J_Customer_Attribute_Maint^BUD_J_Customer_Attribute_Maint_AC.prm^0^Source File Ingestion^Ignore All
+J_Customer_Template^BUD_J_Customer_Template_AC.prm^0^Source File Ingestion^Ignore All
+J_Cust_Attrib_Cust_Dept_Mapping^BUD_J_Cust_Attrib_Cust_Dept_Mapping_AC.prm^0^Source File Ingestion^Ignore All
+J_Department^BUD_J_Department_AC.prm^0^Source File Ingestion^Ignore All
+J_Department_Mapping^BUD_J_Department_Mapping_AC.prm^0^Source File Ingestion^Ignore All
+J_Dim_Account^BUD_J_Dim_Account_AC.prm^0^Integration^Convert Target
+J_Dim_Bdgt_Organization^BUD_J_Dim_Bdgt_Organization_AC.prm^0^Integration^Convert Target
+J_Dim_Bdgt_Scenario^BUD_J_Dim_Bdgt_Scenario_AC.prm^0^Integration^Convert Target
+J_Dim_Bdgt_Time^BUD_J_Dim_Bdgt_Time_AC.prm^0^Integration^Convert Target
+J_Dim_Bdgt_Value^BUD_J_Dim_Bdgt_Value_AC.prm^0^Integration^Convert Target
+J_Dim_Bdgt_Year^BUD_J_Dim_Bdgt_Year_AC.prm^0^Integration^Convert Target
+J_Dim_Department^BUD_J_Dim_Department_AC.prm^0^Integration^Convert Target
+J_Dim_Employee^BUD_J_Dim_Employee_AC.prm^0^Integration^Convert Target
+J_Essbase_Security^BUD_J_Essbase_Security_AC.prm^0^Source File Ingestion^Ignore All
+J_Fact_SSD_Budget^BUD_J_Fact_SSD_Budget_AC.prm^0^Source Table Ingestion^Convert Target
+J_FTE_Metrics_Admin^BUD_J_FTE_Metrics_Admin_AC.prm^0^Source File Ingestion^Ignore All
+J_Global_Variable^BUD_J_Global_Variable_AC.prm^0^Source File Ingestion^Ignore All
+J_Year_Maintenance^BUD_J_Year_Maintenance_AC.prm^0^Source File Ingestion^Ignore All
+PBDCR002-40^CRCB_j_Payment_Compliance_Credit_Inventory_BAL_prm.sh^0^Integration^Create Template
+PBDCR002-20^CRCB_j_Payment_Compliance_Credit_Inventory_RFND_prm.sh^0^Integration^Create Template
+PBDCR002-20^CRCB_j_Payment_Compliance_Credit_Refund_prm.sh^0^Integration^Create Template
+PBMCB340-20^CRCB_j_PF_Fact_PARS_CdtBal_prm.sh^0^Integration^Create Template
+PBMCR350-20^CRCB_j_PF_Fact_PARS_CdtRfd_prm.sh^0^Integration^Create Template
+PBDCR002-30^CRCB_j_Stg_Payment_Compliance_Credit_Inventory_BAL_prm.sh^0^Source Table Ingestion^Convert Target
+PBDCR002-10^CRCB_j_Stg_Payment_Compliance_Credit_Inventory_RFND_prm.sh^0^Source Table Ingestion^Convert Target
+PBDCR002-10^CRCB_j_Stg_PC_Cr_Refund_DLY_prm.sh^0^Source Table Ingestion^Convert Target
+PBMCB340-10^CRCB_j_STG_RCOM_PARS_CB_prm.sh^0^Source Table Ingestion^Convert Target
+PBMCR350-10^CRCB_j_STG_RCOM_PARS_CR_prm.sh^0^Source Table Ingestion^Convert Target
+PBMOR100-020^EDWDIM_j_PF_Dim_Organization_prm.sh^0^Integration^Create Template
+J_EPCarc^EP_J_EPCarc_AC.prm^0^Source Table Ingestion^Convert Target
+J_EPHcpcs^EP_J_EPHcpcs_AC.prm^0^Source Table Ingestion^Convert Target
+J_EPIZCarc^EP_J_EPIZCarc_AC.prm^0^Source Table Ingestion^Convert Target
+J_EPIZRarc^EP_J_EPIZRarc_AC.prm^0^Source Table Ingestion^Convert Target
+J_EPPayerMaster^EP_J_EPPayerMaster_AC.prm^0^Source Table Ingestion^Convert Target
+J_EPPLB^EP_J_EPPLB_AC.prm^0^Source Table Ingestion^Convert Target
+J_EPSplitFac^EP_J_EPSplitFac_AC.prm^0^Source Table Ingestion^Convert Target
+J_EPSplitPayer^EP_J_EPSplitPayer_AC.prm^0^Source Table Ingestion^Convert Target
+J_EPSplitRcvd^EP_J_EPSplitRcvd_AC.prm^0^Source Table Ingestion^Convert Target
+J_EPSplit^EP_J_EPSplit_AC.prm^0^Source Table Ingestion^Convert Target
+J_EP_CCC^EP_J_EP_CCC_AC.prm^0^Source File Ingestion^Convert Target
+J_EP_CLM^EP_J_EP_CLM_AC.prm^0^Source File Ingestion^Convert Target
+J_EP_DEL^EP_J_EP_DEL_AC.prm^0^Source File Ingestion^Convert Target
+J_EP_Junc_Remittance_Additional_Payee^EP_J_EP_Junc_Remittance_Additional_Payee_AC.prm^0^Integration^Create Template
+J_EP_Junc_Remittance_Delete^EP_J_EP_Junc_Remittance_Delete_AC.prm^0^Integration^Create Template
+J_EP_Junc_Remittance_Other_Claim_Related_Info^EP_J_EP_Junc_Remittance_Other_Claim_Related_Info_AC.prm^0^Integration^Create Template
+J_EP_Junc_Remittance_Provider_Serv^EP_J_EP_Junc_Remittance_Provider_Serv_AC.prm^0^Integration^Create Template
+J_EP_Junc_Remittance_Secn_Rendering_Prov^EP_J_EP_Junc_Remittance_Secn_Rendering_Prov_AC.prm^0^Integration^Create Template
+J_EP_Junc_Remittance_Secn_Rendering_Prov_Service^EP_J_EP_Junc_Remittance_Secn_Rendering_Prov_Service_AC.prm^0^Integration^Create Template
+J_EP_PLB^EP_J_EP_PLB_AC.prm^0^Source File Ingestion^Convert Target
+J_EP_PMT^EP_J_EP_PMT_AC.prm^0^Source File Ingestion^Convert Target
+J_EP_Ref_Provider_Service^EP_J_EP_Ref_Provider_Service_AC.prm^0^Integration^Create Template
+J_EP_Ref_Remittance_Additional_Payee^EP_J_EP_Ref_Remittance_Additional_Payee_AC.prm^0^Integration^Create Template
+J_EP_Ref_Remittance_COB_Carrier^EP_J_EP_Ref_Remittance_COB_Carrier_AC.prm^0^Integration^Create Template
+J_EP_Ref_Remittance_Corrected_Priority_Payor^EP_J_EP_Ref_Remittance_Corrected_Priority_Payor_AC.prm^0^Integration^Create Template
+J_EP_Ref_Remittance_Other_Claim_Related_Info^EP_J_EP_Ref_Remittance_Other_Claim_Related_Info_AC.prm^0^Integration^Create Template
+J_EP_Ref_Remittance_Oth_Subscriber_Info^EP_J_EP_Ref_Remittance_Oth_Subscriber_Info_AC.prm^0^Integration^Create Template
+J_EP_Ref_Remittance_Payee^EP_J_EP_Ref_Remittance_Payee_AC.prm^0^Integration^Create Template
+J_EP_Ref_Remittance_Payor^EP_J_EP_Ref_Remittance_Payor_AC.prm^0^Integration^Create Template
+J_EP_Ref_Remittance_Rendering_Provider^EP_J_EP_Ref_Remittance_Rendering_Provider_AC.prm^0^Integration^Create Template
+J_EP_Ref_Remittance_Subscriber_Info^EP_J_EP_Ref_Remittance_Subscriber_Info_AC.prm^0^Integration^Create Template
+J_EP_Ref_Secn_Remittance_Rendering_Provider^EP_J_EP_Ref_Secn_Remittance_Rendering_Provider_AC.prm^0^Integration^Create Template
+Ref_Secn_Remittance_Rendering_Provider_service^EP_J_EP_Ref_Secn_Remittance_Rendering_Provider_service_AC.prm^0^Integration^Create Template
+J_EP_RemittancePayment^EP_J_EP_RemittancePayment_AC.prm^0^Source Table Ingestion^Convert Target
+J_EP_Remittance_Claim^EP_J_EP_Remittance_Claim_AC.prm^0^Integration^Create Template
+J_EP_Remittance_Claim_CARC^EP_J_EP_Remittance_Claim_CARC_AC.prm^0^Integration^Create Template
+J_EP_Remittance_Payment^EP_J_EP_Remittance_Payment_AC.prm^0^Integration^Create Template
+J_EP_Remittance_Service^EP_J_EP_Remittance_Service_AC.prm^0^Source Table Ingestion^Convert Target
+J_EP_Remittance_Service_CARC^EP_J_EP_Remittance_Service_CARC_AC.prm^0^Integration^Create Template
+J_EP_Remittance_Service_HCPCS_Modifier^EP_J_EP_Remittance_Service_HCPCS_Modifier_AC.prm^0^Integration^Create Template
+J_EP_Remittance_Service_RARC^EP_J_EP_Remittance_Service_RARC_AC.prm^0^Integration^Create Template
+J_EP_SCC^EP_J_EP_SCC_AC.prm^0^Source File Ingestion^Convert Target
+J_EP_SRC^EP_J_EP_SRC_AC.prm^0^Source File Ingestion^Convert Target
+J_EP_STG_Remittance_Claim_CARC^EP_J_EP_STG_Remittance_Claim_CARC_AC.prm^0^Source Table Ingestion^Convert Target
+J_EP_STG_Remittance_Service_CARC^EP_J_EP_STG_Remittance_Service_CARC_AC.prm^0^Source Table Ingestion^Convert Target
+J_EP_STG_Remittance_Service_RARC^EP_J_EP_STG_Remittance_Service_RARC_AC.prm^0^Source Table Ingestion^Convert Target
+J_EP_SVC^EP_J_EP_SVC_AC.prm^0^Source File Ingestion^Convert Target
+J_Remittance_Claim^EP_J_Remittance_Claim_AC.prm^0^Source Table Ingestion^Convert Target
+J_Remittance_PLB_Adj^EP_J_Remittance_PLB_Adj_AC.prm^0^Integration^Create Template
+J_Remittance_Service^EP_J_Remittance_Service_AC.prm^0^Integration^Create Template
+J_Stg_Remittance_PLB_Adj^EP_J_Stg_Remittance_PLB_Adj_AC.prm^0^Source Table Ingestion^Convert Target
+J_Stg_HPS_Pat_Payment_Link_Dtl^HPS_J_Stg_HPS_Pat_Payment_Link_Dtl_prm.sh^0^Source Table Ingestion^Convert Target
+j_ADA_Patient_Level_Detail^PA_j_ADA_Patient_Level_Detail_prm.sh^0^Integration^Create Template
+j_PF_ADA_Threshold_Check^PA_j_PF_ADA_Threshold_Check_prm.sh^0^Source File Ingestion^Ignore All
+PBMPA100-10^PA_j_PF_Ref_ADA_Facility_Metric_prm.sh^0^Integration^Convert Target
+PBMPA100-20^PA_j_PF_Rpt_AR_ADA_Detail_prm.sh^0^Integration^Create Template
+PCMEI280^PC_j_PF_Dim_Reason_Code_prm.sh^0^Integration^Convert Target
+PBMPC270^PC_j_PF_Fact_Disc_Beg_Bal_prm.sh^0^Integration^Convert Target
+PBMPC300^PC_j_PF_Fact_Disc_CostYear_prm.sh^0^Source Table Ingestion^Create Template
+PBMPC290-30^PC_j_PF_Fact_Disc_Open_prm.sh^0^Integration^Create Template
+PBMPC290-40^PC_j_PF_Fact_Disc_Oth_Amt_prm.sh^0^Integration^Convert Target
+PBMPC310^PC_j_PF_Fact_Disc_RateVar_prm.sh^0^Integration^Create Template
+PBMPC290-10^PC_j_PF_Fact_Disc_Rsld_CM_prm.sh^0^Integration^Create Template
+PBMPC290-20^PC_j_PF_Fact_Disc_Rsld_PM_prm.sh^0^Integration^Create Template

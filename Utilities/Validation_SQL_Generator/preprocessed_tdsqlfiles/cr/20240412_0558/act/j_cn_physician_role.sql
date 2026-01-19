@@ -1,0 +1,6 @@
+SELECT CONCAT(count(*)) AS SOURCE_STRING
+FROM edwcr.CN_PHYSICIAN_ROLE
+WHERE DW_LAST_UPDATE_DATE_TIME >=
+ (SELECT max(Job_Start_Date_time)
+ FROM edwcr_dmx_ac_base_views.ETL_JOB_RUN
+ WHERE Job_Name='J_CN_PHYSICIAN_ROLE');

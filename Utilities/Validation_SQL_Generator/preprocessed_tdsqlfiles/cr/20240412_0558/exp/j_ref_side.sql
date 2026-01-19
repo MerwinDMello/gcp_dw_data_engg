@@ -1,0 +1,19 @@
+
+SELECT CONCAT(count(*), ',	') AS SOURCE_STRING
+FROM
+ (SELECT ROW_NUMBER() OVER (
+ ORDER BY trim(SRC.Side_Desc)) +(SEL COALESCE(MAX(Side_Id), 0) AS ID1
+ FROM EDWCR.Ref_Side) AS Side_Id ,
+ TRIM(SRC.Side_Desc) AS Side_Desc ,
+ SRC.Source_System_Code ,
+ CURRENT_TIMESTAMP(0) AS DW_Last_Update_Date_Time
+ FROM
+ (SELECT Side_Desc ,
+ Source_System_Code
+ FROM EDWCR_STAGING.Ref_Side_STG
+ WHERE trim(Side_Desc) NOT IN
+ (SELECT TRIM(Side_Desc)
+ FROM EDWCR.Ref_Side
+ WHERE Side_Desc IS NOT NULL) ) SRC
+ WHERE Side_Desc IS NOT NULL
+ AND Side_Desc <> '' ) A;

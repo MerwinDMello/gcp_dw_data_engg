@@ -1,0 +1,2 @@
+SELECT 'PBDCR002-20' || ',' || cast(zeroifnull(Count(*)) as varchar(20)) || ',' || cast(zeroifnull(SUM(Refund_Amt)) as varchar(20)) || ',' AS SOURCE_STRING
+FROM EDWPBS_Staging.Stg_CR_Refund_Transmitted Stg ;

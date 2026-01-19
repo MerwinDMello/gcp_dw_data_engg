@@ -1,0 +1,2 @@
+SELECT CONCAT(COUNT(*)) AS SOURCE_STRING
+FROM edwcr.Ref_Lookup_Name

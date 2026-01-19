@@ -1,0 +1,13 @@
+﻿new_bq_table_name,new_bq_column_name,bq_data_type,bq_ordinal_position
+employee_stg,employee_number,INT64,1
+employee_stg,first_name,STRING,2
+employee_stg,last_name,STRING,3
+employee_stg,standard_hours,FLOAT64,4
+employee_stg,active,INT64,5
+employee_stg,dw_last_update_date,TIMESTAMP,6
+candidate_stg,candidate_number,INT64,1
+candidate_stg,first_name,STRING,2
+candidate_stg,last_name,STRING,3
+candidate_stg,birth_date,STRING,4
+candidate_stg,do_not_hire,INT64,5
+candidate_stg,dw_last_update_date,TIMESTAMP,6

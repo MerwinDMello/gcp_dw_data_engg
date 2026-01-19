@@ -1,0 +1,1 @@
+bq load --source_format=CSV --skip_leading_rows=1 edwhr_staging_copy.ats_resourcetransition_bct_stg gs://eim-cs-da-gmek-5764-dev/tddump/ats_resourcetransition_bct_stg.csv ats_resourcetransition_bct_stg.json

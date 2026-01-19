@@ -1,0 +1,48 @@
+project:
+  src-project-id: hca-hin-dev-cur-parallon
+  tgt-project-id: hca-hin-dev-cur-parallon
+  datasets:
+    -
+      src-dataset: edwpbs_base_views
+      tgt-dataset: edwpbs
+      tables:
+        -
+          name: fact_*
+          exclude-columns: [dw_last_update_date_time]
+          order-by: dw_last_update_date_time desc
+        -
+          name: payment_*
+          exclude-columns: [dw_last_update_date_time]
+          order-by: dw_last_update_date_time desc
+        -
+          name: erequest_*
+          exclude-columns: [dw_last_update_date_time]
+          order-by: dw_last_update_date_time desc
+        -
+          name: claim_reprocessing_tool_detail
+          exclude-columns: [dw_last_update_date_time]
+          order-by: dw_last_update_date_time desc
+        -
+          name: denial_inventory_list
+          exclude-columns: [dw_last_update_date_time]
+          order-by: dw_last_update_date_time desc
+        -
+          name: hps_pat_payment_link_dtl
+          exclude-columns: [dw_last_update_date_time]
+          order-by: dw_last_update_date_time desc
+        -
+          name: prebill_denial_detail
+          exclude-columns: [dw_last_update_date_time]
+          order-by: dw_last_update_date_time desc
+        -
+          name: process_run_detail
+          exclude-columns: [dw_last_update_date_time]
+          order-by: dw_last_update_date_time desc
+        -
+          name: ref_request_file
+          exclude-columns: [dw_last_update_date_time]
+          order-by: dw_last_update_date_time desc
+result:
+  dataset: edwpbs_ac
+  table: data_validation_result
+remarks: Tested by Merwin DMello on 2023-09-26 05:30

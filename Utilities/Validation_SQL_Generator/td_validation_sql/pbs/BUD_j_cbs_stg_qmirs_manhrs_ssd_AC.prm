@@ -1,0 +1,13 @@
+export AC_EXP_SQL_STATEMENT="SELECT 'CBS_STG_QMIRS_MANHRS_SSD'  || ',' || CAST(COUNT(*) as VARCHAR(20)) || ',' || CAST(SUM(CHAR_LENGTH(SUBSTR(Measure, 6, 4))) AS VARCHAR(20)) || ',' || CAST(SUM(CHAR_LENGTH(Scenario)) as VARCHAR(20)) || ',' as SOURCE_STRING FROM EDWFS_STAGING.FA_stat_Stg_Wrk1 WHERE Measure IN ('STAT_9000', 'STAT_9010','STAT_6201',
+'STAT_6202',
+'STAT_6203',
+'STAT_6204') and   FA_measure_type_code = 'I'"
+export JOBNAME='CBS_STG_QMIRS_MANHRS_SSD'
+export AC_EXP_TOLERANCE_PERCENT=0
+export AC_EXP_TOLERANCE_AMT=0
+export AC_ACT_SQL_STATEMENT="SELECT 'CBS_STG_QMIRS_MANHRS_SSD' + ',' + CAST(COUNT(*) AS VARCHAR(20)) + ',' + CAST(SUM(LEN(Measure)) AS VARCHAR(20)) + ',' + CAST(SUM(LEN(Scenario)) AS VARCHAR(20)) + ',' as SOURCE_STRING from dbo.Stg_QMIRS_Manhours"
+                                     
+
+
+
+

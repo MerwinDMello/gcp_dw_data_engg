@@ -1,0 +1,17 @@
+export AC_EXP_SQL_STATEMENT="SELECT 'CBS_QMIRS_MANHRS_FACT_SSD_BGT' + ',' + CAST(COUNT(*) AS VARCHAR(20)) + ',' + CAST(SUM(LEN(Organization)) AS VARCHAR(20))+ ',' + CAST(SUM(LEN(Department)) AS VARCHAR(20)) + ',' as SOURCE_STRING from vw_QMIRS_FactTable_Member_Names"
+export JOBNAME='CBS_QMIRS_MANHRS_FACT_SSD_BGT'
+export AC_EXP_TOLERANCE_PERCENT=0
+export AC_EXP_TOLERANCE_AMT=0
+export AC_ACT_SQL_STATEMENT="
+SELECT 'CBS_QMIRS_MANHRS_FACT_SSD_BGT' + ',' + CAST(COUNT(*) AS VARCHAR(20)) + ',' + CAST(SUM(LEN(Organization)) AS VARCHAR(20))+ ',' + CAST(SUM(LEN(Department)) AS VARCHAR(20)) + ',' as SOURCE_STRING FROM vw_Fact_SSD_Budget_Member_Names ft 
+WHERE ft.Account in ( 
+'Employee_Man_Hours', 
+'Contract_Man_Hours',
+'6201-Strategic_Resourcing_Contract_Labor_Manhours',
+'6202-Allocated_Contract_Labor_Manhours',
+'6203-Other_Contract_Labor_Manhours',
+'6204-Non-Standard_Stat_Code'
+
+)
+
+"

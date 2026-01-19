@@ -1,0 +1,1 @@
+select 'Ref_Secn_Remittance_Rendering_Provider_service' || ',' || CAST(COUNT(*) AS VARCHAR(20)) || ',' as Source_String from EDWPBS.Ref_Secn_Remittance_Rendering_Provider where DW_Last_Update_Date_Time =(select max(Dw_Last_Update_Date_Time)  from EDWPBS.Ref_Secn_Remittance_Rendering_Provider)

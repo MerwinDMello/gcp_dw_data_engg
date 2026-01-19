@@ -1,0 +1,1 @@
+select 'J_MT_REF_LOOKUP_NAME' || ',' || CAST(COUNT(*) AS VARCHAR(20)) || ',' AS SOURCE_STRING from edwcr.Ref_Lookup_Name

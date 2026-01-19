@@ -1,0 +1,1 @@
+SELECT claim_id, phy_id AS phys_code, phy_first_name AS phys_first_name, phy_last_name AS phys_last_name, phy_qual_id AS phys_qual_code, phy_taxonomy_code AS phys_taxonomy_code, phy_type_id AS phys_type_code, NULL AS dw_last_update_date_time, NULL AS source_system_code FROM claimsconnectdb.dbo.fact_claim_physician WITH (nolock)

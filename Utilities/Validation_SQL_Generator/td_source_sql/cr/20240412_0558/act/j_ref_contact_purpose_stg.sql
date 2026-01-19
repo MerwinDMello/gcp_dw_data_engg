@@ -1,0 +1,1 @@
+Select 'J_REF_CONTACT_PURPOSE_STG'||','|| cast(count(*) as varchar(20))||',' as SOURCE_STRING from edwcr_staging.CONTACT_PURPOSE_STG

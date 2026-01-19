@@ -1,0 +1,4 @@
+CREATE OR REPLACE TABLE  {{ stage_dataset }}.{{ table_name }}_{{ date_marker }}
+CLONE {{ stage_dataset }}.{{ table_name }}
+OPTIONS (
+expiration_timestamp = TIMESTAMP '{{ date_expiration }} 12:00:00');

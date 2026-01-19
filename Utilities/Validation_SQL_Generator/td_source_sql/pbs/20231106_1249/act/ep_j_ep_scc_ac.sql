@@ -1,0 +1,1 @@
+select 'J_EP_SCC' || ',' || CAST(COUNT(*) AS VARCHAR(20)) || ',' AS SOURCE_STRING FROM edwpsu_staging.stg_ep_scc

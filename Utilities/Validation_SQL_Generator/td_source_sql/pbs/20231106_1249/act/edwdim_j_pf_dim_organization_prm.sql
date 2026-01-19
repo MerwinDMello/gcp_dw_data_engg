@@ -1,0 +1,1 @@
+SELECT 'PBMOR100-020'||','||trim(COUNT(*))||',' as Source_String FROM edwpbs.Dim_ESB_Organization

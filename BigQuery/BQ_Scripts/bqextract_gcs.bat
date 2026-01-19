@@ -1,0 +1,1 @@
+bq extract --format=csv --noprint_header --field_delimiter "," edwhr_staging_copy.glint_response gs://eim-cs-da-gmek-5764-dev/tddump/*.csv

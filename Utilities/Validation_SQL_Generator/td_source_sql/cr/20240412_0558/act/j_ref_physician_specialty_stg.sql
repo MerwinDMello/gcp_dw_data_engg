@@ -1,0 +1,1 @@
+Select 'J_REF_PHYSICIAN_SPECIALTY_STG'||','|| cast(count(*) as varchar(20))||',' as SOURCE_STRING from edwcr_staging.Ref_Physician_Specialty_Stg

@@ -1,0 +1,1 @@
+Select 'J_CR_PATIENT_INSURANCE_STG'||','|| cast(count(*) as varchar(20))||',' as SOURCE_STRING from edwcr.CR_PATIENT_INSURANCE

@@ -1,0 +1,60 @@
+-- Translation time: 2024-01-12T17:51:56.897679Z
+-- Translation job ID: daf02731-0647-4415-a27a-5b3d10f518dd
+-- Source: internal_metastore/db_hca-hin-dev-cur-parallon/schema_edwpbs_base_views/net_revenue_impact_discrepancy_inventory.memory
+-- Translated from: Teradata
+-- Translated to: BigQuery
+
+CREATE VIEW IF NOT EXISTS `hca-hin-dev-cur-parallon`.edwpbs_base_views.net_revenue_impact_discrepancy_inventory AS SELECT
+    net_revenue_impact_discrepancy_inventory.reporting_date,
+    net_revenue_impact_discrepancy_inventory.patient_dw_id,
+    net_revenue_impact_discrepancy_inventory.eor_log_date,
+    net_revenue_impact_discrepancy_inventory.log_id,
+    net_revenue_impact_discrepancy_inventory.log_sequence_num,
+    net_revenue_impact_discrepancy_inventory.company_code,
+    net_revenue_impact_discrepancy_inventory.coid,
+    net_revenue_impact_discrepancy_inventory.payor_dw_id,
+    net_revenue_impact_discrepancy_inventory.iplan_insurance_order_num,
+    net_revenue_impact_discrepancy_inventory.eff_from_date,
+    net_revenue_impact_discrepancy_inventory.pat_acct_num,
+    net_revenue_impact_discrepancy_inventory.iplan_id,
+    net_revenue_impact_discrepancy_inventory.remittance_date,
+    net_revenue_impact_discrepancy_inventory.discrepancy_origination_date,
+    net_revenue_impact_discrepancy_inventory.reason_assignment_date_1,
+    net_revenue_impact_discrepancy_inventory.reason_assignment_date_2,
+    net_revenue_impact_discrepancy_inventory.reason_assignment_date_3,
+    net_revenue_impact_discrepancy_inventory.reason_assignment_date_4,
+    net_revenue_impact_discrepancy_inventory.over_under_payment_amt,
+    net_revenue_impact_discrepancy_inventory.actual_payment_amt,
+    net_revenue_impact_discrepancy_inventory.var_total_charge_amt,
+    net_revenue_impact_discrepancy_inventory.var_gross_reimbursement_amt,
+    net_revenue_impact_discrepancy_inventory.var_primary_payor_pay_amt,
+    net_revenue_impact_discrepancy_inventory.total_account_balance_amt,
+    net_revenue_impact_discrepancy_inventory.inpatient_outpatient_code,
+    net_revenue_impact_discrepancy_inventory.discrepancy_reason_code_1,
+    net_revenue_impact_discrepancy_inventory.discrepancy_reason_code_2,
+    net_revenue_impact_discrepancy_inventory.discrepancy_reason_code_3,
+    net_revenue_impact_discrepancy_inventory.discrepancy_reason_code_4,
+    net_revenue_impact_discrepancy_inventory.comment_text,
+    net_revenue_impact_discrepancy_inventory.work_date,
+    net_revenue_impact_discrepancy_inventory.last_racf_id,
+    net_revenue_impact_discrepancy_inventory.last_racf_date,
+    net_revenue_impact_discrepancy_inventory.data_source_code,
+    net_revenue_impact_discrepancy_inventory.cc_calc_id,
+    net_revenue_impact_discrepancy_inventory.cc_account_activity_id,
+    net_revenue_impact_discrepancy_inventory.cc_reason_id,
+    net_revenue_impact_discrepancy_inventory.cc_account_payer_status_id,
+    net_revenue_impact_discrepancy_inventory.admission_date,
+    net_revenue_impact_discrepancy_inventory.discharge_date,
+    net_revenue_impact_discrepancy_inventory.financial_class_code,
+    net_revenue_impact_discrepancy_inventory.patient_type_code,
+    net_revenue_impact_discrepancy_inventory.ar_transaction_enter_date,
+    net_revenue_impact_discrepancy_inventory.ar_transaction_effective_date,
+    net_revenue_impact_discrepancy_inventory.take_back_ind,
+    net_revenue_impact_discrepancy_inventory.denial_ind,
+    net_revenue_impact_discrepancy_inventory.payment_type_ind,
+    net_revenue_impact_discrepancy_inventory.cm_transaction_ind,
+    net_revenue_impact_discrepancy_inventory.dw_last_update_date_time,
+    net_revenue_impact_discrepancy_inventory.source_system_code
+  FROM
+    `hca-hin-dev-cur-parallon`.edwpbs.net_revenue_impact_discrepancy_inventory
+;

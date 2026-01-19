@@ -1,0 +1,12 @@
+{
+    "lob"                       :   "CR",
+    "domain_abbr"               :   "OPS",
+    "project_id"                :   "hca-hin-dev-cur-ops",
+    "lob_core_dataset"          :   "edwcr",
+    "jinja_template_path"       :   "JINJA_Templates",    
+    "jinja_extension"           :   ".j2",
+    "output_file_extension"     :   ".csv",
+    "output_parent_folder"      :   "LOB",
+    "input_table_list_folder"   :   "Table_Info",
+    "table_list_file_name"      :   "cr_table_info.csv"
+}

@@ -1,0 +1,7 @@
+export AC_EXP_SQL_STATEMENT="SELECT 'J_EPIZCarc' + ',' + CAST(Count(*) AS VARCHAR(20)) + ',' as SOURCE_STRING FROM [EPLookups].[dbo].EPIZCarc_View"
+export JOBNAME='J_EPIZCarc'
+export AC_EXP_TOLERANCE_PERCENT=0
+export AC_EXP_TOLERANCE_AMT=0
+export AC_ACT_SQL_STATEMENT="SELECT 'J_EPIZCarc' || ',' || CAST(Count(*) AS VARCHAR(20)) || ',' as SOURCE_STRING FROM EDWPSU_Staging.EPIZCarc"
+
+

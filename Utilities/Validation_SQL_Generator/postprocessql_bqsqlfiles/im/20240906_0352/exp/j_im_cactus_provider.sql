@@ -1,0 +1,48 @@
+-- Translation time: 2024-09-06T08:53:37.054787Z
+-- Translation job ID: 52a90b07-cafd-486a-a732-9cdfe62bb38f
+-- Source: gs://eim-comp-cs-datamig-dev-0002/im_bulk_conversion_validation/20240906_0352/input/exp/j_im_cactus_provider.sql
+-- Translated from: Teradata
+-- Translated to: BigQuery
+
+SELECT format('%20d', coalesce(count(*), 0)) AS source_string
+FROM
+  (SELECT t7.im_domain_id,
+          cactus_provider_user_id AS cactus_provider_user_id,
+          t1.hcp_src_sys_key,
+          t1.hcp_npi,
+          t6.fac_asgn_stts_sid,
+          t6.fac_asgn_stts_src_sys_key,
+          t2.prov_cat_sid,
+          t2.prov_cat_src_sys_key,
+          t1.hcp_first_name,
+          t1.hcp_last_name,
+          t1.hcp_middle_name,
+          CASE
+              WHEN upper(rtrim(t6.fac_asgn_stts_desc)) IN('CURRENT',
+                                                          'TEMPORARY') THEN 1
+              ELSE 0
+          END AS cactus_provider_activity_exempt_sw,
+          'K' AS source_system_code,
+          datetime_trunc(current_datetime('US/Central'), SECOND) AS dw_last_update_date_time
+   FROM `hca-hin-dev-cur-comp`.edwim_base_views.hcp AS t1
+   INNER JOIN `hca-hin-dev-cur-comp`.edwim_base_views.ref_provider_category AS t2 ON t1.hcp_cat_sid = t2.prov_cat_sid
+   AND upper(rtrim(t2.prov_cat_src_sys_key)) IN('D2G019AL2J',
+                                                'D2G019AKNU')
+   INNER JOIN `hca-hin-dev-cur-comp`.edwim_base_views.hcp_other_id AS t3 ON t1.hcp_dw_id = t3.hcp_dw_id
+   INNER JOIN `hca-hin-dev-cur-comp`.edwim_base_views.ref_id_type AS t4 ON t3.id_type_sid = t4.id_type_sid
+   AND upper(rtrim(t4.id_type_src_sys_key)) = 'D2QK0IXBT7'
+   INNER JOIN `hca-hin-dev-cur-comp`.edwim_base_views.hcp_facility_assignment AS t5 ON t1.hcp_dw_id = t5.hcp_dw_id
+   AND upper(rtrim(t5.fac_asgn_active_ind)) = 'Y'
+   INNER JOIN `hca-hin-dev-cur-comp`.edwim_base_views.ref_facility_asgn_status AS t6 ON t5.fac_asgn_stts_sid = t6.fac_asgn_stts_sid
+   AND t6.entity_sid = 1
+   INNER JOIN `hca-hin-dev-cur-comp`.edwim_staging.hpf_instance_facility_xwalk AS t7 ON upper(rtrim(t5.coid)) = upper(rtrim(t7.coid))
+   AND upper(rtrim(t5.company_code)) = upper(rtrim(t7.company_code))
+   CROSS JOIN UNNEST(ARRAY[ substr(t3.hcp_other_id, 1, 7) ]) AS cactus_provider_user_id
+   WHERE upper(rtrim(t1.hcp_active_ind)) = 'Y'
+     AND cactus_provider_user_id IS NOT NULL
+     AND NOT trim(cactus_provider_user_id) = ''
+     AND `hca-hin-dev-cur-pub`.bqutil_fns.cw_regexp_instr_2(cactus_provider_user_id, '[.]') = 0
+     AND `hca-hin-dev-cur-pub`.bqutil_fns.cw_regexp_instr_2(substr(trim(cactus_provider_user_id), 4, 4), '[A-Za-z_]') = 0
+     AND `hca-hin-dev-cur-pub`.bqutil_fns.cw_regexp_instr_2(substr(trim(cactus_provider_user_id), 1, 3), '[0-9_]') = 0 QUALIFY row_number() OVER (PARTITION BY t7.im_domain_id,
+                                                                                                                                                               upper(cactus_provider_user_id)
+                                                                                                                                                  ORDER BY t5.hcp_fac_asgn_eff_to_date DESC) = 1 ) AS a

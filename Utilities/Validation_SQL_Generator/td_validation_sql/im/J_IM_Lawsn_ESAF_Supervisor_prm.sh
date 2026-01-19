@@ -1,0 +1,45 @@
+export Job_Name='J_IM_Lawsn_ESAF_Supervisor'
+export JOBNAME='J_IM_Lawsn_ESAF_Supervisor'
+
+
+export AC_EXP_SQL_STATEMENT="select 'J_IM_Lawsn_ESAF_Supervisor'||','||cast(count(*) as varchar(20))||',' AS SOURCE_STRING
+
+from
+(
+SELECT
+CMPY,
+SUPV_CD,
+ACTV_FLG,
+EFF_DT,
+EMPL,
+SUPV_CD_DESC,
+SUPV_RPT_TO
+FROM
+(
+SELECT 
+T1.CMPY,
+T1.SUPV_CD,
+T1.ACTV_FLG,
+CAST(T1.EFF_DT  AS DATE) as EFF_DT,
+T1.EMPL,
+T1.SUPV_CD_DESC,
+T1.SUPV_RPT_TO
+FROM ORAFS.VW_ESAF_SUPERVISOR T1
+
+UNION
+
+SELECT 
+T2.CMPY,
+T2.SUPV_CD,
+T2.ACTV_FLG,
+CAST(T2.EFF_DT  AS DATE) as EFF_DT,
+T2.EMPL,
+T2.SUPV_CD_DESC,
+T2.SUPV_RPT_TO
+FROM ORACORP.VW_ESAF_SUPERVISOR T2
+)S
+)A" 
+
+export AC_ACT_SQL_STATEMENT="select 'J_IM_Lawsn_ESAF_Supervisor'||','||cast(count(*) as varchar(20))||',' AS SOURCE_STRING from EDWIM_Staging.Lawsn_eSAF_Supervisor ;"
+
+

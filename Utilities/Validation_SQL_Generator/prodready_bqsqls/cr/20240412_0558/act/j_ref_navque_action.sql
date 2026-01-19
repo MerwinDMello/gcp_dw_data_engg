@@ -1,0 +1,13 @@
+-- Translation time: 2024-04-12T11:00:35.054066Z
+-- Translation job ID: 8931dd6f-ec0d-4289-86a2-34f1c37489df
+-- Source: eim-ops-cs-datamig-dev-0002/cr_bulk_conversion_validation/20240412_0558/input/act/j_ref_navque_action.sql
+-- Translated from: Teradata
+-- Translated to: BigQuery
+
+SELECT format('%20d', count(*)) AS source_string
+FROM {{ params.param_cr_core_dataset_name }}.ref_navque_action
+WHERE ref_navque_action.dw_last_update_date_time >=
+    (SELECT max(etl_job_run.job_start_date_time)
+     FROM `hca-hin-dev-cur-ops`.edwcr_dmx_ac.etl_job_run
+     WHERE upper(rtrim(etl_job_run.job_name)) = 'J_REF_NAVQUE_ACTION'
+       AND etl_job_run.job_status_code IS NULL )

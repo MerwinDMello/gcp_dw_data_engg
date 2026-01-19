@@ -1,0 +1,12 @@
+
+SELECT CONCAT(count(*), ',	') AS SOURCE_STRING
+FROM
+ (SELECT Nav_Patient_Id
+ FROM edwcr_staging.CN_Patient_Phone_Num_stg
+ WHERE Nav_Patient_Id NOT IN
+ (SELECT Nav_Patient_Id
+ FROM edwcr.CN_Patient_Phone_Num)
+ AND DW_Last_Update_Date_Time <
+ (SELECT MAX(Job_Start_Date_Time) AS Job_Start_Date_Time
+ FROM EDWCR_DMX_AC_BASE_VIEWS.ETL_JOB_RUN
+ WHERE Job_Name = 'J_CN_PATIENT_PHONE_NUM') ) A;

@@ -1,0 +1,40 @@
+
+
+#  @@START DMEXPRESS_EXPORTED_VARIABLES
+
+export AC_EXP_TOLERANCE_PERCENT=0
+export AC_EXP_TOLERANCE_AMT=0
+export JOBNAME='J_EP_Remittance_Service_CARC'
+
+
+export AC_EXP_SQL_STATEMENT="SELECT 'J_EP_Remittance_Service_CARC' || ',' || CAST(COUNT(*) AS VARCHAR(20)) || ',' as Source_String from
+(
+SELECT
+SCC.Service_GUID,
+Adj_Group_Code,
+CARC_Code,
+SCC.Audit_Date,
+SCC.Delete_Ind,
+SCC.Delete_Date,
+SVC.Coid AS Coid,
+SVC.Company_Code AS Company_Code,
+SUM(Adj_Amt) AS Adj_Amt,
+sum(Adj_Qty) AS Adj_Qty,
+Adj_Category,
+CC_Adj_Group_Code,
+Current_Timestamp(0) AS DW_Last_Update_Date_Time,
+'E' AS Source_System_Code
+
+FROM  EDWPBS_STAGING.Remittance_Service_CARC SCC
+LEFT JOIN Edwpbs_Base_Views.Remittance_Service SVC ON SVC.Service_GUID = SCC.Service_GUID
+WHERE SCC.Audit_Date = (select max(cast(Audit_Date as date)) from  EDWPBS_STAGING.Remittance_Service_CARC)
+
+
+GROUP BY 1,2,3,4,5,6,7,8,11,12,13,14
+)A
+"
+
+export AC_ACT_SQL_STATEMENT="select 'J_EP_Remittance_Service_CARC' || ',' || CAST(COUNT(*) AS VARCHAR(20)) || ',' as Source_String from EDWPBS.Remittance_Service_CARC WHERE Audit_date= (select max(cast(Audit_Date as date)) from Edwpbs_Staging.Remittance_Service_CARC)"
+
+#  @@END DMEXPRESS_EXPORTED_VARIABLES
+#  End of Exported variables section

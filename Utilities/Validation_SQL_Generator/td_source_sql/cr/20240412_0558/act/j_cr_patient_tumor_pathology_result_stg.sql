@@ -1,0 +1,1 @@
+Select 'J_CR_PATIENT_TUMOR_PATHOLOGY_RESULT_STG'||','|| cast(count(*) as varchar(20))||',' as SOURCE_STRING from edwcr_staging.CR_Pat_Tumor_Pathology_Result_STG

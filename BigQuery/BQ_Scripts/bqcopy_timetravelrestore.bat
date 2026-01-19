@@ -1,0 +1,1 @@
+bq cp edwpi_copy.department_volume_activity@1686146400000 edwpi_copy.department_volume_activity

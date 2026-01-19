@@ -1,0 +1,1 @@
+SELECT COALESCE(dimsiteid, 0) AS dimsiteid, COALESCE(dimresourceid, 0) AS dimresourceid, dimlookupid_resourcetype, COALESCE(actualresourceid, 0) AS actualresourceid, ctrresourceser, logid, COALESCE(runid, 0) AS runid, ctrstkh_id, 'v_currtimestamp' AS dw_last_update_date_time FROM edw.dimresource

@@ -1,0 +1,7 @@
+Database,Table
+edwatr_staging,staging_fact_patient_nfb
+edwatr_staging,staging_fact_patient_fb
+edwatr_staging,staging_fact_patient_aftfbd
+edwatr_staging,staging_fact_patient
+edwatr_staging,lu_drg_weight
+edwrmt,edw_fact_patient

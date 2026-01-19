@@ -1,0 +1,1 @@
+select 'J_EP_Ref_Remittance_COB_Carrier' || ',' || CAST(COUNT(*) AS VARCHAR(20)) || ',' as Source_String from EDWPBS.Ref_Remittance_COB_Carrier where DW_Last_Update_Date_Time(date) = current_date

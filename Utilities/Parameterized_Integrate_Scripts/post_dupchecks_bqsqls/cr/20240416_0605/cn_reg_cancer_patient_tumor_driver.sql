@@ -1,0 +1,1017 @@
+DECLARE DUP_COUNT INT64;
+
+-- Translation time: 2024-03-26T19:50:24.234396Z
+-- Translation job ID: 2a08e83e-0c7a-4cb8-a60b-a76878d97341
+-- Source: eim-ops-cs-datamig-dev-0002/cr_conversion/9fg4Bx/input/cn_reg_cancer_patient_tumor_driver.sql
+-- Translated from: bteq
+-- Translated to: BigQuery
+ DECLARE _ERROR_CODE INT64;
+
+DECLARE _ERROR_MSG STRING DEFAULT '';
+
+---- #####################################################################################
+-- #  TARGET TABLE		: EDWCR.CANCER_PATIENT_TUMOR_DRIVER           		#
+-- #  TARGET  DATABASE	   	: EDWCR	 						#
+-- #
+-- #	                                                                        	#
+-- #
+-- #
+-- #  ------------------------------------------------------------------------		#
+-- #                                                                              	#
+-- #####################################################################################
+-- bteq << EOF > $1;;
+ -- SET QUERY_BAND = 'App=EDWCR_ETL;
+ --Job=J_CN_REG_CANCER_PATIENT_TUMOR_DRIVER;;
+ --' FOR SESSION;;
+ /* Truncate Core Table */ BEGIN
+SET _ERROR_CODE = 0;
+
+TRUNCATE TABLE `hca-hin-dev-cur-ops`.edwcr.cancer_patient_tumor_driver;
+
+
+EXCEPTION WHEN ERROR THEN
+SET _ERROR_CODE = 1;
+
+
+SET _ERROR_MSG = @@error.message;
+
+END;
+
+IF _ERROR_CODE <> 0 THEN RAISE USING MESSAGE = concat('Script terminated with return code: ', _ERROR_CODE, ' ', _ERROR_MSG);
+
+END IF;
+
+/* Populate Core Table */ BEGIN
+SET _ERROR_CODE = 0;
+
+BEGIN TRANSACTION;
+
+
+MERGE INTO `hca-hin-dev-cur-ops`.edwcr.cancer_patient_tumor_driver AS mt USING
+  (SELECT DISTINCT CAST(row_number() OVER (
+                                           ORDER BY a.cancer_patient_driver_sk, a.t_sk, a.cr_patient_id, a.cn_patient_id, a.cp_patient_id, a.cr_tumor_primary_site_id, a.cn_tumor_type_id, upper(a.cp_icd_oncology_code)) AS NUMERIC) AS cancer_patient_tumor_driver_sk,
+                   a.coid AS coid,
+                   a.company_code AS company_code,
+                   a.cancer_patient_driver_sk,
+                   a.t_sk,
+                   a.cr_patient_id,
+                   a.cr_tumor_primary_site_id,
+                   a.cn_patient_id,
+                   a.cn_tumor_type_id,
+                   a.cp_patient_id,
+                   a.cp_icd_oncology_code AS cp_icd_oncology_code,
+                   a.source_system_code AS source_system_code,
+                   datetime_trunc(current_datetime('US/Central'), SECOND) AS dw_last_update_date_time
+   FROM
+     (SELECT DISTINCT cpd.coid,
+                      cpd.company_code,
+                      cpd.cancer_patient_driver_sk,
+                      t.cancer_tumor_driver_sk AS t_sk,
+                      cpt.cr_patient_id,
+                      cpt.tumor_primary_site_id AS cr_tumor_primary_site_id,
+                      CAST(NULL AS NUMERIC) AS cn_patient_id,
+                      CAST(NULL AS INT64) AS cn_tumor_type_id,
+                      CAST(NULL AS NUMERIC) AS cp_patient_id,
+                      CAST(NULL AS STRING) AS cp_icd_oncology_code,
+                      cpd.source_system_code
+      FROM `hca-hin-dev-cur-ops`.edwcr.cancer_patient_driver AS cpd
+      INNER JOIN `hca-hin-dev-cur-ops`.edwcr_base_views.cr_patient_tumor AS cpt ON cpd.cr_patient_id = cpt.cr_patient_id
+      INNER JOIN
+        (SELECT cancer_tumor_driver.*
+         FROM `hca-hin-dev-cur-ops`.edwcr.cancer_tumor_driver QUALIFY row_number() OVER (PARTITION BY cancer_tumor_driver.cr_tumor_primary_site_id
+                                                                                         ORDER BY cancer_tumor_driver.cancer_tumor_driver_sk) = 1) AS t ON cpt.tumor_primary_site_id = t.cr_tumor_primary_site_id
+      WHERE cpd.cn_patient_id IS NULL
+        AND cpd.cp_patient_id IS NULL
+      UNION DISTINCT SELECT DISTINCT /* CP only records */ cpd.coid,
+                                                           cpd.company_code,
+                                                           cpd.cancer_patient_driver_sk,
+                                                           t2.cancer_tumor_driver_sk AS t_sk,
+                                                           CAST(NULL AS INT64) AS cr_patient_id,
+                                                           CAST(NULL AS INT64) AS cr_tumor_primary_site_id,
+                                                           CAST(NULL AS NUMERIC) AS cn_patient_id,
+                                                           CAST(NULL AS INT64) AS cn_tumor_type_id,
+                                                           cpnt.patient_dw_id AS cp_patient_id,
+                                                           cpnt.submitted_primary_icd_oncology_code AS cp_icd_oncology_code,
+                                                           cpd.source_system_code
+      FROM `hca-hin-dev-cur-ops`.edwcr.cancer_patient_driver AS cpd
+      INNER JOIN
+        (SELECT DISTINCT cancer_patient_id_output.patient_dw_id,
+                         cancer_patient_id_output.submitted_primary_icd_oncology_code
+         FROM `hca-hin-dev-cur-ops`.edwcr_base_views.cancer_patient_id_output) AS cpnt ON cpd.cp_patient_id = cpnt.patient_dw_id
+      INNER JOIN `hca-hin-dev-cur-ops`.edwcr.cancer_tumor_driver AS t2 ON upper(rtrim(cpnt.submitted_primary_icd_oncology_code)) = upper(rtrim(t2.cp_icd_oncology_code))
+      WHERE cpd.cr_patient_id IS NULL
+        AND cpd.cn_patient_id IS NULL QUALIFY row_number() OVER (PARTITION BY cpd.cancer_patient_driver_sk,
+                                                                              upper(cpnt.submitted_primary_icd_oncology_code)
+                                                                 ORDER BY t_sk) = 1
+      UNION DISTINCT SELECT /* CN only records */ cpd.coid,
+                                                  cpd.company_code,
+                                                  cpd.cancer_patient_driver_sk,
+                                                  t1.cancer_tumor_driver_sk AS t_sk,
+                                                  CAST(NULL AS INT64) AS cr_patient_id,
+                                                  CAST(NULL AS INT64) AS cr_tumor_primary_site_id,
+                                                  cpnt.nav_patient_id AS cn_patient_id,
+                                                  cpnt.tumor_type_id AS cn_tumor_type_id,
+                                                  CAST(NULL AS NUMERIC) AS cp_patient_id,
+                                                  CAST(NULL AS STRING) AS cp_icd_oncology_code,
+                                                  cpd.source_system_code
+      FROM `hca-hin-dev-cur-ops`.edwcr.cancer_patient_driver AS cpd
+      INNER JOIN `hca-hin-dev-cur-ops`.edwcr_base_views.cn_patient_tumor AS cpnt ON cpd.cn_patient_id = cpnt.nav_patient_id
+      INNER JOIN `hca-hin-dev-cur-ops`.edwcr_base_views.ref_tumor_type AS rtt ON cpnt.tumor_type_id = rtt.tumor_type_id
+      INNER JOIN `hca-hin-dev-cur-ops`.edwcr.cancer_tumor_driver AS t1 ON CASE upper(rtrim(rtt.tumor_type_group_name))
+                                                                              WHEN 'GENERAL' THEN t1.cn_general_tumor_type_id
+                                                                              WHEN 'NAVQ' THEN t1.cn_navque_tumor_type_id
+                                                                              ELSE t1.cn_tumor_type_id
+                                                                          END = cpnt.tumor_type_id
+      WHERE cpd.cr_patient_id IS NULL
+        AND cpd.cp_patient_id IS NULL QUALIFY row_number() OVER (PARTITION BY cpd.cancer_patient_driver_sk,
+                                                                              cn_tumor_type_id
+                                                                 ORDER BY t_sk) = 1
+      UNION DISTINCT SELECT DISTINCT /* CR and CP only */ cpd.coid,
+                                                          cpd.company_code,
+                                                          cpd.cancer_patient_driver_sk,
+                                                          t.cancer_tumor_driver_sk AS t_sk,
+                                                          cpt.cr_patient_id,
+                                                          cpt.tumor_primary_site_id AS cr_tumor_primary_site_id,
+                                                          CAST(NULL AS NUMERIC) AS cn_patient_id,
+                                                          CAST(NULL AS INT64) AS cn_tumor_type_id,
+                                                          cpnt.patient_dw_id AS cp_patient_id,
+                                                          cpnt.submitted_primary_icd_oncology_code AS cp_icd_oncology_code,
+                                                          cpd.source_system_code
+      FROM `hca-hin-dev-cur-ops`.edwcr.cancer_patient_driver AS cpd
+      INNER JOIN `hca-hin-dev-cur-ops`.edwcr_base_views.cr_patient_tumor AS cpt ON cpd.cr_patient_id = cpt.cr_patient_id
+      INNER JOIN `hca-hin-dev-cur-ops`.edwcr.cancer_tumor_driver AS t ON cpt.tumor_primary_site_id = t.cr_tumor_primary_site_id
+      INNER JOIN
+        (SELECT DISTINCT cancer_patient_id_output.patient_dw_id,
+                         cancer_patient_id_output.submitted_primary_icd_oncology_code
+         FROM `hca-hin-dev-cur-ops`.edwcr_base_views.cancer_patient_id_output) AS cpnt ON cpd.cp_patient_id = cpnt.patient_dw_id
+      INNER JOIN `hca-hin-dev-cur-ops`.edwcr.cancer_tumor_driver AS t2 ON upper(rtrim(t2.cp_icd_oncology_code)) = upper(rtrim(cpnt.submitted_primary_icd_oncology_code))
+      WHERE cpd.cr_patient_id IS NOT NULL
+        AND cpd.cp_patient_id IS NOT NULL
+        AND cpd.cn_patient_id IS NULL
+        AND t.cancer_tumor_driver_sk = t2.cancer_tumor_driver_sk QUALIFY row_number() OVER (PARTITION BY cpd.cancer_patient_driver_sk,
+                                                                                                         cr_tumor_primary_site_id
+                                                                                            ORDER BY t_sk) = 1
+      UNION DISTINCT SELECT DISTINCT /*and
+              CANCER_PATIENT_DRIVER_SK=2246473*/ /* Records for Extra CP when CR and CP not null and CN null */ cpd.coid,
+                                                                                                                cpd.company_code,
+                                                                                                                cpd.cancer_patient_driver_sk,
+                                                                                                                t2.cancer_tumor_driver_sk AS t_sk,
+                                                                                                                CAST(NULL AS INT64) AS cr_patient_id,
+                                                                                                                CAST(NULL AS INT64) AS cr_tumor_primary_site_id,
+                                                                                                                CAST(NULL AS NUMERIC) AS cn_patient_id,
+                                                                                                                CAST(NULL AS INT64) AS cn_tumor_type_id,
+                                                                                                                cpnt.patient_dw_id AS cp_patient_id,
+                                                                                                                cpnt.submitted_primary_icd_oncology_code AS cp_icd_oncology_code,
+                                                                                                                cpd.source_system_code
+      FROM `hca-hin-dev-cur-ops`.edwcr.cancer_patient_driver AS cpd
+      INNER JOIN
+        (SELECT DISTINCT cancer_patient_id_output.patient_dw_id,
+                         cancer_patient_id_output.submitted_primary_icd_oncology_code
+         FROM `hca-hin-dev-cur-ops`.edwcr_base_views.cancer_patient_id_output) AS cpnt ON cpd.cp_patient_id = cpnt.patient_dw_id
+      INNER JOIN `hca-hin-dev-cur-ops`.edwcr.cancer_tumor_driver AS t2 ON upper(rtrim(t2.cp_icd_oncology_code)) = upper(rtrim(cpnt.submitted_primary_icd_oncology_code))
+      WHERE cpd.cr_patient_id IS NOT NULL
+        AND cpd.cp_patient_id IS NOT NULL
+        AND cpd.cn_patient_id IS NULL
+        AND (cpnt.patient_dw_id,
+             upper(cpnt.submitted_primary_icd_oncology_code)) NOT IN
+          (SELECT DISTINCT AS STRUCT /*AND
+                  CANCER_PATIENT_DRIVER_SK=2246473*/ cpnt_0.patient_dw_id,
+                                                     upper(cpnt_0.submitted_primary_icd_oncology_code) AS t1_sk
+           FROM `hca-hin-dev-cur-ops`.edwcr.cancer_patient_driver AS cpd_0
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr_base_views.cr_patient_tumor AS cpt ON cpd_0.cr_patient_id = cpt.cr_patient_id
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr.cancer_tumor_driver AS t ON cpt.tumor_primary_site_id = t.cr_tumor_primary_site_id
+           INNER JOIN
+             (SELECT DISTINCT cancer_patient_id_output.patient_dw_id,
+                              cancer_patient_id_output.submitted_primary_icd_oncology_code
+              FROM `hca-hin-dev-cur-ops`.edwcr_base_views.cancer_patient_id_output) AS cpnt_0 ON cpd_0.cp_patient_id = cpnt_0.patient_dw_id
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr.cancer_tumor_driver AS t2_0 ON upper(rtrim(t2_0.cp_icd_oncology_code)) = upper(rtrim(cpnt_0.submitted_primary_icd_oncology_code))
+           WHERE cpd_0.cr_patient_id IS NOT NULL
+             AND cpd_0.cp_patient_id IS NOT NULL
+             AND cpd_0.cn_patient_id IS NULL
+             AND t.cancer_tumor_driver_sk = t2_0.cancer_tumor_driver_sk ) QUALIFY row_number() OVER (PARTITION BY cpd.cancer_patient_driver_sk,
+                                                                                                                  upper(cpnt.submitted_primary_icd_oncology_code)
+                                                                                                     ORDER BY t_sk) = 1
+      UNION DISTINCT SELECT DISTINCT /*and
+              CANCER_PATIENT_DRIVER_SK=2246473*/ /* Records for Extra CR when CR and CP not null and CN null */ cpd.coid,
+                                                                                                                cpd.company_code,
+                                                                                                                cpd.cancer_patient_driver_sk,
+                                                                                                                t.cancer_tumor_driver_sk AS t_sk,
+                                                                                                                cpt.cr_patient_id,
+                                                                                                                cpt.tumor_primary_site_id AS cr_tumor_primary_site_id,
+                                                                                                                CAST(NULL AS NUMERIC) AS cn_patient_id,
+                                                                                                                CAST(NULL AS INT64) AS cn_tumor_type_id,
+                                                                                                                CAST(NULL AS NUMERIC) AS cp_patient_id,
+                                                                                                                CAST(NULL AS STRING) AS cp_icd_oncology_code,
+                                                                                                                cpd.source_system_code
+      FROM `hca-hin-dev-cur-ops`.edwcr.cancer_patient_driver AS cpd
+      INNER JOIN `hca-hin-dev-cur-ops`.edwcr_base_views.cr_patient_tumor AS cpt ON cpd.cr_patient_id = cpt.cr_patient_id
+      INNER JOIN `hca-hin-dev-cur-ops`.edwcr.cancer_tumor_driver AS t ON cpt.tumor_primary_site_id = t.cr_tumor_primary_site_id
+      WHERE cpd.cr_patient_id IS NOT NULL
+        AND cpd.cp_patient_id IS NOT NULL
+        AND cpd.cn_patient_id IS NULL
+        AND (cpt.cr_patient_id,
+             cpt.tumor_primary_site_id) NOT IN
+          (SELECT DISTINCT AS STRUCT /*AND
+                  CANCER_PATIENT_DRIVER_SK=2246473*/ cpt_0.cr_patient_id,
+                                                     cpt_0.tumor_primary_site_id AS t1_sk
+           FROM `hca-hin-dev-cur-ops`.edwcr.cancer_patient_driver AS cpd_0
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr_base_views.cr_patient_tumor AS cpt_0 ON cpd_0.cr_patient_id = cpt_0.cr_patient_id
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr.cancer_tumor_driver AS t_0 ON cpt_0.tumor_primary_site_id = t_0.cr_tumor_primary_site_id
+           INNER JOIN
+             (SELECT DISTINCT cancer_patient_id_output.patient_dw_id,
+                              cancer_patient_id_output.submitted_primary_icd_oncology_code
+              FROM `hca-hin-dev-cur-ops`.edwcr_base_views.cancer_patient_id_output) AS cpnt ON cpd_0.cp_patient_id = cpnt.patient_dw_id
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr.cancer_tumor_driver AS t2 ON upper(rtrim(t2.cp_icd_oncology_code)) = upper(rtrim(cpnt.submitted_primary_icd_oncology_code))
+           WHERE cpd_0.cr_patient_id IS NOT NULL
+             AND cpd_0.cp_patient_id IS NOT NULL
+             AND cpd_0.cn_patient_id IS NULL
+             AND t_0.cancer_tumor_driver_sk = t2.cancer_tumor_driver_sk ) QUALIFY row_number() OVER (PARTITION BY cpd.cancer_patient_driver_sk,
+                                                                                                                  cr_tumor_primary_site_id
+                                                                                                     ORDER BY t_sk) = 1
+      UNION DISTINCT SELECT DISTINCT /*and
+              CANCER_PATIENT_DRIVER_SK=2246473*/ /* CR and CN only */ /* Records when CR and CN not null and CP null  and tumor matches*/ cpd.coid,
+                                                                                                                                          cpd.company_code,
+                                                                                                                                          cpd.cancer_patient_driver_sk,
+                                                                                                                                          t.cancer_tumor_driver_sk AS t_sk,
+                                                                                                                                          cpt.cr_patient_id,
+                                                                                                                                          cpt.tumor_primary_site_id AS cr_tumor_primary_site_id,
+                                                                                                                                          cpnt.nav_patient_id AS cn_patient_id,
+                                                                                                                                          cpnt.tumor_type_id AS cn_tumor_type_id,
+                                                                                                                                          CAST(NULL AS NUMERIC) AS cp_patient_id,
+                                                                                                                                          CAST(NULL AS STRING) AS cp_icd_oncology_code,
+                                                                                                                                          cpd.source_system_code
+      FROM `hca-hin-dev-cur-ops`.edwcr.cancer_patient_driver AS cpd
+      INNER JOIN `hca-hin-dev-cur-ops`.edwcr_base_views.cr_patient_tumor AS cpt ON cpd.cr_patient_id = cpt.cr_patient_id
+      INNER JOIN `hca-hin-dev-cur-ops`.edwcr.cancer_tumor_driver AS t ON cpt.tumor_primary_site_id = t.cr_tumor_primary_site_id
+      INNER JOIN `hca-hin-dev-cur-ops`.edwcr_base_views.cn_patient_tumor AS cpnt ON cpd.cn_patient_id = cpnt.nav_patient_id
+      INNER JOIN `hca-hin-dev-cur-ops`.edwcr_base_views.ref_tumor_type AS rtt ON cpnt.tumor_type_id = rtt.tumor_type_id
+      INNER JOIN `hca-hin-dev-cur-ops`.edwcr.cancer_tumor_driver AS t1 ON CASE upper(rtrim(rtt.tumor_type_group_name))
+                                                                              WHEN 'GENERAL' THEN t1.cn_general_tumor_type_id
+                                                                              WHEN 'NAVQ' THEN t1.cn_navque_tumor_type_id
+                                                                              ELSE t1.cn_tumor_type_id
+                                                                          END = cpnt.tumor_type_id
+      WHERE cpd.cr_patient_id IS NOT NULL
+        AND cpd.cp_patient_id IS NULL
+        AND cpd.cn_patient_id IS NOT NULL
+        AND t.cancer_tumor_driver_sk = t1.cancer_tumor_driver_sk QUALIFY row_number() OVER (PARTITION BY cpd.cancer_patient_driver_sk,
+                                                                                                         cr_tumor_primary_site_id,
+                                                                                                         cn_tumor_type_id
+                                                                                            ORDER BY t_sk) = 1
+      UNION DISTINCT SELECT /*and cancer_patient_driver_sk=1872902*/ /* Records for Extra CN when CR and CN not null and CP null */ cpd.coid,
+                                                                                                                                    cpd.company_code,
+                                                                                                                                    cpd.cancer_patient_driver_sk,
+                                                                                                                                    t1.cancer_tumor_driver_sk AS t_sk,
+                                                                                                                                    CAST(NULL AS INT64) AS cr_patient_id,
+                                                                                                                                    CAST(NULL AS INT64) AS cr_tumor_primary_site_id,
+                                                                                                                                    cpnt.nav_patient_id AS cn_patient_id,
+                                                                                                                                    cpnt.tumor_type_id AS cn_tumor_type_id,
+                                                                                                                                    CAST(NULL AS NUMERIC) AS cp_patient_id,
+                                                                                                                                    CAST(NULL AS STRING) AS cp_icd_oncology_code,
+                                                                                                                                    cpd.source_system_code
+      FROM `hca-hin-dev-cur-ops`.edwcr.cancer_patient_driver AS cpd
+      INNER JOIN `hca-hin-dev-cur-ops`.edwcr_base_views.cn_patient_tumor AS cpnt ON cpd.cn_patient_id = cpnt.nav_patient_id
+      INNER JOIN `hca-hin-dev-cur-ops`.edwcr_base_views.ref_tumor_type AS rtt ON cpnt.tumor_type_id = rtt.tumor_type_id
+      INNER JOIN `hca-hin-dev-cur-ops`.edwcr.cancer_tumor_driver AS t1 ON CASE upper(rtrim(rtt.tumor_type_group_name))
+                                                                              WHEN 'GENERAL' THEN t1.cn_general_tumor_type_id
+                                                                              WHEN 'NAVQ' THEN t1.cn_navque_tumor_type_id
+                                                                              ELSE t1.cn_tumor_type_id
+                                                                          END = cpnt.tumor_type_id
+      WHERE cpd.cr_patient_id IS NOT NULL
+        AND cpd.cp_patient_id IS NULL
+        AND cpd.cn_patient_id IS NOT NULL
+        AND (cpnt.nav_patient_id,
+             cpnt.tumor_type_id) NOT IN
+          (SELECT DISTINCT AS STRUCT /*AND
+                  CANCER_PATIENT_DRIVER_SK=294059*/ cpnt_0.nav_patient_id,
+                                                    cpnt_0.tumor_type_id AS t1_sk
+           FROM `hca-hin-dev-cur-ops`.edwcr.cancer_patient_driver AS cpd_0
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr_base_views.cr_patient_tumor AS cpt ON cpd_0.cr_patient_id = cpt.cr_patient_id
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr.cancer_tumor_driver AS t ON cpt.tumor_primary_site_id = t.cr_tumor_primary_site_id
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr_base_views.cn_patient_tumor AS cpnt_0 ON cpd_0.cn_patient_id = cpnt_0.nav_patient_id
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr_base_views.ref_tumor_type AS rtt_0 ON cpnt_0.tumor_type_id = rtt_0.tumor_type_id
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr.cancer_tumor_driver AS t1_0 ON CASE upper(rtrim(rtt_0.tumor_type_group_name))
+                                                                                     WHEN 'GENERAL' THEN t1_0.cn_general_tumor_type_id
+                                                                                     WHEN 'NAVQ' THEN t1_0.cn_navque_tumor_type_id
+                                                                                     ELSE t1_0.cn_tumor_type_id
+                                                                                 END = cpnt_0.tumor_type_id
+           WHERE cpd_0.cr_patient_id IS NOT NULL
+             AND cpd_0.cp_patient_id IS NULL
+             AND cpd_0.cn_patient_id IS NOT NULL
+             AND t.cancer_tumor_driver_sk = t1_0.cancer_tumor_driver_sk ) QUALIFY /*and cancer_patient_driver_sk=294059*/ row_number() OVER (PARTITION BY cpd.cancer_patient_driver_sk,
+                                                                                                                                                          cn_tumor_type_id
+                                                                                                                                             ORDER BY t_sk) = 1
+      UNION DISTINCT SELECT DISTINCT /* Records for Extra CR when CR and CN not null and CP null */ cpd.coid,
+                                                                                                    cpd.company_code,
+                                                                                                    cpd.cancer_patient_driver_sk,
+                                                                                                    t.cancer_tumor_driver_sk AS t_sk,
+                                                                                                    cpt.cr_patient_id,
+                                                                                                    cpt.tumor_primary_site_id AS cr_tumor_primary_site_id,
+                                                                                                    CAST(NULL AS NUMERIC) AS cn_patient_id,
+                                                                                                    CAST(NULL AS INT64) AS cn_tumor_type_id,
+                                                                                                    CAST(NULL AS NUMERIC) AS cp_patient_id,
+                                                                                                    CAST(NULL AS STRING) AS cp_icd_oncology_code,
+                                                                                                    cpd.source_system_code
+      FROM `hca-hin-dev-cur-ops`.edwcr.cancer_patient_driver AS cpd
+      INNER JOIN `hca-hin-dev-cur-ops`.edwcr_base_views.cr_patient_tumor AS cpt ON cpd.cr_patient_id = cpt.cr_patient_id
+      INNER JOIN `hca-hin-dev-cur-ops`.edwcr.cancer_tumor_driver AS t ON cpt.tumor_primary_site_id = t.cr_tumor_primary_site_id
+      WHERE cpd.cr_patient_id IS NOT NULL
+        AND cpd.cp_patient_id IS NULL
+        AND cpd.cn_patient_id IS NOT NULL
+        AND (cpt.cr_patient_id,
+             cpt.tumor_primary_site_id) NOT IN
+          (SELECT DISTINCT AS STRUCT /*AND
+                  CANCER_PATIENT_DRIVER_SK=294059*/ cpt_0.cr_patient_id,
+                                                    cpt_0.tumor_primary_site_id
+           FROM `hca-hin-dev-cur-ops`.edwcr.cancer_patient_driver AS cpd_0
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr_base_views.cr_patient_tumor AS cpt_0 ON cpd_0.cr_patient_id = cpt_0.cr_patient_id
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr.cancer_tumor_driver AS t_0 ON cpt_0.tumor_primary_site_id = t_0.cr_tumor_primary_site_id
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr_base_views.cn_patient_tumor AS cpnt ON cpd_0.cn_patient_id = cpnt.nav_patient_id
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr_base_views.ref_tumor_type AS rtt ON cpnt.tumor_type_id = rtt.tumor_type_id
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr.cancer_tumor_driver AS t1 ON CASE upper(rtrim(rtt.tumor_type_group_name))
+                                                                                   WHEN 'GENERAL' THEN t1.cn_general_tumor_type_id
+                                                                                   WHEN 'NAVQ' THEN t1.cn_navque_tumor_type_id
+                                                                                   ELSE t1.cn_tumor_type_id
+                                                                               END = cpnt.tumor_type_id
+           WHERE cpd_0.cr_patient_id IS NOT NULL
+             AND cpd_0.cp_patient_id IS NULL
+             AND cpd_0.cn_patient_id IS NOT NULL
+             AND t_0.cancer_tumor_driver_sk = t1.cancer_tumor_driver_sk ) QUALIFY /*and cancer_patient_driver_sk=294059*/ row_number() OVER (PARTITION BY cpd.cancer_patient_driver_sk,
+                                                                                                                                                          cr_tumor_primary_site_id
+                                                                                                                                             ORDER BY t_sk) = 1
+      UNION DISTINCT SELECT DISTINCT --  CP and CN not null and CR Null ---
+ /* Both CN and CP have data  and no data in CR*/ cpd.coid,
+                                                  cpd.company_code,
+                                                  cpd.cancer_patient_driver_sk,
+                                                  t1.cancer_tumor_driver_sk AS t_sk,
+                                                  CAST(NULL AS INT64) AS cr_patient_id,
+                                                  CAST(NULL AS INT64) AS cr_tumor_primary_site_id,
+                                                  cpnt.nav_patient_id AS cn_patient_id,
+                                                  cpnt.tumor_type_id AS cn_tumor_type_id,
+                                                  cpnt2.patient_dw_id AS cp_patient_id,
+                                                  cpnt2.submitted_primary_icd_oncology_code AS cp_icd_oncology_code,
+                                                  cpd.source_system_code
+      FROM `hca-hin-dev-cur-ops`.edwcr.cancer_patient_driver AS cpd
+      INNER JOIN `hca-hin-dev-cur-ops`.edwcr_base_views.cn_patient_tumor AS cpnt ON cpd.cn_patient_id = cpnt.nav_patient_id
+      INNER JOIN `hca-hin-dev-cur-ops`.edwcr_base_views.ref_tumor_type AS rtt ON cpnt.tumor_type_id = rtt.tumor_type_id
+      INNER JOIN `hca-hin-dev-cur-ops`.edwcr.cancer_tumor_driver AS t1 ON CASE upper(rtrim(rtt.tumor_type_group_name))
+                                                                              WHEN 'GENERAL' THEN t1.cn_general_tumor_type_id
+                                                                              WHEN 'NAVQ' THEN t1.cn_navque_tumor_type_id
+                                                                              ELSE t1.cn_tumor_type_id
+                                                                          END = cpnt.tumor_type_id
+      INNER JOIN
+        (SELECT DISTINCT cancer_patient_id_output.patient_dw_id,
+                         cancer_patient_id_output.submitted_primary_icd_oncology_code
+         FROM `hca-hin-dev-cur-ops`.edwcr_base_views.cancer_patient_id_output) AS cpnt2 ON cpd.cp_patient_id = cpnt2.patient_dw_id
+      INNER JOIN `hca-hin-dev-cur-ops`.edwcr.cancer_tumor_driver AS t2 ON upper(rtrim(t2.cp_icd_oncology_code)) = upper(rtrim(cpnt2.submitted_primary_icd_oncology_code))
+      WHERE cpd.cr_patient_id IS NULL
+        AND cpd.cp_patient_id IS NOT NULL
+        AND cpd.cn_patient_id IS NOT NULL
+        AND t1.cancer_tumor_driver_sk = t2.cancer_tumor_driver_sk QUALIFY row_number() OVER (PARTITION BY cpd.cancer_patient_driver_sk,
+                                                                                                          cn_tumor_type_id,
+                                                                                                          upper(cpnt2.submitted_primary_icd_oncology_code)
+                                                                                             ORDER BY t_sk) = 1
+      UNION DISTINCT SELECT /* Extra data in CN where CN and CP are not null and CR is null */ cpd.coid,
+                                                                                               cpd.company_code,
+                                                                                               cpd.cancer_patient_driver_sk,
+                                                                                               t1.cancer_tumor_driver_sk AS t_sk,
+                                                                                               CAST(NULL AS INT64) AS cr_patient_id,
+                                                                                               CAST(NULL AS INT64) AS cr_tumor_primary_site_id,
+                                                                                               cpnt.nav_patient_id AS cn_patient_id,
+                                                                                               cpnt.tumor_type_id AS cn_tumor_type_id,
+                                                                                               CAST(NULL AS NUMERIC) AS cp_patient_id,
+                                                                                               CAST(NULL AS STRING) AS cp_icd_oncology_code,
+                                                                                               cpd.source_system_code
+      FROM `hca-hin-dev-cur-ops`.edwcr.cancer_patient_driver AS cpd
+      INNER JOIN `hca-hin-dev-cur-ops`.edwcr_base_views.cn_patient_tumor AS cpnt ON cpd.cn_patient_id = cpnt.nav_patient_id
+      INNER JOIN `hca-hin-dev-cur-ops`.edwcr_base_views.ref_tumor_type AS rtt ON cpnt.tumor_type_id = rtt.tumor_type_id
+      INNER JOIN `hca-hin-dev-cur-ops`.edwcr.cancer_tumor_driver AS t1 ON CASE upper(rtrim(rtt.tumor_type_group_name))
+                                                                              WHEN 'GENERAL' THEN t1.cn_general_tumor_type_id
+                                                                              WHEN 'NAVQ' THEN t1.cn_navque_tumor_type_id
+                                                                              ELSE t1.cn_tumor_type_id
+                                                                          END = cpnt.tumor_type_id
+      WHERE cpd.cr_patient_id IS NULL
+        AND cpd.cp_patient_id IS NOT NULL
+        AND cpd.cn_patient_id IS NOT NULL
+        AND (cpnt.nav_patient_id,
+             cpnt.tumor_type_id) NOT IN
+          (SELECT DISTINCT AS STRUCT cpnt_0.nav_patient_id,
+                                     cpnt_0.tumor_type_id
+           FROM `hca-hin-dev-cur-ops`.edwcr.cancer_patient_driver AS cpd_0
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr_base_views.cn_patient_tumor AS cpnt_0 ON cpd_0.cn_patient_id = cpnt_0.nav_patient_id
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr_base_views.ref_tumor_type AS rtt_0 ON cpnt_0.tumor_type_id = rtt_0.tumor_type_id
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr.cancer_tumor_driver AS t1_0 ON CASE upper(rtrim(rtt_0.tumor_type_group_name))
+                                                                                     WHEN 'GENERAL' THEN t1_0.cn_general_tumor_type_id
+                                                                                     WHEN 'NAVQ' THEN t1_0.cn_navque_tumor_type_id
+                                                                                     ELSE t1_0.cn_tumor_type_id
+                                                                                 END = cpnt_0.tumor_type_id
+           INNER JOIN
+             (SELECT DISTINCT cancer_patient_id_output.patient_dw_id,
+                              cancer_patient_id_output.submitted_primary_icd_oncology_code
+              FROM `hca-hin-dev-cur-ops`.edwcr_base_views.cancer_patient_id_output) AS cpnt2 ON cpd_0.cp_patient_id = cpnt2.patient_dw_id
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr.cancer_tumor_driver AS t2 ON upper(rtrim(t2.cp_icd_oncology_code)) = upper(rtrim(cpnt2.submitted_primary_icd_oncology_code))
+           WHERE cpd_0.cr_patient_id IS NULL
+             AND cpd_0.cp_patient_id IS NOT NULL
+             AND cpd_0.cn_patient_id IS NOT NULL
+             AND t1_0.cancer_tumor_driver_sk = t2.cancer_tumor_driver_sk ) QUALIFY row_number() OVER (PARTITION BY cpd.cancer_patient_driver_sk,
+                                                                                                                   cn_tumor_type_id
+                                                                                                      ORDER BY t_sk) = 1
+      UNION DISTINCT SELECT DISTINCT /* Extra data in CP where CN and CP are not null and CR is null */ cpd.coid,
+                                                                                                        cpd.company_code,
+                                                                                                        cpd.cancer_patient_driver_sk,
+                                                                                                        t2.cancer_tumor_driver_sk AS t_sk,
+                                                                                                        CAST(NULL AS INT64) AS cr_patient_id,
+                                                                                                        CAST(NULL AS INT64) AS cr_tumor_primary_site_id,
+                                                                                                        CAST(NULL AS NUMERIC) AS cn_patient_id,
+                                                                                                        CAST(NULL AS INT64) AS cn_tumor_type_id,
+                                                                                                        cpnt2.patient_dw_id AS cp_patient_id,
+                                                                                                        cpnt2.submitted_primary_icd_oncology_code AS cp_icd_oncology_code,
+                                                                                                        cpd.source_system_code
+      FROM `hca-hin-dev-cur-ops`.edwcr.cancer_patient_driver AS cpd
+      INNER JOIN
+        (SELECT DISTINCT cancer_patient_id_output.patient_dw_id,
+                         cancer_patient_id_output.submitted_primary_icd_oncology_code
+         FROM `hca-hin-dev-cur-ops`.edwcr_base_views.cancer_patient_id_output) AS cpnt2 ON cpd.cp_patient_id = cpnt2.patient_dw_id
+      INNER JOIN `hca-hin-dev-cur-ops`.edwcr.cancer_tumor_driver AS t2 ON upper(rtrim(t2.cp_icd_oncology_code)) = upper(rtrim(cpnt2.submitted_primary_icd_oncology_code))
+      WHERE cpd.cr_patient_id IS NULL
+        AND cpd.cp_patient_id IS NOT NULL
+        AND cpd.cn_patient_id IS NOT NULL
+        AND (cpnt2.patient_dw_id,
+             upper(cpnt2.submitted_primary_icd_oncology_code)) NOT IN
+          (SELECT DISTINCT AS STRUCT cpnt2_0.patient_dw_id,
+                                     upper(cpnt2_0.submitted_primary_icd_oncology_code) AS submitted_primary_icd_oncology_code
+           FROM `hca-hin-dev-cur-ops`.edwcr.cancer_patient_driver AS cpd_0
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr_base_views.cn_patient_tumor AS cpnt ON cpd_0.cn_patient_id = cpnt.nav_patient_id
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr_base_views.ref_tumor_type AS rtt ON cpnt.tumor_type_id = rtt.tumor_type_id
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr.cancer_tumor_driver AS t1 ON CASE upper(rtrim(rtt.tumor_type_group_name))
+                                                                                   WHEN 'GENERAL' THEN t1.cn_general_tumor_type_id
+                                                                                   WHEN 'NAVQ' THEN t1.cn_navque_tumor_type_id
+                                                                                   ELSE t1.cn_tumor_type_id
+                                                                               END = cpnt.tumor_type_id
+           INNER JOIN
+             (SELECT DISTINCT cancer_patient_id_output.patient_dw_id,
+                              cancer_patient_id_output.submitted_primary_icd_oncology_code
+              FROM `hca-hin-dev-cur-ops`.edwcr_base_views.cancer_patient_id_output) AS cpnt2_0 ON cpd_0.cp_patient_id = cpnt2_0.patient_dw_id
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr.cancer_tumor_driver AS t2_0 ON upper(rtrim(t2_0.cp_icd_oncology_code)) = upper(rtrim(cpnt2_0.submitted_primary_icd_oncology_code))
+           WHERE cpd_0.cr_patient_id IS NULL
+             AND cpd_0.cp_patient_id IS NOT NULL
+             AND cpd_0.cn_patient_id IS NOT NULL
+             AND t1.cancer_tumor_driver_sk = t2_0.cancer_tumor_driver_sk ) QUALIFY row_number() OVER (PARTITION BY cpd.cancer_patient_driver_sk,
+                                                                                                                   upper(cpnt2.submitted_primary_icd_oncology_code)
+                                                                                                      ORDER BY t_sk) = 1
+      UNION DISTINCT SELECT /* all 3 match tumor types*/ cpd.coid,
+                                                         cpd.company_code,
+                                                         cpd.cancer_patient_driver_sk,
+                                                         t1.cancer_tumor_driver_sk AS t_sk,
+                                                         cpt.cr_patient_id,
+                                                         cpt.tumor_primary_site_id AS cr_tumor_primary_site_id,
+                                                         cpnt.nav_patient_id AS cn_patient_id,
+                                                         cpnt.tumor_type_id AS cn_tumor_type_id,
+                                                         cpnt2.patient_dw_id AS cp_patient_id,
+                                                         cpnt2.submitted_primary_icd_oncology_code AS cp_icd_oncology_code,
+                                                         cpd.source_system_code
+      FROM `hca-hin-dev-cur-ops`.edwcr.cancer_patient_driver AS cpd
+      INNER JOIN `hca-hin-dev-cur-ops`.edwcr_base_views.cr_patient_tumor AS cpt ON cpd.cr_patient_id = cpt.cr_patient_id
+      INNER JOIN `hca-hin-dev-cur-ops`.edwcr.cancer_tumor_driver AS t ON cpt.tumor_primary_site_id = t.cr_tumor_primary_site_id
+      INNER JOIN `hca-hin-dev-cur-ops`.edwcr_base_views.cn_patient_tumor AS cpnt ON cpd.cn_patient_id = cpnt.nav_patient_id
+      INNER JOIN `hca-hin-dev-cur-ops`.edwcr_base_views.ref_tumor_type AS rtt ON cpnt.tumor_type_id = rtt.tumor_type_id
+      INNER JOIN `hca-hin-dev-cur-ops`.edwcr.cancer_tumor_driver AS t1 ON CASE upper(rtrim(rtt.tumor_type_group_name))
+                                                                              WHEN 'GENERAL' THEN t1.cn_general_tumor_type_id
+                                                                              WHEN 'NAVQ' THEN t1.cn_navque_tumor_type_id
+                                                                              ELSE t1.cn_tumor_type_id
+                                                                          END = cpnt.tumor_type_id
+      INNER JOIN
+        (SELECT DISTINCT cancer_patient_id_output.patient_dw_id,
+                         cancer_patient_id_output.submitted_primary_icd_oncology_code
+         FROM `hca-hin-dev-cur-ops`.edwcr_base_views.cancer_patient_id_output) AS cpnt2 ON cpd.cp_patient_id = cpnt2.patient_dw_id
+      INNER JOIN `hca-hin-dev-cur-ops`.edwcr.cancer_tumor_driver AS t2 ON upper(rtrim(t2.cp_icd_oncology_code)) = upper(rtrim(cpnt2.submitted_primary_icd_oncology_code))
+      WHERE cpd.cr_patient_id IS NOT NULL
+        AND cpd.cp_patient_id IS NOT NULL
+        AND cpd.cn_patient_id IS NOT NULL
+        AND /*and cancer_patient_driver_sk=107567*/ t1.cancer_tumor_driver_sk = t.cancer_tumor_driver_sk
+        AND t.cancer_tumor_driver_sk = t2.cancer_tumor_driver_sk QUALIFY row_number() OVER (PARTITION BY upper(cpnt2.submitted_primary_icd_oncology_code),
+                                                                                                         cpd.cancer_patient_driver_sk,
+                                                                                                         cr_tumor_primary_site_id,
+                                                                                                         cn_tumor_type_id
+                                                                                            ORDER BY t_sk) = 1
+      UNION DISTINCT SELECT /*  Matching CR and CN without CP match */ cpd.coid,
+                                                                       cpd.company_code,
+                                                                       cpd.cancer_patient_driver_sk,
+                                                                       t1.cancer_tumor_driver_sk AS t_sk,
+                                                                       cpt.cr_patient_id,
+                                                                       cpt.tumor_primary_site_id AS cr_tumor_primary_site_id,
+                                                                       cpnt.nav_patient_id AS cn_patient_id,
+                                                                       cpnt.tumor_type_id AS cn_tumor_type_id,
+                                                                       CAST(NULL AS NUMERIC) AS cp_patient_id,
+                                                                       CAST(NULL AS STRING) AS cp_icd_oncology_code,
+                                                                       cpd.source_system_code
+      FROM `hca-hin-dev-cur-ops`.edwcr.cancer_patient_driver AS cpd
+      INNER JOIN `hca-hin-dev-cur-ops`.edwcr_base_views.cr_patient_tumor AS cpt ON cpd.cr_patient_id = cpt.cr_patient_id
+      INNER JOIN `hca-hin-dev-cur-ops`.edwcr.cancer_tumor_driver AS t ON cpt.tumor_primary_site_id = t.cr_tumor_primary_site_id
+      INNER JOIN `hca-hin-dev-cur-ops`.edwcr_base_views.cn_patient_tumor AS cpnt ON cpd.cn_patient_id = cpnt.nav_patient_id
+      INNER JOIN `hca-hin-dev-cur-ops`.edwcr_base_views.ref_tumor_type AS rtt ON cpnt.tumor_type_id = rtt.tumor_type_id
+      INNER JOIN `hca-hin-dev-cur-ops`.edwcr.cancer_tumor_driver AS t1 ON CASE upper(rtrim(rtt.tumor_type_group_name))
+                                                                              WHEN 'GENERAL' THEN t1.cn_general_tumor_type_id
+                                                                              WHEN 'NAVQ' THEN t1.cn_navque_tumor_type_id
+                                                                              ELSE t1.cn_tumor_type_id
+                                                                          END = cpnt.tumor_type_id
+      INNER JOIN
+        (SELECT DISTINCT cancer_patient_id_output.patient_dw_id,
+                         cancer_patient_id_output.submitted_primary_icd_oncology_code
+         FROM `hca-hin-dev-cur-ops`.edwcr_base_views.cancer_patient_id_output) AS cpnt2 ON cpd.cp_patient_id = cpnt2.patient_dw_id
+      INNER JOIN `hca-hin-dev-cur-ops`.edwcr.cancer_tumor_driver AS t2 ON upper(rtrim(t2.cp_icd_oncology_code)) = upper(rtrim(cpnt2.submitted_primary_icd_oncology_code))
+      WHERE cpd.cr_patient_id IS NOT NULL
+        AND cpd.cp_patient_id IS NOT NULL
+        AND cpd.cn_patient_id IS NOT NULL
+        AND t1.cancer_tumor_driver_sk = t.cancer_tumor_driver_sk
+        AND (t.cancer_tumor_driver_sk <> t2.cancer_tumor_driver_sk
+             OR t1.cancer_tumor_driver_sk <> t2.cancer_tumor_driver_sk)
+        AND (cpt.cr_patient_id,
+             cpt.tumor_primary_site_id) NOT IN
+          (SELECT AS STRUCT /*and
+                  CANCER_PATIENT_DRIVER_SK=104575*/ cpt_0.cr_patient_id,
+                                                    cpt_0.tumor_primary_site_id
+           FROM `hca-hin-dev-cur-ops`.edwcr.cancer_patient_driver AS cpd_0
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr_base_views.cr_patient_tumor AS cpt_0 ON cpd_0.cr_patient_id = cpt_0.cr_patient_id
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr.cancer_tumor_driver AS t_0 ON cpt_0.tumor_primary_site_id = t_0.cr_tumor_primary_site_id
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr_base_views.cn_patient_tumor AS cpnt_0 ON cpd_0.cn_patient_id = cpnt_0.nav_patient_id
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr_base_views.ref_tumor_type AS rtt_0 ON cpnt_0.tumor_type_id = rtt_0.tumor_type_id
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr.cancer_tumor_driver AS t1_0 ON CASE upper(rtrim(rtt_0.tumor_type_group_name))
+                                                                                     WHEN 'GENERAL' THEN t1_0.cn_general_tumor_type_id
+                                                                                     WHEN 'NAVQ' THEN t1_0.cn_navque_tumor_type_id
+                                                                                     ELSE t1_0.cn_tumor_type_id
+                                                                                 END = cpnt_0.tumor_type_id
+           INNER JOIN
+             (SELECT DISTINCT cancer_patient_id_output.patient_dw_id,
+                              cancer_patient_id_output.submitted_primary_icd_oncology_code
+              FROM `hca-hin-dev-cur-ops`.edwcr_base_views.cancer_patient_id_output) AS cpnt2_0 ON cpd_0.cp_patient_id = cpnt2_0.patient_dw_id
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr.cancer_tumor_driver AS t2_0 ON upper(rtrim(t2_0.cp_icd_oncology_code)) = upper(rtrim(cpnt2_0.submitted_primary_icd_oncology_code))
+           WHERE cpd_0.cr_patient_id IS NOT NULL
+             AND cpd_0.cp_patient_id IS NOT NULL
+             AND cpd_0.cn_patient_id IS NOT NULL
+             AND /*and cancer_patient_driver_sk=107567*/ t1_0.cancer_tumor_driver_sk = t_0.cancer_tumor_driver_sk
+             AND t_0.cancer_tumor_driver_sk = t2_0.cancer_tumor_driver_sk ) QUALIFY row_number() OVER (PARTITION BY cpd.cancer_patient_driver_sk,
+                                                                                                                    cn_tumor_type_id,
+                                                                                                                    cr_tumor_primary_site_id
+                                                                                                       ORDER BY t_sk) = 1
+      UNION DISTINCT SELECT DISTINCT /* Matching CP and CN data with CR not macthing */ cpd.coid,
+                                                                                        cpd.company_code,
+                                                                                        cpd.cancer_patient_driver_sk,
+                                                                                        t1.cancer_tumor_driver_sk AS t_sk,
+                                                                                        CAST(NULL AS INT64) AS cr_patient_id,
+                                                                                        CAST(NULL AS INT64) AS cr_tumor_primary_site_id,
+                                                                                        cpnt.nav_patient_id AS cn_patient_id,
+                                                                                        cpnt.tumor_type_id AS cn_tumor_type_id,
+                                                                                        cpnt2.patient_dw_id AS cp_patient_id,
+                                                                                        cpnt2.submitted_primary_icd_oncology_code AS cp_icd_oncology_code,
+                                                                                        cpd.source_system_code
+      FROM `hca-hin-dev-cur-ops`.edwcr.cancer_patient_driver AS cpd
+      INNER JOIN `hca-hin-dev-cur-ops`.edwcr_base_views.cr_patient_tumor AS cpt ON cpd.cr_patient_id = cpt.cr_patient_id
+      INNER JOIN `hca-hin-dev-cur-ops`.edwcr.cancer_tumor_driver AS t ON cpt.tumor_primary_site_id = t.cr_tumor_primary_site_id
+      INNER JOIN `hca-hin-dev-cur-ops`.edwcr_base_views.cn_patient_tumor AS cpnt ON cpd.cn_patient_id = cpnt.nav_patient_id
+      INNER JOIN `hca-hin-dev-cur-ops`.edwcr_base_views.ref_tumor_type AS rtt ON cpnt.tumor_type_id = rtt.tumor_type_id
+      INNER JOIN `hca-hin-dev-cur-ops`.edwcr.cancer_tumor_driver AS t1 ON CASE upper(rtrim(rtt.tumor_type_group_name))
+                                                                              WHEN 'GENERAL' THEN t1.cn_general_tumor_type_id
+                                                                              WHEN 'NAVQ' THEN t1.cn_navque_tumor_type_id
+                                                                              ELSE t1.cn_tumor_type_id
+                                                                          END = cpnt.tumor_type_id
+      INNER JOIN
+        (SELECT DISTINCT cancer_patient_id_output.patient_dw_id,
+                         cancer_patient_id_output.submitted_primary_icd_oncology_code
+         FROM `hca-hin-dev-cur-ops`.edwcr_base_views.cancer_patient_id_output) AS cpnt2 ON cpd.cp_patient_id = cpnt2.patient_dw_id
+      INNER JOIN `hca-hin-dev-cur-ops`.edwcr.cancer_tumor_driver AS t2 ON upper(rtrim(t2.cp_icd_oncology_code)) = upper(rtrim(cpnt2.submitted_primary_icd_oncology_code))
+      WHERE cpd.cr_patient_id IS NOT NULL
+        AND cpd.cp_patient_id IS NOT NULL
+        AND cpd.cn_patient_id IS NOT NULL
+        AND /*and cancer_patient_driver_sk=107567*/ t1.cancer_tumor_driver_sk = t2.cancer_tumor_driver_sk
+        AND (t.cancer_tumor_driver_sk <> t1.cancer_tumor_driver_sk
+             OR t.cancer_tumor_driver_sk <> t2.cancer_tumor_driver_sk)
+        AND (cpnt2.patient_dw_id,
+             upper(cpnt2.submitted_primary_icd_oncology_code)) NOT IN
+          (SELECT AS STRUCT cpnt2_0.patient_dw_id,
+                            upper(cpnt2_0.submitted_primary_icd_oncology_code) AS submitted_primary_icd_oncology_code
+           FROM `hca-hin-dev-cur-ops`.edwcr.cancer_patient_driver AS cpd_0
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr_base_views.cr_patient_tumor AS cpt_0 ON cpd_0.cr_patient_id = cpt_0.cr_patient_id
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr.cancer_tumor_driver AS t_0 ON cpt_0.tumor_primary_site_id = t_0.cr_tumor_primary_site_id
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr_base_views.cn_patient_tumor AS cpnt_0 ON cpd_0.cn_patient_id = cpnt_0.nav_patient_id
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr_base_views.ref_tumor_type AS rtt_0 ON cpnt_0.tumor_type_id = rtt_0.tumor_type_id
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr.cancer_tumor_driver AS t1_0 ON CASE upper(rtrim(rtt_0.tumor_type_group_name))
+                                                                                     WHEN 'GENERAL' THEN t1_0.cn_general_tumor_type_id
+                                                                                     WHEN 'NAVQ' THEN t1_0.cn_navque_tumor_type_id
+                                                                                     ELSE t1_0.cn_tumor_type_id
+                                                                                 END = cpnt_0.tumor_type_id
+           INNER JOIN
+             (SELECT DISTINCT cancer_patient_id_output.patient_dw_id,
+                              cancer_patient_id_output.submitted_primary_icd_oncology_code
+              FROM `hca-hin-dev-cur-ops`.edwcr_base_views.cancer_patient_id_output) AS cpnt2_0 ON cpd_0.cp_patient_id = cpnt2_0.patient_dw_id
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr.cancer_tumor_driver AS t2_0 ON upper(rtrim(t2_0.cp_icd_oncology_code)) = upper(rtrim(cpnt2_0.submitted_primary_icd_oncology_code))
+           WHERE cpd_0.cr_patient_id IS NOT NULL
+             AND cpd_0.cp_patient_id IS NOT NULL
+             AND cpd_0.cn_patient_id IS NOT NULL
+             AND /*and cancer_patient_driver_sk=107567*/ t1_0.cancer_tumor_driver_sk = t_0.cancer_tumor_driver_sk
+             AND t_0.cancer_tumor_driver_sk = t2_0.cancer_tumor_driver_sk ) QUALIFY row_number() OVER (PARTITION BY cpd.cancer_patient_driver_sk,
+                                                                                                                    cn_tumor_type_id
+                                                                                                       ORDER BY t_sk) = 1
+      UNION DISTINCT SELECT DISTINCT /* CR and CP data with not mataching CN data */ cpd.coid,
+                                                                                     cpd.company_code,
+                                                                                     cpd.cancer_patient_driver_sk,
+                                                                                     t.cancer_tumor_driver_sk AS t_sk,
+                                                                                     cpt.cr_patient_id,
+                                                                                     cpt.tumor_primary_site_id AS cr_tumor_primary_site_id,
+                                                                                     CAST(NULL AS NUMERIC) AS cn_patient_id,
+                                                                                     CAST(NULL AS INT64) AS cn_tumor_type_id,
+                                                                                     cpnt2.patient_dw_id AS cp_patient_id,
+                                                                                     cpnt2.submitted_primary_icd_oncology_code AS cp_icd_oncology_code,
+                                                                                     cpd.source_system_code
+      FROM `hca-hin-dev-cur-ops`.edwcr.cancer_patient_driver AS cpd
+      INNER JOIN `hca-hin-dev-cur-ops`.edwcr_base_views.cr_patient_tumor AS cpt ON cpd.cr_patient_id = cpt.cr_patient_id
+      INNER JOIN `hca-hin-dev-cur-ops`.edwcr.cancer_tumor_driver AS t ON cpt.tumor_primary_site_id = t.cr_tumor_primary_site_id
+      INNER JOIN `hca-hin-dev-cur-ops`.edwcr_base_views.cn_patient_tumor AS cpnt ON cpd.cn_patient_id = cpnt.nav_patient_id
+      INNER JOIN `hca-hin-dev-cur-ops`.edwcr_base_views.ref_tumor_type AS rtt ON cpnt.tumor_type_id = rtt.tumor_type_id
+      INNER JOIN `hca-hin-dev-cur-ops`.edwcr.cancer_tumor_driver AS t1 ON CASE upper(rtrim(rtt.tumor_type_group_name))
+                                                                              WHEN 'GENERAL' THEN t1.cn_general_tumor_type_id
+                                                                              WHEN 'NAVQ' THEN t1.cn_navque_tumor_type_id
+                                                                              ELSE t1.cn_tumor_type_id
+                                                                          END = cpnt.tumor_type_id
+      INNER JOIN
+        (SELECT DISTINCT cancer_patient_id_output.patient_dw_id,
+                         cancer_patient_id_output.submitted_primary_icd_oncology_code
+         FROM `hca-hin-dev-cur-ops`.edwcr_base_views.cancer_patient_id_output) AS cpnt2 ON cpd.cp_patient_id = cpnt2.patient_dw_id
+      INNER JOIN `hca-hin-dev-cur-ops`.edwcr.cancer_tumor_driver AS t2 ON upper(rtrim(t2.cp_icd_oncology_code)) = upper(rtrim(cpnt2.submitted_primary_icd_oncology_code))
+      WHERE cpd.cr_patient_id IS NOT NULL
+        AND cpd.cp_patient_id IS NOT NULL
+        AND cpd.cn_patient_id IS NOT NULL
+        AND /*and cancer_patient_driver_sk=107567*/ t2.cancer_tumor_driver_sk = t.cancer_tumor_driver_sk
+        AND (t.cancer_tumor_driver_sk <> t1.cancer_tumor_driver_sk
+             OR t1.cancer_tumor_driver_sk <> t2.cancer_tumor_driver_sk)
+        AND (cpt.cr_patient_id,
+             cpt.tumor_primary_site_id) NOT IN
+          (SELECT AS STRUCT cpt_0.cr_patient_id,
+                            cpt_0.tumor_primary_site_id
+           FROM `hca-hin-dev-cur-ops`.edwcr.cancer_patient_driver AS cpd_0
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr_base_views.cr_patient_tumor AS cpt_0 ON cpd_0.cr_patient_id = cpt_0.cr_patient_id
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr.cancer_tumor_driver AS t_0 ON cpt_0.tumor_primary_site_id = t_0.cr_tumor_primary_site_id
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr_base_views.cn_patient_tumor AS cpnt_0 ON cpd_0.cn_patient_id = cpnt_0.nav_patient_id
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr_base_views.ref_tumor_type AS rtt_0 ON cpnt_0.tumor_type_id = rtt_0.tumor_type_id
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr.cancer_tumor_driver AS t1_0 ON CASE upper(rtrim(rtt_0.tumor_type_group_name))
+                                                                                     WHEN 'GENERAL' THEN t1_0.cn_general_tumor_type_id
+                                                                                     WHEN 'NAVQ' THEN t1_0.cn_navque_tumor_type_id
+                                                                                     ELSE t1_0.cn_tumor_type_id
+                                                                                 END = cpnt_0.tumor_type_id
+           INNER JOIN
+             (SELECT DISTINCT cancer_patient_id_output.patient_dw_id,
+                              cancer_patient_id_output.submitted_primary_icd_oncology_code
+              FROM `hca-hin-dev-cur-ops`.edwcr_base_views.cancer_patient_id_output) AS cpnt2_0 ON cpd_0.cp_patient_id = cpnt2_0.patient_dw_id
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr.cancer_tumor_driver AS t2_0 ON upper(rtrim(t2_0.cp_icd_oncology_code)) = upper(rtrim(cpnt2_0.submitted_primary_icd_oncology_code))
+           WHERE cpd_0.cr_patient_id IS NOT NULL
+             AND cpd_0.cp_patient_id IS NOT NULL
+             AND cpd_0.cn_patient_id IS NOT NULL
+             AND /*and cancer_patient_driver_sk=107567*/ t1_0.cancer_tumor_driver_sk = t_0.cancer_tumor_driver_sk
+             AND t_0.cancer_tumor_driver_sk = t2_0.cancer_tumor_driver_sk ) QUALIFY row_number() OVER (PARTITION BY cpd.cancer_patient_driver_sk,
+                                                                                                                    cr_tumor_primary_site_id
+                                                                                                       ORDER BY t_sk) = 1
+      UNION DISTINCT SELECT DISTINCT /* All remaining CR records*/ cpd.coid,
+                                                                   cpd.company_code,
+                                                                   cpd.cancer_patient_driver_sk,
+                                                                   t.cancer_tumor_driver_sk AS t_sk,
+                                                                   cpt.cr_patient_id,
+                                                                   cpt.tumor_primary_site_id AS cr_tumor_primary_site_id,
+                                                                   CAST(NULL AS NUMERIC) AS cn_patient_id,
+                                                                   CAST(NULL AS INT64) AS cn_tumor_type_id,
+                                                                   CAST(NULL AS NUMERIC) AS cp_patient_id,
+                                                                   CAST(NULL AS STRING) AS cp_icd_oncology_code,
+                                                                   cpd.source_system_code
+      FROM `hca-hin-dev-cur-ops`.edwcr.cancer_patient_driver AS cpd
+      INNER JOIN `hca-hin-dev-cur-ops`.edwcr_base_views.cr_patient_tumor AS cpt ON cpd.cr_patient_id = cpt.cr_patient_id
+      INNER JOIN `hca-hin-dev-cur-ops`.edwcr.cancer_tumor_driver AS t ON cpt.tumor_primary_site_id = t.cr_tumor_primary_site_id
+      WHERE cpd.cr_patient_id IS NOT NULL
+        AND cpd.cp_patient_id IS NOT NULL
+        AND cpd.cn_patient_id IS NOT NULL
+        AND /*and cancer_patient_driver_sk=107567*/ (cpt.cr_patient_id,
+                                                     cpt.tumor_primary_site_id) NOT IN
+          (SELECT DISTINCT AS STRUCT /* exclude CR data if CR and CN match */ cpt_0.cr_patient_id,
+                                                                              cpt_0.tumor_primary_site_id AS t1_sk
+           FROM `hca-hin-dev-cur-ops`.edwcr.cancer_patient_driver AS cpd_0
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr_base_views.cr_patient_tumor AS cpt_0 ON cpd_0.cr_patient_id = cpt_0.cr_patient_id
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr.cancer_tumor_driver AS t_0 ON cpt_0.tumor_primary_site_id = t_0.cr_tumor_primary_site_id
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr_base_views.cn_patient_tumor AS cpnt ON cpd_0.cn_patient_id = cpnt.nav_patient_id
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr_base_views.ref_tumor_type AS rtt ON cpnt.tumor_type_id = rtt.tumor_type_id
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr.cancer_tumor_driver AS t1 ON CASE upper(rtrim(rtt.tumor_type_group_name))
+                                                                                   WHEN 'GENERAL' THEN t1.cn_general_tumor_type_id
+                                                                                   WHEN 'NAVQ' THEN t1.cn_navque_tumor_type_id
+                                                                                   ELSE t1.cn_tumor_type_id
+                                                                               END = cpnt.tumor_type_id
+           INNER JOIN
+             (SELECT DISTINCT cancer_patient_id_output.patient_dw_id,
+                              cancer_patient_id_output.submitted_primary_icd_oncology_code
+              FROM `hca-hin-dev-cur-ops`.edwcr_base_views.cancer_patient_id_output) AS cpnt2 ON cpd_0.cp_patient_id = cpnt2.patient_dw_id
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr.cancer_tumor_driver AS t2 ON upper(rtrim(t2.cp_icd_oncology_code)) = upper(rtrim(cpnt2.submitted_primary_icd_oncology_code))
+           WHERE cpd_0.cr_patient_id IS NOT NULL
+             AND cpd_0.cp_patient_id IS NOT NULL
+             AND cpd_0.cn_patient_id IS NOT NULL
+             AND /*and cancer_patient_driver_sk=107567*/ t1.cancer_tumor_driver_sk = t_0.cancer_tumor_driver_sk
+             AND (t_0.cancer_tumor_driver_sk <> t2.cancer_tumor_driver_sk
+                  OR t1.cancer_tumor_driver_sk <> t2.cancer_tumor_driver_sk)
+           UNION ALL SELECT DISTINCT AS STRUCT /* exclude CR data if all 3  match */ cpt_0.cr_patient_id,
+                                                                                     cpt_0.tumor_primary_site_id AS t1_sk
+           FROM `hca-hin-dev-cur-ops`.edwcr.cancer_patient_driver AS cpd_0
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr_base_views.cr_patient_tumor AS cpt_0 ON cpd_0.cr_patient_id = cpt_0.cr_patient_id
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr.cancer_tumor_driver AS t_0 ON cpt_0.tumor_primary_site_id = t_0.cr_tumor_primary_site_id
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr_base_views.cn_patient_tumor AS cpnt ON cpd_0.cn_patient_id = cpnt.nav_patient_id
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr_base_views.ref_tumor_type AS rtt ON cpnt.tumor_type_id = rtt.tumor_type_id
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr.cancer_tumor_driver AS t1 ON CASE upper(rtrim(rtt.tumor_type_group_name))
+                                                                                   WHEN 'GENERAL' THEN t1.cn_general_tumor_type_id
+                                                                                   WHEN 'NAVQ' THEN t1.cn_navque_tumor_type_id
+                                                                                   ELSE t1.cn_tumor_type_id
+                                                                               END = cpnt.tumor_type_id
+           INNER JOIN
+             (SELECT DISTINCT cancer_patient_id_output.patient_dw_id,
+                              cancer_patient_id_output.submitted_primary_icd_oncology_code
+              FROM `hca-hin-dev-cur-ops`.edwcr_base_views.cancer_patient_id_output) AS cpnt2 ON cpd_0.cp_patient_id = cpnt2.patient_dw_id
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr.cancer_tumor_driver AS t2 ON upper(rtrim(t2.cp_icd_oncology_code)) = upper(rtrim(cpnt2.submitted_primary_icd_oncology_code))
+           WHERE cpd_0.cr_patient_id IS NOT NULL
+             AND cpd_0.cp_patient_id IS NOT NULL
+             AND cpd_0.cn_patient_id IS NOT NULL
+             AND /*and cancer_patient_driver_sk=107567*/ t1.cancer_tumor_driver_sk = t_0.cancer_tumor_driver_sk
+             AND t_0.cancer_tumor_driver_sk = t2.cancer_tumor_driver_sk
+           UNION ALL SELECT DISTINCT AS STRUCT /* exclude CR data if CR and CP match*/ cpt_0.cr_patient_id,
+                                                                                       cpt_0.tumor_primary_site_id AS t1_sk
+           FROM `hca-hin-dev-cur-ops`.edwcr.cancer_patient_driver AS cpd_0
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr_base_views.cr_patient_tumor AS cpt_0 ON cpd_0.cr_patient_id = cpt_0.cr_patient_id
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr.cancer_tumor_driver AS t_0 ON cpt_0.tumor_primary_site_id = t_0.cr_tumor_primary_site_id
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr_base_views.cn_patient_tumor AS cpnt ON cpd_0.cn_patient_id = cpnt.nav_patient_id
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr_base_views.ref_tumor_type AS rtt ON cpnt.tumor_type_id = rtt.tumor_type_id
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr.cancer_tumor_driver AS t1 ON CASE upper(rtrim(rtt.tumor_type_group_name))
+                                                                                   WHEN 'GENERAL' THEN t1.cn_general_tumor_type_id
+                                                                                   WHEN 'NAVQ' THEN t1.cn_navque_tumor_type_id
+                                                                                   ELSE t1.cn_tumor_type_id
+                                                                               END = cpnt.tumor_type_id
+           INNER JOIN
+             (SELECT DISTINCT cancer_patient_id_output.patient_dw_id,
+                              cancer_patient_id_output.submitted_primary_icd_oncology_code
+              FROM `hca-hin-dev-cur-ops`.edwcr_base_views.cancer_patient_id_output) AS cpnt2 ON cpd_0.cp_patient_id = cpnt2.patient_dw_id
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr.cancer_tumor_driver AS t2 ON upper(rtrim(t2.cp_icd_oncology_code)) = upper(rtrim(cpnt2.submitted_primary_icd_oncology_code))
+           WHERE cpd_0.cr_patient_id IS NOT NULL
+             AND cpd_0.cp_patient_id IS NOT NULL
+             AND cpd_0.cn_patient_id IS NOT NULL
+             AND /*and cancer_patient_driver_sk=107567*/ t2.cancer_tumor_driver_sk = t_0.cancer_tumor_driver_sk
+             AND (t_0.cancer_tumor_driver_sk <> t1.cancer_tumor_driver_sk
+                  OR t1.cancer_tumor_driver_sk <> t2.cancer_tumor_driver_sk) ) QUALIFY row_number() OVER (PARTITION BY cpd.cancer_patient_driver_sk,
+                                                                                                                       cr_tumor_primary_site_id
+                                                                                                          ORDER BY t_sk) = 1
+      UNION DISTINCT SELECT DISTINCT /* All remaining CN data */ cpd.coid,
+                                                                 cpd.company_code,
+                                                                 cpd.cancer_patient_driver_sk,
+                                                                 t1.cancer_tumor_driver_sk AS t_sk,
+                                                                 CAST(NULL AS INT64) AS cr_patient_id,
+                                                                 CAST(NULL AS INT64) AS cr_tumor_primary_site_id,
+                                                                 cpnt.nav_patient_id AS cn_patient_id,
+                                                                 cpnt.tumor_type_id AS cn_tumor_type_id,
+                                                                 CAST(NULL AS NUMERIC) AS cp_patient_id,
+                                                                 CAST(NULL AS STRING) AS cp_icd_oncology_code,
+                                                                 cpd.source_system_code
+      FROM `hca-hin-dev-cur-ops`.edwcr.cancer_patient_driver AS cpd
+      INNER JOIN `hca-hin-dev-cur-ops`.edwcr_base_views.cn_patient_tumor AS cpnt ON cpd.cn_patient_id = cpnt.nav_patient_id
+      INNER JOIN `hca-hin-dev-cur-ops`.edwcr_base_views.ref_tumor_type AS rtt ON cpnt.tumor_type_id = rtt.tumor_type_id
+      INNER JOIN `hca-hin-dev-cur-ops`.edwcr.cancer_tumor_driver AS t1 ON CASE upper(rtrim(rtt.tumor_type_group_name))
+                                                                              WHEN 'GENERAL' THEN t1.cn_general_tumor_type_id
+                                                                              WHEN 'NAVQ' THEN t1.cn_navque_tumor_type_id
+                                                                              ELSE t1.cn_tumor_type_id
+                                                                          END = cpnt.tumor_type_id
+      WHERE cpd.cr_patient_id IS NOT NULL
+        AND cpd.cp_patient_id IS NOT NULL
+        AND cpd.cn_patient_id IS NOT NULL
+        AND /*and cancer_patient_driver_sk=107567*/ (cpnt.nav_patient_id,
+                                                     cpnt.tumor_type_id) NOT IN
+          (SELECT DISTINCT AS STRUCT /* exclude CN data if CR and CN match*/ cpnt_0.nav_patient_id,
+                                                                             cpnt_0.tumor_type_id AS t1_sk
+           FROM `hca-hin-dev-cur-ops`.edwcr.cancer_patient_driver AS cpd_0
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr_base_views.cr_patient_tumor AS cpt ON cpd_0.cr_patient_id = cpt.cr_patient_id
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr.cancer_tumor_driver AS t ON cpt.tumor_primary_site_id = t.cr_tumor_primary_site_id
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr_base_views.cn_patient_tumor AS cpnt_0 ON cpd_0.cn_patient_id = cpnt_0.nav_patient_id
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr_base_views.ref_tumor_type AS rtt_0 ON cpnt_0.tumor_type_id = rtt_0.tumor_type_id
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr.cancer_tumor_driver AS t1_0 ON CASE upper(rtrim(rtt_0.tumor_type_group_name))
+                                                                                     WHEN 'GENERAL' THEN t1_0.cn_general_tumor_type_id
+                                                                                     WHEN 'NAVQ' THEN t1_0.cn_navque_tumor_type_id
+                                                                                     ELSE t1_0.cn_tumor_type_id
+                                                                                 END = cpnt_0.tumor_type_id
+           INNER JOIN
+             (SELECT DISTINCT cancer_patient_id_output.patient_dw_id,
+                              cancer_patient_id_output.submitted_primary_icd_oncology_code
+              FROM `hca-hin-dev-cur-ops`.edwcr_base_views.cancer_patient_id_output) AS cpnt2 ON cpd_0.cp_patient_id = cpnt2.patient_dw_id
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr.cancer_tumor_driver AS t2 ON upper(rtrim(t2.cp_icd_oncology_code)) = upper(rtrim(cpnt2.submitted_primary_icd_oncology_code))
+           WHERE cpd_0.cr_patient_id IS NOT NULL
+             AND cpd_0.cp_patient_id IS NOT NULL
+             AND cpd_0.cn_patient_id IS NOT NULL
+             AND /*and cancer_patient_driver_sk=107567*/ t1_0.cancer_tumor_driver_sk = t.cancer_tumor_driver_sk
+             AND (t.cancer_tumor_driver_sk <> t2.cancer_tumor_driver_sk
+                  OR t1_0.cancer_tumor_driver_sk <> t2.cancer_tumor_driver_sk)
+           UNION ALL SELECT DISTINCT AS STRUCT /* exclude CN data if all 3 match*/ cpnt_0.nav_patient_id,
+                                                                                   cpnt_0.tumor_type_id AS t1_sk
+           FROM `hca-hin-dev-cur-ops`.edwcr.cancer_patient_driver AS cpd_0
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr_base_views.cr_patient_tumor AS cpt ON cpd_0.cr_patient_id = cpt.cr_patient_id
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr.cancer_tumor_driver AS t ON cpt.tumor_primary_site_id = t.cr_tumor_primary_site_id
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr_base_views.cn_patient_tumor AS cpnt_0 ON cpd_0.cn_patient_id = cpnt_0.nav_patient_id
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr_base_views.ref_tumor_type AS rtt_0 ON cpnt_0.tumor_type_id = rtt_0.tumor_type_id
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr.cancer_tumor_driver AS t1_0 ON CASE upper(rtrim(rtt_0.tumor_type_group_name))
+                                                                                     WHEN 'GENERAL' THEN t1_0.cn_general_tumor_type_id
+                                                                                     WHEN 'NAVQ' THEN t1_0.cn_navque_tumor_type_id
+                                                                                     ELSE t1_0.cn_tumor_type_id
+                                                                                 END = cpnt_0.tumor_type_id
+           INNER JOIN
+             (SELECT DISTINCT cancer_patient_id_output.patient_dw_id,
+                              cancer_patient_id_output.submitted_primary_icd_oncology_code
+              FROM `hca-hin-dev-cur-ops`.edwcr_base_views.cancer_patient_id_output) AS cpnt2 ON cpd_0.cp_patient_id = cpnt2.patient_dw_id
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr.cancer_tumor_driver AS t2 ON upper(rtrim(t2.cp_icd_oncology_code)) = upper(rtrim(cpnt2.submitted_primary_icd_oncology_code))
+           WHERE cpd_0.cr_patient_id IS NOT NULL
+             AND cpd_0.cp_patient_id IS NOT NULL
+             AND cpd_0.cn_patient_id IS NOT NULL
+             AND /*and cancer_patient_driver_sk=107567*/ t1_0.cancer_tumor_driver_sk = t.cancer_tumor_driver_sk
+             AND t.cancer_tumor_driver_sk = t2.cancer_tumor_driver_sk
+           UNION ALL SELECT DISTINCT AS STRUCT /* exclude CN data if CN and CP match*/ cpnt_0.nav_patient_id,
+                                                                                       cpnt_0.tumor_type_id AS t1_sk
+           FROM `hca-hin-dev-cur-ops`.edwcr.cancer_patient_driver AS cpd_0
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr_base_views.cr_patient_tumor AS cpt ON cpd_0.cr_patient_id = cpt.cr_patient_id
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr.cancer_tumor_driver AS t ON cpt.tumor_primary_site_id = t.cr_tumor_primary_site_id
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr_base_views.cn_patient_tumor AS cpnt_0 ON cpd_0.cn_patient_id = cpnt_0.nav_patient_id
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr_base_views.ref_tumor_type AS rtt_0 ON cpnt_0.tumor_type_id = rtt_0.tumor_type_id
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr.cancer_tumor_driver AS t1_0 ON CASE upper(rtrim(rtt_0.tumor_type_group_name))
+                                                                                     WHEN 'GENERAL' THEN t1_0.cn_general_tumor_type_id
+                                                                                     WHEN 'NAVQ' THEN t1_0.cn_navque_tumor_type_id
+                                                                                     ELSE t1_0.cn_tumor_type_id
+                                                                                 END = cpnt_0.tumor_type_id
+           INNER JOIN
+             (SELECT DISTINCT cancer_patient_id_output.patient_dw_id,
+                              cancer_patient_id_output.submitted_primary_icd_oncology_code
+              FROM `hca-hin-dev-cur-ops`.edwcr_base_views.cancer_patient_id_output) AS cpnt2 ON cpd_0.cp_patient_id = cpnt2.patient_dw_id
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr.cancer_tumor_driver AS t2 ON upper(rtrim(t2.cp_icd_oncology_code)) = upper(rtrim(cpnt2.submitted_primary_icd_oncology_code))
+           WHERE cpd_0.cr_patient_id IS NOT NULL
+             AND cpd_0.cp_patient_id IS NOT NULL
+             AND cpd_0.cn_patient_id IS NOT NULL
+             AND /*and cancer_patient_driver_sk=107567*/ t1_0.cancer_tumor_driver_sk = t2.cancer_tumor_driver_sk
+             AND (t.cancer_tumor_driver_sk <> t1_0.cancer_tumor_driver_sk
+                  OR t.cancer_tumor_driver_sk <> t2.cancer_tumor_driver_sk) ) QUALIFY row_number() OVER (PARTITION BY cpd.cancer_patient_driver_sk,
+                                                                                                                      cn_tumor_type_id
+                                                                                                         ORDER BY t_sk) = 1
+      UNION DISTINCT SELECT DISTINCT /* All remaining CP data*/ cpd.coid,
+                                                                cpd.company_code,
+                                                                cpd.cancer_patient_driver_sk,
+                                                                t2.cancer_tumor_driver_sk AS t_sk,
+                                                                CAST(NULL AS INT64) AS cr_patient_id,
+                                                                CAST(NULL AS INT64) AS cr_tumor_primary_site_id,
+                                                                CAST(NULL AS NUMERIC) AS cn_patient_id,
+                                                                CAST(NULL AS INT64) AS cn_tumor_type_id,
+                                                                cpnt.patient_dw_id AS cp_patient_id,
+                                                                cpnt.submitted_primary_icd_oncology_code AS cp_icd_oncology_code,
+                                                                cpd.source_system_code
+      FROM `hca-hin-dev-cur-ops`.edwcr.cancer_patient_driver AS cpd
+      INNER JOIN
+        (SELECT DISTINCT cancer_patient_id_output.patient_dw_id,
+                         cancer_patient_id_output.submitted_primary_icd_oncology_code
+         FROM `hca-hin-dev-cur-ops`.edwcr_base_views.cancer_patient_id_output) AS cpnt ON cpd.cp_patient_id = cpnt.patient_dw_id
+      INNER JOIN `hca-hin-dev-cur-ops`.edwcr.cancer_tumor_driver AS t2 ON upper(rtrim(t2.cp_icd_oncology_code)) = upper(rtrim(cpnt.submitted_primary_icd_oncology_code))
+      WHERE cpd.cr_patient_id IS NOT NULL
+        AND cpd.cp_patient_id IS NOT NULL
+        AND cpd.cn_patient_id IS NOT NULL
+        AND /*and cancer_patient_driver_sk=107567*/ (cpnt.patient_dw_id,
+                                                     upper(cpnt.submitted_primary_icd_oncology_code)) NOT IN
+          (SELECT DISTINCT AS STRUCT /* exclude CP data if CR and CP match*/ cpnt2.patient_dw_id,
+                                                                             upper(cpnt2.submitted_primary_icd_oncology_code) AS t1_sk
+           FROM `hca-hin-dev-cur-ops`.edwcr.cancer_patient_driver AS cpd_0
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr_base_views.cr_patient_tumor AS cpt ON cpd_0.cr_patient_id = cpt.cr_patient_id
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr.cancer_tumor_driver AS t ON cpt.tumor_primary_site_id = t.cr_tumor_primary_site_id
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr_base_views.cn_patient_tumor AS cpnt_0 ON cpd_0.cn_patient_id = cpnt_0.nav_patient_id
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr_base_views.ref_tumor_type AS rtt ON cpnt_0.tumor_type_id = rtt.tumor_type_id
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr.cancer_tumor_driver AS t1 ON CASE upper(rtrim(rtt.tumor_type_group_name))
+                                                                                   WHEN 'GENERAL' THEN t1.cn_general_tumor_type_id
+                                                                                   WHEN 'NAVQ' THEN t1.cn_navque_tumor_type_id
+                                                                                   ELSE t1.cn_tumor_type_id
+                                                                               END = cpnt_0.tumor_type_id
+           INNER JOIN
+             (SELECT DISTINCT cancer_patient_id_output.patient_dw_id,
+                              cancer_patient_id_output.submitted_primary_icd_oncology_code
+              FROM `hca-hin-dev-cur-ops`.edwcr_base_views.cancer_patient_id_output) AS cpnt2 ON cpd_0.cp_patient_id = cpnt2.patient_dw_id
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr.cancer_tumor_driver AS t2_0 ON upper(rtrim(t2_0.cp_icd_oncology_code)) = upper(rtrim(cpnt2.submitted_primary_icd_oncology_code))
+           WHERE cpd_0.cr_patient_id IS NOT NULL
+             AND cpd_0.cp_patient_id IS NOT NULL
+             AND cpd_0.cn_patient_id IS NOT NULL
+             AND /*and cancer_patient_driver_sk=107567*/ t2_0.cancer_tumor_driver_sk = t.cancer_tumor_driver_sk
+             AND (t.cancer_tumor_driver_sk <> t1.cancer_tumor_driver_sk
+                  OR t1.cancer_tumor_driver_sk <> t2_0.cancer_tumor_driver_sk)
+           UNION ALL SELECT DISTINCT AS STRUCT /* exclude CPdata if all 3 match*/ cpnt2.patient_dw_id,
+                                                                                  upper(cpnt2.submitted_primary_icd_oncology_code) AS t1_sk
+           FROM `hca-hin-dev-cur-ops`.edwcr.cancer_patient_driver AS cpd_0
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr_base_views.cr_patient_tumor AS cpt ON cpd_0.cr_patient_id = cpt.cr_patient_id
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr.cancer_tumor_driver AS t ON cpt.tumor_primary_site_id = t.cr_tumor_primary_site_id
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr_base_views.cn_patient_tumor AS cpnt_0 ON cpd_0.cn_patient_id = cpnt_0.nav_patient_id
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr_base_views.ref_tumor_type AS rtt ON cpnt_0.tumor_type_id = rtt.tumor_type_id
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr.cancer_tumor_driver AS t1 ON CASE upper(rtrim(rtt.tumor_type_group_name))
+                                                                                   WHEN 'GENERAL' THEN t1.cn_general_tumor_type_id
+                                                                                   WHEN 'NAVQ' THEN t1.cn_navque_tumor_type_id
+                                                                                   ELSE t1.cn_tumor_type_id
+                                                                               END = cpnt_0.tumor_type_id
+           INNER JOIN
+             (SELECT DISTINCT cancer_patient_id_output.patient_dw_id,
+                              cancer_patient_id_output.submitted_primary_icd_oncology_code
+              FROM `hca-hin-dev-cur-ops`.edwcr_base_views.cancer_patient_id_output) AS cpnt2 ON cpd_0.cp_patient_id = cpnt2.patient_dw_id
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr.cancer_tumor_driver AS t2_0 ON upper(rtrim(t2_0.cp_icd_oncology_code)) = upper(rtrim(cpnt2.submitted_primary_icd_oncology_code))
+           WHERE cpd_0.cr_patient_id IS NOT NULL
+             AND cpd_0.cp_patient_id IS NOT NULL
+             AND cpd_0.cn_patient_id IS NOT NULL
+             AND /*and cancer_patient_driver_sk=107567*/ t1.cancer_tumor_driver_sk = t.cancer_tumor_driver_sk
+             AND t.cancer_tumor_driver_sk = t2_0.cancer_tumor_driver_sk
+           UNION ALL SELECT DISTINCT AS STRUCT /* exclude CP data if CN and CP match*/ cpnt2.patient_dw_id,
+                                                                                       upper(cpnt2.submitted_primary_icd_oncology_code) AS t1_sk
+           FROM `hca-hin-dev-cur-ops`.edwcr.cancer_patient_driver AS cpd_0
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr_base_views.cr_patient_tumor AS cpt ON cpd_0.cr_patient_id = cpt.cr_patient_id
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr.cancer_tumor_driver AS t ON cpt.tumor_primary_site_id = t.cr_tumor_primary_site_id
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr_base_views.cn_patient_tumor AS cpnt_0 ON cpd_0.cn_patient_id = cpnt_0.nav_patient_id
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr_base_views.ref_tumor_type AS rtt ON cpnt_0.tumor_type_id = rtt.tumor_type_id
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr.cancer_tumor_driver AS t1 ON CASE upper(rtrim(rtt.tumor_type_group_name))
+                                                                                   WHEN 'GENERAL' THEN t1.cn_general_tumor_type_id
+                                                                                   WHEN 'NAVQ' THEN t1.cn_navque_tumor_type_id
+                                                                                   ELSE t1.cn_tumor_type_id
+                                                                               END = cpnt_0.tumor_type_id
+           INNER JOIN
+             (SELECT DISTINCT cancer_patient_id_output.patient_dw_id,
+                              cancer_patient_id_output.submitted_primary_icd_oncology_code
+              FROM `hca-hin-dev-cur-ops`.edwcr_base_views.cancer_patient_id_output) AS cpnt2 ON cpd_0.cp_patient_id = cpnt2.patient_dw_id
+           INNER JOIN `hca-hin-dev-cur-ops`.edwcr.cancer_tumor_driver AS t2_0 ON upper(rtrim(t2_0.cp_icd_oncology_code)) = upper(rtrim(cpnt2.submitted_primary_icd_oncology_code))
+           WHERE cpd_0.cr_patient_id IS NOT NULL
+             AND cpd_0.cp_patient_id IS NOT NULL
+             AND cpd_0.cn_patient_id IS NOT NULL
+             AND /*and cancer_patient_driver_sk=107567*/ t1.cancer_tumor_driver_sk = t2_0.cancer_tumor_driver_sk
+             AND (t.cancer_tumor_driver_sk <> t1.cancer_tumor_driver_sk
+                  OR t.cancer_tumor_driver_sk <> t2_0.cancer_tumor_driver_sk) ) QUALIFY row_number() OVER (PARTITION BY cpd.cancer_patient_driver_sk,
+                                                                                                                        upper(cpnt.submitted_primary_icd_oncology_code)
+                                                                                                           ORDER BY t_sk) = 1 ) AS a) AS ms ON mt.cancer_patient_tumor_driver_sk = ms.cancer_patient_tumor_driver_sk
+AND mt.coid = ms.coid
+AND mt.company_code = ms.company_code
+AND mt.cancer_patient_driver_sk = ms.cancer_patient_driver_sk
+AND mt.cancer_tumor_driver_sk = ms.t_sk
+AND (coalesce(mt.cr_patient_id, 0) = coalesce(ms.cr_patient_id, 0)
+     AND coalesce(mt.cr_patient_id, 1) = coalesce(ms.cr_patient_id, 1))
+AND (coalesce(mt.cr_tumor_primary_site_id, 0) = coalesce(ms.cr_tumor_primary_site_id, 0)
+     AND coalesce(mt.cr_tumor_primary_site_id, 1) = coalesce(ms.cr_tumor_primary_site_id, 1))
+AND (coalesce(mt.cn_patient_id, NUMERIC '0') = coalesce(ms.cn_patient_id, NUMERIC '0')
+     AND coalesce(mt.cn_patient_id, NUMERIC '1') = coalesce(ms.cn_patient_id, NUMERIC '1'))
+AND (coalesce(mt.cn_tumor_type_id, 0) = coalesce(ms.cn_tumor_type_id, 0)
+     AND coalesce(mt.cn_tumor_type_id, 1) = coalesce(ms.cn_tumor_type_id, 1))
+AND (coalesce(mt.cp_patient_id, NUMERIC '0') = coalesce(ms.cp_patient_id, NUMERIC '0')
+     AND coalesce(mt.cp_patient_id, NUMERIC '1') = coalesce(ms.cp_patient_id, NUMERIC '1'))
+AND (upper(coalesce(mt.cp_icd_oncology_code, '0')) = upper(coalesce(ms.cp_icd_oncology_code, '0'))
+     AND upper(coalesce(mt.cp_icd_oncology_code, '1')) = upper(coalesce(ms.cp_icd_oncology_code, '1')))
+AND mt.source_system_code = ms.source_system_code
+AND mt.dw_last_update_date_time = ms.dw_last_update_date_time WHEN NOT MATCHED BY TARGET THEN
+INSERT (cancer_patient_tumor_driver_sk,
+        coid,
+        company_code,
+        cancer_patient_driver_sk,
+        cancer_tumor_driver_sk,
+        cr_patient_id,
+        cr_tumor_primary_site_id,
+        cn_patient_id,
+        cn_tumor_type_id,
+        cp_patient_id,
+        cp_icd_oncology_code,
+        source_system_code,
+        dw_last_update_date_time)
+VALUES (ms.cancer_patient_tumor_driver_sk, ms.coid, ms.company_code, ms.cancer_patient_driver_sk, ms.t_sk, ms.cr_patient_id, ms.cr_tumor_primary_site_id, ms.cn_patient_id, ms.cn_tumor_type_id, ms.cp_patient_id, ms.cp_icd_oncology_code, ms.source_system_code, ms.dw_last_update_date_time);
+
+
+SET DUP_COUNT =
+  (SELECT count(*)
+   FROM
+     (SELECT cancer_patient_tumor_driver_sk
+      FROM `hca-hin-dev-cur-ops`.edwcr.cancer_patient_tumor_driver
+      GROUP BY cancer_patient_tumor_driver_sk
+      HAVING count(*) > 1));
+
+IF DUP_COUNT <> 0 THEN
+ROLLBACK TRANSACTION;
+
+RAISE USING MESSAGE = concat('Duplicates are not allowed in the table `hca-hin-dev-cur-ops`.edwcr.cancer_patient_tumor_driver');
+
+ELSE
+COMMIT TRANSACTION;
+
+END IF;
+
+
+EXCEPTION WHEN ERROR THEN
+SET _ERROR_CODE = 1;
+
+
+SET _ERROR_MSG = @@error.message;
+
+END;
+
+IF _ERROR_CODE <> 0 THEN RAISE USING MESSAGE = concat('Script terminated with return code: ', _ERROR_CODE, ' ', _ERROR_MSG);
+
+END IF;
+
+-- CALL DBADMIN_PROCS.collect_stats_table('edwcr','CANCER_PATIENT_TUMOR_DRIVER');
+ IF _ERROR_CODE <> 0 THEN RAISE USING MESSAGE = concat('Script terminated with return code: ', _ERROR_CODE, ' ', _ERROR_MSG);
+
+END IF;
+
+---- EOF;;

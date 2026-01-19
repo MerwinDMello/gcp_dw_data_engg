@@ -1,0 +1,5 @@
+type: experimental_optimizer
+transformations:
+  - name: REWRITE_CTE_TO_TEMP_TABLE
+    parameters:
+      threshold: 1   

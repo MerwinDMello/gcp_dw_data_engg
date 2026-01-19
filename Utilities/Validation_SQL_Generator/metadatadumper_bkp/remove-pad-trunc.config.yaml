@@ -1,0 +1,6 @@
+type: experimental_object_rewriter
+global:
+  typeConvert:
+    char:
+      target: VARCHAR
+      precisionAction: DROP

@@ -1,0 +1,24 @@
+-- Translation time: 2023-09-22T18:46:04.447603Z
+-- Translation job ID: ba460d1f-d301-46b6-9c47-810d266c2894
+-- Source: internal_metastore/db_hca-hin-dev-cur-parallon/schema_edwpbs_views/junc_registry_facility.memory
+-- Translated from: Teradata
+-- Translated to: BigQuery
+
+CREATE VIEW IF NOT EXISTS `hca-hin-dev-cur-parallon`.edwpbs_views.junc_registry_facility
+   OPTIONS(description='The facilities in each Registry')
+  AS SELECT
+      a.coid,
+      a.company_code,
+      a.site_code,
+      a.registry_code,
+      a.von_center_id,
+      a.participant_id,
+      a.active_ind,
+      a.source_system_code,
+      a.dw_last_update_date_time
+    FROM
+      `hca-hin-dev-cur-parallon`.edwpbs_base_views.junc_registry_facility AS a
+      INNER JOIN `hca-hin-dev-cur-parallon`.edwpf_base_views.secref_facility AS b ON upper(a.company_code) = upper(b.company_code)
+       AND upper(a.coid) = upper(b.co_id)
+       AND b.user_id = session_user()
+  ;

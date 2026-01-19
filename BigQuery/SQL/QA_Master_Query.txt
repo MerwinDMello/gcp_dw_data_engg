@@ -1,0 +1,79 @@
+
+
+
+select 
+concat('with deduped_landing as ( select *, row_number() over (partition by ', max(b.key_column), ' order by dw_last_update_date_time  desc) as rn from ',b.full_name,') ',
+       'select count(*) as total_count,"',a.full_name,'" as table_name, sum(case when a.',max(a.key_column), 
+       ' is null then 1 else 0 end) as Target_Null_Count, sum( case when b.',max(b.key_column),
+       ' is null then 1 else 0 end) as Source_Null_Count, ',
+        string_agg(concat('sum(case when ', case when a.data_type=b.data_type then concat('a.',a.column_name,' = b.', b.column_name, ' or ( a.',a.column_name,' is null and b.', b.column_name,' is null )')
+                                                 else concat('cast(a.',a.column_name,' as ',b.data_type,')= b.', b.column_name, ' or ( a.',a.column_name,' is null and b.', b.column_name,' is null )')
+                                                 end, ' then 0 else 1 end) as non_matching_',a.column_name),','),
+        ' from ',a.full_name, ' as a LEFT JOIN deduped_landing as b on a.',max(a.key_column),'= b.',max(b.key_column),' and b.rn=1'        
+      ),
+      concat('with deduped_landing as ( select *, row_number() over (partition by ', max(b.key_column), ' order by dw_last_update_date_time  desc) as rn from ',b.full_name,') ',
+       'select count(*) as total_count, sum(case when a.',max(a.key_column), 
+       ' is null then 1 else 0 end) as Target_Null_Count, sum( case when b.',max(b.key_column),
+       ' is null then 1 else 0 end) as Source_Null_Count, ',
+        string_agg(concat('sum(case when ', case when a.data_type=b.data_type then concat('a.',a.column_name,' = b.', b.column_name, ' or ( a.',a.column_name,' is null and b.', b.column_name,' is null )')
+                                                 else concat('cast(a.',a.column_name,' as ',b.data_type,')= b.', b.column_name, ' or ( a.',a.column_name,' is null and b.', b.column_name,' is null )')
+                                                 end, ' then 0 else 1 end) as non_matching_',a.column_name),','),
+        ' from ',a.full_name, ' as a RIGHT JOIN  deduped_landing as b on a.',max(a.key_column),'= b.',max(b.key_column),' and b.rn=1'        
+      )
+from (select table_catalog, table_schema,
+table_name,
+concat('`',table_catalog,'.',table_schema,'.',table_name,'`') as full_name,
+column_name,
+data_type, 
+ordinal_position,
+case when ordinal_position=1 then column_name else null end as key_column 
+from `hca-hin-dev-cur-hr.edwhr.INFORMATION_SCHEMA.COLUMNS`) a 
+join 
+(select
+table_catalog, table_schema,table_name,concat('`',table_catalog,'.',table_schema,'.',table_name,'`') as full_name,column_name,data_type, ordinal_position, case when ordinal_position=1 then column_name else null end as key_column  
+from `hca-hin-dev-cur-hr.edwhr_copy.INFORMATION_SCHEMA.COLUMNS`) b 
+on a.table_name=b.table_name and 
+a.column_name=b.column_name
+group by a.full_name, b.full_name
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

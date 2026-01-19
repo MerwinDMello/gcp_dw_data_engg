@@ -1,0 +1,1 @@
+Select 'J_CN_PATIENT_FAMILY_HISTORY_STG'||','|| cast(count(*) as varchar(20))||',' as SOURCE_STRING from edwcr_staging.CN_Patient_Family_History_STG

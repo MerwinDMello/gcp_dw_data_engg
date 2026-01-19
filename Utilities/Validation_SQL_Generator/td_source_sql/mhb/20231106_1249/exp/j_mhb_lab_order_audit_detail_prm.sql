@@ -1,0 +1,9 @@
+SELECT 'J_MHB_Lab_Order_Audit_Detail'||','||CAST(Count(*) AS VARCHAR (20))||','
+AS SOURCE_STRING FROM
+(
+SELECT 
+*
+FROM
+EDWCI_STAGING.MHB_LAB_ORDER_AUDIT_DETAIL_WRK
+ 
+) Q

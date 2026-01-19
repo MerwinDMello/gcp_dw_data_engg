@@ -1,0 +1,1 @@
+select 'J_IM_PCP_Users'||','||cast(count(*) as varchar(20))||',' AS SOURCE_STRING from EDWIM_STAGING.PCP_Users;

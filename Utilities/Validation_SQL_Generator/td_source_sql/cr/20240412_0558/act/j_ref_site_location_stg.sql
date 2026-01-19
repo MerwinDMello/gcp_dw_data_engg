@@ -1,0 +1,1 @@
+Select 'J_REF_SITE_LOCATION_STG'||','|| cast(count(*) as varchar(20))||',' as SOURCE_STRING from edwcr_staging.REF_SITE_LOCATION_STG

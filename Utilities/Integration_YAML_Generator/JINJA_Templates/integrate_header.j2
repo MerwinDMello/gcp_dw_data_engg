@@ -1,0 +1,9 @@
+- source_system: {{ source_system_param }}
+  frequency: {{ frequency_param }}
+  dag_id_suffix: {{ dag_id_param }}
+  start_date: pendulum.datetime({{ year_param }}, {{ month_param }}, {{ day_param }}, tz=timezone)
+  schedule: {{ schedule_param }}
+  type: {{ db_type_param }}
+  done_file: None
+  trigger_dag_ids: {{ trigger_dag_param }}
+  dependency:

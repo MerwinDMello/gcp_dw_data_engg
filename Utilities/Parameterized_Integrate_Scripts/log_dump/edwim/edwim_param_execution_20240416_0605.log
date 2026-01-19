@@ -1,0 +1,88 @@
+2024-09-09 06:31:44,510 - ERROR - Error executing SQL file j_im_epms_activity_ins.sql: 400 Not found: Table hca-hin-dev-cur-ops:edwim_base_views.epms_provider_status was not found in location US at [23:1]
+
+Location: US
+Job ID: 8e8636d2-2142-4f4c-a210-55103af9933e
+
+2024-09-09 06:31:52,208 - ERROR - Error executing SQL file j_im_epms_person_activity_ins.sql: 400 Not found: Table hca-hin-dev-cur-ops:edwim_base_views.epms_provider_activity was not found in location US at [30:1]
+
+Location: US
+Job ID: d5f9c312-9caf-41a5-b28e-239917c19c54
+
+2024-09-09 06:32:03,366 - ERROR - Error executing SQL file j_im_epms_provider_ins.sql: 400 Not found: Table hca-hin-dev-cur-ops:edwim_base_views.ref_attribute_value was not found in location US at [22:1]
+
+Location: US
+Job ID: 463507d3-9eca-4750-b520-41ed922008fd
+
+2024-09-09 06:34:04,142 - ERROR - Error executing SQL file j_im_epms_activity_ins.sql: 400 Not found: Dataset hca-hin-dev-cur-comp:edw_pub_views was not found in location US at [23:1]
+
+Location: US
+Job ID: aec9348d-86c9-4589-99db-ce06277860e0
+
+2024-09-09 06:34:11,088 - ERROR - Error executing SQL file j_im_epms_person_activity_ins.sql: 400 Query error: Query column 7 has type TIMESTAMP which cannot be inserted into column dw_last_update_date_time, which has type DATETIME at [31:1]
+
+Location: US
+Job ID: c646c2ee-2700-4715-ac00-715d6b889da1
+
+2024-09-09 06:34:19,247 - ERROR - Error executing SQL file j_im_epms_provider_ins.sql: 400 Query error: No matching signature for operator = for argument types: STRING, NUMERIC. Supported signature: ANY = ANY at [62:57]
+
+Location: US
+Job ID: ffc4ea1e-e28d-4baf-b2cc-94c1271f5f8c
+
+2024-09-09 06:39:52,939 - ERROR - Error executing SQL file j_im_epms_activity_ins.sql: 400 Query error: No matching signature for operator = for argument types: STRING, NUMERIC. Supported signature: ANY = ANY at [274:205]
+
+Location: US
+Job ID: 95eb7264-5413-491f-ba00-ab7e22e302c3
+
+2024-09-09 06:40:00,594 - ERROR - Error executing SQL file j_im_epms_person_activity_ins.sql: 400 Query error: Query column 7 has type TIMESTAMP which cannot be inserted into column dw_last_update_date_time, which has type DATETIME at [31:1]
+
+Location: US
+Job ID: 1107a424-88b7-4e65-afb9-ce67d214cd6a
+
+2024-09-09 06:40:11,146 - ERROR - Error executing SQL file j_im_epms_provider_ins.sql: 400 Query error: No matching signature for operator = for argument types: STRING, NUMERIC. Supported signature: ANY = ANY at [62:57]
+
+Location: US
+Job ID: b24ad6a5-915c-456a-a1b3-bc36bac7715d
+
+2024-09-09 06:44:07,867 - ERROR - Error executing SQL file j_im_epms_activity_ins.sql: 400 Query error: No matching signature for operator = for argument types: STRING, NUMERIC. Supported signature: ANY = ANY at [274:205]
+
+Location: US
+Job ID: 3c0d88af-6c6d-45f7-9528-0d9ffe774eac
+
+2024-09-09 06:44:15,589 - ERROR - Error executing SQL file j_im_epms_person_activity_ins.sql: 400 Query error: Query column 7 has type TIMESTAMP which cannot be inserted into column dw_last_update_date_time, which has type DATETIME at [31:1]
+
+Location: US
+Job ID: 17ae3342-3d98-4b24-80e2-32c24bdcbaf7
+
+2024-09-09 06:44:26,287 - ERROR - Error executing SQL file j_im_epms_provider_ins.sql: 400 Query error: No matching signature for operator = for argument types: STRING, NUMERIC. Supported signature: ANY = ANY at [62:57]
+
+Location: US
+Job ID: 267ffbd2-5e2c-4089-96b5-33664083fe61
+
+2024-09-09 07:18:08,322 - INFO - SQL file j_im_epms_activity_ins.sql executed successfully.
+2024-09-09 07:18:16,111 - ERROR - Error executing SQL file j_im_epms_person_activity_ins.sql: 400 Query error: Query column 7 has type TIMESTAMP which cannot be inserted into column dw_last_update_date_time, which has type DATETIME at [31:1]
+
+Location: US
+Job ID: b54c721a-7c56-49ee-ba48-d4066a22b3fc
+
+2024-09-09 07:18:27,209 - ERROR - Error executing SQL file j_im_epms_provider_ins.sql: 400 Query error: No matching signature for operator = for argument types: STRING, NUMERIC. Supported signature: ANY = ANY at [62:57]
+
+Location: US
+Job ID: de8ad025-7bce-47b9-9b3a-13f7d126c6b2
+
+2024-09-09 07:20:39,556 - INFO - SQL file j_im_epms_activity_ins.sql executed successfully.
+2024-09-09 07:20:58,254 - INFO - SQL file j_im_epms_person_activity_ins.sql executed successfully.
+2024-09-09 07:21:07,170 - ERROR - Error executing SQL file j_im_epms_provider_ins.sql: 400 Query error: No matching signature for operator = for argument types: STRING, NUMERIC. Supported signature: ANY = ANY at [62:57]
+
+Location: US
+Job ID: bdf3476b-eafe-4116-b359-4ca4c290efbf
+
+2024-09-09 07:33:33,294 - INFO - SQL file j_im_epms_activity_ins.sql executed successfully.
+2024-09-09 07:33:48,705 - INFO - SQL file j_im_epms_person_activity_ins.sql executed successfully.
+2024-09-09 07:33:57,990 - ERROR - Error executing SQL file j_im_epms_provider_ins.sql: 400 Query error: No matching signature for operator = for argument types: STRING, NUMERIC. Supported signature: ANY = ANY at [62:57]
+
+Location: US
+Job ID: acdb8ef1-b6ab-41bb-bda9-2b80d3645e06
+
+2024-09-09 07:37:27,027 - INFO - SQL file j_im_epms_activity_ins.sql executed successfully.
+2024-09-09 07:37:47,310 - INFO - SQL file j_im_epms_person_activity_ins.sql executed successfully.
+2024-09-09 07:38:06,591 - INFO - SQL file j_im_epms_provider_ins.sql executed successfully.

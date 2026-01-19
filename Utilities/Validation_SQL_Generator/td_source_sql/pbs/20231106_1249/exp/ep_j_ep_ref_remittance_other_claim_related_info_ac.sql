@@ -1,0 +1,82 @@
+SELECT 'J_EP_Ref_Remittance_Other_Claim_Related_Info' || ',' || CAST(COUNT(*) AS VARCHAR(20)) || ',' as Source_String from
+(
+SEL       
+(SELECT Coalesce(Max(Ref_Sid),0)  FROM EDWPBS.Ref_Remittance_Other_Claim_Related_Info ) +
+Row_Number() Over (ORDER BY 
+Reference_Id_Qualifier_Code,
+Reference_Id
+)AS Ref_Sid ,-- SID
+Reference_Id_Qualifier_Code,
+Reference_Id,
+'E' AS Source_System_Code ,           
+Current_Timestamp(0) AS DW_Last_Update_Date_Time 
+FROM
+(
+SEL
+Othr_Clm_Rel_Ref_Idn_Qual1_Cod AS Reference_Id_Qualifier_Code,
+Other_Claim_Related_Id1 AS Reference_Id
+FROM  EDWPBS_Staging.remittance_claim
+WHERE Coalesce(Othr_Clm_Rel_Ref_Idn_Qual1_Cod,'') IS NOT IN ('') OR Coalesce(Other_Claim_Related_Id1 ,'') IS NOT IN ('') 
+UNION
+SEL
+Othr_Clm_Rel_Ref_Idn_Qual2_Cod AS Reference_Id_Qualifier_Code,
+Other_Claim_Related_Id2 AS Reference_Id
+FROM  EDWPBS_Staging.remittance_claim
+WHERE Coalesce(Othr_Clm_Rel_Ref_Idn_Qual2_Cod,'') IS NOT IN ('') OR Coalesce(Other_Claim_Related_Id2 ,'') IS NOT IN ('') 
+ 
+UNION
+SEL
+Othr_Clm_Rel_Ref_Idn_Qual3_Cod AS Reference_Id_Qualifier_Code,
+Other_Claim_Related_Id3 AS Reference_Id
+FROM  EDWPBS_Staging.remittance_claim
+WHERE Coalesce(Othr_Clm_Rel_Ref_Idn_Qual3_Cod,'') IS NOT IN ('') OR Coalesce(Other_Claim_Related_Id3 ,'') IS NOT IN ('') 
+ 
+UNION
+SEL
+Othr_Clm_Rel_Ref_Idn_Qual4_Cod AS Reference_Id_Qualifier_Code,
+Other_Claim_Related_Id4 AS Reference_Id
+FROM  EDWPBS_Staging.remittance_claim
+WHERE Coalesce(Othr_Clm_Rel_Ref_Idn_Qual4_Cod,'') IS NOT IN ('') OR Coalesce(Other_Claim_Related_Id4 ,'') IS NOT IN ('') 
+ 
+UNION
+SEL
+Othr_Clm_Rel_Ref_Idn_Qual5_Cod AS Reference_Id_Qualifier_Code,
+Other_Claim_Related_Id5 AS Reference_Id
+FROM  EDWPBS_Staging.remittance_claim
+WHERE Coalesce(Othr_Clm_Rel_Ref_Idn_Qual5_Cod,'') IS NOT IN ('') OR Coalesce(Other_Claim_Related_Id5 ,'') IS NOT IN ('') 
+ 
+UNION
+SEL
+Othr_Clm_Rel_Ref_Idn_Qual6_Cod AS Reference_Id_Qualifier_Code,
+Other_Claim_Related_Id6 AS Reference_Id
+FROM  EDWPBS_Staging.remittance_claim
+WHERE Coalesce(Othr_Clm_Rel_Ref_Idn_Qual6_Cod,'') IS NOT IN ('') OR Coalesce(Other_Claim_Related_Id6 ,'') IS NOT IN ('') 
+ 
+UNION
+SEL
+Othr_Clm_Rel_Ref_Idn_Qual7_Cod AS Reference_Id_Qualifier_Code,
+Other_Claim_Related_Id7 AS Reference_Id
+FROM  EDWPBS_Staging.remittance_claim
+WHERE Coalesce(Othr_Clm_Rel_Ref_Idn_Qual7_Cod,'') IS NOT IN ('') OR Coalesce(Other_Claim_Related_Id7 ,'') IS NOT IN ('') 
+ 
+UNION
+SEL
+Othr_Clm_Rel_Ref_Idn_Qual8_Cod AS Reference_Id_Qualifier_Code,
+Other_Claim_Related_Id8 AS Reference_Id
+FROM  EDWPBS_Staging.remittance_claim
+WHERE Coalesce(Othr_Clm_Rel_Ref_Idn_Qual8_Cod,'') IS NOT IN ('') OR Coalesce(Other_Claim_Related_Id8 ,'') IS NOT IN ('') 
+ 
+UNION
+SEL
+Othr_Clm_Rel_Ref_Idn_Qual9_Cod AS Reference_Id_Qualifier_Code,
+Other_Claim_Related_Id9 AS Reference_Id
+FROM  EDWPBS_Staging.remittance_claim
+WHERE Coalesce(Othr_Clm_Rel_Ref_Idn_Qual9_Cod,'') IS NOT IN ('') OR Coalesce(Other_Claim_Related_Id9 ,'') IS NOT IN ('') 
+ 
+UNION
+SEL
+Othr_Clm_Rel_Ref_Idn_Qul10_Cod AS Reference_Id_Qualifier_Code,
+Other_Claim_Related_Id10       AS Reference_Id
+FROM  EDWPBS_Staging.remittance_claim
+WHERE Coalesce(Othr_Clm_Rel_Ref_Idn_Qul10_Cod,'') IS NOT IN ('') OR Coalesce(Other_Claim_Related_Id10  ,'') IS NOT IN ('') 
+ ) F )a ;

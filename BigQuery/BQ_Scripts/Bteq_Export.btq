@@ -1,0 +1,10 @@
+.logmech LDAP;
+.logon edwprod.dw.medcity.net/khu9683, Mer82@dme; /* Login credentials */
+.os del C:\Merwin\BigQuery\TDDump\010623\ref_sk_type.txt;
+.EXPORT DATA FILE = C:\Merwin\BigQuery\TDDump\010623\ref_sk_type.txt;
+.SET SEPARATOR '|'
+.IF ERRORCODE <> 0 THEN .QUIT ERRORCODE;
+Select * From edwhr_staging.ref_sk_type;
+.EXPORT RESET
+.logoff
+.quit

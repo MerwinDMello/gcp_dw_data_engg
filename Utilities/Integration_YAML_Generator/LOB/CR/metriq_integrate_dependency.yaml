@@ -1,0 +1,286 @@
+integrate:
+- source_system: metriq
+  frequency: daily
+  dag_id_suffix: 1
+  start_date: pendulum.datetime(2024, 5, 6, tz=timezone)
+  schedule: None
+  type: sqlserver
+  done_file: None
+  trigger_dag_ids: []
+  dependency:
+  - table: icd_oncology_diagnosis_code_xwalk
+    has_sensor: 'No'
+    sql:
+    - name: j_cn_ref_icd_oncology_diag_cd.sql
+    validation:
+    - name: NONE
+  - table: ref_icd_oncology
+    has_sensor: 'No'
+    sql:
+    - name: j_cn_ref_icd_oncology.sql
+    validation:
+    - name: NONE
+  - table: cr_system_user
+    has_sensor: 'No'
+    sql:
+    - name: j_cr_system_user.sql
+    validation:
+    - name: j_cr_system_user.sql
+- source_system: metriq
+  frequency: daily
+  dag_id_suffix: 2
+  start_date: pendulum.datetime(2024, 5, 6, tz=timezone)
+  schedule: None
+  type: sqlserver
+  done_file: None
+  trigger_dag_ids: ['dag_ingest_metriq_sqlserver_daily_03']
+  dependency:
+  - table: ref_lookup_code
+    has_sensor: 'No'
+    sql:
+    - name: mt_ref_lookup_code.sql
+    validation:
+    - name: j_mt_ref_lookup_code.sql
+  - table: ref_hospital
+    has_sensor: 'No'
+    sql:
+    - name: mt_ref_hospital.sql
+    validation:
+    - name: j_mt_ref_hospital.sql
+  - table: ref_national_service_center
+    has_sensor: 'No'
+    sql:
+    - name: mt_ref_national_svc_center.sql
+    validation:
+    - name: j_mt_ref_national_service_center.sql
+  - table: ref_treatment_type_group
+    has_sensor: 'No'
+    sql:
+    - name: mt_ref_treatment_type_group.sql
+    validation:
+    - name: j_mt_ref_treatment_type_group.sql
+  - table: ref_cr_treatment_type
+    has_sensor: 'No'
+    sql:
+    - name: ref_cr_treatment_type.sql
+    validation:
+    - name: j_cr_ref_treatment_type.sql
+  - table: ref_ajcc_stage
+    has_sensor: 'No'
+    sql:
+    - name: mt_ref_ajcc_stage.sql
+    validation:
+    - name: j_mt_ref_ajcc_stage.sql
+  - table: cr_patient
+    has_sensor: 'No'
+    sql:
+    - name: cr_patient_wrk.sql
+    - name: cr_patient_core.sql
+    validation:
+    - name: j_cr_patient.sql
+  - table: cr_patient_history
+    has_sensor: 'No'
+    sql:
+    - name: cr_patient_history.sql
+    validation:
+    - name: j_cr_patient_history.sql
+  - table: cr_system_productivity_log
+    has_sensor: 'No'
+    sql:
+    - name: cr_system_productivity_log_wrk.sql
+    - name: cr_system_productivity_log_core.sql
+    validation:
+    - name: j_cr_system_productivity_log.sql
+  - table: cr_patient_tumor_pathology_result
+    has_sensor: 'No'
+    sql:
+    - name: cr_patient_tumor_pathology_result.sql
+    validation:
+    - name: j_cr_patient_tumor_pathology_result.sql
+  - table: cr_patient_contact
+    has_sensor: 'No'
+    sql:
+    - name: cr_patient_contact_wrk.sql
+    - name: cr_patient_contact_core.sql
+    validation:
+    - name: j_cr_patient_contact.sql
+  - table: cr_patient_diagnosis_detail
+    has_sensor: 'No'
+    sql:
+    - name: cr_patient_diagnosis_detail.sql
+    validation:
+    - name: j_cr_patient_diagnosis_detail.sql
+  - table: cr_patient_insurance
+    has_sensor: 'No'
+    sql:
+    - name: cr_patient_insurance.sql
+    validation:
+    - name: j_cr_patient_insurance.sql
+  - table: cr_patient_radiation_oncology
+    has_sensor: 'No'
+    sql:
+    - name: cr_patient_radiation_oncology_wrk.sql
+    - name: cr_patient_radiation_oncology_core.sql
+    validation:
+    - name: j_cr_patient_radiation_oncology.sql
+  - table: cr_patient_phone_num
+    has_sensor: 'No'
+    sql:
+    - name: cr_patient_phone_num.sql
+    validation:
+    - name: j_cr_patient_phone_num.sql
+  - table: cr_patient_treatment
+    has_sensor: 'No'
+    sql:
+    - name: cr_patient_treatment_wrk.sql
+    - name: cr_patient_treatment_core.sql
+    validation:
+    - name: j_cr_patient_treatment.sql
+  - table: cr_patient_address
+    has_sensor: 'No'
+    sql:
+    - name: cr_patient_address_wrk.sql
+    - name: cr_patient_address_core.sql
+    validation:
+    - name: j_cr_patient_address.sql
+  - table: cr_patient_staging
+    has_sensor: 'No'
+    sql:
+    - name: cr_patient_staging.sql
+    validation:
+    - name: j_cr_patient_staging.sql
+  - table: cr_patient_medical_oncology
+    has_sensor: 'No'
+    sql:
+    - name: cr_patient_medical_oncology_wrk.sql
+    - name: cr_patient_medical_oncology_core.sql
+    validation:
+    - name: j_cr_patient_medical_oncology.sql
+  - table: cr_patient_tumor
+    has_sensor: 'No'
+    sql:
+    - name: cr_patient_tumor.sql
+    validation:
+    - name: j_cr_patient_tumor.sql
+- source_system: metriq
+  frequency: daily
+  dag_id_suffix: 3
+  start_date: pendulum.datetime(2024, 5, 6, tz=timezone)
+  schedule: None
+  type: sqlserver
+  done_file: None
+  trigger_dag_ids: []
+  dependency:
+  - table: cancer_patient_id_input
+    has_sensor: 'No'
+    sql:
+    - name: j_cn_patient_id_stg_del.sql
+    - name: j_cn_patient_id_input.sql
+    validation:
+    - name: NONE
+  - table: cancer_patient_id_output
+    has_sensor: 'No'
+    sql:
+    - name: j_cn_patient_id_output.sql
+    validation:
+    - name: NONE
+  - table: cancer_patient_id_score
+    has_sensor: 'No'
+    sql:
+    - name: j_cn_patient_id_score.sql
+    validation:
+    - name: NONE
+  - table: ref_abstraction_measure
+    has_sensor: 'No'
+    sql:
+    - name: ref_abstraction_measure.sql
+    validation:
+    - name: NONE
+  - table: cancer_patient_id_abstraction
+    has_sensor: 'No'
+    sql:
+    - name: cancer_patient_id_abstraction.sql
+    validation:
+    - name: NONE
+  - table: cancer_patient_id_abstraction_detail
+    has_sensor: 'No'
+    sql:
+    - name: cancer_patient_id_abstraction_detail.sql
+    validation:
+    - name: NONE
+  - table: cancer_patient_driver
+    has_sensor: 'No'
+    sql:
+    - name: cn_reg_cancer_patient_driver.sql
+    validation:
+    - name: j_cn_reg_cancer_patient_driver.sql
+  - table: cancer_patient_detail
+    has_sensor: 'No'
+    sql:
+    - name: cn_reg_cancer_patient_detail.sql
+    validation:
+    - name: j_cn_reg_cancer_patient_detail.sql
+  - table: cancer_tumor_driver
+    has_sensor: 'No'
+    sql:
+    - name: cn_reg_cancer_tumor_driver.sql
+    validation:
+    - name: j_cn_reg_cancer_tumor_driver.sql
+  - table: cancer_patient_tumor_driver
+    has_sensor: 'No'
+    sql:
+    - name: cn_reg_cancer_patient_tumor_driver.sql
+    validation:
+    - name: j_cn_reg_cancer_patient_tumor_driver.sql
+  - table: cancer_patient_tumor_staging
+    has_sensor: 'No'
+    sql:
+    - name: cn_reg_cancer_patient_tumor_staging.sql
+    validation:
+    - name: j_cn_reg_cancer_patient_tumor_staging.sql
+  - table: cr_patient_date_driver
+    has_sensor: 'No'
+    sql:
+    - name: cr_patient_date_driver.sql
+    validation:
+    - name: j_cr_patient_date_driver.sql
+  - table: cancer_patient_outcome_timeliness
+    has_sensor: 'No'
+    sql:
+    - name: cn_patient_outcome_timeliness_stg.sql
+    - name: cn_patient_outcome_timeliness_core.sql
+    validation:
+    - name: NONE
+  - table: cancer_patient_id_output_driver
+    has_sensor: 'No'
+    sql:
+    - name: cancer_patient_id_output_driver.sql
+    validation:
+    - name: j_cn_cancer_pat_id_output_driver.sql
+  - table: cancer_patient_id_input_driver
+    has_sensor: 'No'
+    sql:
+    - name: cancer_patient_id_input_driver.sql
+    validation:
+    - name: j_cn_cancer_pat_id_input_driver.sql
+  - table: navque_patient_tumor_driver
+    has_sensor: 'No'
+    sql:
+    - name: navque_patient_tumor_driver.sql
+    validation:
+    - name: j_cn_navque_patient_tumor_driver.sql
+- source_system: metriq
+  frequency: daily
+  dag_id_suffix: 4
+  start_date: pendulum.datetime(2024, 5, 6, tz=timezone)
+  schedule: None
+  type: sqlserver
+  done_file: None
+  trigger_dag_ids: []
+  dependency:
+  - table: cdm_patient
+    has_sensor: 'No'
+    sql:
+    - name: cn_cdm_encounter.sql
+    validation:
+    - name: NONE

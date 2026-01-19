@@ -1,0 +1,2 @@
+edwhr_staging,ats_jobapplication_bct_stg
+edwhr_staging,ats_jobapplication_cur_stg

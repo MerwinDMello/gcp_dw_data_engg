@@ -1,0 +1,1 @@
+select 'J_EP_Ref_Provider_Service' || ',' || CAST(COUNT(*) AS VARCHAR(20)) || ',' as Source_String from EDWPBS.REF_PROVIDER_SERVICE

@@ -1,0 +1,71 @@
+-- Translation time: 2023-09-22T18:46:04.447603Z
+-- Translation job ID: ba460d1f-d301-46b6-9c47-810d266c2894
+-- Source: internal_metastore/db_hca-hin-dev-cur-parallon/schema_edwpbs_base_views/cm_patient_encounter_detail.memory
+-- Translated from: Teradata
+-- Translated to: BigQuery
+
+CREATE OR REPLACE VIEW {{ params.param_pbs_base_views_dataset_name }}.cm_patient_encounter_detail
+   OPTIONS(description='This table contains the information within the Case Management area related to a patient encounter for revenue cycle monitoring.')
+  AS SELECT
+      ROUND(cm_patient_encounter_detail.patient_dw_id, 0, 'ROUND_HALF_EVEN') AS patient_dw_id,
+      cm_patient_encounter_detail.midas_encounter_id,
+      cm_patient_encounter_detail.company_code,
+      cm_patient_encounter_detail.coid,
+      ROUND(cm_patient_encounter_detail.pat_acct_num, 0, 'ROUND_HALF_EVEN') AS pat_acct_num,
+      cm_patient_encounter_detail.midas_acct_num,
+      ROUND(cm_patient_encounter_detail.payor_dw_id_ins1, 0, 'ROUND_HALF_EVEN') AS payor_dw_id_ins1,
+      cm_patient_encounter_detail.iplan_id_ins1,
+      cm_patient_encounter_detail.clinical_ed_greet_date,
+      cm_patient_encounter_detail.clinical_ed_greet_time,
+      cm_patient_encounter_detail.clinical_ed_bed_date,
+      cm_patient_encounter_detail.clinical_ed_bed_time,
+      cm_patient_encounter_detail.clinical_ed_triage_date,
+      cm_patient_encounter_detail.clinical_ed_triage_time,
+      cm_patient_encounter_detail.admission_eff_from_date,
+      cm_patient_encounter_detail.total_midnight_cnt,
+      cm_patient_encounter_detail.all_days_approved_ind,
+      cm_patient_encounter_detail.midas_principal_payer_auth_num,
+      cm_patient_encounter_detail.midas_auth_denied_pending_ind,
+      cm_patient_encounter_detail.midas_principal_payer_auth_type_desc,
+      cm_patient_encounter_detail.midas_date_of_denial,
+      cm_patient_encounter_detail.denial_in_midas_status_desc,
+      cm_patient_encounter_detail.midas_avoid_denial_day_documented_ind,
+      cm_patient_encounter_detail.iq_adm_initial_rev_date_time,
+      cm_patient_encounter_detail.iq_adm_reviewer_name,
+      cm_patient_encounter_detail.iq_adm_reviewer_id,
+      cm_patient_encounter_detail.iq_adm_rev_criteria_status,
+      cm_patient_encounter_detail.iq_adm_rev_location,
+      cm_patient_encounter_detail.iq_adm_rev_type_ip_ind,
+      cm_patient_encounter_detail.iq_adm_rev_type_ip_med_necs_met_ind,
+      cm_patient_encounter_detail.iq_adm_rev_type_ip_prior_dchg_ind,
+      cm_patient_encounter_detail.iq_adm_rev_type_obs_ind,
+      cm_patient_encounter_detail.iq_adm_rev_type_obs_med_necs_met_ind,
+      cm_patient_encounter_detail.iq_adm_rev_type_obs_prior_dchg_ind,
+      cm_patient_encounter_detail.iq_adm_rev_med_necs_desc,
+      cm_patient_encounter_detail.cncr_review_cnt,
+      cm_patient_encounter_detail.cncr_iq_cnt,
+      cm_patient_encounter_detail.last_cncr_reviewer_name,
+      cm_patient_encounter_detail.last_cncr_reviewer_id,
+      cm_patient_encounter_detail.last_cncr_review_date,
+      cm_patient_encounter_detail.last_cncr_review_disp_desc,
+      cm_patient_encounter_detail.last_cncr_iq_reviewer_name,
+      cm_patient_encounter_detail.last_cncr_iq_reviewer_id,
+      cm_patient_encounter_detail.last_iq_review_code,
+      cm_patient_encounter_detail.last_iq_review_criteria_met_desc,
+      cm_patient_encounter_detail.last_iq_review_version_desc,
+      cm_patient_encounter_detail.last_iq_review_subset_desc,
+      cm_patient_encounter_detail.last_primary_review_start_date_time,
+      cm_patient_encounter_detail.last_appeal_num,
+      cm_patient_encounter_detail.last_appeal_date,
+      cm_patient_encounter_detail.last_appeal_status_id,
+      cm_patient_encounter_detail.last_appeal_status_name,
+      cm_patient_encounter_detail.peer_review_status_code,
+      cm_patient_encounter_detail.cm_last_no_ins_code_appl_date,
+      cm_patient_encounter_detail.cm_no_ins_ind,
+      cm_patient_encounter_detail.cm_last_svty_illness_code_appl_date,
+      cm_patient_encounter_detail.cm_svty_illness_ind,
+      cm_patient_encounter_detail.source_system_code,
+      cm_patient_encounter_detail.dw_last_update_date_time
+    FROM
+      {{ params.param_pbs_core_dataset_name }}.cm_patient_encounter_detail
+  ;

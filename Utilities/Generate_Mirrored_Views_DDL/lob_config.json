@@ -1,0 +1,10 @@
+{
+    "lob"                       :   "PBS",
+    "project_id"                :   "hca-hin-prod-cur-hr",
+    "input_path_folder"         :   "Parameterized_SQLS",
+    "output_path_folder"        :   "Qualified_SQLS",
+    "input_core_tables_file"    :   "core_tables.csv",
+    "sql_extension"             :   ".sql",
+    "merged_output_file"        :   "combined_mirrored_base_views",
+    "datasets"                  :   ["edwpbs_base_views"]
+}

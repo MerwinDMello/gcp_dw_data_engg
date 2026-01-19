@@ -1,0 +1,1 @@
+bq load --source_format=CSV --skip_leading_rows=0 --replace edwpi_staging.plus_lpbppd_td_Unit1 TDDump\060623\plus_lpbppd_060623.csv Schema\plus_lpbppd.json

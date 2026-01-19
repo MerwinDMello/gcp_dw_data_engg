@@ -1,0 +1,8 @@
+export AC_EXP_SQL_STATEMENT="SELECT 'CBS_REF_DEPARTMENT_DESC_SSD' + ',' + CAST(Count(*) AS VARCHAR(20)) + ',' + CAST(SUM(LEN(DPT.Department_Description)) AS VARCHAR(20)) + ',' as SOURCE_STRING FROM dbo.vw_Department_Description DPT"
+export JOBNAME='CBS_REF_DEPARTMENT_DESC_SSD'
+export AC_EXP_TOLERANCE_PERCENT=0
+export AC_EXP_TOLERANCE_AMT=0
+export AC_ACT_SQL_STATEMENT="SELECT 'CBS_REF_DEPARTMENT_DESC_SSD' + ',' + CAST(Count(*) AS VARCHAR(20)) + ',' + CAST(SUM(LEN(DPT.Department_Description)) AS VARCHAR(20)) + ',' as SOURCE_STRING FROM dbo.Ref_Department_Description DPT"
+
+
+

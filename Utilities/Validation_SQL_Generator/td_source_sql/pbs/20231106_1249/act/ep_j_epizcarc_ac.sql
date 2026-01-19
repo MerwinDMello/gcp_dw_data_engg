@@ -1,0 +1,1 @@
+SELECT 'J_EPIZCarc' || ',' || CAST(Count(*) AS VARCHAR(20)) || ',' as SOURCE_STRING FROM EDWPSU_Staging.EPIZCarc

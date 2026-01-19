@@ -1,0 +1,1 @@
+select 'J_EP_Ref_Secn_Remittance_Rendering_Provider' || ',' || CAST(COUNT(*) AS VARCHAR(20)) || ',' as Source_String from EDWPBS.Ref_Secn_Remittance_Rendering_Provider where DW_Last_Update_Date_Time(date) = current_date
